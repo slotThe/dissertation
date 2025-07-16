@@ -1744,21 +1744,18 @@ Locally finite abelian categories satisfy a Krull--Schmidt-type theorem.
   An abelian category \(\cat{C}\) that satisfies \cref{prop:krull-schmidt} is called a \emph{Krull--Schmidt category}.
 \end{definition}
 
-General abelian monoidal categories admit a very useful special case of \emph{Beck's monadicity theorem}.
+General abelian monoidal categories admit a very useful special case of \emph{Beck's monadicity theorem},
+see for example~\cite[Section~4.1]{ben-zvi18:integ}.
 
 \begin{theorem}\label{thm:SmallBeck}
-  Let \(\adj{F}{U}{\cat{A}}{\cat{B}}\) be an adjunction between abelian categories.
-  Then \(U\) is right exact and reflects zero objects\note{%
+  Let \(\adj{F}{U}{\cat{A}}{\cat{B}}\) be an adjunction of abelian categories.
+  If \(U\) is right exact and reflects zero objects\note{%
     A functor \(F\) \emph{reflects zero objects} if \(Fx \cong 0 \implies x \cong 0\).%
-  }
-  if and only if the comparison functor \(K \from \cat{B} \to \cat{A}^{UF}\) is an equivalence.
-  Likewise, \(F\) is left exact and reflects zero objects
-  if and only if the comparison functor \(K\from \cat{A} \to \cat{B}^{FU}\) is an equivalence.
+  },
+  the comparison functor \(K \from \cat{B} \to \cat{A}^{UF}\) is an equivalence.
+  Likewise, if \(F\) is left exact and reflects zero objects
+  then the comparison functor \(K\from \cat{A} \to \cat{B}^{FU}\) is an equivalence.
 \end{theorem}
-
-That \cref{thm:SmallBeck} is equivalent to the general monadicity theorem
-in the case of abelian categories
-is explained in~\cite[Section~4.1]{ben-zvi18:integ}.
 
 \subsection{Tensor and ring categories}
 
