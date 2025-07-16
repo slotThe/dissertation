@@ -1,6 +1,7 @@
 # Categorical Reconstruction Theory
 
 My doctoral dissertation, for the world to see.
+The associated PDF can be found [here](https://tony-zorman.com/diss-tud.pdf).
 
 ## Cloning
 
