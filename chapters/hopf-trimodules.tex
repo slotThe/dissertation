@@ -1,0 +1,1543 @@
+\textsc{\cref{mainnonsenseprojective,mainnonsenseinjective,projcorrespondence} give general reconstruction results}
+in the non-rigid setting,
+which has recently seen increased interest in multiple areas,
+see for example~\cite{douglas19,allen21:dualit-feigin-fuchs} or~\cite[Corollary~10.11]{stroinski24:modul-tambar}.
+However, lax \(\cat{C}\)\hyp{}module monads on \(\cat{C}\) are less accessible than mere algebra objects of \(\cat{C}\),
+and may indeed appear not very accessible in general.
+To show that this need not be the case, we again turn to the Hopf-algebraic setting.
+
+Recall that a ring category%
+—the non-rigid counterpart of a tensor category, see~\cite[Sections~4.2 and~5.4]{Etingof2015}—%
+which admits a fibre functor to \(\tetramodfd\) is monoidally equivalent to the category
+of finite-dimensional left \(B\)\hyp{}comodules over a (not necessarily Hopf) bialgebra \(B\).
+In this chapter, we show that the category of left exact finitary lax \(\Tetramod[B][][][]\)\hyp{}module endofunctors of \(\Tetramod[B][][][]\)
+is monoidally equivalent to the category \(\Tetramod[B][B][][B]\) of \emph{Hopf trimodules}\note{%
+  The ``trimodule'' terminology is based on~\cite{shoikhet09:hopf}
+  and was suggested by Ulrich Krähmer,
+  in lieu of more unwieldy notations like ``\((2,1)\)\hyp{}Hopf module''.%
+}:
+\(B\)\hyp{}\(B\)\hyp{}bi\-co\-mo\-dules
+with an additional left \(B\)\hyp{}action
+that is a \(B\)\hyp{}\(B\)\hyp{}bicomodule morphism.
+
+\begin{reptheorem}{thm:hopf-trimodules-are-lax-monoidal-functors}
+  For a bialgebra \(B\) and \(\cat{V} \defeq \Tetramod[B]\),
+  there is a monoidal equivalence
+  \[
+    \Trimod \simeq \mathsf{LexfLax}\cat{V}\mathsf{Mod}(\cat{V}, \cat{V})
+  \]
+  between the category of Hopf trimodules, and
+  the category of left exact finitary lax \(\cat{V}\)\hyp{}module endofunctors on \(\cat{V}\).
+\end{reptheorem}
+
+Such structures feature prominently in the quasi-bialgebraic generalisation of the fundamental theorem of Hopf modules,
+see~\cite{hausser99:integ-theor-quasi-hopf-algeb,saracco17:hopf}.
+This equivalence matches a lax \(\Tetramod[B][][][]\)\hyp{}module monad with a Hopf trimodule algebra:
+a Hopf trimodule \(A\) together with maps \(A \cotens A \to A\) and \(B \to A\) satisfying the usual associativity and unitality axioms for an algebra object.
+
+If \(B\) is infinite-dimensional, \cref{mainnonsenseinjective}
+should yield reconstruction in terms of an \emph{oplax} \(\Tetramod[B][][][]\)\hyp{}module comonad \(\cohom{X,\blank \triangleright X}\),
+using the existence of injective objects in \(\Tetramod[B][][][]\).
+Since our result gives an algebraic realisation only for the \emph{lax} \(\Tetramod[B][][][]\)\hyp{}module functors,
+we restrict ourselves to the case where \(\blank \triangleright X\) admits both a left and a right adjoint,
+by assuming \(\blank \triangleright X\) to be exact.
+In that case, we obtain an adjunction \(\cohom{X,\blank \triangleright X} \dashv \hom{X,\blank \triangleright X}\).
+
+As the monad is right adjoint,
+the Eilenberg–Moore category of \(\cohom{X,\blank \triangleright X}\) is not equivalent to the category of modules over the associated Hopf trimodule algebra \(\hom{X,X}\),
+but rather to the category of its \emph{contramodules}:
+structures extensively studied in the setting of so-called semi-infinite homological algebra,~\cite{positselski10:homol}.
+On the other hand, the Kleisli categories are equivalent,
+and once again control the \(\Tetramod[B][][][]\)\hyp{}module structure,
+which can thus be read off directly from the Hopf trimodule algebra.
+We obtain the following result.
+
+\begin{reptheorem}{finitetrihopfreconstruction}
+  Let \(\cat{M}\) be a locally finite abelian \(\tetramodfd[B][][][]\)\hyp{}module category
+  satisfying the assumptions of \cref{mainnonsenseinjective}.
+  There exists a Hopf trimodule algebra \(A \in \tetramodfd[B][B][][B]\),
+  such that there is an equivalence
+  \(\Ind(\cat{M}) \simeq A\textnormal{-Contramod}\)
+  of \(\tetramodfd[B]\)\hyp{}module categories,
+  where the \(\tetramodfd[B]\)\hyp{}module structure on the right-hand side is extended from the category of free \(A\)\hyp{}module.
+  This equivalence restricts to \(\cat{M} \simeq A\textnormal{-contramod}\).
+\end{reptheorem}
+
+Since this algebraic realisation of our reconstruction results may at first glance seem difficult to apply in calculations,
+we give two explicit examples in which we determine a trimodule algebra for a given module category.
+
+The first is \cref{coreps}, where \(B\) is the semigroup algebra for the unique two-element monoid which is not a group.
+This example is intended to be very similar to~\cite[Example~2.20]{douglas19},
+in that a simple object of \(\cat{C}\) acts as zero on an indecomposable object.
+We also show that applying the ordinary,
+``rigid'' reconstruction procedure on this example yields the same algebra object in \(\tetramodfd[B][][][]\)
+as that corresponding to the regular action of \(\tetramodfd[B][][][]\) on itself,
+and thus fails to classify module categories.
+
+Our second example is given in \cref{fiberfunctorthings}.
+Supposing \(B\) to be arbitrary,
+we determine the Hopf trimodule algebra underlying the module functor
+given by the fibre functor \(\tetramodfd[B] \to \tetramodfd\).
+
+Finally, the Morita-theoretic results of \cref{injectivebijection} give us a precise notion of Morita equivalence for Hopf trimodule algebras
+with respect to their contramodules in \cref{contramoritadef}.
+This results in a Morita Theorem for \(\tetramodfd[B][][][]\)\hyp{}module categories, \cref{contramodulereuters}.
+
+As another application, we use trimodule reconstruction
+to give a categorical interpretation of a variant of the fundamental theorem of Hopf modules.
+
+\begin{reptheorem}{LaxIsStrongThenLeftRigid,cor:twisted-anti-iff-bestoftimes}
+  The functor \(\Tetramod[B] \to \Tetramod[B][B][][B]\) corresponds to
+  the inclusion of strong \(\Tetramod[B]\)\hyp{}module endofunctors in the category of lax \(\Tetramod[B]\)\hyp{}module endofunctors,
+  under the Yoneda lemma and \cref{thm:hopf-trimodules-are-lax-monoidal-functors}.
+  The latter—and hence also the former—functor is an equivalence if and only if
+  \(\tetramodfd[B]\) is left rigid,
+  which is the case if and only if \(B\) has a twisted antipode.
+\end{reptheorem}
+
+In \cref{diffusion},
+we show that the fusion operators of a Hopf monad \(T\) on a monoidal category \(\cat{W}\)
+can be interpreted as coherence cells for the canonical oplax module structure on \(T\).
+This gives a strong converse to the fact that (op)lax module functors over a rigid category are automatically strong,
+by providing a distinguished module functor which is strong if and only if the category is rigid.
+This result, interpreting additional structure of a monad on a monoidal category as morphisms for an (op)lax module functor structure on said monad,
+is similar to the results of~\cite[Theorems~3.17 and~3.18]{flake24:froben-drinf},
+which studies Frobenius monoidal functors rather than Hopf monads.
+
+\section{Bicomodules and their graphical calculus}\label{sec:bicomodules}
+
+\textsc{Before introducing Hopf trimodules},
+let us first talk about bicomodules over \(B\)
+in the sense of \cref{sec:algebra-and-module-objects}
+and their string diagrammatic representation.
+
+\begin{hypothesis}\label{hyp:hopf-trimodule}
+  For this chapter, fix a field \(\Bbbk\) and a bialgebra \(B\) over it.
+  Write \(\cat{V} \defeq \bbcomod\) for the category of left \(B\)\hyp{}comodules.
+\end{hypothesis}
+
+After introducing all of the relevant concepts and notation,
+our first goal is to prove the following theorem.
+
+\begin{theorem}\label{thm:hopf-trimodules-are-lax-monoidal-functors}
+  There is a monoidal equivalence
+  \begin{equation}\label{eq:hopf-trimodule-equiv}
+    \begin{aligned}
+      \Trimod &\to \mathsf{LexfLax}\cat{V}\mathsf{Mod}(\cat{V}, \cat{V})\\
+      X &\mapsto (X \cotens \blank, \chi)
+    \end{aligned}
+  \end{equation}
+  between the category of Hopf trimodules, and
+  the category of left exact finitary lax \(\cat{V}\)\hyp{}module endofunctors on \(\cat{V}\),
+  where \(\chi\) is the interchange morphism of \cref{def:bicomodule-interchange},
+  see \cref{eq:hopf-trimod-to-lax-module-functors--functor-definition}
+\end{theorem}
+
+The quasi\hyp{}inverse of \cref{eq:hopf-trimodule-equiv}
+evaluates a left exact finitary lax \(\cat{V}\)\hyp{}module functor at the injective generator \(B\).
+We defer the proof of \cref{thm:hopf-trimodules-are-lax-monoidal-functors} until \cref{sec:hopf-trimodules-lax-mod-funs}.
+
+\begin{notation}
+  A bicomodule over \(B\) consists of a vector space \(X\),
+  a left coaction \(\lambda \from X \to B \kotimes X\),
+  and a right coaction \(\rho \from X \to X \kotimes B\), such that
+  \[
+    (B \kotimes \rho) \circ \lambda = (\lambda \kotimes B) \circ \rho.
+  \]
+  In graphical notation, we write
+  \begin{equation}\label{eq:bicomodule-condition}
+    \tikzfig{eq:bicomodule-condition}
+  \end{equation}
+\end{notation}
+
+\begin{example}\label{ex:cotensor-product-of-bicomodules}
+  Analogously to \cref{ex:cotensor-product-of-comodules},
+  we can form the \emph{cotensor product} of two bicomodules \((X, \lambda^X, \rho^X)\) and \((Y, \lambda^Y, \rho^Y)\) over \(B\).
+  This is the equaliser
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {X \cotens Y} \& {X \kotimes Y} \& {X \kotimes B \kotimes Y.}
+      \arrow[hook, from=1-1, to=1-2]
+      \arrow["{\rho^X \kotimes Y}", shift left=1, from=1-2, to=1-3]
+      \arrow["{{\raisebox{-0.8em}{\(X \kotimes \lambda^Y\)}}}"', shift right=1, from=1-2, to=1-3]
+    \end{mytikzcd}
+  \]
+\end{example}
+
+Our graphical calculus has to differentiate between
+the tensor product of two bicomodules over \(\Bbbk\)
+and their cotensor product.
+In particular, we have to indicate which additional transformations are possible with the latter:
+the equalised actions in the cotensor product will be annotated in grey.
+
+\[
+  \tikzfig{grey-cotensor}
+\]\\
+The fact that we may interchange the appropriate left and right actions will be indicated thusly:
+\[
+  \tikzfig{cotensor-interchange-actions}
+\]
+
+\section{From Hopf trimodules to lax module functors}\label{sec:hopf-trimodules-lax-mod-funs}
+
+\textsc{In this chapter we give}
+a proof of \cref{thm:hopf-trimodules-are-lax-monoidal-functors}.
+
+\begin{definition}\label{def:hopf-tri-module}
+  A \emph{Hopf trimodule} over \(B\) consists of a bicomodule \(X\)
+  together with a left \(B\)-action \(\alpha\from B \kotimes X \to X\),
+  such that \(\alpha\) is a left and right \(B\)\hyp{}comodule morphism.
+  We write \(X \in \Trimod\).
+\end{definition}
+
+Alternatively, \cref{def:hopf-tri-module} could impose the conditions
+that \(\lambda\) and \(\rho\) are left and right \(B\)\hyp{}module morphisms, respectively.
+This equivalence is easily seen in a string diagrammatic reformulation:
+\begin{equation}\label{eq:hopf-trimodule}
+  \tikzfig{hopf-trimodule}
+\end{equation}
+
+\begin{definition}\label{def:bicomodule-interchange}
+  Let \(X \in \Trimod\).
+  For all \(M, N \in \bbcomod\), define the \emph{interchange morphism}
+  \(\chi_{M, N} \from M \kotimes (X \cotens N) \to X \cotens (M \kotimes N)\)
+  by\\\marginnote{%
+      Notice the similarity of the interchange morphism
+      with the Yetter--Drinfeld braiding of \cref{ex:yd-modules-are-braided}.%
+    }
+  \[
+    \tikzfig{def:bicomodule-interchange}
+  \]
+\end{definition}
+
+Observe in particular that
+\[
+  \tikzfig{rmk:interchange-unnessary-cotens}
+\]
+because the image of the coaction \(M \to B \kotimes M\) is contained in the cotensor product \(B \cotens M\).
+
+\begin{lemma}\label{lem:interchange-properties}
+  The interchange morphism
+  is a well-defined left \(B\)\hyp{}comodule morphism.
+\end{lemma}
+\begin{proof}
+  To show well-definedness,
+  we need to show that the image of \(\chi_{M, N}\) is contained in \(X \cotens (M \kotimes N)\),
+  for all \(M, N \in \bbcomod \).
+  This follows by the calculation in \cref{fig:interchang-properties-calc1}.
+  \begin{figure}[htbp]
+    \centering
+    \vspace{-0.3cm}\tikzfig{interchang-properties-calc1}\vspace{-0.3cm}% XXX
+    \scaption[0.3cm]{%
+      The image of \(\chi_{M, N}\) is contained in \(X \cotens (M \kotimes N)\).%
+      \label{fig:interchang-properties-calc1}
+    }
+  \end{figure}
+
+  Graphically, the fact that \(\chi\) is a left \(B\)\hyp{}comodule morphism means that
+  \[
+    \tikzfig{lem:interchange-properties-1}
+  \]
+  Using this, the calculation in \cref{fig:interchang-properties-calc2} finishes the proof.
+  \begin{figure}[htbp]
+    \centering
+    \mathscale{0.85}{\tikzfig{interchang-properties-calc2}}\vspace{-0.3cm}% XXX
+    \scaption[1.2cm]{%
+      The arrow \(\chi\) is a morphism of left \(B\)\hyp{}comodules.%
+      \label{fig:interchang-properties-calc2}%
+    }
+  \end{figure}
+\end{proof}
+
+\begin{lemma}\label{lem:interchange-is-braiding}
+  The interchange morphism is a braiding; \ie,
+  it is natural in both variables and the following diagrams commute
+  for all \(M, N, P \in \bbcomod\):
+  \begin{equation}\label[diagram]{eq:interchange-yb}
+    \begin{mytikzcd}[ampersand replacement=\&,cramped,column sep=small]
+      {M \kotimes (N \kotimes (X \cotens P))} \&\& {M \kotimes (X \cotens (N \kotimes P))} \\
+      {(M \kotimes N) \kotimes (X \cotens P)} \& {X \cotens ((M \kotimes N) \kotimes P)} \& {X \cotens (M \kotimes (N \kotimes P))}
+      \arrow["{M \kotimes \chi_{N, P}}", from=1-1, to=1-3]
+      \arrow["{\chi_{M, N \kotimes P}}", from=1-3, to=2-3]
+      \arrow["\alpha"', from=1-1, to=2-1]
+      \arrow["\raisebox{-0.7em}{\(\chi_{M \kotimes N, P}\)}"', from=2-1, to=2-2]
+      \arrow["\raisebox{-0.7em}{\(\alpha\)}"', from=2-2, to=2-3]
+    \end{mytikzcd}
+  \end{equation}
+  \begin{equation}\label[diagram]{eq:interchange-unital}
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\Bbbk \kotimes (X \cotens M)} \&\& {X \cotens (\Bbbk \kotimes M)} \\
+      \& {X \cotens N}
+      \arrow["{\chi_{\Bbbk,N}}", from=1-1, to=1-3]
+      \arrow["{X \cotens \lambda_N}", from=1-3, to=2-2]
+      \arrow["{\lambda_{X \cotens M}}"', from=1-1, to=2-2]
+    \end{mytikzcd}
+  \end{equation}
+\end{lemma}
+\begin{proof}
+  The interchange morphism is always natural in its second variable.
+  To prove naturality in the first variable,
+  let \(f \from M \to M'\) be a left comodule morphism.
+  Then
+  \[
+    \tikzfig{lem:interchange-is-braiding}
+  \]
+  where the first equality follows by \(f\) being a left comodule morphism,
+  and the second one is the naturality of the braiding.
+
+  \Cref{eq:interchange-yb} commuting is equivalent to the following diagram,
+  which is seen to be true by associativity of the action on \(X\).
+  \[
+    \tikzfig{lem:interchange-is-braiding-2}
+  \]
+
+  \Cref{eq:interchange-unital} follows by the unitality of the action on \(X\).
+\end{proof}
+
+\Cref{lem:interchange-properties,lem:interchange-is-braiding}
+taken together say that the well-defined arrow
+\[
+  \chi\from \blank \kotimes (X \cotens \bblank) \nt X \cotens (\blank \kotimes \bblank)
+\]
+satisfies \cref{eq:interchange-yb,eq:interchange-unital}.
+This, in turn, yields the following result.
+
+\begin{proposition}\label{prop:interchange-comodule-functor}
+  The pair \((X \cotens \blank, \chi)\) defines a lax \(\bbcomod\)\hyp{}module functor.
+\end{proposition}
+
+We can extend this correspondence to morphisms.
+
+\begin{lemma}\label{lem:morphism-of-hopf-modules->module-transformation}
+  Let \(f \in \Trimod(X, Y)\) be a morphism of Hopf trimodules.
+  Then
+  \[
+    f \cotens \blank \from X \cotens \blank \nt Y \cotens \blank
+  \]
+  is a \(\bbcomod\)\hyp{}module transformation.
+\end{lemma}
+\begin{proof}
+  We have to prove that
+  \[
+    \big(f \cotens (M \kotimes N)\big) \circ \chi^X_{M, N}
+    =
+    \chi^Y_{M, N} \circ \big(M \kotimes (f \cotens N)\big).
+  \]
+  In our graphical language, this means that
+  \[
+    \tikzfig{lem:morphism-of-hopf-modules->module-transformation}
+  \]
+  which follows immediately from \(f\) being a module morphism.
+\end{proof}
+
+Recall the notation \(\cat{V} \defeq \bbcomod \).
+As a result of the previous considerations,
+there exists a well-defined functor
+\begin{equation}\label{eq:hopf-trimod-to-lax-module-functors--functor-definition}
+  \Sigma \from \Trimod \to \mathsf{LexfLax}\cat{V}\mathsf{Mod}(\cat{V}, \cat{V}), \qquad X \mapsto (X \cotens \blank, \chi),
+\end{equation}
+To finish the proof of \cref{thm:hopf-trimodules-are-lax-monoidal-functors},
+we have to show that \(\Sigma\) is monoidal, as well as an equivalence of categories.
+
+\begin{lemma}\label{lem:cotens-of-hopf-modules-is-hopf-module}
+  Let \(X,Y \in \Trimod\).
+  Their cotensor product \(X \cotens Y\) is a Hopf trimodule,
+  where the left action is given diagonally by \(b(x \otimes y) \defeq b_{(1)}x \otimes b_{(2)}y\).
+\end{lemma}
+\begin{proof}
+  First, we show that the diagonal action of \(B\) is well-defined as a map \(B \kotimes (X \cotens Y) \to X \cotens Y\);
+  \ie, that
+  \[
+    \tikzfig{lem:cotens-of-hopf-modules-is-hopf-module}
+  \]
+  This follows by the calculation in \cref{fig:cotens-of-hopf-modules-is-hopf-module-proof}.
+
+  It is left to show that the action is a left and right \(B\)\hyp{}comodule morphism.
+  The former case follows by \cref{fig:lem:cotens-of-hopf-modules-is-hopf-module-3},
+  and in the latter case one calculates:
+  \[
+    \mathscale{0.90}{\tikzfig{lem:cotens-of-hopf-modules-is-hopf-module-4}}
+  \]
+  \begin{figure}[htbp]
+    \centering
+    \tikzfig{lem:cotens-of-hopf-modules-is-hopf-module-2}\vspace{-\onelineskip}% XXX
+    \scaption[1cm]{%
+      The diagonal action is well-defined on the cotensor product.%
+      \label{fig:cotens-of-hopf-modules-is-hopf-module-proof}%
+    }
+  \end{figure}
+  \begin{figure}[htbp]
+    \centering
+    \hrule\vspace{\onelineskip}%
+    \tikzfig{lem:cotens-of-hopf-modules-is-hopf-module-3}\vspace{-\onelineskip}% XXX
+    \scaption[-1cm]{%
+      The action of the cotensor product is a right \(B\)\hyp{}comodule morphism.%
+      \label{fig:lem:cotens-of-hopf-modules-is-hopf-module-3}%
+    }
+  \end{figure}
+\end{proof}
+
+\begin{proposition}\label{prop:braiding-composes-to-cotens}
+  Let \(\chi^X\) and \(\chi^{Y}\) be as in \cref{def:bicomodule-interchange}.
+  Then
+  \[
+    \chi^X \diamond \chi^Y \cong \chi^{X \cotens Y},
+  \]
+  where \(\diamond\) is the multiplicative cell for lax module morphisms;
+  \ie,
+  \[
+    \big(X \cotens \blank, \chi^X\big) \diamond \big(Y \cotens \blank, \chi^Y\big) \defeq \big(X \cotens Y \cotens \blank, \chi^X \diamond \chi^Y\big).
+  \]
+  In other words, the functor \(\Sigma\)
+  from \cref{eq:hopf-trimod-to-lax-module-functors--functor-definition}
+  is strong monoidal.
+\end{proposition}
+\begin{proof}
+  Associativity follows from coassociativity of the coaction and naturality of the braiding:
+  \[
+    \tikzfig{prop:braiding-composes-to-cotens}
+  \]
+
+  Unitality is immediate.
+\end{proof}
+
+To complete the proof of \cref{thm:hopf-trimodules-are-lax-monoidal-functors},
+it is left to show that the strong monoidal functor \(\Sigma\)
+from \cref{eq:hopf-trimod-to-lax-module-functors--functor-definition}
+is an equivalence.
+We will show that it is fully faithful and essentially surjective.
+
+\begin{proposition}\label{prop:sigma-fully-faithful}
+  The functor \(\Sigma\) is fully faithful.
+\end{proposition}
+\begin{proof}
+  To show that \(\Sigma\) is faithful,
+  suppose that \(f, g \from X \to Y\) are morphisms of Hopf trimodules,
+  such that \(f \cotens \blank \cong g \cotens \blank\).
+  Then
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {X \cotens B} \& {Y \cotens B} \\
+      X \& Y
+      \arrow["{f \cotens B}", shift left=1, from=1-1, to=1-2]
+      \arrow["g\cotens B"', shift right=1, from=1-1, to=1-2]
+      \arrow["\cong"', from=1-1, to=2-1]
+      \arrow["\cong", from=1-2, to=2-2]
+      \arrow["f", shift left=1, from=2-1, to=2-2]
+      \arrow["g"', shift right=1, from=2-1, to=2-2]
+    \end{mytikzcd}
+  \]
+  commutes, so the result follows.
+
+  To see that \(\Sigma\) is full,
+  suppose that \(\varphi \from X \cotens \blank \nt Y \cotens \blank\) is a \(\cat{V}\)\hyp{}module transformation.
+  By \cref{TakeuchiEilenbergWatts},
+  we to show that the induced arrow
+  \[
+    \hat{\varphi}_B \from X \cong X \cotens B \xrightarrow{\ \varphi_B\ } Y \cotens B \cong Y
+  \]
+  is a morphism of Hopf trimodules.
+  For a Hopf trimodule \(M \in \Trimod \),
+  the morphism \(\varphi_M \from X \cotens M \to Y \cotens M\)
+  and the induced morphism \(\hat{\varphi}_B\)
+  can, in string diagrams,
+  be depicted like this:
+  \[
+    \tikzfig{prop:sigma-fully-faithful}
+  \]
+
+  \cref{fig:sigma-phi-properties} collects several properties of \(\chi\) and \(\varphi\) in this notation.
+  The arrow \(\hat{\varphi}_B\) is a left and right comodule morphism
+  by the calculations in \cref{fig:sigma-phi-left-comodule-morphism}.
+  Likewise, that \(\varphi_B\) is a left module morphism follows from:
+  \[
+    \tikzfig{prop:sigma-fully-faithful-2}
+  \]
+  \begin{figure}[htbp]
+    \centering
+    \tikzfig{sigma-phi-properties}
+    \scaption{%
+      Properties of  the arrows \(\chi\) and \(\varphi\).%
+      \label{fig:sigma-phi-properties}%
+    }
+  \end{figure}
+  \begin{figure}[htbp]
+    \centering
+    \tikzfig{sigma-phi-left-comodule-morphism}
+    \scaption[-1cm]{%
+      Verification that \(\hat{\varphi}_B\) is a left and right comodule morphism.%
+      \label{fig:sigma-phi-left-comodule-morphism}
+    }
+  \end{figure}
+\end{proof}
+
+\newpage% XXX: Manual orphan prevention.
+\begin{proposition}\label{prop:sigma-essentially-surjective}
+  The functor \(\Sigma\) is essentially surjective.
+\end{proposition}
+\begin{proof}
+  Suppose that \(\Phi \in \mathsf{LexfLax}\cat{V}\mathsf{Mod}(\cat{V},\cat{V})\).
+  Since \(\Phi\) is left exact and finitary,
+  by \cref{TakeuchiEilenbergWatts}
+  there exists a \(B\)\hyp{}\(B\)\hyp{}bicomodule \(X\),
+  such that \(\Phi \cong X \cotens \blank\) as functors.
+  We will show that if \(X \cotens \blank\) is a lax module morphism,
+  then \(X\) comes equipped with a left module structure,
+  making it into a Hopf trimodule.
+
+  Define a \(B\)\hyp{}action on \(X\) in the following way:
+  \[
+    \tikzfig{prop:sigma-essentially-surjective-1}
+  \]
+  Above, we have chosen to represent \(\chi_{B,B}\)%
+  —see \cref{def:bicomodule-interchange}—%
+  by a single box.
+  The claim is that this action turns \(X\) into a Hopf trimodule.
+
+  For brevity, we shall omit the grey action indicators in our string diagrammatic proofs,
+  save when performing the respective transformation.
+
+  To show that \(\alpha\) is a bicomodule morphism,
+  it suffices to note that the left comodule morphism \(\chi_{B,B}\) is also a right comodule morphism,
+  as \(\alpha\) is then composed of bicomodule morphisms.
+
+  Notice that \(\chi\) is a natural transformation of functors which are left exact finitary in each variable, from
+  \(\bbcomod \kotimes \bbcomod\) to \(\bbcomod\).
+  Since \(\chi_{B,B}\) is the component of the transformation
+  \[
+    \chi_{B,\blank}\from B \kotimes (X \cotens \blank) \nt X \cotens (B \kotimes \blank)
+  \]
+  taken at the injective generator of \( \bbcomod \),
+  it follows that it is a right comodule morphism;
+  see \cref{prop:left exact-is-enough-on-injectives,TakeuchiEilenbergWatts}.
+  Similarly, \(\chi_{B,B}\) is the component of \( \chi_{\blank,B}\from \blank \kotimes (X \cotens B) \nt X \cotens (\blank \kotimes B) \)
+  taken at the injective generator,
+  so \(\chi_{B,B}\) also intertwines this additional comodule structure:
+  \[
+    \tikzfig{prop:sigma-essentially-surjective-2}
+  \]
+
+  Let us now verify that \(\alpha\) is in fact a \(B\)\hyp{}module morphism.
+  For the multiplicative identity of \(\alpha\), one calculates
+  \[
+    \tikzfig{prop:sigma-essentially-surjective-3}
+  \]
+  where (i) uses the fact that \((X \cotens \blank, \chi)\) is a \(\bbcomod\)\hyp{}module functor.
+
+  The unitality of \(\alpha\) follows from the naturality of \(\chi\),
+  the unital axiom of \((X \cotens \blank, \chi)\) being a \(\bbcomod\)\hyp{}module functor,
+  and unitality of \(B\) and \(X\):
+  \[
+    \tikzfig{prop:sigma-essentially-surjective-4}
+  \]
+
+  It is left to show that \(\Sigma(\alpha) = \chi_{B,B}\).
+  The necessary calculation is given in \cref{fig:sigma-essentially-surjective-hit},
+  where equation (i) holds because \(\chi_{B,B}\) is a right comodule morphism in both variables,
+  and (ii) follows by naturality of \(\chi\).
+  \begin{figure}[hbtp]
+    \centering
+    \tikzfig{sigma-essentially-surjective-hit}\vspace{-\onelineskip}% XXX
+    \scaption[1cm]{%
+      Verification that \(\Sigma(\alpha) = \chi_{B,B}\).%
+      \label{fig:sigma-essentially-surjective-hit}
+    }
+  \end{figure}
+\end{proof}
+
+\section{Contramodule reconstruction over Hopf trimodule algebras}\label{triconstruction}
+
+\textsc{We stress that}
+we are still working under \cref{hyp:deligne-reconstr,hyp:hopf-trimodule}.
+
+\begin{definition}\label{def:hopf-trimodule-algebra}
+  A \emph{Hopf trimodule algebra} consists of an algebra object in the monoidal category \(\big(\Trimod, \cotens, B\big)\).
+  More explicitly, it consists of a Hopf trimodule \(A \in \Trimod\),
+  together with trimodule morphisms \(\mu \from A \cotens A \to A\) and \(\eta \from B \to A\),
+  satisfying associativity and unitality conditions.
+\end{definition}
+
+\begin{definition}\label{def:module-over-hopf-trimodule-algebra}
+  A \emph{left module} over a Hopf trimodule algebra
+  is a left \(A\)\hyp{}module object in the \(\Trimod\)\hyp{}module category \(\Tetramod[B]{}\)
+  in the sense of \cref{ModuleInModule}.
+  As such, it consists of a left \(B\)\hyp{}comodule \(M\)
+  together with a \(B\)\hyp{}comodule homomorphism \(A \cotens M \to M\),
+  satisfying associativity and unitality conditions with respect to \(\mu\) and \(\eta\).
+\end{definition}
+
+Similarly to \cref{def:module-over-hopf-trimodule-algebra} we define right modules over \(A\).
+A module over \(A\) is \emph{free} if it is of the form \((A \cotens N, \mu \cotens N)\).
+
+We can also dualise this definition:
+we refer to objects of the category \(\Termod\) as \emph{Hopf termodules}.
+A \emph{Hopf termodule coalgebra} is a coalgebra object \(C\) in the monoidal category \(\big(\Termod, \otimes_{B}, B\big)\),
+and a \emph{comodule over \(C\)} is a left \(B\)\hyp{}module \(N\) together with a \(B\)\hyp{}module homomorphism \(N \to C \otimes_{B} N\),
+satisfying usual coaction axioms.
+Right comodules over \(C\) are defined analogously.
+
+\begin{remark}
+  Under the equivalence of \cref{eq:hopf-trimod-to-lax-module-functors--functor-definition}
+  between \(\Trimod\) and \(\mathsf{LexfLax}\cat{V}\mathsf{Mod}(\cat{V}, \cat{V})\),
+  the \(\Trimod\)\hyp{}module category \(\cat{V} = \Tetramod[B]{}\) corresponds to
+  the evaluation action of \(\mathsf{LexfLax}\cat{V}\mathsf{Mod}(\cat{V}, \cat{V})\) on \(\cat{V}\).
+  Thus, the category of modules over a Hopf trimodule algebra \(A\) is precisely
+  the Eilenberg--Moore category for the monad \(A \cotens \blank\).
+  The subcategory of free modules over \(A\) is
+  the image of the Kleisli category for this monad
+  under the canonical embedding
+  \[
+    {(\Tetramod[B]{})}_{A \cotens \blank} \xrightarrow{\ \ \iota\ \ } {(\Tetramod[B]{})}^{A \cotens \blank}.
+  \]
+\end{remark}
+
+Let \(A \in \Trimod\) be a Hopf trimodule algebra
+such that \({}^{B}A\) is quasi-finite,
+meaning that the corresponding lax \(\Tetramod[B]{}\)\hyp{}module functor \(A \cotens \blank\) has a left adjoint \(\mathrm{cohom}_{B\blank}(A,\blank)\),
+which is canonically a comonad by \cref{einerKleinerKleisliÄquivalenz}.
+
+\begin{definition}\label{contramodules}
+  A \emph{left contramodule over \(A\)} is an object in \({(\Tetramod[B]{})}^{\mathrm{cohom}_{B\blank}(A,\blank)}\).
+
+  Explicitly, this means that a left contramodule is a left \(B\)\hyp{}comodule \(M\)
+  together with a left \(B\)\hyp{}comodule homomorphism \(M \to \mathrm{cohom}_{B\blank}(A,M)\),
+  endowing \(M\) with the structure of a comodule in \(\Tetramod[B]{}\) over \(\mathrm{cohom}_{B\blank}(A,\blank)\).
+\end{definition}
+
+A contramodule is \emph{free} if it lies in the image of the canonical embedding
+\[
+  {(\Tetramod[B]{})}_{\mathrm{cohom}_{B\blank}(A,\blank)} \xhookrightarrow{\ \ \iota\ \ } {(\Tetramod[B]{})}^{\mathrm{cohom}_{B\blank}(A,\blank)}.
+\]
+In other words, it is of the form \(\mathrm{cohom}_{B\blank}(A,M)\),
+for a left \(B\)\hyp{}comodule \(M\),
+and its coaction is of the form
+\[
+  \mathrm{cohom}_{B\blank}(A,M)
+  \xrightarrow{\ \mu^{*}\ } \mathrm{cohom}_{B\blank}(A \cotens A, M)
+  \cong \mathrm{cohom}_{B\blank}(A, \mathrm{cohom}_{B\blank}(A, M)).
+\]
+We denote the category of free contramodules by \(A\textnormal{-ContramodFree}\).
+
+Similarly, the category \(C\textnormal{-Contramod}\) of left contramodules over a Hopf termodule coalgebra \(C\) is
+the Eilenberg--Moore category \({(\Tetramod[][B]{})}^{\mathrm{Hom}_{B\blank}(C,\blank)}\)
+for the monad \(\mathrm{Hom}_{B\blank}(C,\blank)\) right adjoint to the comonad \(C \otimes_{B} \blank\).
+The free contramodules are defined analogously to the case of Hopf trimodules.
+
+\begin{remark}
+  Contramodules similar to those of \cref{contramodules} were studied extensively in more homological settings,
+  see in particular~\cite{positselski10:homol}.
+  Forgetting the left \(B\)\hyp{}module structure,
+  a Hopf trimodule algebra yields a so-called \emph{semialgebra},
+  and by forgetting the left \(B\)\hyp{}comodule structure,
+  a Hopf termodule coalgebra yields a so-called \emph{bocs}—bimodule object, coalgebra structure.
+\end{remark}
+
+\begin{lemma}\label{freecontramodmodmodmod}
+  Let \(A\) be a Hopf trimodule algebra.
+  The action
+  \[
+    V \lact (A \cotens M) \defeq A \cotens (V \otimes M),
+    \qquad
+    \text{for all \(V \in \kVect\) and \(M \in \bcomod\)}
+  \]
+  endows the category \(A\textnormal{-ModFree}\) of free \(A\)\hyp{}modules
+  with a canonical module category structure over \(\Tetramod[B]{}\).
+  Similarly, \(A\textnormal{-ContramodFree}\) is a module category over \(\bbcomod\) by means of the action
+  \(V \lact \mathrm{cohom}_{B\blank}(A,N) \defeq \mathrm{cohom}_{B\blank}(A,V \otimes N)\).
+  These two \(\Tetramod[B]{}\)\hyp{}module categories are canonically equivalent.
+\end{lemma}
+\begin{proof}
+  By definition, we have \(A\textnormal{-ModFree} = {(\Tetramod[B]{})}_{A \cotens \blank}\).
+  Since \(A\) is a Hopf trimodule algebra,
+  the monad \(A \cotens \blank\) is a lax \(\Tetramod[B]{}\)\hyp{}module monad,
+  so the Kleisli category \({(\Tetramod[B]{})}_{A \cotens \blank}\) is a \(\Tetramod[B]{}\)\hyp{}module category,
+  as described in \cref{laxKlCorrespondence},
+  and it is easy to check that the assignments described in the lemma correspond precisely to those of \emph{ibid}.
+
+  Similar considerations apply to \(A\textnormal{-ContramodFree}\),
+  using the equality
+  \[
+    A\textnormal{-ContramodFree} = {(\Tetramod[B]{})}_{\mathrm{cohom}_{B\blank}(A,\blank)}
+  \]
+  and the fact that,
+  since \(\mathrm{cohom}_{B\blank}(A,\blank)\) is the left adjoint of the lax \(\Tetramod[B]{}\)\hyp{}module monad \(A \cotens \blank\),
+  it is an oplax \(\Tetramod[B]{}\)\hyp{}module comonad, by \cref{porism:doctrinal-module-adjunctions}.
+
+  The asserted equivalence between these two \(\Tetramod[B]{}\)\hyp{}module categories
+  follows directly from \cref{KleisliMonadCorrespondence}.
+\end{proof}
+
+Recall from~\cite[1.12]{takeuchi77:morit} that \(\mathrm{Cohom}_{B\blank}(A,\blank)\) is exact if and only if \(A\) is an injective left \(B\)\hyp{}comodule.
+
+\begin{proposition}
+  If \(\,\leftidx{^B\!}{A}{}\) is injective as a left \(B\)\hyp{}module,
+  then the \(\bbcomod\)\hyp{}module category structure on \(A\textnormal{-ContramodFree}\) of \cref{freecontramodmodmodmod}
+  extends to a \(\bbcomod\)\hyp{}module category structure on \(A\textnormal{-Contramod}\),
+  in the sense of \cref{extendingalways}.
+\end{proposition}
+
+\begin{proof}
+  For the comonadic dual of \cref{extendingalways},
+  it suffices to notice that the comonad \(\mathrm{Cohom}_{B\blank}(A,\blank)\) is left exact,
+  which is the case if and only if \(\leftidx{^{B}\!}{A}{}\) is injective, by~\cite[1.12]{takeuchi77:morit}.
+\end{proof}
+
+\begin{theorem}\label{infinitetrihopfreconstruction}
+  Let \(B\) be a bialgebra
+  and let \(\cat{M}\) be a locally finite abelian module category over \(\bcomod\),
+  which admits a \(\bbcomod\)\hyp{}injective \(\bbcomod\)\hyp{}cogenerator \(X \in \Ind(\cat{M})\),
+  such that \(\blank \lact X\from \bcomod \to \Ind(\cat{M})\) is exact and quasi-finite.
+  Then there is a Hopf trimodule algebra \((A, \mu, \eta)\),
+  such that \({}^{B}\!A\) is quasi-finite and injective,
+  hence finitely cogenerated injective,
+  such that there is an equivalence of \(\Tetramod[B]{}\)\hyp{}module categories
+  \[
+    \Ind(\cat{M}) \simeq A\textnormal{-Contramod},
+  \]
+  between \(\Ind(\cat{M})\) and the category of left \(A\)\hyp{}contramodules.
+  The \(\bbcomod\)\hyp{}module structure on \(A\textnormal{-Contramod}\) is extended,
+  in the sense of \cref{extendable},
+  from the category \(A\textnormal{-ContramodFree}\) of free left \(A\)\hyp{}contramodules.
+
+  This equivalence restricts to an equivalence \(\cat{M} \simeq A\textnormal{-contramod}\),
+  between \(\cat{M}\) and the category of finite\hyp{}dimensional \(A\)\hyp{}contramodules.
+\end{theorem}
+\begin{proof}
+  Let us again write \(\cat{V} \defeq \Tetramod[B]{}\).
+  Since \(\blank \lact X\from \bcomod \to \Ind(\cat{M})\) is right exact,
+  its extension to \(\Ind(\bcomod) \cong \cat{V}\) admits a right adjoint \(\hom{X,\blank}\) by \cref{saftrex}.
+  Similarly, since \(\blank \lact X\from \bcomod \to \Ind(\cat{M})\) is left exact,
+  so is its extension to \(\cat{V}\),
+  which is also quasi-finite by assumption.
+  Thus, by \cref{saftlex},
+  the functor \(\blank \lact X\from \cat{V} \to \Ind(\cat{M})\) also has a left adjoint \(\cohom{X, \blank}\).
+  We thus obtain an oplax \(\cat{V}\)\hyp{}module comonad \(\cohom{X, \blank \lact X}\) on \(\cat{V}\),
+  and a right adjoint lax \(\cat{V}\)\hyp{}module monad \(\hom{X, \blank \lact X}\).
+
+  By \cref{thm:hopf-trimodules-are-lax-monoidal-functors},
+  we have an isomorphism \(\hom{X, \blank \lact X} \cong \hom{X, B \lact X} \cotens \blank\) of lax \(\cat{V}\)\hyp{}module monads,
+  where \(\hom{X, B \lact X}\) is a Hopf trimodule algebra.
+  Let us denote \(\hom{X, B \lact X}\) by \(A\).
+  Since \(A \cotens \blank\) admits a left adjoint, \({}^{B}\!A\) is quasi-finite.
+
+  By uniqueness of adjoints, an isomorphism \(\cohom{X, \blank \lact X} \cong \mathrm{cohom}_{B-}(A,\blank)\) follows.
+  This is an isomorphism of \(\cat{V}\)\hyp{}module comonads,
+  since the \(\cat{V}\)\hyp{}module comonad structure
+  is lifted from the isomorphic oplax \(\cat{V}\)\hyp{}module monad structures on the respective right adjoints.
+
+  By \cref{mainnonsenseinjective},
+  we have an equivalence \(\Ind(\cat{M}) \simeq \cat{V}^{\cohom{X, \blank \,\lact\, X}}\) of \(\cat{V}\)\hyp{}module categories.
+  In particular, the functor \(\cohom{X, \blank}\) is comonadic
+  and hence exact, see \cref{thm:SmallBeck}.
+  By assumption, so is its right adjoint \(\blank \lact X\),
+  whence the comonad \(\cohom{X, \blank \lact X}\) is exact,
+  which, by~\cite[1.12]{takeuchi77:morit} and since it is isomorphic to \(\mathrm{cohom}_{B-}(A,\blank)\),
+  implies the injectivity of \({}^{B}\!A\).
+
+  The \(\cat{V}\)\hyp{}module structure on \(\cat{V}^{\cohom{X,\blank \,\lact\, X}}\) is extended from \(\cat{V}_{\cohom{X,\blank \,\lact\, X}}\).
+  By the isomorphism \(\cohom{X, \blank \lact X} \cong \mathrm{cohom}_{B-}(A,\blank)\) of the involved comonads,
+  we have an equivalence of \(\cat{V}\)\hyp{}module categories
+  \[
+    \cat{V}^{\cohom{X, \blank \,\lact\, X}} \simeq \cat{V}^{\mathrm{cohom}(A,\blank)},
+  \]
+  and an equivalence \(\cat{V}_{\cohom{X, \blank \,\lact\, X}} \simeq \cat{V}_{\mathrm{cohom}(A,\blank)}\).
+  Further, by definition
+  \[
+    \cat{V}^{\mathrm{cohom}(A,\blank)} = A\textnormal{-Contramod}
+    \qquad\text{and}\qquad
+    \cat{V}_{\mathrm{cohom}(A,\blank)} = A\textnormal{-ContramodFree},
+  \]
+  which yields the desired equivalence \(\Ind(\cat{M}) \simeq A\textnormal{-Contramod}\).
+
+  The restricted equivalence \(\cat{M} \simeq A\textnormal{-contramod}\) follows from \cref{locomonads}.
+  In particular, we use the observation that a contramodule is compact
+  if and only if its underlying \(B\)\hyp{}comodule is such,
+  if and only if it is finite\hyp{}dimensional.
+\end{proof}
+
+In the finite\hyp{}dimensional setting, a similar result uses projective objects.
+
+\begin{theorem}\label{finitetrihopfreconstruction}
+  Let \(B\) be a finite\hyp{}dimensional bialgebra
+  and let \(\cat{M}\) be a finite abelian module category over \(\bmodule\),
+  which admits an object \(X \in \cat{M}\) such that
+  \(X\) is a \(\bmodule\)\hyp{}projective \(\bmodule\)\hyp{}generator; and
+  \(\blank \lact X\from \bmodule \to \cat{M}\) is exact.
+
+  Then there is a finite\hyp{}dimensional Hopf termodule coalgebra \(C \in \termod\),
+  such that \({}_{B}C\) is projective and there is an equivalence of \(\bmodule\)\hyp{}module categories
+  \[
+    \cat{M} \simeq C\textnormal{-contramod}
+  \]
+  between \(\cat{M}\) and the category of finite\hyp{}dimensional left \(C\)\hyp{}contramodules.
+  The \(\bmodule\)\hyp{}module structure on \(C\textnormal{-contramod}\)
+  is extended from the free left \(A\)\hyp{}contramodules.
+\end{theorem}
+\begin{proof}
+  This follows analogously to \cref{infinitetrihopfreconstruction},
+  using \cref{mainnonsenseprojective} instead of \cref{mainnonsenseinjective}
+  and \cref{finitemonads} instead of \cref{locomonads}.
+\end{proof}
+
+In the semisimple case, contramodules become equivalent to modules.
+
+\begin{definition}
+  We say that a Hopf trimodule algebra \(A\) is \emph{semisimple}
+  if the monad \(A \cotens \blank\) is semisimple in the sense of \cref{def:semisimple-monad}.
+\end{definition}
+
+\begin{proposition}\label{semisimpletrimodulealgebra}
+  For a semisimple Hopf trimodule algebra \(A \in \Trimod\),
+  there is an equivalence \(\lMod{A} \simeq A\textnormal{-Contramod}\) of module categories over \(\Tetramod[B]{}\).
+\end{proposition}
+\begin{proof}
+  This is \cref{ModuleEMSemisimple} applied to the monad \(A \cotens \blank\).
+\end{proof}
+
+\subsection{Morita equivalence for contramodules}
+
+\begin{definition}~\label{contramoritadef}
+  We say that two Hopf trimodule algebras \(A, A' \in \trimod\),
+  such that \({}^{B}\!A\) and \({}^{B}\!A'\) are quasi-finite,
+  are \emph{contraMorita equivalent} if the comonads \(\mathrm{cohom}_{B\blank}(A,\blank)\) and \(\mathrm{cohom}_{B\blank}(A',\blank)\)
+  are Morita equivalent.
+\end{definition}
+
+More explicitly, \cref{contramoritadef} says that \(A\) and \(A'\) are contraMorita equivalent
+if there are \(M, N \in \Tetramod[B][B][][B]\) with coaction morphisms in \(\Tetramod[B][B][][B]\)
+\[
+  \begin{aligned}
+    &\mathrm{la}_{M,A}\colon M \to \mathrm{cohom}_{B\blank}(A,M),
+    &&\mathrm{ra}_{N,A}\colon N \to N\cotens_{B} \mathrm{cohom}_{B\blank}(A,B), \\
+    &\mathrm{la}_{N,A'}\colon N \to \mathrm{cohom}_{B\blank}(A',N),
+    &&\mathrm{ra}_{M,A'}\colon M \to M\cotens_{B} \mathrm{cohom}_{B\blank}(A',B), \\
+  \end{aligned}
+\]
+such that
+\begin{itemize}
+  \item
+  there is an isomorphism in \(\Tetramod[B][B][][B]\) between the equaliser of
+  \[
+    \mathscale{0.91}{\begin{mytikzcd}[ampersand replacement=\&]
+	\& {M \cotens_{B}\mathrm{cohom}_{B\blank}(A',B)\cotens_{B} N} \\
+	{M \cotens_{B} N} \&\& {M \cotens_{B} \mathrm{cohom}_{B\blank}(A',N)}
+	\arrow["{M \cotens_{B} \partial_{A',B,N}}"{pos=0.7}, from=1-2, to=2-3]
+	\arrow["\simeq"', from=1-2, to=2-3]
+	\arrow["{\mathrm{ra}_{M,A'} \cotens_{B} N}"{pos=0.3}, from=2-1, to=1-2]
+	\arrow[from=2-1, to=2-3]
+      \end{mytikzcd}}
+  \]
+  and \(A\),
+  intertwining the two coactions \(A \to A \cotens_{B} \mathrm{cohom}_{B-}(A,B)\) and \(A \to \mathrm{cohom}_{B-}(A,A)\)
+  coming from the algebra structure on \(A\),
+  with the coactions on the equaliser induced by \(\mathrm{ra}_{N,A}\) and \(\mathrm{la}_{M,A}\).
+  Here, \(\partial_{A',B,N}\) is the isomorphism of~\cite[1.13]{takeuchi77:morit},
+  which is invertible because \({}^{B}\!A'\) is injective.
+  \item a similar isomorphism in \(\Tetramod[B][B][][B]\)
+  between a similarly defined equaliser reversing the roles of \(M\) and \(N\), and \(A'\) exists.
+\end{itemize}
+
+\begin{proposition}\label{contraspberry}
+  For \(A,A'\) as in \cref{contramoritadef}, the following are equivalent:
+  \begin{thmlist}[noitemsep]
+    \item\label{contrabanda} \(A\) and \(A'\) are contraMorita equivalent,
+    \item\label{bigequivatti} \(A\textnormal{-Contramod} \simeq A'\textnormal{-Contramod}\) as \(\Tetramod[B]{}\)\hyp{}module categories, and
+    \item\label{piccoloequivatti} \(A\textnormal{-contramod} \simeq A'\textnormal{-contramod}\) as \(\tetramodfd[B]{}\)\hyp{}module categories.
+  \end{thmlist}
+\end{proposition}
+\begin{proof}
+  The equivalence of~\ref{contrabanda} and~\ref{bigequivatti} is an instance of \cref{Moritabybimodules},
+  for \(\cat{C} = \Tetramod[B]{}\).
+  Since an equivalence of categories preserves compact objects,~\ref{piccoloequivatti} follows from~\ref{bigequivatti}.
+  Finally, if \(F\) is an equivalence as in~\ref{piccoloequivatti}, then \(\Ind(F)\) is an equivalence as in~\ref{bigequivatti}.
+\end{proof}
+
+Combining \cref{contraspberry} with \cref{infinitetrihopfreconstruction},
+we find the following algebraic realisation of \cref{injectivebijection}:
+
+\begin{theorem}\label{contramodulereuters}
+  There is a bijection
+  \[
+    \faktor{\{\,(\cat{M},X) \text{ as in Theorem~\ref{infinitetrihopfreconstruction}}\,\}}{\cat{M} \simeq \cat{N}}
+    \xleftrightarrow{\cong}
+    \left\{
+    \begin{aligned}
+      &\text{Left finitely cogenerated} \\
+      &\text{injective Hopf trimodule} \\
+      &\text{algebras over \(B\)}
+    \end{aligned}
+    \right\}
+    \!\!\Big/\!\simeq_{\text{cMorita}}\!.
+  \]
+\end{theorem}
+
+\section{A semisimple example of non-rigid reconstruction}\label{coreps}
+
+\textsc{We now give a concrete application} of \cref{mainnonsenseinjective,infinitetrihopfreconstruction},
+describing module categories for non-rigid categories
+where the ordinary reconstruction procedure for rigid categories would not yield the correct result.
+
+Let \(S = \{e,s\}\) be the commutative two-element monoid which is not a group,
+with identity element \(e\).
+In particular, \(s^{2} = s\) is an idempotent.
+The category \(\mathsf{rep}(S)\) of finite\hyp{}dimensional modules over the monoid algebra \(\Bbbk[S]\) is semisimple,
+with two isoclasses of simple objects given by \(1\)\hyp{}dimensional representations \(\Bbbk_{\mathrm{triv}}\) and \(\Bbbk_{\mathrm{grp}}\).
+In \(\Bbbk_{\mathrm{triv}}\), the element \(s\) acts by \(1\),
+while in \(\Bbbk_{\mathrm{grp}}\) it acts by \(0\).
+The standard comultiplication on \(\Bbbk[S]\), in which \(e\) and \(s\) are group-like, makes turns \(\Bbbk[S]\) into a bialgebra.
+The category \(\mathsf{corep}(S)\) of finite\hyp{}dimensional comodules over \(\Bbbk[S]\) is equivalent to that of \(S\)\hyp{}graded finite\hyp{}dimensional spaces, \(\kvect^{S}\).
+Thus, it too is semisimple of rank two—we denote the simple objects by \(\delta_{e}\) and \(\delta_{s}\).
+
+The monoidal structure on \(\mathsf{rep}(S)\) satisfies \(\Bbbk_{\mathrm{grp}} \otimes \Bbbk_{\mathrm{grp}} \cong \Bbbk_{\mathrm{grp}}\).
+In fact, this presentation of the Grothendieck ring \([\mathsf{rep}(S)]\) of \(\mathsf{rep}(S)\) determines \(\mathsf{rep}(S)\) uniquely as a semisimple monoidal category, see~\cite[Proposition~3.5]{sun23:notes}.
+Thus, we find monoidal equivalences
+\[
+  \mathsf{rep}(S) \simeq \mathsf{corep}(S) \simeq \kvect^{S},
+\]
+since in the latter case we have \(\delta_{s} \otimes \delta_{s} \cong \delta_{s}\).
+
+Let us now focus on the coalgebraic setup of \cref{mainnonsenseinjective},
+studying the module categories over \(\mathsf{corep}(S)\).
+
+A semisimple \(\mathsf{corep}(S)\)\hyp{}module category \((\cat{M}, \lact)\) is indecomposable\note{%
+  A \(\cat{C}\)\hyp{}module category \(\cat{M}\) is called \emph{indecomposable} if
+  it does not split as a direct sum of \(\cat{C}\)\hyp{}module subcategories.%
+}
+if and only if
+the matrix \({[\delta_{s}]}_{\cat{M}}\)
+describing the action of \(\delta_{s}\) on the Grothendieck ring \([\cat{M}]\) in the basis of simple objects for \(\cat{M}\)
+is indecomposable.
+But \([\delta_{s}]\) is idempotent, so it must be the \(1\times 1\)\hyp{}matrix \((1)\), and,
+as a category, we must have \(\cat{M} \simeq \kvect\).
+We then either have \(\delta_{s} \lact \blank \cong \Id_{\cat{M}}\),
+or \(\delta_{s} \lact \blank \cong 0\).
+One can show that any two module categories satisfying one of these conditions are equivalent,
+by showing that the second cohomology group \(H^{2}(S, \Bbbk^{\times})\) is trivial,
+similarly to~\cite[Example~7.4.10]{Etingof2015}.
+Indeed, \(\psi \in Z^{2}(S, \Bbbk^{\times})\) must satisfy the relation \(\psi(e,s) = \psi(e,e) = \psi(s,e)\),
+and thus can be written as \(\psi(x,y) = \sigma(x) - \sigma(xy) + \sigma(y)\),
+by setting \(\sigma(e) \defeq \psi(e,e)\) and \(\sigma(s) \defeq \psi(s,s)\).
+The condition \(\delta_{s} \lact \blank \cong \Id_{\cat{M}}\) is satisfied by the fibre functor
+\(\mathrm{Fr}\from \mathsf{corep}(S) \to \kvect\).
+
+Assume instead that we have an indecomposable module category \(\cat{M}\) satisfying \(\delta_{s} \lact \blank \cong 0\).
+Let \(X \in \cat{M}\) be a simple object.
+One can verify that \(X\) satisfies the assumptions of \cref{mainnonsenseinjective}.
+Given \(V \in \mathsf{corep}(S)\), we have
+\[
+  \lceil X,V \lact X \rceil_{s} = {\mathsf{corep}(S)}(\lceil X, V\lact X \rceil, \delta_{s}) \cong {\mathsf{corep}(S)}(V \lact X, \delta_{s} \lact X),
+\]
+and similarly for \(\delta_{e}\).
+
+Using \(\delta_{s} \lact X \cong 0\) and \(\delta_{e} \lact X \cong X\),
+we find that \(\lceil X, \delta_{e} \lact X \rceil \cong \delta_{e}\) and \(\lceil X, \delta_{s} \lact X \rceil = 0\).
+To describe the bicomodule corresponding to the functor \(\lceil X, \blank \lact X \rceil\)
+under the correspondence of \cref{TakeuchiEilenbergWatts},
+we observe that a bicomodule can be identified with an \(S \times S\)\hyp{}graded space,
+and the cotensor product is given by
+\[
+  {(V \cotens W)}_{x,y} = \bigoplus_{z \in S} V_{x,z} \otimes W_{z,y}.
+\]
+Using this, we find that \(\lceil X, \blank \lact X \rceil \cong \delta_{e,e} \cotens \blank\),
+where \(\delta_{e,e}\) is the one-dimensional space concentrated in degree \((e,e)\).
+The unit Hopf trimodule homomorphism \(\Bbbk[S] \to \lceil X, \Bbbk[S] \lact X \rceil\)
+must thus have the submodule \(\Bbbk\{s\}\) as its kernel,
+so the reconstructing Hopf trimodule \(\lceil X, \Bbbk[S] \lact X \rceil\) is given by \(\Bbbk[S]/\Bbbk\{s\}\).
+As a bicomodule, it is indeed concentrated in degree \((e,e)\),
+and as a module it is isomorphic to \(\Bbbk_{\mathrm{grp}}\).
+The composition
+\[
+  \lceil X, \delta_{e} \lact X\rceil \otimes \lceil X, \delta_{e} \lact X\rceil \to \lceil X, \delta_{e} \lact X\rceil
+\]
+sending \(\mathrm{id}_{X} \otimes \mathrm{id}_{X}\) to \(\mathrm{id}_{X}\) corresponds to the algebra structure
+\[
+  \begin{aligned}
+    \Bbbk[S]/\Bbbk\{s\} \cotens \Bbbk[S]/\Bbbk\{s\} \simeq \Bbbk[S]/\Bbbk\{s\} \otimes \Bbbk[S]/\Bbbk\{s\} &\to \Bbbk[S]/\Bbbk\{s\} \\
+    (e + \Bbbk\{s\}) \otimes (e + \Bbbk\{s\}) &\mapsto (e + \Bbbk\{s\}),
+  \end{aligned}
+\]
+and this multiplication defines a Hopf trimodule algebra.
+
+To check that the category \(\Bbbk[S]/\Bbbk\{s\}\textnormal{-Contramod}\)
+satisfies the properties we have assumed of \(\cat{M}\) previously,
+note that the free module \(\Bbbk[S]/\Bbbk\{s\} \cotens B\) is one-dimensional,
+hence semisimple,
+showing that the category of modules over \(\Bbbk[S]/\Bbbk\{s\}\) is semisimple of rank one.
+Thus, by \cref{semisimpletrimodulealgebra} we have
+\[
+  \Bbbk[S]/\Bbbk\{s\}\textnormal{-Contramod} \simeq \Bbbk[S]/\Bbbk\{s\}\textnormal{-Mod}.
+\]
+Further, \(\delta_{s} \lact \Bbbk[S]/\Bbbk\{s\} = \Bbbk[S]/\Bbbk\{s\} \cotens \delta_{s} = 0\), which corresponds to \(\delta_{s} \lact X = 0\).
+
+If we instead follow the reconstruction procedure described in~\cite[Chapter~7]{Etingof2015},
+the reconstructing algebra object would be the object \(A\) of \(\mathsf{corep}(S)\)
+representing the presheaf \(\cat{M}(\blank \lact X, X)\).
+We see that we must have \(A \cong \delta_{e}\),
+and the algebra structure on \(\delta_{e}\) is unique.
+However, \(\delta_{e} \cong 1_{\mathsf{corep}(S)}\) and so
+\[
+  \mathrm{Mod}(\delta_{e}) \simeq \mathsf{corep}(S) \not\simeq \cat{M},
+\]
+showing that the reconstruction procedure for module categories over rigid monoidal categories fails in this non-rigid case.
+It also illustrates that this failure can be observed already in the semisimple case.
+
+\section{A Hopf trimodule algebra constructing the fibre functor}\label{fiberfunctorthings}
+
+\textsc{This section discusses the general construction}
+of a Hopf trimodule algebra,
+which covers the remaining indecomposable semisimple module category over the category \(\mathsf{corep}(S)\) considered in \cref{coreps}.
+
+\begin{proposition}\label{prop:B-dot-B-trimodule}
+  The \(\Bbbk\)\hyp{}vector space \(B \kotimes B\) forms a Hopf trimodule
+  with coactions
+  \[
+    b \otimes c \mapsto b_{(1)} \otimes b_{(2)} \otimes c,\qquad\qquad
+    c \otimes b \mapsto c \otimes b_{(1)} \otimes b_{(2)},
+  \]
+  and action
+  \[
+    x \otimes b \otimes c \mapsto x_{(1)}b \otimes x_{(2)}b.
+  \]
+  We shall denote it by \(B \bullet B\).
+\end{proposition}
+\begin{proof}
+  It is clear that \(B \bullet B\) is a bicomodule,
+  as both of the coactions are given by that of \(B\) on the respective Let.
+
+  Thus, we first verify that the action is a morphism of left and right comodules;
+  \ie, that \(B \bullet B\) is in \(\Tetramod[][B][][B]\) and \(\Tetramod[B][B]\).
+  The former follows by \cref{fig:b-bullet-b-left-mod-right-comod},
+  and the latter is due to the calculation in \cref{fig:b-bullet-b-left-mod-left-comod}.
+  \begin{figure}[htbp]
+    \centering
+    \tikzfig{b-bullet-b-left-mod-right-comod}\vspace{-\onelineskip}
+    \scaption[1cm]{%
+      The action of \(B \bullet B\) is a morphism of left comodules.%
+      \label{fig:b-bullet-b-left-mod-right-comod}%
+    }
+  \end{figure}
+  \begin{figure}[htbp]
+    \centering
+    \hrule\vspace{\onelineskip}
+    \tikzfig{b-bullet-b-left-mod-left-comod}\vspace{-\onelineskip}
+    \scaption[-.5cm]{%
+      The action of \(B \bullet B\) is a morphism of right comodules.%
+      \label{fig:b-bullet-b-left-mod-left-comod}
+    }
+  \end{figure}
+\end{proof}
+
+\begin{proposition}\label{prop:b-dot-b-is-algebra-object}
+  The Hopf trimodule \(B \bullet B\) from \cref{prop:B-dot-B-trimodule} is an algebra object in \(\Tetramod[B][B][][B]\).
+\end{proposition}
+\begin{proof}
+  We define the multiplication and unit of \(B \bullet B\) by
+  \[
+    \tikzfig{b-bullet-b-algebra-structure-def}
+  \]
+  where we have denote the counit \(\varepsilon\) of \(B\) with a small white dot,
+  and have employed the same numbering system for representing the cotensor product as in \cref{sec:bicomodules}.
+  It is clear that \(\mu\) is associative,
+  left unitality follows from
+  \[
+    \tikzfig{b-bullet-b-mu-unitality}
+  \]
+  and right unitality is similar.
+
+  One immediately has that \(\mu\) is a \(\Tetramod[B][][][B]\)\hyp{}morphism,
+  and for \(\eta = \Delta\) this follows from coassociativity.
+  To finish the proof we need only show that both are morphisms of left \(B\)\hyp{}modules,
+  which follows from \cref{fig:b-bullet-b-module-morphisms}
+  and the following calculation:
+  \[
+    \tikzfig{b-bullet-b-module-morphisms-2}
+  \]
+  \begin{figure}[htbp]
+    \centering
+    \tikzfig{b-bullet-b-module-morphisms}\vspace{-\onelineskip}% XXX
+    \scaption{%
+      The unit \(\eta = \Delta\)is a morphism of left \(B\)\hyp{}modules.%
+      \label{fig:b-bullet-b-module-morphisms}%
+    }
+  \end{figure}
+\end{proof}
+
+\begin{definition}\label{jequivalence}
+  Let \(J\from (B \bullet B)\textnormal{-ModFree} \to \kVect\) be the functor given by \(J((B \bullet B) \cotens M) = M\) and by local maps
+  \[
+    \begin{aligned}
+      J_{M,N}&\from (B\bullet B)\textnormal{-ModFree}\big((B\bullet B)\cotens M,  (B\bullet B)\cotens N \big) \to \mathrm{Hom}_{\Bbbk}(M,N) \\
+      \sigma &\mapsto (\varepsilon \otimes \varepsilon \cotens \mathrm{id}_{N})\circ(\sigma(1 \otimes 1 \otimes \blank))
+    \end{aligned}
+  \]
+\end{definition}
+
+\begin{lemma}
+  \Cref{jequivalence} yields an equivalence of \(\bbcomod\)\hyp{}module categories.
+\end{lemma}
+\begin{proof}
+  First, assume that \(J\) is a functor;
+  we will show it is an equivalence of (\(\bbcomod\))\hyp{}module categories.
+  Let \(V \in \kVect\).
+  Essential surjectivity follows by
+  \[
+    V \cong \Bbbk^{\dim{V}} \cong J((B\bullet B)\cotens \Bbbk_{\mathrm{triv}}^{\dim{V}}).
+  \]
+
+  The fact that \(J\) is fully faithful follows by
+  \(J_{M,N}\) being defined as the composite of the isomorphisms
+  \begin{align*}
+    (B \bullet B)&\textnormal{-ModFree}\big((B\bullet B)\cotens M,  (B\bullet B)\cotens N\big)
+             \xrightarrow{\blank \circ \eta} \bbcomod(M,  (B\bullet B)\cotens N) \\
+           & \xrightarrow{(B \otimes \varepsilon \cotens N) \circ \blank} \bbcomod(M,  B\otimes N)
+             \xrightarrow{(\varepsilon \otimes N) \circ \blank} \kvect(M,N).
+  \end{align*}
+  The first morphism is an isomorphism of the form \(\cat{A}^T(TX, TY) \iso \cat{A}(X,TY)\),
+  for the monad \(T \defeq (B \bullet B) \cotens \blank\) on the category \(\cat{A} \defeq \bbcomod\),
+  see \cref{rmk:em-iso-and-so-on}.
+  The second isomorphism is simply postcomposition with the isomorphism \((B \bullet B) \cotens N = B \otimes  B \cotens N \xrightarrow{B \otimes \varepsilon \cotens N} B \otimes N\),
+  since \(B \cotens N \xrightarrow{\varepsilon \cotens N} N\) is an isomorphism.
+  The third is an isomorphism \(\cat{B}^C(CX,CY) \iso \cat{B}(CX, Y)\),
+  for the comonad \(K \defeq B \otimes \blank\) on the category \(\cat{B} \defeq \kVect\).
+
+  Lastly, \(J\) is a (\(\bbcomod\))\hyp{}module functor:
+  for \(W \in \bbcomod\), we have
+  \[
+    W \lact J(B\bullet B \cotens M) = W \otimes M = J(B\bullet B \cotens (W \otimes M)) = J(W \lact B \bullet B \cotens M).
+  \]
+  Thus, if \(J\) defines a functor, it is an equivalence of (\(\bbcomod\))\hyp{}module categories.
+
+  It is left to verify the functoriality of \(J\).
+  Let
+  \begin{align*}
+    \sigma &\in (B \bullet B)\text{-ModFree}((B \bullet B) \cotens M, (B \bullet B) \cotens N),\\
+    \tau &\in (B \bullet B)\text{-ModFree}((B \bullet B) \cotens N, (B \bullet B) \cotens W).
+  \end{align*}
+  We represent these morphisms graphically by
+  \[
+    \tikzfig{represent-the-morphism-graphically-by}
+  \]\\[-0.9em]
+
+  Functoriality of \(J\) follows by \cref{fig:jequivalence-functoriality};
+  (i) and (ii) hold due to
+  \[
+    \tikzfig{i-and-ii-hold-due-to}
+  \]
+  Equality (iii) is satisfied by \(\tau\) being a \((B \bullet B)\)\hyp{}module morphism,
+  (iv) follows by the following calculation, using that \(B\) is a bialgebra:
+  \[
+    \varepsilon(b_{(1)}b_{(2)}) \otimes b_{(3)}
+    = \varepsilon(b_{(1)})\varepsilon(b_{(2)}) \otimes b_{(3)}
+    = \varepsilon(b_{(1)}\varepsilon(b_{(2)})) \otimes b_{(3)}
+    = \varepsilon(b_{(1)}) \otimes b_{(2)}
+    = b,
+  \]
+  and (v) holds by an analogous computation.
+  \begin{figure}[htbp]
+    \centering
+    \tikzfig{jequivalence-functoriality}\vspace{-\onelineskip}% XXX
+    \scaption[.5cm]{%
+      The assignment \(J\) is functorial.%
+      \label{fig:jequivalence-functoriality}%
+    }
+  \end{figure}
+\end{proof}
+
+\begin{corollary}
+  The monad \((B \bullet B) \cotens \blank\) is semisimple, and there is an equivalence of \(\bbcomod\)\hyp{}module categories \((B \bullet B)\textnormal{-Mod} \simeq \kVect\).
+\end{corollary}
+
+\section{The fundamental theorem of Hopf modules}
+
+\subsection{Hopf trimodules and twisted antipodes}\label{sec:Hausser-Nill}
+
+\begin{definition}[{\cite[Proposition~1.5.10]{montgomery93:hopf}}]
+  Let \(B\) be a bialgebra.
+  A \emph{twisted antipode} for \(B\) is an antipode for the bialgebra \(B^{\mathrm{cop}}\).\note{%
+    Equivalently, a twisted antipode is an antipode for \(B^{\op}\).%
+  }
+\end{definition}
+
+\begin{remark}
+  A Hopf algebra admits a twisted antipode \(\tilde{S}\) if and only if its own antipode \(S\) is invertible,
+  in which case we have \(S^{-1} = \tilde{S}\).
+  Notably, a finite\hyp{}dimensional Hopf algebra always admits a twisted antipode.
+\end{remark}
+
+\Cref{antipodeleftrigid} below is a well-known result, see for example~\cite[Theorem~5.4.1.(2)]{Etingof2015}.
+We emphasise that while its former part is seemingly opposite to the claim of~\cite[Theorem~5.4.1.(2)]{Etingof2015},
+identifying the presence of an antipode with right, rather than left, rigidity, this is because we consider left, rather than right, comodules.
+The latter claim of \cref{antipodeleftrigid} follows from the former by using the equivalence \({(\Tetramod[B])}^{\tensorop} \simeq \Tetramod[B^{\op}]\).
+
+\begin{lemma}\label{antipodeleftrigid}
+  Let \(B\) be a bialgebra.
+  Then \(\tetramodfd[B]\) is right rigid if and only if\, \(B\) admits an antipode.
+  Similarly, \(\tetramodfd[B]\) is left rigid if and only if\, \(B\) admits a twisted antipode.
+\end{lemma}
+
+The next theorem was shown
+in the setting of quasi-bialgebras
+in~\cite[Proposition~3.11]{hausser99:integ-theor-quasi-hopf-algeb}
+and~\cite[Theorem~3.9]{saracco17:hopf},
+as a generalisation of the structure theorem for Hopf modules of Larson and Sweedler~\cite{larson69:hopf}.
+
+\begin{theorem}\label{HausserNill}
+  Let \(B\) be a bialgebra.
+  The functor \(\blank \otimes B\from \Tetramod[][B] \to \Tetramod[][B][B][B]\) is an equivalence if and only if\, \(B\) admits an antipode.
+\end{theorem}
+
+In the rest of this section we show that a variant of \cref{HausserNill} can be deduced
+from the following general statement.
+
+\begin{proposition}\label{LaxIsStrongThenLeftRigid}
+  Let \(\cat{C}\) be a left closed monoidal category such that every left \(\cat{C}\)\hyp{}module endofunctor of \(\cat{C}\) is strong%
+  —in other words,that the monoidal embedding
+  \[
+    \mathsf{Str}\cat{C}\mathsf{Mod}(\cat{C},\cat{C}) \longhookrightarrow \mathsf{Lax}\cat{C}\mathsf{Mod}(\cat{C},\cat{C})
+  \]
+  is an equivalence.
+  Then \(\cat{C}\) is left rigid.
+\end{proposition}
+\begin{proof}
+  Since \(\cat{C}\) is left closed,
+  for every \(x \in \cat{C}\) there is a right adjoint \(\hom{x, \blank}\) to the strong \(\cat{C}\)\hyp{}module endofunctor \(\blank \otimes x\).
+  By \cref{porism:doctrinal-module-adjunctions},
+  the functor \(\hom{x, \blank}\) is a lax \(\cat{C}\)\hyp{}module endofunctor of \(\cat{C}\),
+  and thus, by assumption, it is a strong module endofunctor.
+  \Cref{prop:bicategorical-yoneda-correspondence-monads-and-algebras} yields an object \(\ld{\!{}x}\)
+  such that there is an isomorphism of \(\cat{C}\)\hyp{}module functors \(\hom{x, \blank} \cong \blank \otimes \ld{\!{}x}\).
+  Thus we obtain an adjunction of \(\cat{C}\)\hyp{}module functors \(\blank \otimes x \dashv \blank \otimes \ld{\!{}x}\),
+  which by~\cite[102-103]{kelly72:many} shows that \((\ld{\!{}x}, x)\) is a dual pair in \(\cat{C}\).
+  It follows that \(\cat{C}\) is left rigid.
+\end{proof}
+
+\begin{remark}\label{rmk:rigid-iff-lax-is-strong}
+  Given a rigid monoidal category \(\cat{C}\),
+  notice that every lax \(\cat{C}\)\hyp{}module endofunctor on \(\cat{C}\) is automatically strong by \cref{prop:lax-is-strong-when-rigid}.
+  Together with \cref{LaxIsStrongThenLeftRigid},
+  this yields a characterisation when a (left) closed monoidal category is (left) rigid,
+  solely based on its lax \(\cat{C}\)\hyp{}module functors.
+  This is a special property of module functors,
+  as in \cref{sec:negative} we have already seen that ordinary adjunctions do not suffice for such a characterisation.
+\end{remark}
+
+We now define the functor \(B \otimes \blank\) analogous to \(\blank \otimes B\) of \cref{HausserNill}.
+
+\begin{definition}\label{bestoftimes}
+  Define the functor \(B \otimes \blank\from \Tetramod[B][][][] \to \Tetramod[B][B][][B]\)
+  by sending a left \(B\)\hyp{}comodule \(M\) to the trimodule \(B \otimes M\) whose left and right coaction,
+  as well as left action, is given by
+  \[
+    b \otimes m \mapsto b_{(1)}m_{(-1)} \otimes b_{(2)} \otimes m_{(0)}; \quad
+    b \otimes m \mapsto b_{(1)}\otimes m \otimes b_{(2)}; \quad
+    a \otimes b \otimes m \mapsto ab \otimes m;
+  \]
+  where we extends to morphisms in the natural way.
+  It is easy to verify that \(B \otimes M\) defines a Hopf trimodule and also that \(B \otimes \blank\) defines a functor.
+\end{definition}
+
+\begin{remark}
+  Comparing \cref{bestoftimes} with \cref{HausserNill}, we remark on two differences.
+  First, the domain of the functor we study is the category of comodules over \(B\), rather than modules.
+  This is merely to maintain consistence with \cref{sec:hopf-trimodules-lax-mod-funs},
+  and a variant for modules can be formulated without greater difficulty.
+  Second, the functor we study endows a left comodule with an additional comodule structure on the right,
+  and a module structure on the left, rather than on the right.
+  We will see that it is related to the functor \(\Tetramod{} \to \Tetramod[][B][][B]\),
+  which is known to be an equivalence if \(B\) admits a twisted antipode;
+  see for example~\cite[Section~1.9.4]{montgomery93:hopf}.
+\end{remark}
+
+We now give a categorical interpretation of the functor of \cref{bestoftimes}.
+Recall the notation \(\cat{V} \defeq \Tetramod[B]\) of \cref{sec:hopf-trimodules-lax-mod-funs}.
+
+\begin{proposition}\label{EmperorDaibazaal}
+  The diagram
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\mathsf{Str}\cat{V}\mathsf{Mod}(\cat{V}, \cat{V})} \&\& {\mathsf{LexfLax}\cat{V}\mathsf{Mod}(\cat{V}, \cat{V})} \\
+      {\cat{V}^{\tensorop}} \&\& \Tetramod[B][B][][B]
+      \arrow[hook, from=1-1, to=1-3]
+      \arrow["\simeq", from=1-1, to=2-1]
+      \arrow["\simeq", from=1-3, to=2-3]
+      \arrow[hook, from=2-1, to=2-3]
+    \end{mytikzcd}
+  \]
+  commutes up to a monoidal natural isomorphism.
+  Its upper horizontal arrow is the natural inclusion functor,
+  its left vertical arrow is the equivalence of \cref{prop:bicategorical-yoneda-correspondence-monads-and-algebras},
+  its right vertical arrows is the equivalence of \cref{thm:hopf-trimodules-are-lax-monoidal-functors},
+  and its lower horizontal arrow is the functor of \cref{bestoftimes}.
+\end{proposition}
+\begin{proof}
+  Chasing a functor \(F\) in the diagram, we find the following:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      F \&\&\& F \\
+      {F \Bbbk_{\mathrm{triv}}} \& {B \otimes F \Bbbk_{\mathrm{triv}}} \& {F(B \otimes \Bbbk_{\mathrm{triv}})} \& {FB}
+      \arrow[maps to, from=1-1, to=1-4]
+      \arrow[maps to, from=1-1, to=2-1]
+      \arrow[maps to, from=1-4, to=2-4]
+      \arrow[maps to, from=2-1, to=2-2]
+      \arrow["\simeq", from=2-2, to=2-3]
+      \arrow["\simeq", from=2-3, to=2-4]
+    \end{mytikzcd}
+  \]
+  It is easy to verify that the isomorphism indicated in the bottom row of this chase is natural in \(F\), and also monoidal.
+\end{proof}
+
+\begin{corollary}
+  If the functor \(B \otimes \blank\) of \cref{bestoftimes} is an equivalence,
+  then \(B\) admits a twisted antipode.
+\end{corollary}
+\begin{proof}
+  By \cref{EmperorDaibazaal}, \(B \otimes \blank\) is an equivalence if and only if the embedding
+  \[
+    \mathsf{Str}\cat{V}\mathsf{Mod}(\cat{V}, \cat{V}) \longhookrightarrow \mathsf{LexfLax}\cat{V}\mathsf{Mod}(\cat{V}, \cat{V})
+  \]
+  is an equivalence,
+  so assume that it is.
+
+  For \(M \in \tetramodfd[B]\), the right adjoint of \(\blank \kotimes M\) is finitary by \cref{saftlex},
+  since \(\blank \kotimes M\) sends finite\hyp{}dimensional comodules to finite\hyp{}dimensional comodules.
+  The right adjoint is then a finitary left exact lax \(\cat{V}\)\hyp{}module functor.
+  By assumption it is strong, and thus of the form \(\blank \otimes \ld{\!{}M}\), for \(\ld{\!{}M} \in \cat{V}\).
+  Since the fibre functor \(U\from \cat{V} \to \kVect\) is strong monoidal,
+  we have \(\ld{\!{}M} \cong M^{\ast}\).
+  This shows that \(\tetramodfd[B]\) is left rigid;
+  by \cref{antipodeleftrigid}, \(B\) admits a twisted antipode.
+\end{proof}
+
+\begin{proposition}
+  If a bialgebra \(B\) admits a twisted antipode,
+  then the functor \(B \otimes \blank\) of \cref{bestoftimes} is an equivalence.
+\end{proposition}
+\begin{proof}
+  Since the functor \(\cat{V} \longhookrightarrow \mathsf{LexfLax}\cat{V}\mathsf{Mod}(\cat{V}, \cat{V})\) is always fully faithful,
+  so is the functor \(B \otimes \blank\) by \cref{EmperorDaibazaal}.
+  It remains to show that \(B \otimes \blank\) is essentially surjective.
+
+  Following~\cite[Section~1.9.4]{montgomery93:hopf},
+  for \(X \in \Tetramod[][B][][B]\)
+  the composite map
+  \[
+    \Gamma\from X
+    \xrightarrow{\ \Delta_{X}\ } X \otimes B
+    \xrightarrow{\ \mathtt{t}\otimes B\ } X^{\mathrm{co}B} \otimes B
+    \xrightarrow{\sigma_{X^{\mathrm{co}B},B}} B \otimes X^{\mathrm{co}B}
+  \]
+  is an isomorphism in \(\Tetramod[][B][][B]\),
+  where \(X^{\mathrm{co}B} = \{\,m \in X \mid \Delta^{r}_{X}(m) = m \otimes 1\,\}\)
+  and \(\mathtt{t}\) is the projection diagrammatically represented by
+  \[
+    \tikzfig{the-projection-diagrammatically-represented-by}
+  \]
+
+  The inverse of \(\Gamma\) is given by the restriction \({\nabla_{X}|}_{\mathrm{co}B}\from B \otimes X^{\mathrm{co}B} \to X\) of the left \(B\)\hyp{}action on \(X\).
+
+  For \(X \in \Tetramod[B][][B]\),
+  the space \(X^{\mathrm{co}B}\) of coinvariants is a left \(B\)\hyp{}subcomodule of \(X\),
+  since \(X\) is a bicomodule.
+  It is easy to check that \({\nabla_{X}|}_{\mathrm{co}B}\from B \otimes X^{\mathrm{co}B} \to X\) is a left \(B\)\hyp{}comodule morphism,
+  and thus a morphism in \(\Tetramod[B][B][][B]\),
+  making the functor \(B \otimes \blank\) essentially surjective.
+\end{proof}
+
+\begin{corollary}\label{cor:twisted-anti-iff-bestoftimes}
+  A bialgebra \(B\) admits a twisted antipode if and only if the functor \(B \otimes \blank\) of \cref{bestoftimes} is an equivalence.
+\end{corollary}
+
+\begin{remark}
+  Here we see that it is crucial
+  that \cref{sec:hopf-trimodules-lax-mod-funs} identifies Hopf trimodules with \emph{finitary} lax module functors.
+  Given an infinite\hyp{}dimensional comodule \(M\) over \(B\),
+  the functor \(\mathrm{Hom}_{\Bbbk}(M, \blank)\from \Tetramod[B] \to \Tetramod[B]\)
+  is endowed with lax \(\Tetramod[B]\)\hyp{}structure
+  by virtue of \cref{thm:comodule-adjunctions-correspond-to-strong-comodule-functors},
+  but is not finitary itself.
+\end{remark}
+
+\subsection{Fusion operators for Hopf monads}
+
+\textsc{Similarly to our study of} \cref{HausserNill} in \cref{sec:Hausser-Nill},
+the results of \Bruguieres, Lack, and Virelizier in~\cite{Bruguieres2011}
+can be used to characterise rigidity of a monoidal category.
+
+\begin{lemma}\label{delusion}
+  Let \(\adj{F}{U}{\cat{C}}{\cat{D}}\) be an oplax monoidal adjunction.\marginnote{\textnormal{%
+      A variant of this result
+      using ``Doi--Koppinen data''
+      appears in~\cite[Section~5.5]{kowalzig15:cyclic}.%
+    }}
+  The strong monoidal structure of \(U\) turns \(\cat{C}\) into a \(\cat{D}\)\hyp{}module category, by defining
+  \[
+    \blank \lact \bblank \;\defeq\; U(\blank) \otimes \bblank.
+  \]
+
+  With respect to this \(\cat{D}\)\hyp{}module structure,
+  the bimonad \(T \defeq UF\) on \(\cat{C}\) becomes an oplax \(\cat{D}\)\hyp{}module monad.
+  The coherence morphism is given by
+  \begin{equation}\label{confusion}
+    T_{\mathsf{a};d,c} \from T(d \lact c) = T(Ud \otimes c)
+    \xrightarrow{T_{2; Ud,c}} TUd \otimes Tc
+    \xrightarrow{U\varepsilon_{d} \otimes Tc} Ud \otimes Tc,
+  \end{equation}
+  for all \(c \in \cat{C}\) and \(d \in \cat{D}\).
+  In particular, for \(x \in \cat{C}\),
+  the coherence morphism \(T_{\mathsf{a};Fx,c}\) is precisely the right fusion operator for \(T\) at \((x, c)\).
+  In other words, \(T_{\mathsf{a};Fx,c} = T_{\mathsf{rf};x,c}\).
+\end{lemma}
+\begin{proof}
+  The first statement is a well-known result on transport of structure.
+  For \(y \in \cat{D}\),
+  the \(\cat{D}\)\hyp{}module structure on \(U\) is given by the morphisms
+  \[
+    U_{\mathsf{m}}\from d \lact Uy = Ud \otimes Uy \iso U(d \otimes y) = U(d \lact y).
+  \]
+
+  For the second statement,
+  observe that by \cref{porism:doctrinal-module-adjunctions},
+  \(F\) inherits an oplax \(\cat{D}\)\hyp{}module functor structure
+  from the strong \(\cat{D}\)\hyp{}module structure on \(U\).
+  The oplax \(\cat{D}\)\hyp{}module functor on \(T\) is given by
+  the upper part of the following diagram,
+  where the lower part is included clarity:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+	{UF(Ud \otimes c)} \& {U(FUd \otimes Fc)} \\
+	{T(d \lact c)} \& {U(d \otimes Fc)} \& {Ud \otimes UFc} \\
+	{UF(d \lact c)} \& {U(d \lact Fc)} \& {Ud \otimes Tc} \\
+	\& {d \lact UFc} \& {d \lact Tc}
+	\arrow["{U F_{2;Ud,c}}", from=1-1, to=1-2]
+	\arrow[equals, from=1-1, to=2-1]
+	\arrow["{U(\varepsilon_{d} \otimes Fc)}", from=1-2, to=2-2]
+	\arrow[equals, from=2-1, to=3-1]
+	\arrow["{U_{\mathsf{m};d,Fc}}", from=2-2, to=2-3]
+	\arrow[equals, from=2-2, to=3-2]
+	\arrow[equals, from=2-3, to=3-3]
+	\arrow[from=3-1, to=3-2]
+	\arrow[from=3-2, to=4-2]
+	\arrow[equals, from=3-3, to=4-3]
+	\arrow[equals, from=4-2, to=4-3]
+      \end{mytikzcd}
+    \]
+
+  To see that this morphism equals that defined in \cref{confusion},
+  observe that the following diagram of functors
+  commutes by naturality of \(U_2\):
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {U(FU \otimes F)} \&\& {UFU \otimes UF} \\
+      {U(\Id_{\cat{D}} \otimes F)} \&\& {U \otimes UF}
+      \arrow["{U_{2;FU,F}}", from=1-1, to=1-3]
+      \arrow["{U(\varepsilon \,\otimes\, F)}"', from=1-1, to=2-1]
+      \arrow["{U\varepsilon \,\otimes\, UF}", from=1-3, to=2-3]
+      \arrow["{U_{2;\Id, F}}"', from=2-1, to=2-3]
+    \end{mytikzcd}
+  \]
+
+  Since
+  by definition we have that \(\mu = U \varepsilon F\),
+  substituting \(d = Fx\) in \cref{confusion}
+  yields \(T_{\mathsf{a};Fx,c} = T_{\mathsf{rf};x,c}\),
+  which proves the result.
+\end{proof}
+
+\begin{lemma}\label{sinfusion}
+  Let \(\cat{C}\) be a category,
+  \(f,g\from x \to y\) a pair of parallel morphisms in \(\cat{C}\),
+  such that the coequaliser \(\coeq(f,g)\) exists.
+  If \(G,H\from \cat{C} \to \cat{D}\) is a pair of functors preserving that coequaliser,
+  \(\alpha\from G \nt H\) a natural transformation,
+  then
+  \(\alpha_{x}\) and \(\alpha_{y}\) being invertible implies that so is \(\alpha_{\coeq(f,g)}\).
+\end{lemma}
+\begin{proof}
+  Let \(c \defeq \coeq(f,g)\)
+  and write \(p\from y \longtwoheadrightarrow c\) for the canonical projection.
+  We are in the following situation:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      Gx \& Gy \& Gc \\
+      Hx \& Hy \& Hc
+      \arrow["Gf", shift left=1, from=1-1, to=1-2]
+      \arrow["Gg"', shift right=1, from=1-1, to=1-2]
+      \arrow["{\alpha_x}"', from=1-1, to=2-1]
+      \arrow["{Gp}", two heads, from=1-2, to=1-3]
+      \arrow["{\alpha_y}", from=1-2, to=2-2]
+      \arrow["Hf", shift left=1, from=2-1, to=2-2]
+      \arrow["Hg"', shift right=1, from=2-1, to=2-2]
+      \arrow["{Hp}", two heads, from=2-2, to=2-3]
+    \end{mytikzcd}
+  \]
+  Then we calculate
+  \[
+    Hp \circ \alpha_y \circ Gf
+    = Hp \circ Hf \circ \alpha_x
+    = Hp \circ Hg \circ \alpha_x
+    = Hp \circ Gg \circ \alpha_x,
+  \]
+  which,
+  by the universal property of \(Gc\),
+  implies the existence of a unique arrow \({!}\from Gc \to Hc\)
+  that is equal to \(\alpha_c\).
+  Since \(\alpha_x\) and \(\alpha_y\) are invertible
+  we also obtain a unique arrow \(Hc \to Gc\),
+  which is easily seen to be inverse to \(\alpha_c\).
+\end{proof}
+
+\begin{proposition}\label{diffusion}
+  The right fusion operators of bimonad \(T\) on a monoidal category \(\cat{C}\) are invertible
+  if and only if
+  the coherence morphisms for the oplax \(\cat{C}^T\)\hyp{}module structure on \(T\)
+  of \cref{delusion} are invertible.
+
+  In other words, \(T\) is right Hopf
+  if and only if
+  it is a strong \(\cat{C}^T\)\hyp{}module monad.
+\end{proposition}
+\begin{proof}
+  Since, by \cref{delusion}, the right fusion operators for \(T\) are
+  a special case of the coherence morphisms for the \(\cat{C}^T\)\hyp{}module functor structure on \(T\),
+  it is immediate that \(T\) being a strong \(\cat{C}^T\)\hyp{}module monad implies invertibility of the right fusion operators.
+
+  To show the converse,
+  assume that the right fusion operators are invertible,
+  in particular, by \cref{delusion},
+  the morphisms \(T_{\mathsf{a};Fx,c}\) are invertible.
+  Recall any \(T\)\hyp{}algebra \((x, \alpha) \in \cat{C}^T\)
+  is the coequaliser of the diagram
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {T^{2}x} \& {Tx} \& x
+      \arrow["{\mu_{x}}", shift left=1, from=1-1, to=1-2]
+      \arrow["{T \alpha}"', shift right=1, from=1-1, to=1-2]
+      \arrow["{\alpha}", from=1-2, to=1-3]
+    \end{mytikzcd}
+  \]
+  in \(\cat{C}^T\).
+  In other words, \(x\) is a \(U\)\hyp{}split coequaliser of morphisms from \(FTx\) to \(Fx\),
+  since \(Fx\) is the free \(T\)\hyp{}module on \(x\).
+
+  Consider the natural transformation \(T_{\mathsf{a};\blank,c}\from T(\blank \lact c) \to \blank \lact Tc\).
+  We have
+  \[
+    T(\blank \lact c) = T(U(\blank) \otimes c) = (\blank \otimes c) \circ U,
+  \]
+  which means that \(T(\blank \lact c)\) preserves the coequaliser \(\coeq(T\alpha, \mu_{x})\)
+  by first sending it to a split coequaliser under \(U\),
+  and then preserving it, since split coequalisers are absolute.
+
+  In a similar fashion, \(\blank \lact Tc = U(\blank) \otimes Tc = (\blank \otimes Tc) \circ U\) also preserves this coequaliser.
+  The invertibility of \(T_{\mathsf{a};x,c}\) now follows from
+  the assumed invertibility of
+  \(T_{\mathsf{rf};x,c} = T_{\mathsf{a};Fx,c}\)
+  and \(T_{\mathsf{rf}; Tx, c} = T_{\mathsf{a};FTx,c}\),
+  by \cref{sinfusion}.
+\end{proof}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../main"
+%%% TeX-command-extra-options: "-shell-escape -fmt=prec.fmt -file-line-error -synctex=1"
+%%% End:

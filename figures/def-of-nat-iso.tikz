@@ -1,0 +1,43 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-1, 3) {};
+		\node [style=none] (1) at (-1, 2) {};
+		\node [style=none] (2) at (0, 2) {};
+		\node [style=none] (3) at (1, 2) {};
+		\node [style=none] (4) at (0, 1) {};
+		\node [style=none] (5) at (-1, 1) {};
+		\node [style=none] (6) at (1, 1) {};
+		\node [style=none] (7) at (0, 0) {};
+		\node [style=none] (8) at (1, 0) {};
+		\node [style=none] (9) at (-1, 0) {};
+		\node [style=none] (10) at (1, -1) {};
+		\node [style=none] (11) at (-1, 3.25) {\scriptsize$\lld{x}$};
+		\node [style=none] (12) at (1, -1.25) {\scriptsize$x$};
+		\node [style=none] (13) at (-11, -2) {};
+		\node [style=none] (14) at (11, -2) {};
+		\node [style=none] (15) at (-11, -3.1) {};
+		\node [style=none] (16) at (11, -3.1) {};
+		\node [style=none] (17) at (-11, 4) {};
+		\node [style=none] (18) at (11, 4) {};
+		\node [style=none] (19) at (0, -2.55) {\scriptsize$\rho_{a,x} \defeq (\lld{x}\otimes\coev^{-\ell}_\alpha)\circ(\sigma^{-1}_{\lld{x},\alpha}\otimes\omega)\circ(\alpha\otimes\sigma_{\omega,x})\circ(\coev^\ell_\alpha\otimes x)\colon x \to \lld{x}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=redblue, in=-270, out=90, looseness=2.00] (2.center) to (3.center);
+		\draw [style=red, in=-270, out=-90] (2.center) to (5.center);
+		\draw [style=blue] (6.center) to (3.center);
+		\draw [style=morphism-edge, in=-270, out=-90] (4.center) to (8.center);
+		\draw [style=redblue, in=-90, out=-90, looseness=2.00] (9.center) to (7.center);
+		\draw [style=red] (5.center) to (9.center);
+		\draw [style=morphism-edge] (10.center) to (8.center);
+		\draw [style=morphism-edge] (1.center) to (0.center);
+		\draw [style=braid-over, in=-270, out=-90] (1.center) to (4.center);
+		\draw [style=bo, in=-270, out=-90] (6.center) to (7.center);
+		\draw (17.center) to (18.center);
+		\draw (18.center) to (14.center);
+		\draw (14.center) to (16.center);
+		\draw (16.center) to (15.center);
+		\draw (15.center) to (13.center);
+		\draw (13.center) to (14.center);
+		\draw (13.center) to (17.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

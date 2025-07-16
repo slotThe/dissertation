@@ -1,0 +1,59 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-7.75, -0.85) {};
+		\node [style=none] (1) at (-8.5, -0.1) {};
+		\node [style=none] (2) at (-7, -0.1) {};
+		\node [style=none] (3) at (-6.25, 0.65) {};
+		\node [style=none] (4) at (-5.5, -0.1) {};
+		\node [style=none] (6) at (-9.25, -1.85) {};
+		\node [style=none] (8) at (-4.75, 1.65) {};
+		\node [style=none] (9) at (-5.5, -1.85) {};
+		\node [style=none] (10) at (-8.5, 1.65) {};
+		\node [style=none] (11) at (-5.5, -2.1) {\tiny $U^T$};
+		\node [style=none] (12) at (-8.5, 2) {\tiny $U^T$};
+		\node [style=none] (13) at (-4.25, 0) {$=$};
+		\node [style=none] (15) at (-2.25, 1.75) {};
+		\node [style=none] (17) at (-3.75, -1.75) {};
+		\node [style=none] (18) at (-3, 1.75) {};
+		\node [style=none] (19) at (-3, -1.75) {};
+		\node [style=none] (20) at (-3, 2) {\tiny $U^T$};
+		\node [style=none] (21) at (-3, -2.1) {\tiny $U^T$};
+		\node [style=none] (22) at (5.25, -0.85) {};
+		\node [style=none] (23) at (6, -0.1) {};
+		\node [style=none] (24) at (4.5, -0.1) {};
+		\node [style=none] (25) at (3.75, 0.65) {};
+		\node [style=none] (26) at (3, -0.1) {};
+		\node [style=none] (28) at (2.25, -1.85) {};
+		\node [style=none] (30) at (6.75, 1.65) {};
+		\node [style=none] (31) at (3, -1.85) {};
+		\node [style=none] (32) at (6, 1.65) {};
+		\node [style=none] (33) at (3, -2.1) {\tiny $F^T$};
+		\node [style=none] (34) at (6, 2) {\tiny $F^T$};
+		\node [style=none] (35) at (7.25, 0) {$=$};
+		\node [style=none] (37) at (9.25, 1.75) {};
+		\node [style=none] (39) at (7.75, -1.75) {};
+		\node [style=none] (40) at (8.5, 1.75) {};
+		\node [style=none] (41) at (8.5, -1.75) {};
+		\node [style=none] (42) at (8.5, 2) {\tiny $F^T$};
+		\node [style=none] (43) at (8.5, -2.1) {\tiny $F^T$};
+		\node [style=none] (44) at (0, 0) {and};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=morphism-edge] (9.center)
+			 to (4.center)
+			 to [in=0, out=90] (3.center)
+			 to [in=90, out=180] (2.center)
+			 to [in=0, out=-90] (0.center)
+			 to [in=-90, out=180] (1.center)
+			 to (10.center);
+		\draw [style=morphism-edge] (19.center) to (18.center);
+		\draw [style=morphism-edge] (32.center)
+			 to (23.center)
+			 to [in=0, out=-90] (22.center)
+			 to [in=-90, out=180] (24.center)
+			 to [in=0, out=90] (25.center)
+			 to [in=90, out=180] (26.center)
+			 to (31.center);
+		\draw [style=morphism-edge] (41.center) to (40.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

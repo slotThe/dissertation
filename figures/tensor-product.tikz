@@ -1,0 +1,124 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (14) at (-8.6, -2.725) {};
+		\node [style=none] (16) at (-3.1, -3.475) {};
+		\node [style=none] (17) at (-3.6, -1.975) {};
+		\node [style=none] (18) at (-6.1, -2.725) {\scriptsize $\otimes$};
+		\node [style=none] (19) at (-2.95, -3.975) {};
+		\node [style=none] (21) at (-8.2, -3.975) {};
+		\node [style=none] (45) at (8.5, 0) {};
+		\node [style=none] (46) at (8.5, -3) {};
+		\node [style=none] (47) at (6, 0) {};
+		\node [style=none] (48) at (3.5, 0) {};
+		\node [style=none] (49) at (3.5, -3) {};
+		\node [style=none] (50) at (6, -3) {};
+		\node [style=none] (51) at (13, 0) {};
+		\node [style=none] (52) at (9.5, -1.5) {$\eqdef$};
+		\node [style=none] (53) at (10.5, -3) {};
+		\node [style=none] (54) at (10.5, 0) {};
+		\node [style=none] (56) at (11.75, -1.75) {\scriptsize $\cat C$};
+		\node [style=none] (57) at (4.75, -1.75) {\scriptsize $\cat C$};
+		\node [style=none] (58) at (7.25, -1.75) {\scriptsize $\1$};
+		\node [style=none] (60) at (-5.825, -2.325) {};
+		\node [style=none] (61) at (-5.575, -3.125) {};
+		\node [style=none] (62) at (-6.425, -3.125) {};
+		\node [style=none] (63) at (-6.675, -2.325) {};
+		\node [style=none] (64) at (8.5, 2.25) {};
+		\node [style=none] (65) at (6, 2.25) {\tiny $1$};
+		\node [style=none] (66) at (3.5, 2.25) {};
+		\node [style=none] (67) at (8.9, 3.5) {};
+		\node [style=none] (68) at (8.1, 1) {};
+		\node [style=none] (69) at (3.9, 3.5) {};
+		\node [style=none] (70) at (3.1, 1) {};
+		\node [style=none] (71) at (6.225, 1.95) {};
+		\node [style=none] (72) at (6.425, 2.55) {};
+		\node [style=none] (73) at (5.775, 2.55) {};
+		\node [style=none] (74) at (5.575, 1.95) {};
+		\node [style=none] (81) at (13, -3) {};
+		\node [style=none] (0) at (-8.6, 2.525) {};
+		\node [style=none] (2) at (-8.6, -0.475) {};
+		\node [style=none] (4) at (-3.1, -1.225) {};
+		\node [style=none] (7) at (-3.1, 1.775) {};
+		\node [style=none] (20) at (-3.75, -1.475) {};
+		\node [style=none] (22) at (-9, -1.475) {};
+		\node [style=none] (38) at (-4.35, 2.775) {\scriptsize$\cat C$};
+		\node [style=none] (40) at (-7.35, 1.275) {\scriptsize $\cat C$};
+		\node [style=none] (1) at (-6.1, 2.525) {};
+		\node [style=none] (3) at (-6.1, -0.475) {};
+		\node [style=none] (5) at (-3.6, 0.5) {};
+		\node [style=none] (6) at (-3.6, 3.5) {};
+		\node [style=none] (39) at (-4.1, -0.725) {\scriptsize $\cat C$};
+		\node [style=none] (82) at (-2.8, -3.475) {\tiny $\cat{C}$};
+		\node [style=none] (83) at (-3.35, -1.975) {};
+		\node [style=none] (84) at (-3.3, -1.975) {\tiny $\cat{C}$};
+		\node [style=none] (85) at (-8.9, -2.725) {\tiny $\cat{C}$};
+		\node [style=none] (86) at (3.2, 2.25) {\tiny $\cat{C}$};
+		\node [style=none] (87) at (8.75, 2.25) {\tiny $\1$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (6.center) to (5.center);
+		\draw [in=-180, out=60] (3.center) to (5.center);
+		\draw [dotted] (5.center) to (17.center);
+		\draw [dotted] (4.center) to (16.center);
+		\draw [dotted] (45.center) to (64.center);
+		\draw [dotted] (48.center) to (66.center);
+		\draw [style=Front] (1.center)
+			 to (3.center)
+			 to [in=-180, out=-45] (4.center)
+			 to (7.center)
+			 to [in=-45, out=-180] cycle;
+		\draw [style=Front] (22.center)
+			 to (21.center)
+			 to (19.center)
+			 to (20.center)
+			 to cycle;
+		\draw (1.center) to (0.center);
+		\draw (0.center) to (2.center);
+		\draw (2.center) to (3.center);
+		\draw [in=60, out=-180] (6.center) to (1.center);
+		\draw [style=very thick] (3.center) to (1.center);
+		\draw (19.center) to (20.center);
+		\draw (21.center) to (22.center);
+		\draw (20.center) to (22.center);
+		\draw (19.center) to (21.center);
+		\draw [style=morphism-edge] (18.center) to (14.center);
+		\draw [style=morphism-edge, in=-180, out=30] (18.center) to (17.center);
+		\draw [style=morphism-edge, in=-180, out=-45] (18.center) to (16.center);
+		\draw (45.center) to (48.center);
+		\draw (48.center) to (49.center);
+		\draw (49.center) to (46.center);
+		\draw (46.center) to (45.center);
+		\draw [style=morphism-edge] (47.center) to (50.center);
+		\draw (51.center) to (54.center);
+		\draw [style=unit] (51.center) to (81.center);
+		\draw (81.center) to (53.center);
+		\draw (54.center) to (53.center);
+		\draw [style=morphism-edge, fill=white] (60.center)
+			 to (63.center)
+			 to (62.center)
+			 to (61.center)
+			 to cycle;
+		\draw [style=Front] (70.center)
+			 to (69.center)
+			 to (67.center)
+			 to (68.center)
+			 to cycle;
+		\draw (67.center) to (68.center);
+		\draw (69.center) to (70.center);
+		\draw (68.center) to (70.center);
+		\draw (67.center) to (69.center);
+		\draw [style=morphism-edge] (64.center) to (65.center);
+		\draw [style=morphism-edge] (65.center) to (66.center);
+		\draw [style=morphism-edge, fill=white] (71.center)
+			 to (74.center)
+			 to (73.center)
+			 to (72.center)
+			 to cycle;
+		\draw [dotted] (14.center) to (2.center);
+		\draw [dotted] (3.center) to (18.center);
+		\draw [in=180, out=-45] (1.center) to (7.center);
+		\draw (7.center) to (4.center);
+		\draw (1.center) to (3.center);
+		\draw [in=180, out=-45] (3.center) to (4.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

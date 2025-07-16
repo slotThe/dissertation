@@ -1,0 +1,2804 @@
+\textsc{We assume the reader's familiarity}
+with basic category theoretical concepts,
+as well as the main features of the theories of monoidal and 2-categories,
+as discussed for example in~\cite{MacLane1998,Etingof2015,category-theory-in-context_riehl,johnson-yau2021:TwoDimensionalCategories}.
+Nevertheless, we start with a brief review of the most important terminology and notation.
+
+\section{Bicategories}\label{sec:bicategories}
+
+\textsc{The theory of bicategories is essential}
+to the graphical calculus we will use throughout,
+see \cref{sec:graphical-calculus-introduction},
+as well as to some formal arguments we shall employ.
+Following~\cite{johnson-yau2021:TwoDimensionalCategories},
+we recall the most important definitions.
+
+\begin{definition}\label{def:bicategory}
+  A \emph{bicategory} \(\mathbb{B}\) has as data:
+  \begin{itemize}
+    \item A collection of \emph{objects} \(\Ob\mathbb{B}\), where we often write \(x \in \mathbb{B}\) for \(x \in \Ob \mathbb{B}\);
+    \item for all \(x, y \in \mathbb{B}\) a \emph{hom-category} \(\mathbb{B}(x,y)\),
+    whose objects are called \emph{1-cells} (or 1-mor\-phisms) and whose morphisms are called \emph{2-cells} (or 2-morphisms);
+    \item for all \(x, y, z \in \mathbb{B} \) a \emph{horizontal composition}
+    functor
+    \[
+      \otimes_y \from \mathbb{B}(y, z) \times \mathbb{B}(x, y) \to \mathbb{B}(x, z);
+    \]
+    \item for all \(x \in \mathbb{B}\) an \emph{identity} \(1_x \in \mathbb{B}(x,x) \);
+    \item a natural isomorphism \(\alpha_{M, N, P} \from (M \otimes_y N) \otimes_x P \to M \otimes_y (N \otimes_x P)\);
+    \item natural isomorphisms \(\lambda_M \from 1_y \otimes_y M \to M\) and \(\rho_M \from M \to M \otimes_x 1_x\).
+  \end{itemize}
+
+  \noindent{}This data is subject to the commutativity of the following diagrams, for all suitable 1-cells \(M, N, P, R\):
+  \[
+    \mathscale{0.9}{\begin{mytikzcd}[ampersand replacement=\&]
+      {(M \otimes_z (N \otimes_y P)) \otimes_x R} \&\& {M \otimes_z ((N \otimes_y P) \otimes_x R)} \\
+      {((M \otimes_z N) \otimes_y P) \otimes_x R} \&\& {M \otimes_z (N \otimes_y (P \otimes_x R))} \\
+      \& {(M \otimes_z N) \otimes_y (P \otimes_x R)} \\
+      {(M \otimes_x 1_x) \otimes_x N} \&\& {M \otimes_x (1_x \otimes_x N)} \\
+      {M \otimes_x N} \&\& {M\otimes_x N}
+      \arrow["{{\alpha_{M, N \otimes_y P, R}}}", from=1-1, to=1-3]
+      \arrow["{{M \otimes \alpha_{NPR}}}", from=1-3, to=2-3]
+      \arrow["{{\alpha_{MNP} \otimes R}}", from=2-1, to=1-1]
+      \arrow["{{\alpha_{M \otimes_z N, P, R}}}"', from=2-1, to=3-2]
+      \arrow["{{\alpha_{M,N,P \otimes_x R}}}"', from=3-2, to=2-3]
+      \arrow["{{\alpha_{M, 1_x, N}}}", from=4-1, to=4-3]
+      \arrow["{{M \otimes \lambda_N}}", from=4-3, to=5-3]
+      \arrow["{{\rho_M \otimes N}}", from=5-1, to=4-1]
+      \arrow[Rightarrow, no head, from=5-1, to=5-3]
+    \end{mytikzcd}}
+  \]
+
+  If \(\alpha\), \(\lambda\), and \(\rho\) are all identities, we call \(\mathbb{B}\) a \emph{2-category}.
+\end{definition}
+
+The composition of morphisms inside of the category \(\mathbb{B}(x,y)\) will be called the \emph{vertical composition}.
+We denote the terminal bicategory
+consisting of a single object, a single 1-, and a single 2-morphism
+by \(\terminal\).
+
+\begin{example}\label{ex:cat-is-a-bicategory}
+  The category \(\BiCat{Cat}\) of (small) categories, functors, and natural transformations is a 2-category.
+  Horizontal composition is given by horizontal composition of functors and natural transformations.
+\end{example}
+
+Examples of bicategories are plentiful throughout this work.
+We refrain from spelling them out here
+before having introduced more of the necessary notation,
+but see
+\cref{%
+  ex:bicategory-of-bimodules,%
+  MonoidalBicatCat,%
+  MonoidalBicatProf,%
+  rmk:twisted-centre-as-loop,%
+  rmk:bimonad-in-bicategorical-language%
+}
+
+\begin{remark}
+  The use of \(\otimes\) for the horizontal composition is non-standard,
+  and inspired by~\cite{garner22}.
+  We use it here to highlight the parallels to the definition of monoidal categories,
+  see \cref{def:monoidal-category}.
+\end{remark}
+
+\begin{notation}
+  To syntactically differentiate bicategories from ordinary categories,
+  we will generally start the name of a bicategory with a blackboard bold letter.
+  For example, when talking about the 1-category of all (small) categories and functors,
+  we write \(\Cat\) instead of \(\BiCat{Cat}\).
+\end{notation}
+
+Much like monoidal categories,
+see \cref{thm:monoidal-strictness-theorem},
+bicategories admit a \emph{coherence} and \emph{strictification} result,
+in that every bicategory is biequivalent to a 2-category,
+see for example~\cite[Theorem~8.4.1 and~Corollary~8.4.2]{johnson-yau2021:TwoDimensionalCategories}.
+
+\begin{definition}\label{def:bifunctor}
+  A \emph{lax functor} \(F\from \mathbb{B} \to \mathbb{C}\)
+  of bicategories \(\mathbb{B}\), \(\mathbb{C}\)
+  has as data:
+  \begin{itemize}
+    \item an object assignment \(F \from \Ob\mathbb{B} \to \Ob\mathbb{C}\);
+    \item for all \(x,y \in\mathbb{B}\), a functor \(F_{x, y} \from \mathbb{B}(x, y) \to \mathbb{C}(F x, F y)\);
+    \item a family of natural transformations \(F_2 \from F \otimes F \nt F \circ \otimes\),
+    with components \(F_{2, M, N} \from F_{yz} M \otimes_{F y} F_{xy} N \to F_{xz} (M \otimes_y N)\),
+    for all \(x,y,z \in\mathbb{B}\), \(M\in\mathbb{B}(y,z)\), and \(N \in\mathbb{B}(x,y)\); and
+    \item for all \(x \in\mathbb{B}\), arrows \(F_{0, x} \from 1_{F x} \to F 1_x\).
+  \end{itemize}
+
+  \noindent{}This data is subject to the following axioms in \(\mathbb{C}(Fw, Fz)\) and \(\mathbb{C}(Fx, Fy)\),
+  respectively, for all admissible \(M,N,P\):
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {(FM \otimes_{Fy} FN) \otimes_{Fx} FP} \& {FM \otimes_{Fy} (FN \otimes_{Fx} FP)} \\
+      {F(M \otimes_y N) \otimes_{Fx} FP} \& {FM \otimes_{Fy} F(N \otimes_x P)} \\
+      {F((M \otimes_y N) \otimes_x P)} \& {F(M \otimes_y (N \otimes_x P))}
+      \arrow["\alpha", from=1-1, to=1-2]
+      \arrow["{F_{2; M, N} \otimes \mathrm{id}}"', from=1-1, to=2-1]
+      \arrow["{\mathrm{id}\otimes F_{2; N, P}}", from=1-2, to=2-2]
+      \arrow["{F_{2; M\otimes N, P}}"', from=2-1, to=3-1]
+      \arrow["{F_{2; M, N \otimes P}}", from=2-2, to=3-2]
+      \arrow["{F\alpha}"', from=3-1, to=3-2]
+    \end{mytikzcd}
+  \]
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {1_{Fy} \otimes_{Fy} FM} \& FM \& {FM \otimes_{Fx} 1_{Fx}} \\
+      {F1_y \otimes_{Fy} FM} \&\& {FM \otimes_{Fx} F1_x} \\
+      {F(1_y \otimes _y M)} \& FM \& {F(M \otimes_x 1_x)}
+      \arrow["\lambda", from=1-1, to=1-2]
+      \arrow["{F_{0;y}\otimes\mathrm{id}}"', from=1-1, to=2-1]
+      \arrow["\rho", from=1-2, to=1-3]
+      \arrow[Rightarrow, no head, from=1-2, to=3-2]
+      \arrow["{\mathrm{id}\otimes F_{0;x}}", from=1-3, to=2-3]
+      \arrow["{F_{2;1_y,M}}"', from=2-1, to=3-1]
+      \arrow["{F_{2;M,1_x}}", from=2-3, to=3-3]
+      \arrow["{F\lambda}"', from=3-1, to=3-2]
+      \arrow["{F\rho}"', from=3-2, to=3-3]
+    \end{mytikzcd}
+  \]
+
+  A lax functor is called a \emph{pseudofunctor} if all \(F_2\)'s and \(F_0\)'s are invertible,
+  and a \emph{2-functor} if they are all identities.
+\end{definition}
+
+Analogously, one defines \emph{oplax functors} between 2-categories.
+
+\begin{definition}\label{def:oplax-transformation}
+  An \emph{oplax transformation} \(\omega\from F \nt G\) between lax functors
+  \((F, F_2, F_0), (G,G_2,G_0)\from \mathbb{B} \to \mathbb{C} \)
+  consists of
+  a 1-cell \(\omega_x \from Fx \to Gx\) in \(\mathbb{C}\) for every \(x \in \mathbb{B}\),
+  and for all \(x, y \in \mathbb{B}\) a natural transformation
+  \[
+    \omega\from \omega_y \otimes F(\blank) \nt G(\blank) \otimes \omega_x\from \mathbb{B}(x,y) \to \mathbb{C}(Fx,Gy)
+  \]
+  with component 2-cells \(\omega_f\from \omega_y \otimes_{Fy} Ff \nt Gf \otimes_{Gx} \omega_x\) for all \(f\from x\to y\) in \(\mathbb{B}\).
+  Graphically, we draw these 2-cells like the following:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      Fx \& Fy \\
+      Gx \& Gy
+      \arrow["Ff", from=1-1, to=1-2]
+      \arrow["{\omega_x}"', from=1-1, to=2-1]
+      \arrow["{\omega_f}"', shorten <=8pt, shorten >=8pt, Rightarrow, from=1-2, to=2-1]
+      \arrow["{\omega_y}", from=1-2, to=2-2]
+      \arrow["Gf"', from=2-1, to=2-2]
+    \end{mytikzcd}
+  \]
+
+  An oplax transformation is called a \emph{pseudonatural transformation}\note{%
+    Pseudonatural transformations are called
+    \emph{strong transformations} in~\cite{johnson-yau2021:TwoDimensionalCategories}.
+  }
+  if all \(\omega_f\)'s are isomorphisms,
+  and a \emph{2-natural transformation} if they are all identities.
+\end{definition}
+
+Analogously, one defines \emph{lax} transformations between lax functors,
+as well as lax and oplax transformations between oplax functors.
+
+\begin{definition}[{\cite{lack10:icons}}]\label{def:icon}
+  Let \(F, G\from\mathbb{B} \to\mathbb{C}\) be lax functors between bicategories.
+  An \emph{\textsc{icon}} between \(F\) and \(G\) consists of
+  an assertion that \(Fx = Gx\), for all \(x \in\mathbb{B}\); and
+  an oplax transformation \(\omega \from F \nt G\),
+  such that for all \(x \in \mathbb{B}\), the 1-cell \(\omega_x\from Fx \to Gx\) is the identity.
+\end{definition}
+
+\Cref{def:icon} might seem a bit contrived at first,
+but it is an important concept:
+there is no 2-category with
+(small) bicategories as 0-cells,
+lax (even pseudo-) functors as 1-cells,
+and 2-natutral transformations as 2-cells.
+Instead, \textsc{icon}s yield the ``right'' kind of 2-cells for this construction,
+see~\cite[Section~4.6]{johnson-yau2021:TwoDimensionalCategories}
+for a more extensive account.
+
+\begin{definition}\label{def:modification}
+  Let \( \mathbb{B}\) and \( \mathbb{C}\) be bicategories,
+  \(F, G \from \mathbb{B} \to \mathbb{C}\) lax functors,
+  and suppose that \(\alpha, \beta\from F \nt G\) are oplax transformations.
+  A \emph{modification} \(\Upsilon \from \alpha \Rrightarrow \beta\) between \(\alpha\) and \(\beta\) consists of
+  a 2-cell \(\Upsilon_x \from \alpha_x \nt \beta_x\) for every \(x \in \mathbb{B}\),
+  such that the following diagram commutes for all 1-cells \(f \in \mathbb{B}(x,y)\):
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&, row sep=small, column sep=small]
+      Fx \&\& Fy \&\& Fx \&\& Fy \\
+      \&\&\& {=} \\
+      Gx \&\& Gy \&\& Gx \&\& Gy
+      \arrow["Ff", from=1-1, to=1-3]
+      \arrow[""{name=0, anchor=center, inner sep=0}, "{\alpha_x}", curve={height=-12pt}, from=1-1, to=3-1]
+      \arrow[""{name=1, anchor=center, inner sep=0}, "{\beta_x}"', curve={height=12pt}, from=1-1, to=3-1]
+      \arrow["{\alpha_f}", shift left=4, shorten <=14pt, shorten >=14pt, Rightarrow, from=1-3, to=3-1]
+      \arrow["{\alpha_y}", from=1-3, to=3-3]
+      \arrow["Ff", from=1-5, to=1-7]
+      \arrow["{\beta_x}"', from=1-5, to=3-5]
+      \arrow["{\beta_f}", shift right=6, shorten <=14pt, shorten >=14pt, Rightarrow, from=1-7, to=3-5]
+      \arrow[""{name=2, anchor=center, inner sep=0}, "{\beta_y}"', curve={height=12pt}, from=1-7, to=3-7]
+      \arrow[""{name=3, anchor=center, inner sep=0}, "{\alpha_y}", curve={height=-12pt}, from=1-7, to=3-7]
+      \arrow["Gf"', from=3-1, to=3-3]
+      \arrow["Gf"', from=3-5, to=3-7]
+      \arrow["{\raisebox{-0.7em}{\(\Upsilon_x\)}}", shorten <=4pt, shorten >=4pt, Rightarrow, from=0, to=1]
+      \arrow["{\raisebox{-0.7em}{\(\Upsilon_y\)}}", shorten <=4pt, shorten >=4pt, Rightarrow, from=3, to=2]
+    \end{mytikzcd}
+  \]
+\end{definition}
+
+In fact, bicategories, lax functors, lax natural transformations, and modifications between them
+form a \emph{tricategory}.
+We shall not give the formal definition here,
+but see~\cite{gordon95:coher,gurski2006algebraic}
+and~\cite[Chapter~11]{johnson-yau2021:TwoDimensionalCategories}.
+
+\section{Monads and adjunctions}\label{sec:monads-adjunctions}
+
+\begin{definition}\label{def:monad}
+  A \emph{monad} on a category \(\cat{C}\) consists of an endofunctor \(T\) on \(\cat{C}\)
+  and two natural transformations
+  \(\mu \from T^2 \nt T\) and \(\eta \from \Id_{\cat{C}} \nt T\),
+  called the \emph{multiplication} and \emph{unit} of \(T\),
+  satisfying \emph{associativity} and \emph{unitality} axioms:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {T^3} \& { T^2} \& {T^2} \& T \& T \\
+      {T^2} \& T \&\& T
+      \arrow["T\mu", rightarrow, from=1-1, to=1-2]
+      \arrow["\mu", rightarrow, from=1-2, to=2-2]
+      \arrow["{\mu T}"', rightarrow, from=1-1, to=2-1]
+      \arrow["\mu"', rightarrow, from=2-1, to=2-2]
+      \arrow[rightarrow, no head, from=1-4, to=2-4]
+      \arrow["{\eta T}"', rightarrow, from=1-4, to=1-3]
+      \arrow["\mu"', rightarrow, from=1-3, to=2-4]
+      \arrow["{T \eta}", rightarrow, from=1-4, to=1-5]
+      \arrow["\mu", rightarrow, from=1-5, to=2-4]
+    \end{mytikzcd}
+  \]
+\end{definition}
+
+\begin{definition}\label{def:adjunction}
+  An \emph{adjunction}
+  consists of a pair of functors \(\stdadj\),
+  together with two natural transformations,
+  the \emph{unit} \(\eta\from \Id_{\cat{C}} \nt UF\)
+  and the \emph{counit} \(\varepsilon\from FU \nt \Id_{\cat{D}}\),
+  satisfying the \emph{snake} or \emph{triangle} identities;
+  see for example~\cite[Definition~4.2.5]{category-theory-in-context_riehl}.
+\end{definition}
+
+Alternatively,
+one could define an adjunction between \(F\from \cat{C}\to \cat{D}\) and \(G\from \cat{D}\to \cat{C}\)
+to require the existence of a natural isomorphism
+\[
+  \cat{D}(F(\blank), \bblank) \cong \cat{C}(\blank, U(\bblank)),
+\]
+from which one recovers the unit and counit, see~\cite[Proposition~4.2.6]{category-theory-in-context_riehl}.
+Note that, a priori,
+different natural isomorphisms lead to different adjunctions between the same functors.
+However, fixing for example \(G\),
+then for two left adjoints \(F\) and \(F'\)
+there exists a unique isomorphism \(\Theta\from F \nt F'\)
+that commutes with the respective units and counits;
+see~\cite[Proposition~4.4.1]{category-theory-in-context_riehl}.
+
+\begin{example}\label{ex:interplay-monad-adjunction}
+  If \(\stdadj\) is an adjunction with unit \(\eta\) and counit \(\varepsilon\),
+  then \(UF \from \cat{C} \to \cat{C}\) is a monad;
+  the multiplication \(\mu^T\from UFUF \nt UF\) is given by \(U \varepsilon F\),
+  and the unit \(\eta^T\from \Id_{\cat{C}} \nt UF\) is equal to \(\eta\).
+\end{example}
+
+\begin{definition}\label{def:algebras-over-monad}
+  Given a monad \((T, \mu, \eta)\) on a category \(\cat{C}\),
+  a \emph{\(T\)\hyp{}algebra} consists of an object \(x \in \cat{C}\) and a morphism \(\alpha \from Tx \to x\),
+  satisfying
+  \[
+    \alpha \circ T\alpha = \alpha \circ \mu_x
+    \qquad\qquad\text{and}\qquad\qquad
+    \alpha \circ \eta_x = \id_x.
+  \]
+
+  Given two \(T\)\hyp{}algebras \((x, \alpha)\) and \((y, \beta)\),
+  a \emph{morphism} between them consists of a morphism \(f\from x \to y\) in \(\cat{C}\),
+  such that \(\beta \circ Tf = f \circ \alpha\).
+\end{definition}
+
+\begin{remark}\label{rmk:em-is-algebras}
+  For any monad \(T\), the \(T\)\hyp{}algebras and their morphisms form a category: the \emph{\EilenbergMoore{} category of \(T\)}.%
+  \marginnote{%
+    Our notation for the Eilenberg–Moore category
+    already ascribes a certain ``terminal'' quality to it;
+    see \cref{rmk:em-kl-terminal-initial}.%
+  }
+  We shall denote it by \(\cat{C}^T\).
+
+  The Eilenberg–Moore category of \(T\) is also often called the \emph{category of \(T\)\hyp{}algebras} or,
+  following for example~\cite{Bruguieres2007},
+  the \emph{category of modules} over \(T\).
+  We use all three terminologies interchangeably.
+\end{remark}
+
+A monad is intimately connected to its Eilenberg–Moore category.
+
+\begin{example}\label{ex:eilenberg-moore-adjunctions}
+  There is a \(2\)\hyp{}category \(\BiCat{Mon}(\BiCat{Cat})\) of monads in \(\BiCat{Cat}\),~\cite[\S~1]{Street1972}.
+  The inclusion 2-functor maps a category to its identity monad:
+  \[
+    \BiCat{Cat} \to \BiCat{Mon}(\BiCat{Cat}),\qquad \cat{C} \mapsto (\Id_{\cat{C}}, \id_{\Id_{\cat{C}}}, \id_{\Id_{\cat{C}}}).
+  \]
+  By assumption, \(\BiCat{Cat}\) \emph{admits the construction of algebras}:
+  there exists a right adjoint to the above functor:
+  \[
+    \BiCat{Mon}(\BiCat{Cat}) \to \BiCat{Cat},
+    \qquad
+    (T\from \cat{C}\to \cat{C}, \mu, \eta) \mapsto \cat{C}^{T},
+  \]
+  where \(\cat{C}^{T} \in \BiCat{Cat}\) is the \EilenbergMoore{} category of \(T\).
+  Using the previous 2-adjunction,
+  one proves that to every monad \((T, \mu, \eta)\) on \(\cat{C}\)
+  there exist an \emph{\EilenbergMoore{} adjunction}
+  \(F^T \from \cat{C} \to \cat{C}^T\)
+  and
+  \(U^T \from \cat{C}^T \to \cat{C}\),
+  such that
+  \[
+    T = U^T F^T,\qquad
+    \mu = F^T \varepsilon U^T,\qquad
+    \eta = \eta,
+  \]
+  where
+  \(\eta \from 1_{\cat{C}} \nt U^T F^T\) and \(\varepsilon \from F^T U^T \nt 1_{\cat{C}^T}\)
+  are the unit and counit of the \EilenbergMoore{} adjunction.
+  We shall call \(F^T\) and \(U^T\) the \emph{free} and \emph{forgetful} functor \emph{associated to \(T\)}, respectively.
+\end{example}
+
+For the following definition, we follow~\cite{Bruguieres2007,Turaev2017}.
+
+\begin{definition}\label{def:morphism-of-monads}
+  Suppose that \(T\) and \(S\) are two monads on the category \(\cat{C}\).
+  A \emph{morphism of monads} between \(T\) and \(S\) is a natural transformation \(f \from T \nt S\),
+  such that the following diagrams commute
+  \begin{equation}\label[diagram]{eq:morphism-of-monads}
+    \begin{mytikzcd}[ampersand replacement=\&]
+      \Id \& T \&\&\& TT \& TS \& SS \\
+      \& S \&\&\& T \&\& S
+      \arrow["{\eta^T}", from=1-1, to=1-2]
+      \arrow["{\eta^S}"', from=1-1, to=2-2]
+      \arrow["f", from=1-2, to=2-2]
+      \arrow["Tf", from=1-5, to=1-6]
+      \arrow["{\mu^T}"', from=1-5, to=2-5]
+      \arrow["fS", from=1-6, to=1-7]
+      \arrow["{\mu^S}", from=1-7, to=2-7]
+      \arrow["f"', from=2-5, to=2-7]
+    \end{mytikzcd}
+  \end{equation}
+\end{definition}
+
+\begin{remark}
+  The terminology of \cref{def:morphism-of-monads} is slightly non-standard.
+  What we call a morphism of monads is often called a \emph{oplax} (or colax) monad morphism,
+  see for example~\cite[\S~1]{Street1972}.
+\end{remark}
+
+\begin{remark}
+  One can define a monad in any bicategory \(\mathbb{B}\) by considering \((C, t, \eta, \mu)\),
+  where \(C \in\mathbb{B}\) is an object,
+  \(t\from C \to C\) is a 1-cell,
+  and \(\eta\from \Id_C \nt t\) and \(\mu\from tt \nt t\) are 2-cells,
+  satisfying relations analogous to \cref{def:monad}.
+  An oplax morphism of monads from \((C, t, \eta^t, \mu^t)\) to \((D, s, \eta^s, \mu^s)\)
+  then consists of a 1-cell \(u\from C \to D\) and a 2-cell \(\phi\from ut \nt su\),
+  subject to identities reminiscent of \cref{eq:morphism-of-monads}.
+  A \emph{lax morphism of monads} involves a 1-cell \(u\from C \to D\) and a 2-cell \(\phi\from su \nt ut\),
+  satisfying similar properties.
+\end{remark}
+
+The following example sheds some additional light on this terminology.
+
+\begin{example}\label{ex:alternative-monad}
+  Monads can alternatively be defined as
+  lax functors—in the sense of \cref{def:bifunctor}—from
+  the terminal 2-category \(\terminal\) to \(\BiCat{Cat}\).
+  Unravelling this definition,
+  a lax functor \(\mathfrak{T} \from \terminal \to \BiCat{Cat}\) consists of:
+  \begin{itemize}
+    \item an object assignment \(\mathfrak{T}\from \Ob\terminal \to \Ob\BiCat{Cat}\),
+    sending the unique object \(\ast\) to a category \(\cat{C}\);
+    \item a functor \(\mathfrak{T}(*,*)\from \terminal(*,*) \to \BiCat{Cat}(\cat{C},\cat{C})\)
+    from the terminal 1-category \(\terminal(*,*)\) to the category of endofunctors on \(\cat{C}\),
+    sending the unique 1-morphism \(\id_{*}\from * \to *\) to \(T\from \cat{C}\to \cat{C}\)
+    and the unique 2-morphism \(1_{\id_{*}}\from \id_{*} \nt \id_{*}\) to the identity natural transformation \(T \nt T\);
+    \item a 2-cell\marginnote{%
+      Recall that \(\otimes\) is the horizontal composition in \(\mathbb{B}\).
+    }
+    \(\mathfrak{T}_2\from \mathfrak{T}\id_{*} \otimes \mathfrak{T}\id_{*} \nt \mathfrak{T}\id_{*}\),
+    which we write as \(\mu\from T T \nt T\); and
+    \item a 2-cell
+    \(\mathfrak{T}_0\from 1_{\mathfrak{T}(*)} \nt \mathfrak{T}\id_{*}\)
+    that we write as \(\eta \from \Id_{\cat{C}} \nt T\).
+  \end{itemize}
+  The properties of \cref{def:bifunctor} for \(\mathfrak{T}_2\) and \(\mathfrak{T}_0\)
+  translate to the associativity and unitality properties of \(\mu\) and \(\eta\).
+  In this setting,
+  a morphism of monads becomes an oplax transformation in the sense of \cref{def:oplax-transformation}.
+\end{example}
+
+\begin{example}\label{ex:kleisli-category}
+  A monad \(T\) on \(\cat{C}\) has another canonical category associated to it:
+  its \emph{Kleisli category} \(\cat{C}_T\).
+  On objects, it is given by \(\mathrm{Ob}(\cat{C}_T) \defeq \mathrm{Ob}(\cat{C})\),
+  and for \(x, y \in \cat{C}_T\) we have \(\cat{C}_T(x,y) \defeq \cat{C}(x,Ty)\).
+  Composition is defined by
+  \begin{align*}
+    \circ \from \cat{C}_T(y, z) \times \cat{C}_T(x, y) &\to \cat{C}_T(x, z) \\
+    (g, f) &\mapsto \big( x \xrightarrow{\ \ f\ \ } Ty \xrightarrow{\ Tg\ } T^2z \xrightarrow{\ \ \mu_z\ \ } Tz \big).
+  \end{align*}
+\end{example}
+
+\begin{proposition}\label{prop:Kleisli-adjunction}
+  Let \(T\) be a monad on a category \(\cat{C}\).
+  There exists an adjunction
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\cat{C}} \& {\cat{C}_T}
+      \arrow[""{name=0, anchor=center, inner sep=0}, "{F_T}", shift left=2, from=1-1, to=1-2]
+      \arrow[""{name=1, anchor=center, inner sep=0}, "{U_T}", shift left=2, from=1-2, to=1-1]
+      \arrow["\dashv"{anchor=center, rotate=-90}, draw=none, from=0, to=1]
+    \end{mytikzcd}
+  \]
+  where \(F_T\) is identity on objects and sends \(f \in \cat{C}(x,y)\) to \(\eta_{y} \circ f\),
+  and \(U_T\) sends \(x\) to \(Tx\) and \(f \in \cat{C}(x, y)\) to \(\mu_{y} \circ Tf\).
+\end{proposition}
+
+\subsection{Comparison functors}\label{sec:comp-funs}
+
+\textsc{Given a monad \(T\) coming from} the adjunction \stdadj,
+we might ask how much the functors \(F\) and \(U\) ``differ''
+from the free and forgetful functors \(F^T \from \cat{C} \to \cat{C}^T\) and \(U^T \from \cat{C}^T \to \cat{C}\) of \(T\).
+Roughly summarised we are interested in the following:
+\[
+  \begin{mytikzcd}[ampersand replacement=\&]
+    \cat{D} \arrow[rrdd, "U", bend left] \& \& \& \& \cat{C}^T \arrow[llll, "\text{``compare''}"', no head, dashed, bend right] \arrow[lldd, "U^T", bend left] \\
+    \&  \&                                                                        \&  \&                                                                                          \\
+    \&  \& \cat{C} \arrow[lluu, "F", bend left] \arrow[rruu, "F^T", bend left] \&  \&
+  \end{mytikzcd}
+\]
+
+\begin{proposition}[{\cite[Theorem~2]{frei69:some}}]\label{prop:morphism-of-monads-gets-kleisli}
+  Let \(T\) and \(S\) be monads on a category \(\cat{C}\).
+  Then there exists a bijection between monad morphisms from \(T\) to \(S\)
+  and functors \(F\from \cat{C}^S \to \cat{C}^T\) between their categories of algebras,
+  such that \(U^T F = U^S\).
+\end{proposition}
+
+Note that, if we were to define morphisms of monads as lax transformations,
+\cref{prop:morphism-of-monads-gets-kleisli} would yield a covariant assignment.
+
+\begin{lemma}[{\cite[Theorem~3]{Street1972}}]\label{lem:comparison-functor}
+  Let \(\stdadj\) be an adjunction
+  and set \(T \defeq UF\).
+  There exists a unique functor
+  \(K^T \from \cat{D} \to \cat{C}^T\)
+  satisfying \(K^T F = F^T\) and \(U^T K^T = U\).
+  On objects it is given by \(K^T d = (Ud, U\varepsilon_{d})\), for all \(d \in \cat{D}\).
+\end{lemma}
+
+We call the unique functor from \cref{lem:comparison-functor}
+the \emph{comparison functor}.
+An adjunction is called \emph{monadic} if its comparison functor is an equivalence.
+
+There exists an analogous version of \cref{lem:comparison-functor} for the Kleisli category of a monad \(T\).
+The comparison functor in this situation is given by
+\[
+  K_{T}\from \cat{C}_T \to \cat{D}, \qquad x \mapsto Fx, \qquad f \in \cat{D}(x,Ty) \mapsto \varepsilon_{Fy} \circ Ff.
+\]
+
+\begin{remark}\label{rmk:em-kl-terminal-initial}
+  In fact, the Eilenberg--Moore and the Kleisli category are the terminal and initial objects in
+  the suitably defined category of adjunctions \(\stdadj\) producing the monad \(T\).
+  Thus, the diagram
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\cat{C}_T} \&\& {\cat{D}} \&\& {\cat{C}^T} \\
+      \\
+      \&\& {\cat{C}}
+      \arrow["{K_T}", from=1-1, to=1-3]
+      \arrow[""{name=0, anchor=center, inner sep=0}, "{U_T}"{pos=0.4}, shift left, from=1-1, to=3-3]
+      \arrow["{K^T}", from=1-3, to=1-5]
+      \arrow[""{name=1, anchor=center, inner sep=0}, "U", shift left=2, from=1-3, to=3-3]
+      \arrow[""{name=2, anchor=center, inner sep=0}, "{U^T}", shift left=3, from=1-5, to=3-3]
+      \arrow[""{name=3, anchor=center, inner sep=0}, "{F_T}", shift left=3, from=3-3, to=1-1]
+      \arrow[""{name=4, anchor=center, inner sep=0}, "F", shift left=2, from=3-3, to=1-3]
+      \arrow[""{name=5, anchor=center, inner sep=0}, "{F^T}"{pos=0.6}, shift left, from=3-3, to=1-5]
+      \arrow["\dashv"{anchor=center}, draw=none, from=4, to=1]
+      \arrow["\dashv"{anchor=center, rotate=49}, draw=none, from=3, to=0]
+      \arrow["\dashv"{anchor=center, rotate=-50}, draw=none, from=5, to=2]
+    \end{mytikzcd}
+  \]
+  commutes,
+  and its commutativity characterises \(K^T\) and \(K_T\) completely.
+\end{remark}
+
+The composite \(K^T \circ K_T\) is fully faithful,
+its full image consisting of \emph{free modules}.
+We will denote the canonical inclusion of \(\cat{C}_T\) into \(\cat{C}^T\) by
+\begin{equation}\label{denotedbyiota}
+  \iota\from \cat{C}_T \longhookrightarrow \cat{C}^T, \qquad x \mapsto (Tx, \mu_x), \qquad f \in \cat{C}(x, Ty) \mapsto \mu_y \circ Tf.
+\end{equation}
+
+\begin{example}\label{ex:comonads}
+  A \emph{comonad} on a category \(\cat{C}\) consists of
+  an endofunctor \(S\) on \(\cat{C}\) together with natural transformations \(\Delta\from S \nt S^2\) and \(\varepsilon\from S \nt \Id_{\cat{C}}\),
+  satisfying axioms dual to those of \cref{def:monad}.
+
+  For a comonad \(S\) on \(\cat{C}\)
+  an \emph{\(S\)\hyp{}comodule} or \emph{\(S\)\hyp{}coalgebra} is an object \(x \in \cat{C}\) together with a morphism \(x \to S x\) satisfying axioms analogous to \cref{def:algebras-over-monad}.
+  We will denote the category of \(S\)\hyp{}comodules by \(\cat{C}^{S}\) and the Kleisli category of \(S\) by \(\cat{C}_{S}\).
+  They have analogously defined adjunctions
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\cat{C}_{S}} \& {\cat{C}} \& {\text{and}} \& {\cat{C}^{S}} \& {\cat{C}.}
+      \arrow[""{name=0, anchor=center, inner sep=0}, "{F_{S}}", shift left=2, from=1-1, to=1-2]
+      \arrow[""{name=1, anchor=center, inner sep=0}, "{U_{S}}", shift left=2, from=1-2, to=1-1]
+      \arrow[""{name=2, anchor=center, inner sep=0}, "{F^{S}}", shift left=2, from=1-4, to=1-5]
+      \arrow[""{name=3, anchor=center, inner sep=0}, "{U^{S}}", shift left=2, from=1-5, to=1-4]
+      \arrow["\dashv"{anchor=center, rotate=-90}, draw=none, from=0, to=1]
+      \arrow["\dashv"{anchor=center, rotate=-90}, draw=none, from=2, to=3]
+    \end{mytikzcd}
+  \]
+
+  The Eilenberg--Moore category and the Kleisli category for the comonad \(S \defeq FU\) can be characterised as
+  a terminal and initial object, respectively.
+  This yields functors \(K_{S}\) and \(K^{S}\) such that the following diagram commutes
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      \&\& {\cat{D}} \\
+      \\
+      {\cat{C}_{S}} \&\& {\cat{C}} \&\& {\cat{C}^{S}}
+      \arrow[""{name=0, anchor=center, inner sep=0}, "{{U_{S}}}"{pos=0.6}, shift left, from=1-3, to=3-1]
+      \arrow[""{name=1, anchor=center, inner sep=0}, "U", shift left=2, from=1-3, to=3-3]
+      \arrow[""{name=2, anchor=center, inner sep=0}, "{{U^{S}}}", shift left=3, from=1-3, to=3-5]
+      \arrow[""{name=3, anchor=center, inner sep=0}, "{{F_{S}}}", shift left=3, from=3-1, to=1-3]
+      \arrow["{{K_{S}}}"', from=3-1, to=3-3]
+      \arrow[""{name=4, anchor=center, inner sep=0}, "F", shift left=2, from=3-3, to=1-3]
+      \arrow["{{K^{S}}}"', from=3-3, to=3-5]
+      \arrow[""{name=5, anchor=center, inner sep=0}, "{{F^{S}}}"{pos=0.4}, shift left, from=3-5, to=1-3]
+      \arrow["\dashv"{anchor=center, rotate=-48}, draw=none, from=3, to=0]
+      \arrow["\dashv"{anchor=center}, draw=none, from=4, to=1]
+      \arrow["\dashv"{anchor=center, rotate=49}, draw=none, from=5, to=2]
+    \end{mytikzcd}
+  \]
+
+  Similarly to \cref{ex:interplay-monad-adjunction},
+  given an adjunction \(\stdadj\), we obtain a comonad \(FU\) on \(\cat{D}\).
+\end{example}
+
+It may be that a monad \(T\) on \(\cat{C}\) has a right adjoint \(G\)%
+—in this case, one can automatically equip \(G\) with a canonical comonad structure.
+
+\begin{proposition}[{\cite[Theorem~V.8.2]{mac92:sheav}}]\label{pyramidscheme}
+  If\, \(T\) is a monad on a category \(\cat{C}\) and \(G\) is a right adjoint to \(T\),
+  then \(G\) is a comonad and there is a canonical isomorphism between the Eilenberg–Moore categories: \(\cat{C}^T \cong \cat{C}^G\).
+\end{proposition}
+
+\begin{proposition}[{\cite[Theorem~3]{kleiner90:adjoin-kleis}}]\label{einerKleinerKleisliÄquivalenz}
+  If \(T\) is a monad on \(\cat{C}\) and \(S\) is a left adjoint to \(T\),
+  then \(S\) is a comonad and there is a canonical isomorphism \(\cat{C}_T \cong \cat{C}_S\).
+\end{proposition}
+
+In general, it is \emph{not} true that \(\cat{C}^T \cong \cat{C}^S\) in the setting of \cref{einerKleinerKleisliÄquivalenz}.
+
+\subsection{Distributive laws}\label{sec:distributive-laws}
+
+\textsc{Beck's theory of distributive laws}
+concerns itself with the question when, given a monad \(T\) on a category \(\cat{C}\),
+a functor \(S\from \cat{C} \to \cat{C}\) \emph{lifts} to a functor on the Eilenberg–Moore category of \(T\),~\cite{Beck1969}.
+That is, there is some \(\tilde{S}\from \cat{C}^T\to \cat{C}^T\), that satisfies the lifting condition
+\[
+  \begin{mytikzcd}[ampersand replacement=\&]
+    \& {\cat{C}^T} \\
+    {\cat{C}^T} \& {\cat{C}}
+    \arrow["{U^T}", from=1-2, to=2-2]
+    \arrow["{\tilde{S}}", dashed, from=2-1, to=1-2]
+    \arrow["{S \circ U^T}"', from=2-1, to=2-2]
+  \end{mytikzcd}
+\]
+If \(S\) is a monad this in turn is equivalent to  \(ST\) being a monad itself.
+Distributive laws thus yield a witness for the composability of two monads.
+Street further developed the theory of distributive laws intrinsic to certain well-behaved bicategories, see~\cite{Street1972}.
+
+\begin{definition}\label{def:distributive-law}
+  Let \(T\) and \(S\) be two monad on a category \(\cat{C}\).
+  A \emph{distributive law} of \(T\) over \(S\) consists of a natural transformation \(\Omega\from TS \nt ST\)
+  such that the following diagrams commute:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      TSS \& STS \& SST \& {T } \& TS \\
+      TS \&\& ST \&\& ST
+      \arrow["{T \mu^S}"', from=1-1, to=2-1]
+      \arrow["\Omega"', from=2-1, to=2-3]
+      \arrow["{\Omega S}", from=1-1, to=1-2]
+      \arrow["{S \Omega}", from=1-2, to=1-3]
+      \arrow["{\mu^S T}", from=1-3, to=2-3]
+      \arrow["{T \eta^S}", from=1-4, to=1-5]
+      \arrow["\Omega", from=1-5, to=2-5]
+      \arrow["{\eta^S T}"', from=1-4, to=2-5]
+    \end{mytikzcd}
+  \]
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      TTS \& TST \& STT \& S \& TS \\
+      TS \&\& ST \&\& ST
+      \arrow["{T \Omega}", from=1-1, to=1-2]
+      \arrow["{\Omega T}", from=1-2, to=1-3]
+      \arrow["{S \mu^T}", from=1-3, to=2-3]
+      \arrow["{\mu^T S}"', from=1-1, to=2-1]
+      \arrow["\Omega"', from=2-1, to=2-3]
+      \arrow["{S \eta^T}"', from=1-4, to=2-5]
+      \arrow["{\eta^T S}", from=1-4, to=1-5]
+      \arrow["\Omega", from=1-5, to=2-5]
+    \end{mytikzcd}
+  \]
+\end{definition}
+
+One analogously defines a distributive law between two comonads,
+and \emph{mixed distributive laws} between a monad and a comonad.
+
+\begin{theorem}[{\cite{Beck1969}}]
+  Let \(S\) and \(T\) be monads on a category \(\cat{C}\).
+  Then the following are equivalent:
+  \begin{thmlist}[noitemsep]
+    \item distributive laws of \(T\) over \(S\);
+    \item monad structures \(S \circ_{\Omega} T \defeq (ST, \mu, \eta)\) on \(ST\),
+    such that \(S \eta^T\) and \(\eta^S T\) are morphisms of monads
+    and \(1_{ST} = \mu \circ S \eta^T \eta^T T\); and
+    \item lifts of \(S\) to the Eilenberg–Moore category of \(T\),
+    such that \(S\) is a monad on \(\cat{C}^T\).
+  \end{thmlist}
+\end{theorem}
+\begin{proof}[Sketch of proof]
+  We outline the main constructions.
+
+  Given a distributive law \(\Omega\from TS \nt ST\),
+  for two monads on \(\cat{C}\),
+  the monad structure on \(ST\) is given by
+  \[
+    \mu\from STST \xrightarrow{S \Omega T} SS TT \xrightarrow{\mu^S \mu^T} ST
+    \qquad\text{and}\qquad
+    \eta\from \Id_{\cat{C}} \xrightarrow{\eta^T} T \xrightarrow{\eta^S T} ST.
+  \]
+  The lift \(\tilde{S}\) of \(S\) to \(\cat{C}^T\) is defined by
+  \(\tilde{S}(x, \nabla_x) \defeq (Sx, TSx \xrightarrow{\Omega_x} STx \xrightarrow{S \nabla_x} Sx)\).
+  Its multiplication and unit is given by those of \(S\).
+
+  Given a monad structure \((ST, \mu, \eta)\),
+  one defines a distributive law by
+  \[
+    TS \xrightarrow{\eta^S TS \eta^T} STST \xrightarrow{\ \mu\ } ST.
+  \]
+
+  Finally, if \(\tilde{S}\) is a lift of \(S\),
+  we obtain a distributive law via
+  \[
+    TS \xrightarrow{TS \eta^{T}} TS U^T F^T = U^T F^T U^T \tilde{S} F^T \xrightarrow{U^{T} \varepsilon^T \tilde{S} F^T} U^T \tilde{S} F^T = S T.\qedhere
+  \]
+\end{proof}
+
+\section{String diagrams}\label{sec:graphical-calculus-introduction}
+
+\textsc{Recall from \cref{ex:cat-is-a-bicategory} that}
+\(\BiCat{Cat}\) is the 2-category of all (small) categories, functors, and natural transformations.
+We use juxtaposition for the horizontal composition of \(\BiCat{Cat}\), or, in case we want to emphasise the direction of composition,
+\[
+  \blank \odot \bblank \from \BiCat{Cat}(\cat{B},\cat{C}) \times \BiCat{Cat}(\cat{A},\cat{B}) \to \BiCat{Cat}(\cat{A},\cat{C}),
+  \qquad \qquad
+  \cat{A},\cat{B},\cat{C} \in \BiCat{Cat}.
+\]
+
+String diagrams will serve as an important tool for doing computations.\marginnote{%
+  More generally, our applications of the graphical calculus can be formulated in any bicategory
+  that admits the construction of algebras in the sense of \cref{ex:eilenberg-moore-adjunctions}.
+  For ease of presentation we shall stick with \(\BiCat{Cat}\).
+}
+In the case of \(\BiCat{Cat}\),
+a \emph{string diagram} consists of
+regions labelled with categories,
+strings labelled with functors,
+and vertices between the strings labelled with natural transformations.
+If two string diagrams can be transformed into each other%
+—that is, if they are isotopic—%
+then the natural transformations they represent are equal.
+A more detailed description is given in~\cite{joyal91,Selinger2011}.
+Our convention is to read diagrams from bottom to top and right to left.
+Horizontal and vertical composition are given by horizontal and vertical gluing of  diagrams, respectively.
+Identity natural transformations are given by unlabelled vertices.
+The edge for the identity functor of a category will not be drawn.
+If the involved categories are clear from the context, we omit writing them explicitly.
+\Cref{fig:explanation-string-diagrams} details our conventions.
+\begin{figure}[htbp]
+  \centering
+  \tikzfig{explanation-string-diagrams}\vspace{-0.2cm}% XXX
+  \scaption[1.2cm]{%
+    Basic string diagrammatic conventions.%
+    \label{fig:explanation-string-diagrams}%
+  }
+\end{figure}
+
+\begin{example}\label{ex:graphical-monads}
+  Let \(T\) be a monad on \(\cat{C}\).
+  We represent the multiplication and unit of \(T\) in terms of string diagrams:
+  \[
+    \tikzfig{monads-multiplication-and-unit}
+  \]
+  Their associativity and unitality then equate to
+  \[
+    \tikzfig{monads-assoc-and-unit}
+  \]
+
+  We depict the unit and counit of the \EilenbergMoore{} adjunction as
+  \[
+    \tikzfig{adjunction-unit-counit}
+  \]
+  The defining equations of adjunctions translate to the snake equations
+  \[
+    \tikzfig{adjunction-snake-identities}
+  \]
+\end{example}
+
+\begin{remark}\label{rmk:diagrammatic-algebras}
+  Given a monad \(T\), its category of algebras can be incorporated into the graphical calculus, see~\cite{Willerton2008}.
+  Define the natural transformation
+  \begin{equation}\label{eq:action-as-nat-trafo}
+    \nabla \from T U^T = U^T F^T U^T \xrightarrow{\ U^T\varepsilon\ } U^T.
+  \end{equation}
+  Now, one may write
+  \[
+    \tikzfig{action-over-monad}
+  \]
+  We think of \(\nabla \from T U^T \to U^T\) as
+  an action of \(T\) on \(U^T\) due to the identities
+  \[
+    \tikzfig{axioms-of-action-over-monad}
+  \]
+
+  By abuse of notation, we shall often simply speak of an object \(x \in \cat{C}^T\),
+  leaving the action \(\nabla_x\) implicit.
+\end{remark}
+
+\section{Monoidal and module categories}\label{sec:mono-module-categ}
+
+\textsc{For a more extensive account}
+concerning the notions of monoidal and module categories,
+we refer the reader to~\cite[Chapter~2]{Etingof2015}.
+
+\begin{definition}\label{def:monoidal-category}
+  A \emph{monoidal category} consists of a category \(\cat{C}\)
+  together with a \emph{tensor product} functor \(\otimes \from \cat{C} \times \cat{C} \to \cat{C}\),
+  a \emph{unit} \(1 \in \cat{C}\),
+  and for all \(x, y, z \in \cat{C}\), natural isomorphisms
+  \begin{align*}
+    \alpha_{x, y, z} \from (x \otimes y) \otimes z \Iso x \otimes (y \otimes z),
+    \quad\ \ %
+    \lambda_{x} \from 1 \otimes x \Iso x,
+    \quad\ \ %
+    \rho_{x} \from x \otimes 1 \Iso x,
+  \end{align*}
+  satisfying \emph{coherence} axioms;
+  see~\cite[Definition~2.1.1]{Etingof2015}.
+
+  A monoidal category is called \emph{strict} if \(\alpha\), \(\lambda\), and \(\rho\) are identities.
+\end{definition}
+
+\begin{example}\label{ex:monoidal-rev}
+  Given a monoidal category \((\cat{C}, \otimes, 1)\),
+  we denote by \(\cat{C}^{\tensorop}\) the monoidal category \((\cat{C}, \otimes^{\op}, 1)\),
+  where for all \(x, y \in \cat{C}\) one sets \(x \otimes^{\op} y \defeq y \otimes x\).
+\end{example}
+
+Recall \emph{Sweedler notation}:
+if \(B\) is a bialgebra in \(\kVect\) with comultiplication \(\Delta\from B \to B \kotimes B\),
+then for \(b \in B\) we write \(b_{(1)} \otimes b_{(2)} \defeq \Delta(b) \in B \kotimes B\).
+For example, in this notation coassociativity translates to
+\[
+  b_{(1)} \otimes {(b_{(2)})}_{(1)} \otimes {(b_{(2)})}_{(2)}
+  = b_{(1)} \otimes b_{(2)} \otimes b_{(3)}
+  = {(b_{(1)})}_{(1)} \otimes {(b_{(1)})}_{(2)} \otimes b_{(2)}.
+\]
+This naturally extends to left and right coactions on \(B\),
+which we respectively denote by \(x \mapsto x_{(-1)} \otimes x_{(0)}\) and \(x \mapsto x_{(0)} \otimes x_{(1)}\).
+
+\begin{example}[{\cite{yetter90:quant}}]\label{ex:yd-modules-def-and-monoidal}
+  Let \(H \in \kVect\) be a bialgebra
+  The category \(\YDM{H}\) of (left-left) \emph{\YetterDrinfeld{} modules} is defined as the category
+  of those \(Y \in \kVect\) that are left \(H\)\hyp{}modules with action \(\lact\)
+  and also left \(H\)\hyp{}comodules with coaction \(y \mapsto y_{(-1)} \otimes y_{(0)}\),
+  such that the following compatibility condition holds for all \(h \in H\) and \(y \in Y\):
+  \begin{equation}\label{eq:yd-condition-bialgebra}
+    h_{(1)}y_{(-1)} \otimes (h_{(2)} \lact y_{(0)}) = {(h_{(1)} \lact y)}_{(-1)} h_{(2)} \otimes {(h_{(1)} \lact y)}_{(0)}
+  \end{equation}
+
+  Then \(\YDM{H}\) is monoidal: given \YetterDrinfeld{} modules \(Y\) and \(Z\),
+  their tensor product \(Y \kotimes Z\) can be equipped with the structure of a Yetter–Drinfeld module.
+  For all \(h \in H\), \(y \in Y\), and \(z \in Z\), define
+  \[
+    h \lact (y \otimes z) \defeq (h_{(1)} \lact y) \otimes (h_{(2)} \lact z)
+    \quad\text{and}\quad
+    y \otimes z \mapsto y_{(-1)}z_{(-1)} \otimes y_{(0)} \otimes z_{(0)}.
+  \]
+
+  In fact, if \(H\) is a Hopf algebra with invertible antipode \(S\)%
+  —for example, when \(H\) is finite\hyp{}dimensional—%
+  then \cref{eq:yd-condition-bialgebra} is equivalent to
+  \begin{equation}\label{eq:yd-condition}
+    {(h \lact y)}_{(-1)} \otimes {(h \lact y)}_{(0)} = h_{(1)}y_{(-1)}S(h_{(3)}) \otimes (h_{(2)} \lact y_{(0)}),
+  \end{equation}
+  see~\cite[Proposition~10.6.16]{montgomery93:hopf}.
+\end{example}
+
+\begin{definition}\label{def:monoidal-functors}
+  A \emph{lax monoidal functor} between monoidal categories \(\cat{C}\)
+  and \(\cat{D}\)
+  consists of a functor \(F\from \cat{C} \to \cat{D}\)
+  together with a morphism \(F_0 \from 1 \to F1\)
+  and a natural transformation \(F_2 \from F(\blank) \otimes F(\bblank) \nt F(\blank \otimes \bblank)\),
+  satisfying \emph{associativity} and \emph{unitality} conditions, see~\cite[Definition~2.4.1]{Etingof2015}.
+
+  Analogously, an \emph{oplax monoidal functor} is a functor \(G\from \cat{C} \to \cat{D}\)
+  together with morphisms \(G_0\from G1 \to 1\) and \(G_2 \from G(\blank \otimes \bblank) \nt G(\blank) \otimes G(\bblank)\),
+  making \(G^{\op}\from \cat{C}^{\op} \to \cat{D}^{\op}\) lax monoidal.
+  We call \(F\) \emph{strong monoidal}
+  if \(F_0\) and \(F_2\) and invertible,
+  and \emph{strict monoidal} if they are identities.
+\end{definition}
+
+Observe that an oplax monoidal functor with invertible coherence morphisms canonically defines a strong monoidal functor.
+
+\begin{remark}\label{rmk:whynotthree}
+  Let \(T\) be an oplax monoidal endofunctor on a monoidal category \(\cat{C}\).
+  By coassociativity of \(T_2\),
+  there exists a well-defined natural transformation
+  \[
+    T_3\from T(\blank \otimes \bblank \otimes \bbblank) \nt T(\blank) \otimes T(\bblank) \otimes T(\bbblank),
+  \]
+  which, for all \(x,y,z \in \cat{C}\), has components
+  \[
+    T_{3;x,y,z}
+    \defeq (T_{2;x,y} \otimes Tz) \circ T_{2; x \otimes y, z}
+    = (Tx \otimes T_{2; y, z}) \circ T_{2; x, y \otimes z}.
+  \]
+\end{remark}
+
+\begin{definition}\label{def:monoidal-nat-trafo}
+  Let \(\cat{C}\) and \(\cat{D}\) be two monoidal categories and suppose that \(F,G \colon \cat{C} \to \cat{D}\) are two lax monoidal functors.
+  A \emph{(lax) monoidal natural transformation} is a natural transformation \(\varphi \colon F \nt G\)
+  such that the following two diagrams commute for all \(x,y \in \cc\):
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {F x \otimes F y} \& {F(x \otimes y)} \&\& 1 \& {F 1} \\
+      {Gx \otimes  Gy} \& {G(x \otimes y)} \&\& G1
+      \arrow["{F_{2;x,y}}", from=1-1, to=1-2]
+      \arrow["{\varphi_{x \otimes y}}", from=1-2, to=2-2]
+      \arrow["{\varphi_x \otimes \varphi_y}"', from=1-1, to=2-1]
+      \arrow["{G_{2;x,y}}"', from=2-1, to=2-2]
+      \arrow["{G_0}"', from=1-4, to=2-4]
+      \arrow["{F_0}", from=1-4, to=1-5]
+      \arrow["{\varphi_1}", from=1-5, to=2-4]
+    \end{mytikzcd}
+  \]
+
+  Dually, given two oplax monoidal functors \(F, G \colon \cat{C} \to \cat{D}\),
+  one defines an \emph{oplax monoidal natural transformation} as an arrow \(\varphi \colon F \nt G\)
+  making the following diagrams commute for all \(x, y \in \cat{C}\):
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {F(x \otimes y)} \& {F x \otimes F y} \&\& {F 1} \& 1 \\
+      {G(x \otimes y)} \& {Gx \otimes  Gy} \&\& G1
+      \arrow["{F_{2;x,y}}", from=1-1, to=1-2]
+      \arrow["{\varphi_{x \otimes y}}"', from=1-1, to=2-1]
+      \arrow["{\varphi_x \otimes \varphi_y}", from=1-2, to=2-2]
+      \arrow["{G_{2;x,y}}"', from=2-1, to=2-2]
+      \arrow["{G_0}"', from=2-4, to=1-5]
+      \arrow["{F_0}", from=1-4, to=1-5]
+      \arrow["{\varphi_1}"', from=1-4, to=2-4]
+    \end{mytikzcd}
+  \]
+\end{definition}
+
+\begin{definition}\label{def:lax-monoidal-adjunction}
+  An adjunction \(\stdadj\) is called \emph{lax monoidal} if \(F\) and \(U\) are lax monoidal functors,
+  and the unit and counit of the adjunction are monoidal natural transformations.
+\end{definition}
+
+Analogously to \cref{def:lax-monoidal-adjunction} one defines \emph{oplax monoidal adjunctions}.
+
+\begin{definition}\label{def:lift-to-monoidal-adjunction}
+  Let \(\stdadj\) be an ordinary adjunction between monoidal categories.
+  A \emph{lift of \(F \dashv U\) to a lax monoidal adjunction} consists of choices of lax monoidal structures on \(F\) and \(U\),
+  together with assertions that the unit and counit of the adjunction are lax monoidal natural transformations.
+  In other words, it is the structure necessary for a lax monoidal adjunction
+  whose left adjoint is \(F\) and whose right adjoint is \(U\).
+
+  Similarly, one can define a lift of \(F \dashv U\) to an oplax monoidal adjunction.
+\end{definition}
+
+\begin{remark}
+  A strong monoidal functor is called a \emph{monoidal equivalence} if it additionally is an equivalence of categories.
+  The quasi-inverse \(F^{-1}\from \cat{D}\to \cat{C}\) of a monoidal equivalence \(F\from \cat{C} \to \cat{D}\)
+  is again monoidal, and there are monoidal natural isomorphisms \(F \circ F^{-1} \iso \Id_{\cat{D}}\) and \(F^{-1} \circ F \iso \Id_{\cat{C}}\).
+\end{remark}
+
+Unless otherwise specified,
+all monoidal categories in the rest of this thesis are assumed to be strict.
+This is justified by the following \emph{strictification} result of Mac Lane,~\cite{MacLane63naturalassociativity},
+see also~\cite[Theorem~2.8.5]{Etingof2015}.
+
+\begin{theorem}\label{thm:monoidal-strictness-theorem}
+  Every monoidal category is monoidally equivalent to a strict monoidal category.
+\end{theorem}
+
+\begin{definition}\label{def:right-module-category}
+  A \emph{(left) \(\cat{C}\)\hyp{}module category}
+  of a monoidal category \(\cat{C}\) consists of a category \(\cat{M}\)
+  together with a functor \(\lact \from \cat{C} \times \cat{M} \to \cat{M}\)
+  and isomorphisms
+  \[
+    \cat{M}_{\mathsf{a}; x, y, m} \from (x \otimes y) \lact m \Iso x \lact (y \lact m),
+  \]
+  natural in \(m \in \cat{M}\) and \(x,y \in \cat{C}\),
+  satisfying \emph{coherence} axioms similar to those of a monoidal category;
+  see~\cite[Definition~7.1.1]{Etingof2015}.
+\end{definition}
+
+Analogously,
+one can define \emph{right} module categories over \(\cat{C}\),
+which involve a functor \(\ract \from \cat{M} \times \cat{C} \to \cat{M}\) and isomorphisms
+\(m \ract (x \otimes y) \Iso (x \ract y) \ract m\).
+For brevity, we may sometimes speak of just ``\(\cat{C}\)\hyp{}module categories'';
+this will always mean ``left \(\cat{C}\)\hyp{}module categories''.
+
+\begin{example}[{\cite{Hajac2004a}}]\label{ex:ayd-def-as-modules-over-yd}
+  Let \(H\) be a Hopf algebra with invertible antipode \(S\).
+  Recall from \cref{ex:yd-modules-def-and-monoidal} that the category \(\YDM{H}\) of Yetter–Drinfeld modules is a monoidal category.
+  A left-left \emph{anti\hyp{}Yetter–Drinfeld module} is some \(M \in \kVect\)
+  equipped with a left \(H\)\hyp{}module structure \(\lact\)
+  and a left \(H\)\hyp{}comodule structure \(m \mapsto m_{(-1)} \otimes m_{(0)}\)
+  such that
+  the following holds for all \(h \in H\) and \(m \in M\):\marginnote{%
+    Notice that the only difference to \cref{eq:yd-condition} is that we use \(S^{-1}\) instead of \(S\).%
+  }%
+  \[
+    {(h \lact m)}_{(-1)} \otimes {(h \lact m)}_{(0)} = h_{(1)}m_{(-1)}S^{-1}(h_{(3)}) \otimes (h_{(2)} \lact m_{(0)})
+  \]
+
+  The category  of anti\hyp{}Yetter–Drinfeld modules do not form a monoidal category, but rather a \(\cat{C}\)\hyp{}module category over the Yetter–Drinfeld modules.
+  Given \(M \in \aYDM{H}\) and \(Y \in \YDM{H}\),
+  define \(Y \lact M \in \aYDM{H}\) as the vector space \(Y \kotimes M\),
+  equipped with the following action and coaction:
+  \[
+    h \lact (y \otimes m) \defeq (h_{(1)} \lact y) \otimes (h_{(2)} \lact m),
+    \qquad
+    y \otimes m \mapsto y_{(-1)}m_{(-1)} \otimes y_{(0)} \otimes m_{(0)}.
+  \]
+\end{example}
+
+\begin{definition}\label{def:bimodule-category}
+  Let \(\cat{C}\) and \(\cat{D}\) be monoidal categories.
+  A \emph{\((\cat{C}, \cat{D})\)\hyp{}bimodule category} consists of a left \(\cat{C}\)\hyp{}module category \(\cat{M}\) that
+  is simultaneously a right \(\cat{D}\)\hyp{}module category, such that there exists a natural isomorphism
+  \[
+    (x \lact m) \ract y \Iso x \lact (m \ract y),
+  \]
+  for all \(x \in \cat{C}\), \(y \in \cat{D}\), and \(m \in \cat{M}\),
+  called the \emph{middle interchange},
+  which satisfies appropriate \emph{associativity} constraints;
+  see~\cite[Definition~7.1.7]{Etingof2015}.
+\end{definition}
+
+\begin{example}\label{ex:monoidal-is-bimodule}
+  Every monoidal category \(\cat{C}\) is a \((\cat{C},\cat{C})\)\hyp{}bimodule category,
+  whose actions are both given by the tensor product of \(\cat{C}\).
+  We call this module category the \emph{regular bimodule}, and denote it by \(\leftidx{_{\cat{C}}}{\cat{C}\,}{_{\cat{C}}}\).
+  Analogously, one defines the left and right regular \(\cat{C}\)\hyp{}module categories \(\leftidx{_{\cat{C}}}{\cat{C}}{}\)
+  and \(\leftidx{}{\cat{C}\,}{_{\cat{C}}}\).
+\end{example}
+
+\begin{example}\label{ex:module-twisting}
+  Let \(\cat{C}\) be a monoidal category.
+  The regular action is not the only way in which we can consider \(\cat{C}\) as a bimodule over itself.
+  Suppose that \(R\from \cat{C} \to \cat{C}\) is a strong monoidal functor.
+  The action
+  \[
+    \ract \from \cat{C} \times \cat{C} \xrightarrow{\cat{C} \times R} \cat{C} \times \cat{C} \xrightarrow{\ \otimes\ } \cat{C}
+  \]
+  endows \(\cat{C}\) with the structure of a right module category over itself,
+  which we shall denote by \(\cat{C}_{R}\).
+  In other words, we have
+  \[
+    x \lact y \defeq Rx \otimes y, \qquad\qquad f \lact g \defeq Rf \otimes g,
+  \]
+  for \(v, w, x, y \in \cat{C}\) and \(f \from v\to w, g \from x \to y\).
+
+  We can also twist the action from the left with another monoidal functor \(L\).
+  The \emph{twisted} bimodule obtained in this manner is denoted by \({}_{L\!}{\cat{C}}_{R}\).
+\end{example}
+
+\begin{remark}\label{rem: other_variants_of_twisted_centres}
+  One can easily imagine a more involved setting than \cref{ex:module-twisting}
+  by twisting with an oplax monoidal functor
+  \(L \from \cat{C} \to \cat{C}\) from the left
+  and a lax monoidal functor \(R\) from the right.
+  In this setting, \({}_{L\!}{\cat{C}}_{R}\) is a lax left and oplax right \(\cat{C}\)\hyp{}bimodule category,
+  see for example~\cite[Section 2]{Szlachanyi2012:skew-monoidal}.
+  Since in most of this thesis we only consider the strong case,
+  we refrain from more formally treating this case;
+  however, see \cref{rem: twisted_centre_of_Hopf_monad_is_rigid}.
+\end{remark}
+
+\begin{definition}\label{def:lax-module-functor}
+  Let \(\cat{M}\) and \(\cat{N}\) be left module categories over a monoidal category \(\cat{C}\).
+  A \emph{lax \(\cat{C}\)\hyp{}module functor} from \(\cat{M}\) to \(\cat{N}\) is a functor
+  \(F \from \cat{M} \to \cat{N}\), together with a collection of morphisms
+  \[
+    F_{\mathsf{a};x,m} \from x \lact Fm \to F(x \lact m), \qquad \text{natural for all \(x \in \cat{C}\) and \(m \in \cat{M}\)},
+  \]
+  satisfying \emph{associativity} and \emph{unitality} conditions, see~\cite[Definition~7.2.1]{Etingof2015}.
+
+  \emph{Oplax} and \emph{strong} \(\cat{C}\)\hyp{}module functors are defined similarly;
+  in the former case,
+  one considers arrows \(F_{\mathsf{a}; x, m} \from F(x \lact m) \to x \lact Fm\),
+  while for the latter \(F_{\mathsf{a}}\) should be invertible.
+\end{definition}
+
+\begin{definition}\label{def:module-transformation}
+  Let \(F, G \from \cat{M} \to \cat{N}\) be \(\cat{C}\)\hyp{}module functors between the left \(\cat{C}\)\hyp{}module categories \(\cat{M}\) and \(\cat{N}\).
+  A natural transformation \(\phi \from F \nt G\) is called a
+  \emph{\(\cat{C}\)\hyp{}module transformation}
+  if
+  \[
+    G_{\mathsf{a};x, m} \circ (\phi_x \lact m) = \phi_{x \lact m} \circ F_{\mathsf{a};x, m}, \qquad\qquad
+    \text{for all \(x \in \cat{C}\) and \(m \in \cat{M}\).}
+  \]
+\end{definition}
+
+\begin{notation}
+  For \(\cat{C}\)\hyp{}module categories \(\cat{M}\) and \(\cat{N}\),
+  we obtain the following categories of \(\cat{C}\)\hyp{}module functors:
+  \begin{itemize}
+    \item \(\cat{C}\mathsf{Mod}(\cat{M},\cat{N}) \!\defeq\! \mathsf{Str}\cat{C}\mathsf{Mod}(\cat{M,N})\):
+    strong \(\cat{C}\)\hyp{}module functors from \(\cat{M}\) to \(\cat{N}\),
+    \item \(\mathsf{Lax}\cat{C}\mathsf{Mod}(\cat{M,N})\):
+    lax \(\cat{C}\)\hyp{}module functors from \(\cat{M}\) to \(\cat{N}\),
+    \item \(\mathsf{Oplax}\cat{C}\mathsf{Mod}(\cat{M,N})\):
+    oplax \(\cat{C}\)\hyp{}module functors from \(\cat{M}\) to \(\cat{N}\).
+  \end{itemize}
+\end{notation}
+
+\begin{example}\label{ex:regularend}
+  For an object \(x\) is a (non-strict) monoidal category \(\cat{C}\),
+  the functor \(F \defeq \blank \otimes x\) is a strong left \(\cat{C}\)\hyp{}module functor.
+  The transformation \(F_{\mathsf{a}}\) is given by the associator of \(\cat{C}\).
+  Further, a morphism \(f\from x \to y\) in \(\cat{C}\) yields a \(\cat{C}\)\hyp{}module transformation \(\blank \otimes f\from \blank \otimes x \nt \blank \otimes y\).
+\end{example}
+
+In fact, \cref{ex:regularend} generalises and completely describes module functors from the regular module.
+We emphasise that this result is a consequence of the bicategorical Yoneda lemma,
+see~\cite[Lemma~8.3.16]{johnson-yau2021:TwoDimensionalCategories}.
+
+\begin{proposition}\label{prop:bicategorical-yoneda-correspondence-monads-and-algebras}
+  Let \(\cat{M}\) be a left module category over the monoidal category \(\cat{C}\).
+  Then there is an equivalence of module categories
+  \[
+    \mathsf{Str}\cat{C}\mathsf{Mod}(\cat{C}, \cat{M}) \iso \cat{M}, \qquad \qquad
+    F \mapsto F1, \qquad \qquad
+    \blank \lact m \longmapsfrom m.
+  \]
+\end{proposition}
+
+In particular, this yields a monoidal equivalence \(\mathsf{Str}\cat{C}\mathsf{Mod} \simeq \cat{C}^{\tensorop}\).
+
+\subsection{Braidings}\label{subsec: braided_and_ribbon_cats}
+
+\textsc{Braidings are natural transformations} relating the tensor product to its opposite.
+They where introduced by Joyal and Street in~\cite{joyal85:braided,joyal86:braided,Joyal1993},
+and build on the notion of symmetries studied in~\cite{MacLane63naturalassociativity,Eilenberg1966}.
+
+\begin{definition}\label{def: braided_cat}
+  A \emph{braiding} on a monoidal category \(\cat{C}\) is a natural isomorphism
+  \(\sigma_{\blank, \bblank} \from \blank \otimes \bblank \nt \bblank \otimes \blank\),
+  satisfying \(\sigma_{x,1} = \id_x\) and the \emph{hexagon axioms}\note{
+    The name ``hexagon axioms'' is due to the fact
+    that in the non-strict setting,
+    the defining equations
+    can be organised as a hexagon-shaped diagram, see~\cite{Joyal1993}.
+  }.
+
+  The pair \((\cat{C}, \sigma)\) will be called a \emph{braided monoidal category}.
+\end{definition}
+
+\begin{remark}\label{rem: braiding_compatibility_with unit}
+  For a braiding \(\sigma\), the condition that \(\sigma_{x,1} = \id_x\) is actually implied by the hexagon identities:
+  The calculation
+  \[
+    \sigma_{x,1} = \sigma_{x, 1\otimes 1} = (\id_1 \otimes \sigma_{x,1}) \circ (\sigma_{x,1} \otimes \id_1) = \sigma_{x,1} \circ \sigma_{x,1}
+  \]
+  shows that \(\sigma_{x,1}\) is an invertible idempotent,
+  hence the claim follows.
+\end{remark}
+
+\begin{example}[{\cite[Theorem~7.2]{yetter90:quant}}]\label{ex:yd-modules-are-braided}
+  The category of left-left Yetter–Drinfeld modules of \cref{ex:yd-modules-def-and-monoidal}
+  is braided monoidal when equipped with
+  \[
+    \sigma \defeq {\{\, \sigma_{Y,Z} \from Y \otimes Z \to Z \otimes Y, \quad y \otimes z \mapsto (y_{(-1)} \lact z) \otimes y_{(0)} \,\}}_{Y,Z \,\in\, \YDM{H}},
+  \]
+  called the \emph{\YetterDrinfeld{} braiding}.
+  Note that \(\sigma\) is invertible because
+  \(H\) has an invertible antipode.
+  Its inverse is given for all \(Y, Z \in \YDM{H}\) by
+  \[
+    \sigma^{-1} \defeq {\{\, \sigma^{-1}_{Y,Z} \from Z \otimes Y \to Y \otimes Y, \quad z \otimes y \mapsto y_{(0)} \otimes (S^{-1}(y_{(-1)}) \lact z) \,\}}_{Y,Z \,\in\, \YDM{H}}.
+  \]
+\end{example}
+
+\begin{definition}\label{def:symmetric-braiding}
+  A braiding \(\sigma\) on a monoidal category \(\cat{C}\) is called \emph{symmetric} if \(\sigma_{x,y}^{-1} = \sigma_{y,x}\) for all \(x, y \in \cat{C}\).
+  A monoidal category equipped with a symmetric braiding will be referred to as a \emph{symmetric monoidal category}.
+\end{definition}
+
+Braidings are depicted in the graphical calculus by crossings of strings subject to Reidemeister\hyp{}esque identities, see~\cite{Selinger2011}.
+The following figure shows a braiding, its inverse, the hexagon identity, and the naturality of the braiding in its first argument:
+\[
+  \tikzfig{braiding-properties}
+\]
+
+\subsection{Closedness}\label{sec:closed-mon-cats}
+
+\begin{definition}\label{def:closed-module-category}
+  Let \(\cat{C}\) be a monoidal category.
+  An object \(m\) in a \(\cat{C}\)\hyp{}module category \(\cat{M}\) is called \emph{closed}
+  if the functor \(\blank \triangleright m\from \cat{C} \to \cat{M}\) has a right adjoint
+  \(\hom{m, \blank}\from \cat{M}\to \cat{C}\), called the \emph{internal hom from \(m\)}.
+  We refer to
+  \[
+    \adj{\blank \lact m}{\hom{m, \blank}}{\cc}{\mm}
+  \]
+  as the \emph{internal tensor--hom adjunction}.
+\end{definition}
+
+Similarly to \cref{def:closed-module-category},
+an object \(m \in \cat{M}\) is called \emph{coclosed} if the functor \(\blank \triangleright m\from \cat{C} \to \cat{M}\) has a left adjoint;
+we denote this \emph{internal cohom from \(m\)} by \(\cohom{m, \blank}\from \cat{M}\to \cat{C}\),
+and call \(\adj{\cohom{m, \blank}}{\blank \lact m}{\mm}{\cc}\) as the \emph{internal cohom--tensor adjunction}.
+If every object of \(\cat{M}\) is closed,
+we call \(\cat{M}\) a \emph{closed \(\cat{C}\)\hyp{}module category}.
+
+\begin{definition}\label{def:left-closed-monoidal-category}
+  A monoidal category \(\cat{C}\) is called \emph{left closed}
+  if the left regular \(\cat{C}\)\hyp{}module category \({}_{\cat{C}}\cat{C}\) is closed,
+  \emph{right closed} if the right regular \(\cat{C}\)\hyp{}module category \(\cat{C}_{\cat{C}}\) is closed,
+  and \emph{closed} or \emph{biclosed} if it is both left and right closed.
+
+  In these cases, we write \({[x, \blank]}_{\ell}\) and \({[x, \blank]}_r\) for \(\hom{x, \blank}\), respectively.
+\end{definition}
+
+\begin{example}
+  A symmetric monoidal category is left closed if and only if it is right closed if and only if it is closed.
+\end{example}
+
+The object-wise tensor--hom adjunctions of a closed \(\cat{C}\)\hyp{}module category specify a unique functor
+\(\hom{\blank, \bblank} \from \cat{M}^{\op}\times\cat{M} \to\cat{C}\) such that we have
+\[
+  \cat{M}(c \lact m, n) \cong \cat{C}(c, \hom{m, n}),
+\]
+natural in all three variables, see~\cite[Section~\textsc{iv}.7]{MacLane1998} for the monoidal case.
+
+\begin{example}\label{ex:deligne-morphism-in-closed-monoidal-cat}
+  For any object \(x \in \cat{C}\) of a right closed monoidal category,
+  a combination of the unit and counit
+  \[
+    \eta^{(x)}_y \colon y \to {[x, x \otimes y]}_r, \qquad \qquad
+    \varepsilon^{(x)}_y \colon x \otimes {[x,y]}_r \to y, \qquad \text{for all } y \in\cat{C}
+  \]
+  gives rise to the morphism
+  \begin{equation}\label{eq:canonical-morphism-deligne}
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\phi^{(x)}_y \defeq {[x,1]}_r\otimes y} \& {{[x, x \otimes {[x,1]}_r\otimes y]}_r} \& {{[x,y]}_r.}
+      \arrow["{\eta^{(x)}_{{[x,1]}_r \otimes y}}", from=1-1, to=1-2]
+      \arrow["{[x, \varepsilon^{(x)}_1 \otimes y]}", from=1-2, to=1-3]
+    \end{mytikzcd}
+  \end{equation}
+\end{example}
+
+\subsection{Rigidity and pivotality}\label{subsubsec: rigid_and_piv_cats}
+
+\textsc{Rigidity}\marginnote{%
+  Rigid monoidal categories are also called \emph{autonomous},
+  or, in the symmetric case, \emph{compact closed}.%
+}
+\textsc{in the context of monoidal categories} refers to a concept of duality similar to that of finite\hyp{}dimensional vector spaces.
+Importantly, notions like dual bases and evaluations have their analogues in this setting.
+
+Pivotal categories%
+—also known as \emph{balanced} or \emph{sovereign} categories—%
+are those where there exists an identification between objects and their double duals that is compatible with the tensor product.
+
+Recall from \cref{eq:canonical-morphism-deligne}
+there is a canonical morphism
+\[
+  \Phi^{(x)}_y \from {[x, 1]}_r \otimes y \to {[x, y]}_r
+\]
+for all objects \(x, y\) in the right closed monoidal category \(\cat{C}\).
+The next results links the invertibility of this morphism to conditions that \(\cat{C}\) is rigid monoidal;
+see for example~\cite{kelly72:many}, and~\cite[Proposition~2.1]{niefield17:coexp} for a concise proof.
+
+\begin{proposition}\label{prop:dualisable-conditions-Deligne}
+  Let \(\cat{C}\) be a monoidal category.
+  For any object \(x \in \cat{C}\),
+  the following statements are equivalent:
+  \begin{thmlist}[itemsep=1ex]
+    \item the right internal hom of \(x\) exists, and
+    the canonical arrows \(\phi^{(x)}_{y}\) are invertible for all \(y \in\cat{C}\);
+    \item the right internal hom of \(x\) exists and \(\phi^{(x)}_x\from {[x, 1]}_r \otimes x \to {[x, x]}_r\) is an isomorphism; and
+    \item there exists an object \(\rd{x} \in\cat{C}\) together with morphisms \(\ev^r_x\colon x \otimes \rd{x} \to 1\) and \(\coev^r_x\colon 1 \to \rd{x} \otimes x\), satisfying the snake identities
+    \begin{equation}\label{eq:snake-ids}
+      \begin{aligned}
+        \id_x &= (\ev^r_x \otimes \id_x) \circ (\id_x \otimes \coev^r_x), \\
+        \id_{\rd{x}} &= (\id_{\rd{x}} \otimes \ev^r_x) \circ (\coev^r_x \otimes \id_{\rd{x}}).
+      \end{aligned}
+    \end{equation}
+  \end{thmlist}
+\end{proposition}
+
+\begin{definition}\label{def:rigidly-dualisable}
+  We call \(x\) \emph{right (rigidly) dualisable}
+  if any of the equivalent conditions of \cref{prop:dualisable-conditions-Deligne} are met.
+  In this case, we have \({[x, y]}_r \cong \rd{x} \otimes y\) for all \(x, y \in \cat{C}\) and in particular \(\rd{x} \cong {[x, 1]}_r\).
+  The \emph{left (rigid) dualisability} of an object \(x\in\cat{C}\) can be defined similarly by either the invertibility of a canonical morphism
+  \(\psi^{(x)}_y \colon y \otimes {[x,1]}_{\ell} \to {[x,y]}_{\ell}\) or by the existence of an object \(\ld{\!{}x} \in\cat{C}\)
+  endowed with morphisms \(\ev^{\ell}_x \colon \ld{\!{}x} \otimes x \to 1\) and \(\coev^{\ell}_x \colon 1 \to x \otimes \ld{\!{}x}\),
+  subject to suitable variants of the snake identities.
+\end{definition}
+
+When the context leaves the choice unambiguous,
+we—in the interest of brevity—omit the left and right superscripts for the (co)evaluation morphisms.
+The pair \((y, x, \ev, \coev)\),
+where \(y\) is a left dual of \(x\) and, thus, \(x\) is a right dual of \(y\)
+is called a \emph{dual pair}.
+
+\begin{definition}
+  A monoidal category \(\cat{C}\) is called \emph{left (right) rigid}
+  if every object is left (right) rigidly dualisable,
+  and \emph{rigid} if it is left and right rigid.
+
+  We denote the left and right \emph{dualising functors} of a rigid category \(\cat{C}\) by
+  \[
+    \ld{\!(\blank)} \cong {[\blank, 1]}_{\ell}\from \cat{C}^{\op,\tensorop} \to \cat{C}
+    \qquad\text{and}\qquad
+    \rd{(\blank)} \cong {[\blank, 1]}_{r}\from \cat{C}^{\op,\tensorop} \to \cat{C}.
+  \]
+\end{definition}
+
+\begin{example}\label{ex:left-dualising-functor}
+  Let \(\cat{C}\) be a left rigid monoidal category.
+  Given a morphism \(f \from x \to y\) in \(\cat{C}\),
+  the induced morphism \(\ld{\!{}f}\from \ld{\!{}y} \to \ld{\!{}x}\) is given by
+  \[
+    (\ev_y^{\ell} \otimes \id_{\ld{\!{}x}}) \circ (\id_{\ld{\!{}y}} \otimes f \otimes \id_{\ld{\!{}x}}) \circ (\id_{\ld{\!{}y}} \otimes \coev_x^{\ell}).
+  \]
+\end{example}
+
+There are categories with only one-sided closedness or rigidity, see~\cite[Theorem~6.3.3]{loregian2021} and~\cite[Example~1.6.2]{Turaev2017}.
+Taking the opposite of a rigid category reverses the roles of evaluation and coevaluation.
+Thus the opposite \(\cat{C}^{\op}\) of the left rigid category \(\cat{C}\) is right rigid.
+
+\begin{lemma}[{\cite[Exercise~2.10.6]{Etingof2015}}]\label{lem:transfer-of-rigidity}
+  Let \(F \from \cat{C} \to \cat{D}\) be a strong monoidal functor. The image \(Fx\) of  any (rigidly) dualisable object \(x \in\cat{C}\) is dualisable.
+\end{lemma}
+\begin{proof}[Sketch of proof]
+  If \(x \in \cat{C}\) is an object with right dual \(\rd{x}\),
+  define \(\rd{(Fx)} \defeq F(\rd{x})\);
+  the evaluation map is given by
+  \[
+    Fx \otimes F(\rd{x}) \xrightarrow{\ F_2\ } F(x \otimes \rd{x}) \xrightarrow{F \ev^{(r)}_x} F1 \xrightarrow{F_0^{-1}} 1,
+  \]
+  and the coevaluation is defined analogously.
+  A straightforward calculation shows the snake identities to be satisfied.
+\end{proof}
+
+Graphically, evaluations and coevaluations will be represented by semicircles,
+possibly decorated with arrows to emphasise whether we consider their left or right version.
+\[
+  \tikzfig{rigid-in-string-diagrams}
+\]
+
+\begin{definition}\label{def: invertible_objects}
+  An object \(x \in \cat{C}\) in a rigid monoidal category \(\cat{C}\) is called \emph{invertible} if its (left) evaluation and coevaluation are isomorphisms.
+\end{definition}
+
+It follows that the right evaluations and coevaluations of an invertible objects are isomorphisms as well.
+Further, tensor products and duals of invertible objects are invertible,
+such that the full subcategory \(\mathsf{Inv}(\cat{C})\) of invertible object of \(\cat{C}\) is rigid monoidal.
+
+\begin{definition}[{\cite{castelnuovo1905}}]\label{def: invertible_object}
+  The \emph{Picard group} \(\Pic \cat{C}\) of a rigid monoidal category \(\cat{C}\) is the group of isomorphism classes of invertible objects in \(\cat{C}\).
+  Its multiplication is induced by the tensor product; \ie, \([\alpha] \cdot [\beta] \defeq [\alpha \otimes \beta]\) for \(\alpha, \beta \in \mathsf{Inv}(\cat{C})\).
+  The unit of \(\Pic \cat{C}\) is \([1]\) and for any \(\alpha \in \mathsf{Inv}(\cat{C})\) we have that \({[\alpha]}^{-1} =[\ld{\!\alpha}]\).
+\end{definition}
+
+\begin{proposition}\label{prop: rigidity_yields_adjoints}
+  For every object \(x \in \cat{C}\) in a rigid category \(\cat{C}\) we obtain two chains of adjoint endofunctors of \(\cat{C}\):
+  \begin{align*}
+    \dots \adjoint \blank \otimes \rd{x} \adjoint \blank \otimes x \adjoint \blank \otimes \ld{\!{}x} \adjoint \dots
+    \qquad
+    \dots \adjoint \ld{\!{}x} \otimes \blank \adjoint x \otimes \blank \adjoint \rd{x} \otimes \blank \adjoint \dots
+  \end{align*}
+  Further, \(\blank \otimes x\) and \(x \otimes \blank\) are equivalences of categories if and only if \(x\) is invertible.
+\end{proposition}
+\begin{proof}
+  The existence of the stated chains of adjunctions follows from~\cite[Proposition~2.10.8]{Etingof2015}.
+  A straightforward calculation shows that tensoring (from the left or right)
+  with an invertible object yields an equivalence of categories.
+
+  Conversely, suppose that \(x \in \cat{C}\) is such that \(F \defeq \blank \otimes x\) is an equivalence of categories.
+  The functor \(F\) and its quasi-inverse \(U\) are part of an adjunction
+  with invertible unit \(\eta \from {\Id_{\cat{C}}} \nt UF\)
+  and counit \(\varepsilon \from FU \nt \Id_{\cat{D}}\),
+  see for example~\cite[Proposition~4.4.5]{category-theory-in-context_riehl}.
+  By~\cite[Proposition~4.4.1]{category-theory-in-context_riehl}, there exists a natural isomorphism \(\theta \from U \nt \blank \otimes \ld{\!{}x}\)
+  that commutes with the respective counits and units.
+  Applied to the monoidal unit \(1 \in \cat{C}\), we obtain
+  \[
+    \coev_{x}^{\ell} = \theta_x \circ \eta_1 \qquad \text{and} \qquad \ev_x^{\ell} \circ (\theta_1 \otimes \id_x) = \varepsilon_1 .
+  \]
+  It follows that \(x\) is invertible.
+  An analogous argument shows that \(x \otimes \blank \) being an equivalence of categories also entails \(x\) being invertible.
+\end{proof}
+
+\begin{remark}\label{rmk:trep-is-not-rigid-first-exposure}
+  Given a monoidal category \(\cat{C}\),
+  the mere presence of adjunctions
+  \[
+    \adj{\blank \otimes x}{\blank \otimes Lx}{\cat{C}}{\cat{C}}
+    \qquad\qquad\text{and}\qquad\qquad
+    \adj{x \otimes \blank}{ Rx \otimes \blank}{\cat{C}}{\cat{C}}
+  \]
+  for objects \(Lx, Rx \in \cat{C}\) does not lead to rigidity,
+  but to the weaker notion of \emph{tensor representability}, see \cref{def:tensor-representable-endo-functors,def:tensor-representable}.
+
+  To elucidate the underlying problem,
+  let us assume for a moment that we are given objects \(x, Rx \in \cat{C}\),
+  such that \(\adj{x \otimes \blank }{Rx \otimes\blank}{\cat{C}}{\cat{C}}\).
+  One can show that any right rigid dual of \(x\)—if it exists—has to be isomorphic to \(Rx\);
+  \ie, one has \(Rx \cong \rd{x}\) on objects.
+  Hence, the unit \(\eta^{(x)}_{z} \from z \to Rx \otimes x \otimes z\) and counit \(\varepsilon^{(x)}_{z} \from x \otimes Rx \otimes z \to z \) of the adjunction provide us with natural candidates for the coevaluation and evaluation morphisms:
+  \[
+    \coev_x \defeq \eta^{(x)}_1 \from 1 \to Rx \otimes x \qquad \qquad \text{and} \qquad \qquad \ev_x \defeq \varepsilon^{(x)}_1 \from x \otimes Rx \to 1.
+  \]
+  Evaluating the triangle identities of the adjunction at the monoidal unit yields
+  \[
+    \id_{x} = \varepsilon^{(x)}_{x} \circ (x \otimes \eta^{(x)}_1)
+    \qquad\qquad\text{and}\qquad\qquad
+    \id_{Rx} = (Rx \otimes \varepsilon^{(x)}_1) \circ \eta^{(x)}_{Rx}.
+  \]
+  However, if \(Rx\) is to be a dual of x in the rigid sense,
+  the snake identities~\eqref{eq:snake-ids} must hold.
+  For this, we ought to require the stronger condition that
+  \[
+    \varepsilon^{(x)}_x = \varepsilon^{(x)}_1 \otimes \id_x
+    \qquad\qquad\text{and}\qquad\qquad
+    \eta^{(x)}_{Rx} = \eta^{(x)}_1 \otimes Rx.
+  \]
+\end{remark}
+
+\begin{remark}
+  A left closed monoidal such that for every \(x \in \cat{C}\),
+  the functor \(\blank \otimes x\)
+  admits a right dual \({[x, \blank]}_{\ell}\) as a \(\cat{C}\)\hyp{}module functor%
+  —see \cref{ex:module-adjunction-as-comodule-adjunction}—%
+  is already rigid.
+  Explicitly, this involves the following map natural in \(y, z \in \cat{C}\):
+  \[
+    {[x, z]}_{\ell} \otimes y \iso {[x, z \otimes y]}_{\ell},
+  \]
+  the resulting compatibility conditions of which imply the snake identities.
+\end{remark}
+
+We will study these questions in greater details in \cref{sec:trep-categories};
+see also \cref{rmk:rigid-iff-lax-is-strong}
+for a characterisation of rigidity in terms of \(\cat{C}\)\hyp{}module functors.
+
+\begin{definition}\label{def: stric_rigid_cat}
+  A rigid monoidal category \(\cat{C}\) is called \emph{strict rigid}
+  if the dual functors \(\ld{\!(\blank)},\,\rd{(\blank)}\from \cat{C}^{\op,\tensorop} \to \cat{C}\) are strict and
+  \[
+    \ld{\!\big(\rd{(\blank)}\big)} = \Id_{\cat{C}}
+    = \rd{\big(\ld{\!(\blank)} \big)\!}.
+  \]
+\end{definition}
+
+\begin{notation}\label{almostlisp}
+  Let \(\cat{C}\) be a rigid monoidal category;
+  for \(x \in \cat{C}\) and \(n \in \integer\), write
+  \[
+    {(x)}^{n} \defeq
+    \begin{cases}
+      \text{The \(n\)\hyp{}fold left dual of \(x\)}, & \text{if } n > 0; \\
+      x, & \text{if } n = 0; \\
+      \text{The \(n\)\hyp{}fold right dual of \(x\)}, & \text{if } n < 0.
+    \end{cases}
+  \]
+\end{notation}
+
+Our next result was conjectured in~\cite[Section 5]{Schauenburg2001},
+and is a slight variation of~\cite[Theorem~2.2]{Ng2007}.
+It shows that every rigid category admits a \emph{rigid strictification};
+\ie, a monoidally equivalent strict rigid category.
+The compatibility between the respective left and right duality functors is an immediate consequence of the fact that for any strong monoidal functor \(F \from \cat{C} \to \cat{D}\) between rigid categories there are natural monoidal isomorphisms
+\[
+  \phi_x \from F (\ld{\!x}) \iso \ld{Fx},
+  \qquad\text{and}\qquad
+  \psi_x \from F (\rd{x}) \iso \rd{Fx},
+  \quad \text{ for all } x \in \cat{C}.
+\]
+
+\begin{theorem}\label{thm: rigid_strictification}
+  Every rigid category admits a rigid strictification.
+\end{theorem}
+\begin{proof}
+  Suppose that \(\cat{C}\) is a rigid strict monoidal category \(\cat{C}\).
+  Build a monoidally equivalent strict rigid category \(\cat{D}\) as follows:
+  the objects of \(\cat{D}\) are (possibly empty) finite sequences
+  \((x_1^{n_1}, \dots, x_i^{n_i})\) of objects \(x_1, \dots, x_i \in \cat{C}\),
+  adorned with integers \(n_1, \dots, n_i \in \integer\).
+
+  To define the morphisms of \(\cat{D}\),
+  recall \cref{almostlisp} and set
+  \[
+    \cat{D}(
+    (x_1^{n_1}, \dots, x_i^{n_i}),
+    (y_1^{m_1}, \dots, y_j^{m_j})
+    )
+    \defeq
+    \cat{C}(
+    {(x_1)}^{n_1} \otimes \dots \otimes {(x_i)}^{n_i},
+    {(y_1)}^{m_1} \otimes \dots \otimes {(y_j)}^{m_j}
+    ).
+  \]
+  The category \(\cat{D}\) is strict monoidal when equipped with the concatenation of sequences as tensor product and the empty sequence as unit.
+  By construction, there exists a strict monoidal equivalence of categories \(F \from \cat{D} \to \cat{C}\),
+  which maps any object
+  \((x_1^{n_1}, \dots, x_i^{n_i}) \in \cat{D}\) to \({(x_1)}^{n_1} \otimes \dots \otimes {(x_i)}^{n_i} \in \cat{C}\),
+  as well as every morphism to itself;
+  the unit of \(\cat{C}\) is the empty tensor product.
+
+  Define the left dual of an object
+  \(x \defeq (x_1^{n_1}, \dots, x_i^{n_i}) \in \cat{D}\)
+  as
+  \[
+    \ld{\!{}x} \defeq (x_i^{n_i+1}, \dots, x_1^{n_1+1}),
+  \]
+  with
+  evaluation and coevaluation morphisms given by
+  \[
+    \tikzfig{rigid-strict-ev-coev}
+  \]
+  For all \(1 \leq k \leq i\), we set
+  \[
+    \phi_k \defeq
+    \begin{cases}
+      \ev^{\ell}_{{(x_k)}^{n_k}}, &\text{ if } n_k \geq 0; \\
+      \ev^r_{{(x_k)}^{n_k+1}}, &\text{ if } n_k < 0; \\
+    \end{cases}
+    \qquad
+    \text{ and }
+    \qquad
+    \psi_k \defeq
+    \begin{cases}
+      \coev^{\ell}_{{(x_k)}^{n_k}}, & \text{ if } n_k \geq 0; \\
+      \coev^r_{{(x_k)}^{n_k+1}}, &\text{ if } n_k < 0. \\
+    \end{cases}
+  \]
+  The right dual of \(x\) if defined similarly as \(\rd{x} \defeq (x_i^{n_i-1}, \dots, x_1^{n_1-1})\).
+  Hence, \(\cat{D}\) is strict rigid, which completes the proof.
+\end{proof}
+
+Module functors over rigid categories behave in particularly nice ways.
+
+\begin{proposition}[{\cite[Remark~4]{ostrik03:modul-hopf},~\cite[Lemma~2.10]{douglas19}}]\label{prop:lax-is-strong-when-rigid}
+  If \(\cat{C}\) is a left rigid monoidal, then every lax \(\cat{C}\)\hyp{}module functor is strong.
+  Dually, if \(\cat{C}\) is a right rigid monoidal category, then every oplax \(\cat{C}\)\hyp{}module functor is strong.
+\end{proposition}
+
+Many applications require that the objects of a rigid monoidal category are isomorphic to their double duals in a way which is compatible with the monoidal structure.
+In \cref{cor: pivotal_from_central_anti_central} we prove a result for detecting this.
+
+\begin{definition}\label{def: pivotal_category}
+  A \emph{pivotal category} is a rigid monoidal category \(\cat{C}\) equipped with a monoidal natural isomorphism
+  \(\rho\from\! \Id_{\cat{C}} \Iso\! \lbiDual{\!\blank}\),
+  a \emph{pivotal structure} of \(\cat{C}\).
+\end{definition}
+
+Rigid monoidal categories do not have to admit a pivotal structure and, if they do, it need not be unique.
+Examples coming from Hopf algebra theory are given in~\cite{Kauffman1993,Halbig2018,Halbig2019}.
+However, every rigid monoidal category admits a universal pivotal category,
+called its \emph{pivotal cover}, see~\cite{Shimizu2015}.
+
+\subsection{The Drinfeld centre}\label{sec:drinfeld-centre}
+
+\textsc{Classically, the centre construction} is used to build a braided monoidal category from a monoidal one,
+see for example~\cite[Chapter~7]{Etingof2015}.
+Throughout especially \cref{sec:twisted-centres,sec:monadic-tannaka-reconstruction},
+we work in a slightly more general setting,
+see for example~\cite{Gelaki2009,Bruguieres2012,Hassanzadeh2019,femić23:categ-yetter,kowalzig24:centr}.
+
+\begin{definition}\label{def: half_braiding}
+  Let \(\cat{C}\) be a monoidal category, \(\cat{M}\) a \(\cat{C}\)\hyp{}bimodule category, and \(m \in \cat{M}\).%
+  \marginnote{%
+    Analogously to \cref{rem: braiding_compatibility_with unit},
+    one can show that
+    \(\sigma_{M, 1} = \id_M\) is implied by the hexagon axiom.%
+  }
+  A \emph{half-braiding} on \(m\) is a natural isomorphism
+  \(\sigma_{\blank, \bblank} \from \blank \ract \bblank \nt \blank \lact \bblank\),
+  such that for all \(x, y \in \cat{C}\) we have \(\sigma_{M, 1} = \id_M\) and
+  \[
+    \sigma_{m,x\otimes y} = ({\id_x} \lact \sigma_{m,y}) \circ (\sigma_{m, x} \ract \id_y).
+  \]
+\end{definition}
+
+\begin{definition}\label{def: centre_bimodue_category}
+  The \emph{centre} of a \(\cat{C}\)\hyp{}bimodule category \(\cat{M}\) is the category \(\ZCat{M}\) defined as follows:
+  \begin{itemize}
+    \item Objects are pairs \((m, \sigma_{m, \blank})\) of an object \(m \in \cat{M}\) and a half-braiding \(\sigma_{m,\blank}\).
+    \item A morphism \(f \from (m, \sigma_{m,\blank}) \to (n, \sigma_{n,\blank})\) consists of an \(f \in \cat{M}(m,n)\) that commutes with the half-braidings:
+    \[
+      (\id_x \lact f) \circ \sigma_{m,x} = \sigma_{n,x} \circ (f \ract \id_x), \qquad \qquad \text{ for all } x \in \cat{C}.
+    \]
+  \end{itemize}
+\end{definition}
+
+There is a canonical forgetful functor \(U^{(M)} \from \ZCat{M} \to \cat{M}\).
+Unlike classical representation theory where the centre of a bimodule is a subset of the bimodule,
+\(U^{(M)}\) need not be injective on objects in general.
+
+\begin{example}\label{ex: Drinfeld_centre}
+  The centre \(\ZCat{C}\) of the regular bimodule of a monoidal category \(\cat{C}\),
+  see \cref{ex:monoidal-is-bimodule},
+  is the \emph{Drinfeld centre} of \(\cat{C}\).
+  The tensor product is defined by
+  \((x, \sigma_{x, \blank}) \otimes (y, \sigma_{y, \blank}) \defeq ( x \otimes y, \sigma_{x\otimes y, \blank})\), with
+  \[
+    \sigma_{x\otimes y, z} \defeq (\sigma_{x, z} \otimes \id_y) \circ ({\id_x} \otimes \sigma_{y, z}), \qquad \qquad \text{ for all } z \in \cat{C}.
+  \]
+  The centre is braided monoidal, with braiding given by gluing together the respective half-braidings.
+  The hexagon axioms follow from the definition of the half-braiding and the tensor product of \(\ZCat{C}\).
+\end{example}
+
+\begin{example}\label{ex:yd-modules-as-drinfeld-centre}
+  Let \(H \in \kVect\) be a finite-dimensional Hopf algebra.
+  Then the category of left-left Yetter–Drinfeld modules
+  of \cref{ex:yd-modules-def-and-monoidal,ex:yd-modules-are-braided}
+  is, as a braided monoidal category,
+  equivalent to the Drinfeld centre of the category \(\Tetramod[][H]\) of left \(H\)\hyp{}modules,~\cite{drinfeld87:quant,yetter90:quant}.
+
+  Further, by~\cite{drinfeld87:quant} there exists another Hopf algebra \(D(H)\),
+  the \emph{Drinfeld double} of \(H\),
+  that has \(\cent*{\Tetramod[][H]{}} \simeq \YDM{H}\) as its category of modules.
+  We refer to~\cite[Definition~\textsc{ix}.4.1]{Kassel1998}
+  for a complete definition,
+  and to~\cite[Theorem~\textsc{xiii}.5.1]{Kassel1998}
+  for a proof of the above equivalence.
+\end{example}
+
+\begin{remark}\label{rmk:anti-drinfeld-double}
+  The category of anti\hyp{}Yetter–Drinfeld modules of \cref{ex:ayd-def-as-modules-over-yd}
+  is also the category of modules over a certain Hopf algebra:
+  the \emph{anti\hyp{}Drinfeld double}~\cite{caenepeel97:cross-doi-hopf,schauenburg99:examp-doi-koppin-hopf-yetter-drinf}.
+  In analogy to how the anti\hyp{}Yetter–Drinfeld modules are a module category over the Yetter–Drinfeld modules,
+  the anti\hyp{}Drinfeld double is a comodule algebra over the Drinfeld double.
+\end{remark}
+
+For the next result, recall \cref{almostlisp} for iterated duals.
+
+\begin{proposition}[{\cite[Lemma~7]{joyal91}}]\label{prop: rigdity_of_centre}
+  The centre of a (strict) rigid category \(\cat{C}\) is (strict) rigid:
+  for all \((x, \sigma_{x,-}) \in \ZCat{C}\),
+  we have that \(U^{(Z)} \big(\ld{(x, \sigma_{x,-})}\big) = \ld{\!{}x}\)
+  and \(U^{(Z)} \big(\rd{(x, \sigma_{x,-})}\big) = \rd{x}\).
+  Moreover, for every \(n \in \integer\) and \(x \in \ZCat{C}\),
+  the equality \(\sigma_{{(x)}^{n}, {(y)}^{n}} = {(\sigma_{x,y})}^{n}\) holds for all \(y \in \cent{C}\).
+\end{proposition}
+
+\section{Linear and abelian categories}\label{sec:linear-ab-cats}
+
+\textsc{We shall pay special attention}
+to \(\Bbbk\)\hyp{}linear categories,
+for some field \(\Bbbk\).
+Indeed, \(\Bbbk\)\hyp{}linear functor categories encompass many phenomena in representation theory;
+see for example \cref{sec:tensor-rep-functor-cats,sec:hopf-trimodules}.
+We shall denote the category \(\Bbbk\)\hyp{}vector spaces by \(\kVect\),
+and write \(\kvect\) for the full subcategory of finite\hyp{}dimensional \(\Bbbk\)\hyp{}vector spaces.\note{%
+  This will be a general theme throughout the thesis:
+  whenever there exists a full subcategory of ``finite\hyp{}dimensional objects''
+  inside of a lager category of all objects,
+  the finite\hyp{}di\-men\-sio\-nal subcategory will start with a lower case letter,
+  and we use a capital for the larger category.%
+}
+
+\begin{definition}\label{def:linear-category}
+  A \emph{\(\Bbbk\)\hyp{}linear category} is a category enriched in \(\kVect\)
+\end{definition}
+
+\begin{example}\label{rmk:linearisation}
+  Let \(\cat{C}\) be an ordinary category.
+  Its \emph{linearisation} \(\Bbbk\cat{C}\) has the same objects,
+  and the space of morphisms between two objects \(a, b \in \Bbbk\cat{C}\) is \(\Bbbk \cat{C}(a, b) \defeq \mathrm{span}_{\Bbbk}\cat{C}(a,b)\).
+  To define the composition in \(\Bbbk\cat{C}\),
+  note that for any  \(a, b, c \in \Bbbk\cat{C}\) there is a unique linear map
+  \[
+    \blank \circ \bblank \from \Bbbk\cat{C}(b,c) \kotimes \Bbbk\cat{C}(a,b) \to \Bbbk\cat{C}(a,c),
+  \]
+  such that \(g \circ f = gf\)  for all  \(g\in \cat{C}(b,c)\) and  \(f\in \cat{C}(a,b)\).
+
+  Let \(\iota\from \cat{C} \to \Bbbk\cat{C}\) be the functor that is the identity on objects and maps any morphism to the corresponding basis vector.
+  For any functor \(F \from \cat{C} \to \cat{D}\) whose codomain is a \(\Bbbk\)\hyp{}linear category, we obtain a commuting triangle:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\cat{C}} \&\& \cat{D} \\
+      \& {\Bbbk\cat{C}}
+      \arrow["F", from=1-1, to=1-3]
+      \arrow["\iota"', from=1-1, to=2-2]
+      \arrow["{\exists!\,G \; (\text{linear})}"', from=2-2, to=1-3]
+    \end{mytikzcd}
+  \]
+  As a consequence, if we endow the ordinary functor category \([\cat{C}, \kVect]\) with the pointwise \(\Bbbk\)\hyp{}linear structure,
+  we obtain an isomorphism of linear categories between it and the category of \(\Bbbk\)\hyp{}linear functors from \(\Bbbk\cat{C}\) to \(\kVect\).
+\end{example}
+
+\subsection{Finite and locally finite abelian categories}\label{sec:loc-fin-ab-categories}
+
+\textsc{In this section},
+we assume all categories and functors to be \(\Bbbk\)\hyp{}linear,
+for some field \(\Bbbk\).
+We call a functor \(F\from \cat{A} \to \cat{B}\) between abelian categories \(\cat{A}\) and \(\cat{B}\)
+\emph{left exact} if it preserves finite limits,
+\emph{right exact} if it preserves finite colimits,
+and \emph{exact} if it is right and left exact.
+The category of right exact functors from \(\cat{A}\) to \(\cat{B}\) will be denoted by \(\mathsf{Rex}(\cat{A}, \cat{B})\),
+and we write \(\mathsf{Lex}(\cat{A}, \cat{B})\) for the category of left exact functors.
+Further, let \(\proj{\cat{A}}\) denote the full subcategory of \(\cat{A}\) consisting of its projective objects,
+and similarly for \(\inj{\cat{A}}\).
+
+We recall basic properties of projective and injective objects in this setting.
+
+\begin{proposition}[{\cite[Lemma~3.3]{GKKP}}]\label{prop:right exact-is-enough-on-projectives}
+  Let \(\cat{A}\) and \(\cat{B}\) be abelian categories,
+  and assume that \(\cat{B}\) has enough projectives.
+  Let \(\iota\from \proj{\cat{A}} \longhookrightarrow \cat{A}\) be the inclusion functor.
+  Then the restriction functor \(\mathsf{Rex}(\cat{A}, \cat{B}) \xrightarrow{\blank \circ \iota} [\proj{\cat{A}}, \cat{B}]\) is an equivalence.
+\end{proposition}
+
+\begin{proposition}[{\cite[Lemma~3.3]{GKKP}}]\label{prop:left exact-is-enough-on-injectives}
+  Let \(\cat{A}\) and \(\cat{B}\) be abelian categories,
+  and assume that \(\cat{B}\) has enough injectives.
+  Let \(\iota\from \inj{\cat{A}} \longhookrightarrow \cat{A}\) be the inclusion functor.
+  Then \(\mathsf{Lex}(\cat{A},\cat{B}) \xrightarrow{\blank \circ \iota} [\inj{\cat{A}}, \cat{B}]\) is an equivalence.
+\end{proposition}
+
+We refer to~\cite[Chapter~1]{Etingof2015} for the following definitions and results.
+An object of a \(\Bbbk\)\hyp{}linear category is said to be \emph{simple} if any non-zero endomorphism thereof is an isomorphism.
+A category \(\cat{C}\) is said to be \emph{semisimple} if any of its objects is a direct sum of simple objects.
+
+\begin{proposition}[{\cite[Theorem~C.6]{Turaev2017}}]\label{toomuchTV}
+  A semisimple category is abelian.
+  Any epimorphism or monomorphism in a semisimple category splits.
+  In particular, any functor from a semisimple category to an abelian category is exact.
+\end{proposition}
+
+An object \(V\) in an abelian category \(\cat{A}\) has \emph{finite length} if there is a filtration
+\[
+  0 = V_0 \subseteq V_1 \subseteq \dots \subseteq V_n = V,
+\]
+such that \(V_i/V_{i-1}\) is simple, for all \(i \in \{\, 1, \dots, n \,\}\).
+
+\begin{definition}\label{def:finite-abelian-category}
+  A category \(\cat{C}\) is said to be \emph{finite abelian} if
+  it is abelian,
+  hom-finite\note{%
+    A (\(\Bbbk\)\hyp{}linear) category \(\cat{C}\) is called \emph{hom-finite}
+    if the hom space \(\cat{C}(x, y)\) is finite\hyp{}dimensional for all \(x, y \in \cat{C}\).%
+  },
+  has enough projectives,
+  only finitely many isomorphism classes of simple objects, and
+  all of its objects are of finite length.
+\end{definition}
+
+\begin{lemma}
+  A category \(\cat{A}\) is finite abelian
+  if and only if
+  there is a finite\hyp{}dimensional \(\Bbbk\)\hyp{}algebra \(A\) such that \(\cat{A} \simeq \lmod{A}\).
+\end{lemma}
+
+\begin{definition}
+  A category is said to be \emph{locally finite abelian} if
+  it is abelian,
+  hom-finite,
+  and all of its objects are of finite length.
+\end{definition}
+
+\begin{lemma}\label{lem:campus-bar}
+  A category \(\cat{C}\) is locally finite abelian
+  if and only if
+  there exists a \(\Bbbk\)\hyp{}coalgebra \(C\) such that \(\cat{C} \simeq \tetramodfd[C]{}\).
+\end{lemma}
+
+Locally finite abelian categories satisfy a Krull--Schmidt-type theorem.
+
+\begin{proposition}[{\cite[Theorem~1.5.7]{Etingof2015}}]\label{prop:krull-schmidt}
+  Every object of finite length admits a unique decomposition into a direct sum of indecomposable objects.
+\end{proposition}
+
+\begin{definition}\label{def:krull-schmidt-category}
+  An abelian category \(\cat{C}\) that satisfies \cref{prop:krull-schmidt} is called a \emph{Krull--Schmidt category}.
+\end{definition}
+
+General abelian monoidal categories admit a very useful special case of \emph{Beck's monadicity theorem}.
+
+\begin{theorem}\label{thm:SmallBeck}
+  Let \(\adj{F}{U}{\cat{A}}{\cat{B}}\) be an adjunction between abelian categories.
+  Then \(U\) is right exact and reflects zero objects\note{%
+    A functor \(F\) \emph{reflects zero objects} if \(Fx \cong 0 \implies x \cong 0\).%
+  }
+  if and only if the comparison functor \(K \from \cat{B} \to \cat{A}^{UF}\) is an equivalence.
+  Likewise, \(F\) is left exact and reflects zero objects
+  if and only if the comparison functor \(K\from \cat{A} \to \cat{B}^{FU}\) is an equivalence.
+\end{theorem}
+
+That \cref{thm:SmallBeck} is equivalent to the general monadicity theorem
+in the case of abelian categories
+is explained in~\cite[Section~4.1]{ben-zvi18:integ}.
+
+\subsection{Tensor and ring categories}
+
+We refer the reader to~\cite[Chapter~4]{Etingof2015} for a comprehensive account of the theory of (multi)tensor and ring categories.
+All categories and functors in this section are again assumed to be \(\Bbbk\)\hyp{}linear.
+
+\begin{definition}\hfill
+  \begin{itemize}
+    \item A \emph{tensor category} is a locally finite abelian rigid monoidal category \(\cat{C}\) such that \(\mathrm{End}_{\cat{C}}(\1) \cong \Bbbk\).
+    \item A \emph{finite tensor category} is a finite abelian rigid monoidal category \(\cat{C}\) such that \(\mathrm{End}_{\cat{C}}(\1) \cong \Bbbk\).
+    \item A \emph{ring category} is a locally finite abelian separately exact monoidal category \(\cat{C}\) such that \(\mathrm{End}_{\cat{C}}(\1) \cong \Bbbk\).
+    \item A \emph{finite ring category} is a finite abelian separately exact monoidal category \(\cat{C}\) such that \(\mathrm{End}_{\cat{C}}(\1) \cong \Bbbk\).
+  \end{itemize}
+\end{definition}
+
+Despite apparent similarity in terminology,
+the notion of a ring category is not related to that of a rig category,
+such as those considered in~\cite{johnson-yau2021:TwoDimensionalCategories}.
+
+\begin{definition}
+  Let \(\cat{C}\) be a ring category.
+  A \emph{fibre functor} for \(\cat{C}\) is a faithful and exact monoidal functor \(U\from \cat{C} \to \kvect\).
+\end{definition}
+
+The next result is a variant of Tannaka--Krein duality for ring categories.
+
+\begin{theorem}[{\cite[Theorem~5.4.1]{Etingof2015}}]
+  Let \(\cat{C}\) be a ring category, and assume it admits a fibre functor \(U\from \cat{C} \to  \kvect\).
+  Then there exists a bialgebra \(B\) such that there is a monoidal equivalence \(K_B\from \cat{C} \to \lcomod{B}\)
+  and a monoidal natural isomorphism \(U_{B} \circ K_{B} \cong U\), where \(U_{B}\from \lcomod{B} \to \kvect\) is the forgetful functor.
+  Further, \(B\) is unique up to isomorphism, Hopf if and only if \(\cat{C}\) is a tensor category, and finite\hyp{}dimensional if and only if \(\cat{C}\) is a finite ring category.
+\end{theorem}
+
+\section{Algebra and module objects}\label{sec:algebra-and-module-objects}
+
+\textsc{Let \(\cat{C}\) be a monoidal category}.
+An \emph{algebra object in \(\cat{C}\)} consists of
+an object \(A \in \cat{C}\)
+together with a \emph{multiplication} \(\mu\from A \otimes A \to A\)
+and a \emph{unit} \(\eta\from \1 \to A\),
+satisfying associativity and unitality axioms analogous to those for a \(\Bbbk\)\hyp{}algebra.
+In fact, a \(\Bbbk\)\hyp{}algebra is the same as an algebra object in \(\kVect\).
+
+A \emph{coalgebra object} in \(\cat{C}\) is
+an object \(C \in \cat{C}\) equipped
+with a comultiplication \(\Delta\from C \to C \otimes C\)
+and a counit morphism \(\varepsilon\from C \to \1\),
+satisfying coassociativity and counitality axioms,
+such that \(C\) becomes an algebra object in \(\cat{C}^{\op}\).
+
+\begin{example}\label{ex:monoid-iff-tensoring-is-monad}
+  An object \(A\) in a monoidal category \(\cat{C}\) is an algebra object in \(\cat{C}\)
+  if and only if \(\blank \otimes A\from \cat{C}\to \cat{C}\) is a monad.
+\end{example}
+
+\begin{example}\label{ex:dual-pairs}
+  Let \(\cat{C}\) be a monoidal category,
+  and suppose that \(x \in \cat{C}\) has a left dual \(\ld{\!{}x} \in \cat{C}\).
+  Then this induces an algebra object
+  \[
+    (x \otimes \ld{\!{}x},
+    \ x \otimes \ev_x^{\ell} \otimes \ld{\!{}x}\from x \otimes \ld{\!{}x} \otimes x \otimes \ld{\!{}x} \to x \otimes \ld{\!{}x},
+    \ \coev_x^{\ell} \from 1 \to x \otimes \ld{\!{}x})
+  \]
+  and, dually, a coalgebra object \((\ld{\!{}x} \otimes x,\, \ld{\!{}x} \otimes \coev_x^{\ell} \otimes X,\, \ev_x^{\ell})\) in \(\cat{C}\).
+\end{example}
+
+A special case of \cref{ex:dual-pairs} is when we consider the monoidal category \([\cat{C},\cat{C}]\) of endofunctors.
+Then a left dual of some \(U \in [\cat{C},\cat{C}]\) is a left adjoint,
+with \(\ev_U^{\ell}\) and \(\coev_U^{\ell}\) giving the coevaluation and evaluation, respectively.
+the resulting algebra and coalgebra structures are the monad and comonad corresponding to the adjunction.
+
+\begin{definition}\label{ModuleInModule}
+  Let \((\cat{M}, \lact)\) be a left \(\cat{C}\)\hyp{}module category
+  and \((A, \mu, \eta)\) an algebra object in \(\cat{C}\).
+  A \emph{left \(A\)\hyp{}module in \(\cat{M}\)} is
+  an object \(M \in \cat{M}\)
+  together with an \emph{action} morphism \(\alpha\from A \lact M \to M\)
+  such that the following diagrams commute
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {(A \otimes A) \triangleright M} \& {A \triangleright (A \triangleright M)} \& {A \triangleright M} \& {\1 \lact M} \& M \\
+      {A \triangleright M} \&\& M \& {A \lact M}
+      \arrow["{{{\cat{M}_{\mathsf{a}}}}}", from=1-1, to=1-2]
+      \arrow["{{\mu \,\triangleright\, m}}"', from=1-1, to=2-1]
+      \arrow["{{A \,\triangleright\, \alpha}}", from=1-2, to=1-3]
+      \arrow["{{\alpha}}", from=1-3, to=2-3]
+      \arrow["{{\cat{M}_{\mathsf{u}}}}", from=1-4, to=1-5]
+      \arrow["{\eta \,\lact\, M}"', from=1-4, to=2-4]
+      \arrow["{{\alpha}}"', from=2-1, to=2-3]
+      \arrow["{\alpha}"', from=2-4, to=1-5]
+    \end{mytikzcd}
+  \]
+
+  A \emph{morphism of modules} is an arrow \(f\from M \to N\) in \(\cat{M}\) commuting with the respective actions
+  in the sense that \(f \circ \alpha_m = \alpha_n \circ (A \lact f)\).
+\end{definition}
+
+\begin{example}\label{MoreModules}
+  Clearly, left \(A\)\hyp{}modules in \(\cat{M}\) and their morphisms form a category,
+  which we shall denote by \(\modma\).
+  The obvious forgetful functor
+  \(\forgetleftmod{A}{\cat{M}}\from \modma \to \cat{M}\)
+  admits a left adjoint
+  \begin{align*}
+    \freeleftmod{A}{\cat{M}}\from \cat{M} &\to \leftmod{A}{\cat{M}} \\[-0.25cm]
+    M &\mapsto \big(A \triangleright M,\ A \lact (A \lact M) \xrightarrow{\cat{M}_{\mathrm{a}}^{-1}} (A \otimes A) \lact M \xrightarrow{\mu \,\triangleright\, M} A \lact M\big)
+  \end{align*}
+  The unit of this adjunction is given by \(M \xrightarrow{\,\cat{M}_{\mathrm{u}}\,} \1 \triangleright M \xrightarrow{\eta \,\triangleright\, M} A \triangleright M\),
+  and the counit is \(\alpha_M \from A \triangleright M \to M\).
+\end{example}
+
+Given a coalgebra object \(C\) in \(\cat{C}\),
+a \emph{left \(C\)\hyp{}comodule in \(\cat{M}\)} is an object \(N \in \cat{C}\) satisfying axioms dual to those for a module in \(\cat{M}\),
+so that a left \(C\)\hyp{}comodule in \(\cat{M}\) is the same as a left \(C\)\hyp{}module in the \(\cat{C}^{\op}\)\hyp{}module category \(\cat{M}^{\op}\).
+Comodule morphisms are defined similarly.
+We denote the category of \(C\)\hyp{}comodules in \(\cat{M}\) by \(\comodmc\).
+There is an adjunction analogous to that for modules:
+\[
+  \adj{\forgetleftcomod{C}{\cat{M}}}{\freeleftcomod{C}{\cat{M}}}{\cat{M}}{\comodmc}.
+\]
+
+Similarly, one can define right modules and comodules in a right module category,
+and bimodules and bicomodules in a bimodule category.
+
+\begin{definition}\label{def:comodule-algebra}
+  Let \(A\) be an algebra in \(\cat{C}\).
+  A (left) \emph{\(A\)\hyp{}comodule algebra} is an algebra \(C\), together with a left \(A\)\hyp{}comodule structure \(\rho\from C \to A \otimes C\),
+  such that \(\rho\) is a morphism of \(A\)\hyp{}algebras.
+\end{definition}
+
+Analogously to \cref{def:comodule-algebra} one defines right comodule algebras, as well as comodule coalgebras and module algebras.
+
+\begin{notation}\label{notation-for-vect-modules}
+  If the underlying category is the category of vector spaces,
+  then we use the following notation,
+  to differentiate it from the general case:
+  \[
+    \Tetramod[C]{} \defeq \leftcomod{C}{\kVect}.
+  \]
+  for the category of left \(C\)\hyp{}comodules of a coalgebra \(C\).
+
+  Analogously, we for example define \(\Tetramod[][A]{}\), \(\Tetramod[C][][A][]\);
+  or \(\tetramodfd[C]{}\), \(\tetramodfd[][A]{}\),
+  and \(\tetramodfd[B][B][B][B]\) for the finite\hyp{}dimensional case.
+\end{notation}
+
+\begin{remark}\label{rem:lifting-functors-to-mod}
+  Let \(A\) be an algebra object in \(\mathcal{C}\) and let \(\mathcal{M}\) and \(\cat{N}\) be left \(\mathcal{C}\)\hyp{}module categories.
+  A lax \(\mathcal{C}\)\hyp{}module functor \(F\from \mathcal{N} \to \mathcal{M}\)
+  can be lifted to
+  \[
+    \leftmod{A}{F}\from \leftmod{A}{\mathcal{N}} \to \leftmod{A}{\mathcal{M}}
+  \]
+  on the respective categories of \(A\)\hyp{}modules
+  by sending \(N \in \leftmod{A}{\mathcal{N}}\) to the left \(A\)\hyp{}module \(FN\),
+  whose action is given by
+  \[
+    \alpha_{FN}\from A \lact_{\mathcal{M}} FN \xrightarrow{F_{\mathrm{a};A,N}} F(A \lact_{\mathcal{N}} N) \xrightarrow{F \alpha_{N}} FN.
+  \]
+  This functor is a lift of \(F\)—it satisfies the following relation:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\leftmod{A}{\mathcal{N}}} \&\& {\leftmod{A}{\mathcal{M}}} \\
+      {\mathcal{N}} \&\& {\mathcal{M}}
+      \arrow["{\leftmod{A}{F}}", from=1-1, to=1-3]
+      \arrow["{\forgetleftmod{A}{\mathcal{N}}}"', from=1-1, to=2-1]
+      \arrow["{\forgetleftmod{A}{\mathcal{M}}}", from=1-3, to=2-3]
+      \arrow["F"', from=2-1, to=2-3]
+    \end{mytikzcd}
+  \]
+\end{remark}
+
+\begin{example}\label{ex:bicategory-of-bimodules}
+  Let \(\cat{C}\) be a cocomplete symmetric monoidal category,
+  such that its is right exact in both variables.
+  Then one may define the bicategory \(\BiCat{Bimod}(\cat{C})\) of bimodules in \(\cat{C}\) as follows:
+  \begin{itemize}
+    \item Objects are algebra objects in \(\cat{C}\).
+    \item For \(A\) and \(B\) in \(\cat{C}\), the hom-category \(\BiCat{Bimod}(\cat{C})(A, B)\)
+    is given by \(B\)\hyp{}\(A\)\hyp{}bimodules in \(\cat{C}\) and their homomorphisms.
+    Horizontal composition is given by the balanced tensor product of bimodules.
+  \end{itemize}
+\end{example}
+
+Analogously to \cref{ex:bicategory-of-bimodules},
+there is a bicategory \(\BiCat{Bicomod}(\cat{C})\) of \(\cat{C}\)\hyp{}bicomodules,
+for \(\cat{C}\) a complete symmetric monoidal category,
+with the tensor product being left exact in both variables.
+
+\begin{definition}\label{def:filtered-category}
+  A category \(\cat{I}\) is \emph{filtered} if every finite diagram has a cocone.
+\end{definition}
+
+Equivalently, \cref{def:filtered-category} could be stated in the following way:
+a category \(\cat{I}\) is filtered if the following two conditions hold:
+\begin{itemize}
+  \item for all \(x,y \in \cat{I}\)
+  there exist arrows \(k_x\from x \to k\) and \(k_y\from y \to k\) in \(\cat{I}\); and
+  \item for all parallel arrows \(f,g \from x \to y\) in \(\cat{I}\)
+  there exists a \(k_{fg}\from y \to k\), such that \(k_{fg} \circ g = k_{fg} \circ f\).
+\end{itemize}
+
+\begin{definition}\label{def:filtered-colimit}
+  A diagram \(F\from \cat{I} \to \cat{C}\) is called \emph{filtered} if the domain \(\cat{I}\) is a filtered category.
+  A \emph{filtered colimit} is a colimit of a filtered diagram,
+  and a functor is called \emph{finitary} if it preserves filtered colimits.
+\end{definition}
+
+Ordinarily,
+limits and colimits do not commute.
+For example, for sets \(X\), \(Y\), \(W\), and \(V\),
+the canonical morphism
+\((X \times Y) \coprod\, (W \times V) \to (X \coprod V) \times (Y \coprod V)\)
+is not isomorphism in general.
+However, it turns out that filtered colimits do commute with finite limits,
+see for example~\cite[Theorem~\textsc{ix}.2.1]{MacLane1998}.
+
+\begin{proposition}\label{prop:filtered-colimits-and-finite-limits-commute}
+  Filtered colimits commute with finite limits in \(\Set\):
+  given a functor \(F\from \cat{J} \times \cat{I} \to \Set\) of two diagram categories,
+  where \(\cat{J}\) is finite and \(\cat{I}\) is small and filtered,
+  the following canonical morphism is an isomorphism:
+  \[
+    \colim\displaylimits_i \lim_j F(j, i) \iso \lim_j \colim\displaylimits_i F(j, i).
+  \]
+\end{proposition}
+
+\begin{lemma}\label{finitarythings}
+  Let \(\cat{A}\) and \(\cat{B}\) be additive categories.
+  Finite biproducts endow \(\cat{A}\) and \(\cat{B}\) with the structure of \(\kvect\)\hyp{}module categories.
+  Any functor \(F\from \cat{A} \to \cat{B}\) is a \(\kvect\)\hyp{}module functor with respect to these \(\kvect\)\hyp{}actions.
+
+  If \(\cat{B}\) admits filtered colimits,
+  \(F\) extends essentially uniquely to a finitary \(\kVect\)\hyp{}module functor \(\Ind(\cat{A}) \to \cat{B}\),
+  and any finitary \(\kVect\)\hyp{}module functor is of this form.
+\end{lemma}
+\begin{proof}
+  Let \(\mathsf{add}(\cat{A})\) denote the cocompletion of \(\cat{A}\) under finite biproducts—the \emph{additive closure} of \(\cat{A}\).
+  As finite biproducts are absolute colimits,
+  the left adjoint \(\mathsf{add}(\cat{A}) \to \cat{A}\) of the canonical inclusion \(\cat{A} \longhookrightarrow \mathsf{add}(\cat{A})\),
+  coming from the universal property of \cref{cocompletingmodules},
+  is an equivalence of \(\kvect\)\hyp{}module categories.
+  Hence, so is the inclusion \(\cat{A} \longhookrightarrow \mathsf{add}(\cat{A})\).
+  We find the equivalences
+  \[
+    \Cat_{\Bbbk}(\cat{A},\blank)
+    \simeq \lMod{\kvect}(\mathsf{add}(\cat{A}),\blank)
+    \simeq \lMod{\kvect}(\cat{A},\blank),
+  \]
+  establishing the first claim.
+  The second claim follows in a similar way,
+  using that \(\kVect \simeq \Ind(\kvect)\) and
+  \[
+    \lMod{\kvect}(\cat{A},\cat{B})
+    \simeq \lMod{\kVect}_{\mathrm{filt}}(\Ind(\cat{A}), \cat{B}).\qedhere
+  \]
+\end{proof}
+
+\begin{example}\label{ex:cotensor-product-of-comodules}
+  Let \(C\) be a coalgebra in \(\kVect\).
+  Given two \(C\)\hyp{}comodules \((X, \rho)\) and \((Y, \lambda)\),
+  one may form their \emph{cotensor product}—the vector space \(X \cotens Y\) given by the equaliser
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {X \cotens Y} \& {X \kotimes Y} \& {X \kotimes C \kotimes Y.}
+      \arrow[hook, from=1-1, to=1-2]
+      \arrow["{\rho \kotimes Y}", shift left=1, from=1-2, to=1-3]
+      \arrow["{X \kotimes \lambda}"', shift right=1, from=1-2, to=1-3]
+    \end{mytikzcd}
+  \]
+\end{example}
+
+Sometimes, the formalism of module categories%
+—even those over the seemingly trivial monoidal categories \(\kvect\) and \(\kVect\)—%
+provides additional clarity to classical statements about algebraic and coalgebraic \(\Bbbk\)\hyp{}linear structures.
+We give a brief proof of the result below as an example of this.
+
+\begin{proposition}[{\cite[Proposition~2.1]{takeuchi77:morit}}]\label{TakeuchiEilenbergWatts}
+  Let \(\cat{D}\) be an abelian category admitting filtered colimits, and let \(C\) be a coalgebra over \(\Bbbk\).
+  There is an equivalence
+  \[
+    \begin{aligned}
+      \mathsf{Lexf}(\Tetramod[C]{}, \cat{D}) &\iso \rightcomod{\cat{D}}{C} \\
+      F &\mapsto FC \\
+      N \cotens \blank &\longmapsfrom N,
+    \end{aligned}
+  \]
+  where the left-hand side is the category of left exact finitary functors from \(\Tetramod[C]{}\),
+  and the right-hand side—following the notation of \cref{MoreModules}—denotes the category of right \(C\)\hyp{}comodules in \(\cat{D}\).
+  Here, \(\cat{D}\) is endowed with the \(\kVect\)\hyp{}module structure described in \cref{FinitaryAction}.
+
+  In particular, for a coalgebra \(D\) over \(\Bbbk\), we have
+  \[
+    \mathsf{Lexf}(\Tetramod[C]{}, \Tetramod[D]{}) \simeq \Tetramod[D][][][C].
+  \]
+\end{proposition}
+\begin{proof}
+  Since \(\Tetramod[C]{} \simeq \Ind(\tetramodfd[C]{})\),
+  the functor \(F\) can be seen as induced to filtered colimits from its restriction to \(\tetramodfd[C]{}\),
+  and as such is a \(\kVect\)\hyp{}module functor, following \cref{finitarythings}.
+  Observe that \(C\), being a bicomodule over itself, is a right \(C\)\hyp{}comodule in \(\Tetramod[C]{}\).
+  Thus, \(FC\) is a right \(C\)\hyp{}comodule in \(\cat{D}\).
+
+  To see that \(F \cong FC \cotens \blank\), let \(N \in \Tetramod[C]{}\) and recall that the bar construction provides a functorial injective resolution
+  \[
+    N \cong \eq(\!\!
+    \begin{mytikzcd}[ampersand replacement=\&,sep=small]
+      {C \otimes N} \& { C \otimes C \otimes N}
+      \arrow["{\Delta_{C} \otimes N}", shift left, from=1-1, to=1-2]
+      \arrow["{C \otimes \Delta_{N}}"', shift right, from=1-1, to=1-2]
+    \end{mytikzcd}
+    \!\!).
+  \]
+  Thus,
+  \[
+    \begin{aligned}
+      FN
+      &\cong F\big(\eq(\!\!
+        \begin{mytikzcd}[ampersand replacement=\&,sep=small]
+          {C \otimes N} \& { C \otimes C \otimes N}
+          \arrow["{\Delta_{C} \otimes N}", shift left, from=1-1, to=1-2]
+          \arrow["{C \otimes \Delta_{N}}"', shift right, from=1-1, to=1-2]
+        \end{mytikzcd}
+        \!\!)\big)
+        \cong \eq\big(\!\!
+        \begin{mytikzcd}[ampersand replacement=\&,sep=small]
+          {F(C \otimes N)} \& {F(C \otimes C \otimes N)}
+          \arrow["{F(\Delta_{C} \otimes N)}", shift left, from=1-1, to=1-2]
+          \arrow["{F(C \otimes \Delta_{N})}"', shift right, from=1-1, to=1-2]
+        \end{mytikzcd}
+        \!\!\big) \\
+      &\cong \eq\big(\!\!
+        \begin{mytikzcd}[ampersand replacement=\&,sep=small]
+          {FC \otimes N} \& {FC \otimes C \otimes N}
+          \arrow["{F(\Delta_{C}) \otimes N}", shift left, from=1-1, to=1-2]
+          \arrow["{FC \otimes \Delta_{N}}"', shift right, from=1-1, to=1-2]
+        \end{mytikzcd}
+        \!\!\big)
+        = FC \cotens N,
+    \end{aligned}
+  \]
+  where the first isomorphism is using the bar construction,
+  the second follows from left exactness of \(F\),
+  the third uses the fact that \(F\) is a right \(\kVect\)\hyp{}module functor,
+  and the fourth follows by observing that \(F(\Delta_{C}) = \Delta_{F(C)}\).
+\end{proof}
+
+\section{Monoidal bicategories}\label{sec:monoidal-bicategories}
+
+\textsc{We briefly recall the notion of a monoidal bicategory},
+which will play an important role in the string diagrams used throughout.
+More detailed accounts are given~\cite[Chatper~12]{johnson-yau2021:TwoDimensionalCategories},
+see also~\cite{gordon95:coher,gurski2006algebraic,garner16:enric}.
+
+\begin{definition}
+  A \emph{monoidal bicategory} consists of
+  a bicategory \(\mathbb{B}\) together with the following data:
+  \begin{itemize}
+    \item A pseudofunctor \(\boxtimes\colon \mathbb{B} \times \mathbb{B} \to \mathbb{B}\).
+    \item A pseudofunctor \(\1_{\mathbb{B}}\colon \terminal \to \mathbb{B}\).
+    The image of the unique object \(\terminal\) in \(\mathbb{B}\)
+    will be referred to as the \emph{identity object} of \(\mathbb{B}\),
+    and, abusing notation,
+    also denoted by \(\1_{\mathbb{B}}\).
+    The pseudofunctoriality of \(\1_{\mathbb{B}}\) yields additional structure:
+    a 1-morphism
+    \(\mathrm{I}_{\mathbb{B}}\colon \1_{\mathbb{B}} \to \1_{\mathbb{B}}\)
+    and invertible 2-morphisms
+    \(\nabla^{\mathrm{I}}\colon \mathrm{I}_{\mathbb{B}} \circ \mathrm{I}_{\mathbb{B}} \iso \mathrm{I}_{\mathbb{B}}\)
+    and \(\eta^{\mathrm{I}}\colon \Id_{\1_{\mathbb{B}}} \iso \mathrm{I}_{\mathbb{B}}\),
+    such that \((\1_{\mathbb{B}},\nabla^{\mathrm{I}},\eta^{\mathrm{I}})\)
+    form an idempotent monad in \(\mathbb{B}\).
+    \item An adjoint pseudonatural equivalence
+    \((\mathfrak{A}, \mathfrak{A}^{\blackdiamond}, \eta^{\mathfrak{A}}, \varepsilon^{\mathfrak{A}})\):
+    \[
+      \begin{mytikzcd}[ampersand replacement=\&]
+	{\mathbb{B} \times \mathbb{B} \times \mathbb{B}} \& {\mathbb{B} \times \mathbb{B}}\\
+	{\mathbb{B} \times \mathbb{B}} \& {\mathbb{B}}
+	\arrow["{\boxtimes \times \mathbb{B}}", from=1-1, to=1-2]
+	\arrow["{\mathbb{B} \times \boxtimes}"', from=1-1, to=2-1]
+	\arrow["{\mathfrak{A}}", shorten <=12pt, shorten >=12pt, Rightarrow, from=1-2, to=2-1]
+	\arrow["\boxtimes", from=1-2, to=2-2]
+	\arrow["\boxtimes"', from=2-1, to=2-2]
+      \end{mytikzcd}
+    \]
+    which will be referred to as
+    the \emph{associator} for \(\mathbb{B}\).
+    Its components are 1-morphisms of the form
+    \(\mathfrak{A}_{\cat{A,B,C}}\colon (\cat{A} \boxtimes \cat{B}) \boxtimes \cat{C} \iso \cat{A} \boxtimes (\cat{B} \boxtimes \cat{C})\).
+    \item Pseudonatural adjoint equivalences
+    \((\mathfrak{L},\mathfrak{L}^{\blackdiamond}, \eta^{\mathfrak{L}}, \varepsilon^{\mathfrak{L}})\)
+    and \((\mathfrak{R},\mathfrak{R}^{\blackdiamond}, \eta^{\mathfrak{R}}, \varepsilon^{\mathfrak{R}})\),
+    referred to as \emph{left and right unitors}, respectively:
+    \[
+      \begin{mytikzcd}[ampersand replacement=\&,sep=scriptsize]
+        {\mathbb{B}} \&\& {\mathbb{B} \times \mathbb{B}} \& {\mathbb{B}}
+        \arrow["\boxtimes", from=1-3, to=1-4]
+        \arrow["{\id_{\mathbb{B}}\times \1_{\mathbb{B}}}"{pos=0.7}, shift left=2, from=1-1, to=1-3]
+        \arrow["{ \1_{\mathbb{B}}\times \id_{\mathbb{B}}}"'{pos=0.7}, shift right=2, from=1-1, to=1-3]
+        \arrow[""{name=0, anchor=center, inner sep=0}, shift left=2, curve={height=-30pt}, from=1-1, to=1-4]
+        \arrow[""{name=1, anchor=center, inner sep=0}, shift right=2, curve={height=30pt}, from=1-1, to=1-4]
+        \arrow["{\mathfrak{L}}"', shorten <=4pt, Rightarrow, from=0, to=1-3]
+        \arrow["{\mathfrak{R}}"', shorten <=4pt, Rightarrow, from=1, to=1-3]
+      \end{mytikzcd}
+    \]
+    Its components are 1-morphisms of \(\mathbb{B}\)
+    of the form \(\mathfrak{R}\colon \1_{\mathbb{B}} \boxtimes \cat{A} \iso \cat{A}\)
+    and \(\mathfrak{L}\colon \cat{A} \boxtimes \1_{\mathbb{B}} \iso \cat{A}\),
+    for \(\cat{A} \in \Ob\mathbb{B}\).
+    \item An invertible modification \(\mathfrak{p}\),
+    as indicated by the components of \(\mathfrak{p}\) displayed below,
+    where \(\cat{A},\cat{B},\cat{C},\cat{D} \in \Ob\mathbb{B}\):
+    \begin{equation}\label[diagram]{Pentagonator}
+      \begin{mytikzcd}[ampersand replacement=\&, column sep=tiny]
+        {(\cat{D} \boxtimes (\cat{C} \boxtimes \cat{B}) ) \boxtimes \cat{A}} \&\& {\cat{D} \boxtimes ((\cat{C} \boxtimes \cat{B}) \boxtimes \cat{A})} \\
+        {((\cat{D} \boxtimes \cat{C}) \boxtimes \cat{B}) \boxtimes \cat{A}} \&\& {\cat{D} \boxtimes (\cat{C} \boxtimes (\cat{B} \boxtimes \cat{A}))} \\
+        \& {(\cat{D} \boxtimes \cat{C}) \boxtimes (\cat{B} \boxtimes \cat{A})}
+        \arrow[""{name=0, anchor=center, inner sep=0}, from=1-1, to=1-3]
+        \arrow[from=2-1, to=1-1]
+        \arrow[from=1-3, to=2-3]
+        \arrow[from=2-1, to=3-2]
+        \arrow[from=2-3, to=3-2]
+        \arrow["{\mathfrak{p}_{\cat{D},\cat{C},\cat{B},\cat{A}}}", shorten <=16pt, shorten >=16pt, Rightarrow, from=0, to=3-2]
+      \end{mytikzcd}
+    \end{equation}
+    The arrows in the diagram are formed using the associator \(\mathfrak{A}\) as indicated. We refer to \(\mathfrak{p}\) as the \emph{pentagonator}.
+    \item Invertible modifications \(\mathfrak{l}\), \(\mathfrak{m}\), and \(\mathfrak{r}\);
+    the \emph{left, middle, and right 2-unitors}:
+    \[
+      \mathscale{0.9}{\begin{mytikzcd}[ampersand replacement=\&]
+	{(\cat{B} \boxtimes \1_{\mathbb{B}}) \boxtimes \cat{A}} \& {\cat{B} \boxtimes (\1_{\mathbb{B}} \boxtimes \cat{A})} \& {(\cat{B} \boxtimes \cat{A}) \boxtimes \1_{\mathbb{B}}} \& {\cat{B} \boxtimes (\cat{A} \boxtimes \1_{\mathbb{B}})} \\
+	{\cat{B} \boxtimes \cat{A}} \& {\cat{B} \boxtimes \cat{A}} \& {\cat{B} \boxtimes \cat{A}} \\
+	\& {(\1_{\mathbb{B}} \boxtimes \cat{B}) \boxtimes \cat{A}} \& {\1_{\mathbb{B}} \boxtimes (\cat{B} \boxtimes \cat{A})} \\
+	\& {\cat{B} \boxtimes \cat{A}}
+	\arrow[""{name=0, anchor=center, inner sep=0}, "{{\mathfrak{A}_{\cat{B},\1_{\mathbb{B}},\cat{A}}}}", from=1-1, to=1-2]
+	\arrow["{{\cat{B} \boxtimes \mathfrak{L}_{\cat{A}}}}", from=1-2, to=2-2]
+	\arrow["{{\mathfrak{A}_{\cat{B},\cat{A},\1_{\mathbb{B}}}}}", from=1-3, to=1-4]
+	\arrow["{{\mathfrak{R}^{\blackdiamond}\boxtimes \cat{A}}}", from=2-1, to=1-1]
+	\arrow[""{name=1, anchor=center, inner sep=0}, equals, from=2-1, to=2-2]
+	\arrow["{{\mathfrak{R}_{\cat{B}\boxtimes \cat{A}}^{\blackdiamond}}}", from=2-3, to=1-3]
+	\arrow[""{name=2, anchor=center, inner sep=0}, "{{\cat{B}\boxtimes \mathfrak{R}_{\cat{A}}^{\blackdiamond}}}"', curve={height=12pt}, from=2-3, to=1-4]
+	\arrow["{{\mathfrak{A}_{\1_{\mathbb{B}},\cat{B},\cat{A}}}}", from=3-2, to=3-3]
+	\arrow["{{\mathfrak{L}_{\cat{B}}\boxtimes \cat{A}}}"', from=3-2, to=4-2]
+	\arrow[""{name=3, anchor=center, inner sep=0}, "{{\mathfrak{L}_{\cat{B}\boxtimes \cat{A}}}}", curve={height=-12pt}, from=3-3, to=4-2]
+	\arrow["{\mathfrak{m}_{\cat{B},\cat{A}}}", shorten <=12pt, shorten >=12pt, Rightarrow, from=0, to=1]
+	\arrow["{\mathfrak{r}_{\cat{B},\cat{A}}}"{pos=0.8}, shorten <=16pt, shorten >=8pt, Rightarrow, from=2, to=1-3]
+	\arrow["{\mathfrak{l}_{\cat{B},\cat{A}}}"'{pos=0.2}, shorten <=8pt, shorten >=16pt, Rightarrow, from=3-2, to=3]
+      \end{mytikzcd}}
+    \]
+  \end{itemize}
+
+  \noindent{}This data is subject to coherence axioms,
+  see~\cite[Explanation~12.1.3]{johnson-yau2021:TwoDimensionalCategories}.
+\end{definition}
+
+\begin{example}\label{MonoidalBicatCat}
+  The 2-category \(\BiCat{Cat}_{\Bbbk}\) of
+  \(\Bbbk\)\hyp{}linear categories,
+  \(\Bbbk\)\hyp{}linear functors,
+  and natural transformations between them
+  is a monoidal bicategory
+  when endowed with the \emph{tensor product} of \(\Bbbk\)\hyp{}linear categories:
+  given \(\cat{A}\) and \(\cat{B}\), define the \(\Bbbk\)\hyp{}linear category \(\cat{A} \otimes_{\Bbbk} \cat{B}\) by
+  \begin{itemize}
+    \item \(\Ob(\cat{A} \otimes_{\Bbbk} \cat{B}) \defeq \Ob\cat{A} \times \Ob\cat{B}\),
+    \item \((\cat{A}\otimes_{\Bbbk} \cat{B})((a,b),(a',b')) \defeq \cat{A}(a,a') \otimes_{\Bbbk} \cat{B}(b,b')\).
+  \end{itemize}
+  Given \(\Bbbk\)\hyp{}linear functors \(F\colon \cat{A} \rightarrow \cat{B}\) and \(G\colon \cat{C} \rightarrow \cat{D}\),
+  the tensor product \(F \otimes_{\Bbbk} G\) is defined by
+  \(\Ob(F\otimes_{\Bbbk} G) = \Ob(F) \times \Ob(G)\) and
+  \begin{align*}
+    {(F\otimes_{\Bbbk} G)}_{(a, b),(c, d)} \from \cat{A}(a, c) \otimes_{\Bbbk} \cat{B}(b, d) \xrightarrow{F_{a,c} \otimes_{\Bbbk} G_{b,d}} \cat{C}(Fa, Fc) \otimes_{\Bbbk} \cat{D}(Gb, Gd).
+  \end{align*}
+  The tensor product of natural transformations extends similarly.
+
+  The associators and unitors are lifted from \(\Set\)
+  and \(\kVect\),
+  and the pentagonators and \(2\)\hyp{}unitors are trivial.
+  For example,
+  given \(\Bbbk\)\hyp{}linear categories \(\cat{A}\), \(\cat{B}\), and \(\cat{C}\),
+  the associator
+  \(\mathfrak{A}_{\cat{A}, \cat{B},\cat{C}}\)
+  is the equivalence
+  \begin{align*}
+    (\cat{A} \otimes_{\Bbbk} \cat{B}) \otimes_{\Bbbk} \cat{C} &\iso \cat{A} \otimes_{\Bbbk} (\cat{B} \otimes_{\Bbbk} \cat{C}) \\
+    ((a,b),c) &\mapsto (a,(b,c)) \\
+    (f \otimes_{\Bbbk} g) \otimes_{\Bbbk} h &\mapsto f \otimes_{\Bbbk} (g \otimes_{\Bbbk} h).
+  \end{align*}
+  \Cref{Pentagonator} commutes in this case,
+  and so the pentagonator may be chosen to be the identity.
+\end{example}
+
+Generalising the above example,
+for a symmetric closed monoidal category \((\cat{V}, \otimes)\),
+the bicategory \(\VCat\) is monoidal,
+with the monoidal structure \(\cat{A} \otimes \cat{B}\) defined analogously to \(\cat{A} \otimes_{\Bbbk} \cat{B}\) in the case of \(\cat{V} \defeq \kVect\).
+
+\begin{example}\label{ex:bimod}
+  The bicategory \(\BiCat{Bimod}(\cat{C})\) of \cref{ex:bicategory-of-bimodules}
+  is a monoidal bicategory with respect to the underlying tensor product of \(\cat{C}\).
+  Tensoring bimodules \({}_{B}M_{A}\) and \({}_{D}N_{C}\) is given by
+  the \((B \otimes D)\)\hyp{}\((A \otimes C)\)\hyp{}bimodule
+  \({}_{B}M_{A} \otimes {}_{D}N_{C}\),
+  and this extends to bimodule homomorphisms in the obvious way.
+\end{example}
+
+% The coherence structure of the example monoidal bicategories that follow are not of great interest to us, so, in contrast to \cref{MonoidalBicatCat}, where we specified it for completeness, we will omit it in the remaining cases. We will however provide references to articles where more details can be found.
+
+For details on the following example,
+together with its more general variant where \(\cat{V}\) is only required to be braided,
+see~\cite[Section~7]{day97:monoid-hopf}.
+
+\begin{example}\label{MonoidalBicatProf}
+  The bicategory \(\Prof_{\Bbbk}\) has as objects \(\Bbbk\)\hyp{}linear categories,
+  and the hom-categories are given by
+  \[
+    \Prof_{\Bbbk}(\cat{C}, \cat{D}) \defeq \BiCat{Cat}_{\Bbbk}(\cat{D}^{\op} \kotimes \cat{C}, \kVect).
+  \]
+  We call \(F \in \Prof_{\Bbbk}(\cat{C}, \cat{D})\) a \emph{profunctor},
+  and write \(F \from \cat{C} \slashedrightarrow \cat{D}\).
+  Composition of profunctors \(F\from \cat{C} \slashedrightarrow \cat{D}\) and \(G\from \cat{D} \slashedrightarrow \cat{E}\) is given by the coend
+  \[
+    (G \diamond F)(e, c) \defeq \int^{d \in \cat{D}} G(e, d) \kotimes F(d, c).
+  \]
+
+  Further, \(\Prof_{\Bbbk}\) is monoidal when endowed the monoidal structure \(\otimes_{\Bbbk}\).
+  On objects, it coincides with that in \cref{MonoidalBicatCat}:
+  given categories \(\cat{A}\) and \(\cat{B}\),
+  their tensor product is \(\cat{A} \otimes_{\Bbbk} \cat{B}\).
+  Given profunctors \(\Phi\colon \cat{A} \slashedrightarrow \cat{A}'\) and \(\Psi\colon \cat{B} \slashedrightarrow \cat{B}'\),
+  the profunctor \(\Phi \otimes_{\Bbbk} \Psi\colon \cat{A} \otimes_{\Bbbk} \cat{A}' \slashedrightarrow \cat{B} \otimes_{\Bbbk} \cat{B}'\)
+  is defined via
+  \[
+    (\Phi \otimes_{\Bbbk} \Psi)((b, b'),(a, a')) = \Phi(a', a) \otimes_{\Bbbk} \Psi(b', b).
+  \]
+  This extends similarly to natural transformations between profunctors.
+\end{example}
+
+\subsection{String diagrams in monoidal bicategories}\label{sec:string-diagr-mono}
+
+\textsc{This section extends the graphical language} of
+\cref{sec:graphical-calculus-introduction}
+by incorporating the tensor product of \(\BiCat{Cat}\),
+which turns it into a monoidal 2-category.
+In our presentation, we closely follow Willerton~\cite{Willerton2008},
+see~\cite{day03:lax,street03:funct,barrett24:gray,demirdilek25:surfac-diagr-froben-algeb-froben}
+for other examples of ``sheet'' or ``surface'' diagrams.
+
+As before, we consider strings and vertices between them.
+These are labelled with functors and natural transformations, respectively.
+The strings and vertices are embedded into bounded rectangles, which we will call sheets.
+Each (connected) region of a sheet is decorated with a category.
+The same mechanics as for ordinary 2-dimensional string diagrams apply:
+horizontal and vertical gluing represents composition of functors and natural transformations.
+On top of these operations,
+we add stacking sheets behind each other to depict the monoidal product of \(\BiCat{Cat}\).
+Our convention is to read diagrams from front to back,
+right to left, and bottom to top.
+
+Given a monoidal category \(\cat{C}\),
+two of the most vital building blocks in this new graphical language are
+its tensor product \(\otimes\from \cat{C} \times \cat{C} \to \cat{C}\) and unit \(1 \in \cat{C}\);
+they are shown in~\cref{fig:tensor-prod-unit-monoidal-cat}.
+\begin{figure}[htbp]
+  \centering
+  \tikzfig{tensor-product}
+  \scaption[-1.7cm]{%
+    Graphical representation of the tensor product and unit of a monoidal category \((\cat{C}, \otimes, 1)\).%
+    \label{fig:tensor-prod-unit-monoidal-cat}%
+  }
+\end{figure}
+On the left, there are two sheets equating to two copies of \(\cat{C}\)
+joined by a line: the tensor product of \(\cat{C}\).
+On the right,
+we have the unit of \(\cat{C}\)
+considered as a functor
+from the terminal category to \(\cat{C}\).
+We represent \(\1\) by the empty sheet,
+and the unit of \(\cat{C}\) by a dashed line.
+
+\begin{example}\label{ex:graphical-opmonoidal-functor}
+  Consider an oplax monoidal functor \((F, F_2, F_0) \from \cat{C} \to \cat{D}\).
+  \Cref{fig:opmonoidal-comult-graphically} depicts the comultiplication \(F_2\) as a ``time evolution'',
+  where we start with \(F(\blank \otimes \bblank)\) on the bottom,
+  and end up with \(F(\blank) \otimes F(\bblank)\) at the top.
+  The coassociativity and counitality conditions are depicted in \cref{fig:coassoc-and-counital-opmonoidal-functor}.
+  \begin{figure}[htbp]
+    \centering
+    \tikzfig{opmonoidal-functor-delta-graphically}
+    \vspace{\onelineskip}\hrule
+    \scaption[-4.5cm]{%
+      The comultiplication
+      of an oplax monoidal functor \(F\from \cat{C} \to \cat{D}\).%
+      \label{fig:opmonoidal-comult-graphically}%
+    }
+  \end{figure}
+  \begin{figure}[htbp]
+    \centering
+    \tikzfig{coassoc-and-counital-opmonoidal-functor}\vspace{-\onelineskip}
+    \scaption[-1cm]{%
+      Coassociativity and counitality conditions of an oplax monoidal functor.%
+      \label{fig:coassoc-and-counital-opmonoidal-functor}%
+    }
+  \end{figure}
+\end{example}
+
+\newpage% XXX: Manual orphan prevention. This results in a pretty empty
+        % page, but since we have two large figures at the top of the
+        % next one, it seems like the lesser of the two evils.
+\begin{remark}
+  Given two oplax monoidal functors \(F,G\from \cat{C} \to \cat{D}\),
+  the string diagrammatic conditions for a natural transformation \(\eta\from F \nt G\) to be one of oplax monoidal functors
+  look like
+  \[
+    \tikzfig{nat-of-oplax-monoidal-fun}
+  \]
+\end{remark}
+
+\begin{example}\label{ex:graphical-opmonoidal-adjunctions}
+  Suppose that \(\stdadj\) is an oplax monoidal adjunction.
+  In string diagrams, the conditions that the unit \(\eta\) and the counit \(\varepsilon\)
+  are oplax monoidal natural transformation is
+  given in \cref{fig:comonoidal-adjunction-epsilon}.
+  \begin{figure}[htbp]
+    \centering
+    \tikzfig{comonoidal-adjunction-epsilon}\vspace{-0.2cm}% XXX
+    \scaption[-1cm]{%
+      Conditions for \(\eta\) and \(\varepsilon\) to be oplax transformations.%
+      \label{fig:comonoidal-adjunction-epsilon}%
+    }
+  \end{figure}
+\end{example}
+
+\section{Coends}\label{sec:coends}
+
+\textsc{In this section we give the definition of} an enriched coend
+in the special case of \(\Bbbk\)\hyp{}linear categories.
+More general accounts can be found for example
+in~\cite[Section~2.3]{gray80:closed},~\cite[Chapter~3]{kelly05:basic},
+and~\cite[Chapter~4]{loregian2021}.
+
+\begin{definition}\label{def:coend-vect}
+  Let \(\cat{C}\) be an essentially small \(\Bbbk\)\hyp{}linear category.
+  The \emph{coend} of a \(\Bbbk\)\hyp{}linear functor \(P\from \cat{C}^{\op} \otimes_{\Bbbk} \cat{C} \to \kVect\) is following the coequaliser in \(\kVect\):
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      \displaystyle{\coprod_{a, b \in \cat{C}} \cat{C}(a, b) \otimes_{\Bbbk} P(b, a)} \& \displaystyle{\coprod_{a \in \cat{C}} P(a,a)} \& \displaystyle{\int^{a \in \cat{C}} P(a,a).}
+      \arrow[shift right=1, from=1-1, to=1-2]
+      \arrow[shift left=1, from=1-1, to=1-2]
+      \arrow[two heads, from=1-2, to=1-3]
+    \end{mytikzcd}
+  \]
+  For \(a, b \in \cat{C}\) the two parallel morphisms are given by
+  \begin{align*}
+    \cat{C}(a,b)\otimes_{\Bbbk} P(b, a) &\to P(a,a), \qquad\qquad  f \otimes x \mapsto P(f, a)x, \\
+    \cat{C}(a, b) \otimes_{\Bbbk} P(b, a) &\to P(b, b), \qquad\qquad g \otimes y \mapsto P(b,g)y.
+  \end{align*}
+
+  The \emph{end} \(\int_{a \in\cat{C}} P(a,a)\) of \(P\) is defined analogously as an equaliser in \(\kVect\).
+\end{definition}
+
+\begin{remark}
+  A consequence of \(\cat{C}\) being essentially small is that we can rewrite the (co)equalisers defining the respective (co)ends in \cref{def:coend-vect} to index over a set of objects, instead of a proper class.
+  Since \(\kVect\) is complete and cocomplete,
+  the end and coend of any \(P\from \cat{C}^{\op} \otimes_{\Bbbk} \cat{C} \to \kVect\) exists.
+\end{remark}
+
+In case the indexing category \(\cat{C}\) can be inferred unambiguously from the context, we will omit writing it explicitly.
+
+\begin{remark}
+  Ends and coends have a number of useful properties,
+  two of which we are going to frequently use in this thesis.
+
+  First, they are functorial: Any natural transformation \(\alpha \from P \nt P'\) between functors
+  \(P, P' \from\cat{C}^{\op} \times\cat{C} \to \kVect\) induces a unique morphism
+  \[
+    \int\!\mu \from \int\! P \to  \int\! P'
+  \]
+  by the universal property of (co-)equalisers.
+
+  Second, for appropriate functors \(P\),
+  the \emph{Fubini–Tonelli interchange law} holds:
+  if any of the following coends exist:
+  \[
+    \int^{a \in \cat{C}} \int^{b \in \cat{C}}\! P(a, a, b, b), \quad
+    \int^{(a, b) \in \cat{C} \times \cat{C}}\! P(a, a, b, b), \quad
+    \int^{b \in \cat{C}} \int^{a \in \cat{C}}\! P(a, a, b, b),
+  \]
+  then they all do and are isomorphic;
+  we often simply write \(\int^{a,b} P(a,a,b,b)\).
+\end{remark}
+
+The following lemma is also known as the \emph{enriched Yoneda lemma}.
+
+\begin{lemma}\label{lem:enriched-yoneda}
+  Let \(\cat{C}\) be a category,
+  and let
+  \(F \from \cat{C} \to \kVect\) and \(G \from \cat{C}^{\op} \to \kVect\) be functors.
+  Then there are natural isomorphisms
+  \begin{equation}\label{eq:coYoneda-covariant}
+    \int^{c} \cat{C}(c, \blank) \otimes_{\Bbbk} Fc
+    \;\cong\; F
+    \;\cong\; \int_{c} \kVect(\cat{C}(\blank, c), Fc),
+  \end{equation}
+  and
+  \begin{equation}\label{eq:coYoneda-contravariant}
+    \int^{c} \cat{C}(\blank, c) \otimes_{\Bbbk} Gc
+    \;\cong\; G
+    \;\cong\; \int_{c} \kVect(\cat{C}(c, \blank), Gc).
+  \end{equation}
+\end{lemma}
+
+As the name suggests,
+the above lemma is an analogue of the Yoneda lemma in the enriched case;
+as such, we will only refer to it as ``the Yoneda lemma'' in subsequent considerations.
+For a proof, see~\cite[Section~2.4]{kelly05:basic}.
+
+\begin{definition}\label{def:day-convolution}
+  Let \(\cat{C}\) be a \(\Bbbk\)\hyp{}linear monoidal category.
+  Given two \(\Bbbk\)\hyp{}linear functors \(F, G\from \cat{C}\to \kVect\),
+  the \emph{Day convolution} of \(F\) and \(G\) is the \(\Bbbk\)\hyp{}linear functor
+  \(F * G\from \cat{C} \to \kVect\) that is given by the coend
+  \[
+    F * G \defeq \int^{a, b} \cat{C}(a \otimes b, \blank) \otimes_{\Bbbk} Fa \otimes_{\Bbbk} Gb.
+  \]
+\end{definition}
+
+\begin{remark}
+  If \(\cat{C}\) is left or right closed monoidal,
+  we may simplify the Day convolution product using the Yoneda lemma for coends:
+  \begin{equation}\label{eq:day-convolution-simp-left}
+    \begin{aligned}
+      F * G &= \int^{a,b }\cat{C}(a \otimes b, \blank) \otimes_{\Bbbk} Fa \otimes_{\Bbbk} Gb
+              \cong \int^{a,b }\cat{C}(a, {[b, \blank]}_{\ell}) \otimes_{\Bbbk} Fa \otimes_{\Bbbk} Gb \\
+      \overset{\eqref{eq:coYoneda-covariant}}&{\cong} \int^{b } F({[b,\blank]}_{\ell}) \otimes_{\Bbbk} Gb,
+    \end{aligned}
+  \end{equation}
+  \begin{equation}\label{eq:day-convolution-simp-right}
+    \begin{aligned}
+      F * G &= \int^{a,b }\cat{C}(a \otimes b, \blank) \otimes_{\Bbbk} Fa \otimes_{\Bbbk} Gb
+              \cong \int^{a,b }\cat{C}(b, {[a, \blank]}_r) \otimes_{\Bbbk} Fa \otimes_{\Bbbk} Gb \\
+      \overset{\eqref{eq:coYoneda-covariant}}&{\cong} \int^{a } Fa \otimes G({[a,\blank]}_r).
+    \end{aligned}
+  \end{equation}
+\end{remark}
+
+\begin{example}\label{ex:day-conv-as-tensor-product}
+  Consider a \(\Bbbk\)\hyp{}linear monoidal category \(\cat{X}\) with a single object \(x\).
+  Then \(A \defeq \mathrm{End}_{\cat{X}}(x)\) is a commutative algebra and \([\cat{X}, \kVect] \cong \rMod{A}\).
+  Let \(F, G \from\cat{X} \to \kVect\) be two functors.
+  Writing \(M \defeq Fx\) and \(N \defeq Gx\) for the corresponding modules over \(A\),
+  and \(an \defeq na\) for all \(a\in A\) and \(n\in N\),
+  we obtain the following using \cref{eq:day-convolution-simp-left} and the definition of coends:
+  \[
+    (F * G)x \cong \faktor{M \otimes_{\Bbbk} N}{\langle ma \otimes_{\Bbbk} n - m\otimes_{\Bbbk} an \mid m \in M, n \in N, a \in A\rangle} = M \otimes_{A} N.
+  \]
+  Thus, one recovers the tensor product of modules over commutative algebras.
+\end{example}
+
+\begin{theorem}[{\cite{day71:const}}]\label{thm:closed-mon-str-on-functors}
+  For any monoidal category \(\cat{C}\),
+  the category \([\cat{C}^{\op}, \kVect]\) is closed monoidal
+  with Day convolution as its tensor product,
+  \(\cat{C}(1, \blank)\) as its unit,
+  and the internal homs given for all \(F, G\from \cat{C}^{\op} \to \kVect\) by
+  \begin{align}
+    {[F, G]}_{\ell} &\defeq \int_{a, b} \kVect(\cat{C}(\blank \otimes a, b), \kVect(Fa, Gb)),\label{eq:Day-internal-hom-left}\\
+    {[F, G]}_r &\defeq \int_{a, b} \kVect(\cat{C}(a \otimes \blank, b), \kVect(Fa, Gb)).\label{eq:Day-internal-hom-right}
+  \end{align}
+\end{theorem}
+
+\begin{remark}\label{rmk:day-closed-simplification}
+  If the monoidal category \(\cat{C}\) is closed,
+  then the formulas for the internal homs of \([\cat{C}, \kVect]\) may be simplified
+  by means of the Yoneda lemma:
+  \begin{equation}\label{eq:right-internal hom-simplification}
+    \begin{aligned}
+      &{[F,G]}_r
+        = \int_{a,b} \kVect (\cat{C}(a \otimes \blank, b), \kVect(Fa, Gb)) \\
+      &\quad \cong \int_{a, b} \kVect(\cat{C}(a \otimes \blank , b) \otimes_{\Bbbk}Fa, Gb)
+        \cong \int_b \kVect\Big(\!\int^a\!\!\cat{C}(a \otimes \blank , b) \otimes_{\Bbbk}Fa , Gb\Big)\\
+      &\quad \cong \int_b \kVect\Big(\!\int^a\!\!\!\cat{C}(a   ,{[\blank, b]}_{\ell}) \otimes_{\Bbbk}Fa , Gb\Big)
+        \overset{\eqref{eq:coYoneda-covariant}}{\cong} \int_b \kVect(F{[\blank,b]}_{\ell}, Gb),
+    \end{aligned}
+  \end{equation}
+  \begin{equation}\label{eq:left-internal hom-simplification}
+    \begin{aligned}
+      {[F,G]}_{\ell}
+      \cong \int_b \kVect\Big(\int_a \cat{C}(a, {[\blank, b]}_r) \otimes_{\Bbbk}Fa , Gb\Big)
+      \overset{\eqref{eq:coYoneda-covariant}}{\cong} \int_a \kVect(F{[\blank,b ]}_r, Gb).
+    \end{aligned}
+  \end{equation}
+\end{remark}
+
+\begin{remark}
+  Whenever we treat \(\Cpsh \defeq [\cat{C}, \kVect]\) as a (closed) monoidal category,
+  we implicitly equip with the convolution tensor product.
+  Analogously, one may define a closed monoidal structure on \(\psh \defeq [\cat{C}^{\op}, \kVect]\).
+  Note, however, that in this case we cannot simplify the internal hom in the same way as in \cref{rmk:day-closed-simplification};
+  this would require the category \(\cat{C}^{\op}\), as opposed to \(\cat{C}\) itself, to be closed monoidal.
+\end{remark}
+
+The convolution structure is particularly well-behaved on representables:
+\[
+  \cat{C}(\blank, x) * \cat{C}(\blank, y)
+  = \int^{a, b \in \cat{C}} \cat{C}(\blank, a \otimes b) \kotimes \cat{C}(a, x) \kotimes \cat{C}(b, y)
+  = \cat{C}(\blank, x \otimes y)
+\]
+This connection extends to the entire functor category, see~\cite{day71:const,im86:univ-conv}.
+
+\begin{proposition}\label{prop:yoneda-monoidal}
+  For a monoidal category \(\cat{C}\),
+  the Yoneda embedding
+  \begin{equation}\label{eq:yoneda-embedding}
+    \yo \from \cat{C} \to \psh = [\cat{C}^{\op}, \kVect], \qquad x \mapsto \cat{C}(\blank, x)
+  \end{equation}
+  is a strong monoidal functor.
+\end{proposition}
+
+\section{(Co)completions}
+
+\textsc{In this subsection we give a brief—informal—account} of the results regarding the
+monoidal pseudo\-functo\-riality of cocompletions
+and the resulting (co)completion operations for monoidal and module categories.
+We refer to~\cite{kelly05:basic,kashiwara06:categ} for generalities on (co)limits and (co)completions.
+We implicitly assume all categories and functors to be \(\Bbbk\)\hyp{}linear.
+
+Let \(\Phi\) be a class of diagrams.
+We say that a category is \emph{\(\Phi\)\hyp{}cocomplete} if it admits colimits of functors with domain in \(\Phi\),
+and we say that a functor is \emph{\(\Phi\)\hyp{}cocontinuous} if it preserves such colimits.
+
+\begin{definition}\label{smoothcats}
+  A monoidal category \(\cat{C}\) is called \emph{separately \(\Phi\)\hyp{}cocontinuous}
+  if \(\cat{C}\) is \(\Phi\)\hyp{}cocomplete and its tensor product is separately \(\Phi\)\hyp{}cocontinuous.
+
+  Similarly, for a \(\Phi\)\hyp{}cocomplete monoidal category \(\cat{D}\),
+  a \(\cat{D}\)\hyp{}module category \(\cat{M}\) is said to be separately \(\Phi\)\hyp{}cocontinuous if \(\cat{M}\) is \(\Phi\)\hyp{}cocomplete
+  and the action \(\blank \lact_{\cat{M}} \bblank\) is separately \(\Phi\)\hyp{}cocontinuous.
+\end{definition}
+
+Let \(\BiCat{Cat}_{\Cocts{\Phi}}\) be the \(2\)\hyp{}category of \(\Phi\)\hyp{}cocomplete categories,
+\(\Phi\)\hyp{}cocontinuous functors,
+and transformations between them.
+Let \(\cat{C}\) be a small category.
+By~\cite[Section~5.7]{kelly82:basic},
+there is a category \(\Phi(\cat{C})\),
+the \emph{\(\Phi\)\hyp{}cocompletion} of \(\cat{C}\),
+and an embedding \(\iota\from \cat{C} \longhookrightarrow \Phi(\cat{C})\),
+such that for any \(\Phi\)\hyp{}cocomplete category \(\cat{D}\)
+the restriction functor \(\BiCat{Cat}_{\Cocts{\Phi}}(\cat{C},\cat{D}) \xrightarrow{\blank \circ \iota} \BiCat{Cat}(\cat{C},\cat{D})\) is an equivalence.
+
+By the main results of~\cite{zoeberlein76:doctr,kock95:monad},
+the inclusion \(2\)\hyp{}functor of \(\BiCat{Cat}_{\Cocts{\Phi}}\) into \(\BiCat{Cat}\) is \(2\)\hyp{}monadic,
+with a left adjoint given by the pseudofunctor of \(\Phi\)\hyp{}cocompletion, \(\Phi(\blank)\from \BiCat{Cat} \to \BiCat{Cat}_{\Cocts{\Phi}}\).
+This \(2\)\hyp{}monad is a lax-idempotent \(2\)\hyp{}monad in the sense of~\cite{kelly97}.
+
+By~\cite{kelly00}, there is a similar \(2\)\hyp{}monad \(\Phi_{c}\) on \(\BiCat{Cat}\),
+whose algebras are categories with a \emph{prescribed choice} of \(\Phi\)\hyp{}colimits.
+Strict morphisms are functors strictly preserving the chosen \(\Phi\)\hyp{}colimits,
+and pseudomorphisms are functors preserving \(\Phi\)\hyp{}colimits in the ordinary sense.
+
+By~\cite[Theorem~6.2]{lopez11:pseud-kz}, this yields a pseudoclosed structure the \(2\)\hyp{}category \(\BiCat{Cat}_{\Cocts{\Phi_{c}}}\)
+of categories with a choice of \(\Phi\)\hyp{}colimits, \(\Phi\)\hyp{}cocontinuous functors, and transformations between them.
+The category underlying the internal hom from \(\cat{A}\) to \(\cat{B}\) is given by \(\BiCat{Cat}_{\Cocts{\Phi}}(\cat{A,B})\),
+and the functors comprising the \(2\)\hyp{}monad are closed.
+Further, in some cases, for instance if \(\Phi\) is the class of finite colimits,
+the pseudoclosed structure becomes pseudoclosed monoidal.
+
+Since monoidal categories and module categories can be formulated
+as pseudomonoids internally to a pseudoclosed monoidal structure,
+see~\cite{hyland02:pseud},
+we find the following result.
+
+\begin{proposition}\label{cocompletingnonsense}
+  Let \(\cat{C}\) be a monoidal category.
+  Then \(\Phi(\cat{C})\) is separately \(\Phi\)\hyp{}cocontinuous monoidal,
+  the inclusion \(\iota\from \cat{C} \longhookrightarrow \Phi(\cat{C})\) is strong monoidal,
+  and induces the following equivalence
+  for any separately \(\Phi\)\hyp{}cocontinuous monoidal category \(\cat{D}\):
+  \[
+    \mathsf{StrMon}_{\Cocts{\Phi}}(\Phi(\cat{C}),\cat{D}) \xrightarrow{\blank \circ \iota} \mathsf{StrMon}(\cat{C,D}).
+  \]
+  Similar equivalences are induced for lax and oplax monoidal functors.
+
+  Likewise, given a \(\cat{C}\)\hyp{}module category \(\cat{M}\),
+  the \(\Phi\)\hyp{}cocompletion \(\Phi(\cat{M})\) is a separately \(\Phi\)\hyp{}cocontinuous \(\Phi(\cat{C})\)hyp{}module category,
+  the inclusion \(\iota\from \cat{M} \longhookrightarrow \Phi(\cat{M})\) is a strong \(\cat{C}\)\hyp{}module functor, and the functor
+  \begin{equation}\label{cocompletingmodules}
+    \mathsf{Str}\Phi(\cat{C})\mathsf{Mod}_{\Cocts{\Phi}}(\Phi(\cat{M}),\cat{N})
+    \xrightarrow{\blank \circ \iota}
+    \mathsf{Str}\cat{C}\mathsf{Mod}(\cat{M}, \cat{N}),
+  \end{equation}
+  is an equivalence;
+  similar equivalences exist for lax and oplax module functors.
+\end{proposition}
+
+We remark that explicit constructions of the monoidal and module structures obtained in \cref{cocompletingnonsense} and direct proofs of their universal properties
+are given in a variety of cases and ways in the literature,
+see for instance~\cite[Section~3]{mackaay19:simpl} and~\cite[Example~3.2.9]{capucci22:acteg-workin-amthem}.
+
+\begin{proposition}
+  Let \(\cat{A}\) be an additive category.
+  The copower of \(\cat{A}\) over \(\kvect\)%
+  —see \cref{ex:copower-as-comodule-monad}—%
+  is the essentially unique \(\kvect\)\hyp{}module structure on \(\cat{A}\).
+\end{proposition}
+
+\begin{proof}
+  Let \(\mathsf{add}\) denote the collection of finite discrete categories.
+  An \(\mathsf{add}\)\hyp{}cocomplete category is simply an additive category, and an \(\mathsf{add}\)\hyp{}cocontinuous functor is an additive functor.
+
+  Since any \(\Bbbk\)\hyp{}linear functor preserves direct sums, an additive \(\kvect\)\hyp{}module category is necessarily separately additive in the sense of Definition~\ref{smoothcats}.
+  The result then follows by observing that \(\kvect \simeq \mathsf{add}(\{\oast\})\), where \(\{\oast\}\) is the terminal monoidal category, so
+  \[
+    \mathsf{StrMon}_{\mathsf{add}}(\kvect, \BiCat{Cat}_{\mathsf{add}}(\cat{A,A})) \simeq \mathsf{StrMon}(\{\ast\},\BiCat{Cat}_{\mathsf{add}}(\cat{A,A})) \simeq \{\ast\},
+  \]
+  where \(\{\ast\}\) is the terminal category and \(\mathsf{StrMon}_{\mathsf{add}}\) denotes the category of strong monoidal additive functors.
+\end{proof}
+
+\begin{proposition}\label{FinitaryAction}
+  Let \(\cat{A}\) be an additive category admitting filtered colimits.
+  The action of \(\kvect\) on \(\cat{A}\) extends uniquely
+  to a separately finitary \(\kVect\)\hyp{}module category structure on \(\cat{A}\).
+\end{proposition}
+\begin{proof}
+  Let \(\{\mathsf{add},\mathsf{filt}\}\) denote the collection of diagrams which are filtered or finite discrete.
+  Then we have \(\kVect \simeq \{\mathsf{add},\mathsf{filt}\}(\{\oast\})\), and
+  \begin{align*}
+    &\mathbf{StrMon}_{\mathsf{filt}}(\kVect, \BiCat{Cat}_{\mathrm{add,filt}}(\cat{A,A}))
+      = \mathbf{StrMon}_{\mathrm{add,filt}}(\kVect, \BiCat{Cat}_{\mathrm{add,filt}}(\cat{A,A}))\\
+    &\simeq \mathbf{StrMon}(\{\oast\},\BiCat{Cat}_{\mathrm{add,filt}}(\cat{A,A}))
+      = \mathbf{StrMon}(\{\oast\},\BiCat{Cat}_{\mathsf{filt}}(\cat{A,A})) \simeq \{\ast\}.\qedhere
+  \end{align*}
+\end{proof}
+
+In view of \cref{lem:campus-bar},
+filtered colimits and cocompletions under them,
+which we shall call \emph{ind-completions},
+are particularly important in the study of locally finite abelian categories.
+For example, the ind-completion \(\Ind(\cat{C})\) of a locally finite abelian category \(\cat{C}\) always has enough injectives.
+Another reason for our study of these completions
+is that categories of comodules are locally finitely presentable,
+whence we can make use of the characterisation of adjoint functors, see \cref{saftrex,saftlex} below.
+
+\begin{definition}\label{def:lfp-category}
+  An object \(x\) in a category \(\cat{C}\) is called \emph{compact}
+  or \emph{finitely presented}
+  if \(\cat{C}(x, \blank)\) is finitary; \ie, preserves filtered colimits.
+  We denote the full subcategory of compact objects by \(\cat{C}_{\mathrm{c}}\).
+  A category \(\cat{C}\) is called \emph{locally finitely presentable}
+  if every object in \(\cat{C}\) is a filtered colimit of compact objects.
+\end{definition}
+
+Examples of ind-completions arise from the fact that
+ \(\Ind(\tetramodfd[C][][][]) \simeq \Tetramod[C][][][]\).
+
+\begin{proposition}[Special adjoint functor theorem for right adjoints]\label{saftrex}
+  If \(\cat{C}\) and \(\cat{D}\) are locally finite abelian categories,
+  then there are equivalences
+  \[
+    \mathsf{Rex}(\cat{C},\cat{D})
+    \xrightarrow{\Ind} \mathsf{Cocont}(\Ind(\cat{C}), \Ind(\cat{D}))
+    \iso \mathsf{Map}(\Ind(\cat{C}), \Ind(\cat{D})),
+  \]
+  where \(\mathsf{Map}(\cat{A,B})\) denotes the category of functors admitting a right adjoint.
+
+  In particular, a functor from \(\Ind(\cat{C})\) to \(\Ind(\cat{D})\) admits a right adjoint if and only if it is cocontinuous,
+  and the extension of a functor \(F\from \cat{C} \to \cat{D}\) to \(\Ind\)\hyp{}cocompletions is cocontinuous if and only if \(F\) is right exact.
+\end{proposition}
+
+\begin{proposition}[Special adjoint functor theorem for left adjoints]\label{saftlex}
+  Let \(\cat{C}\) and \(\cat{D}\) be locally finite abelian categories.
+  If a functor \(G\from \Ind(\cat{C}) \to \Ind(\cat{D})\) is continuous and preserves filtered colimits, then it admits a left adjoint.
+
+  If a functor \(G\from \Ind(\cat{C}) \to \Ind(\cat{D})\) admits a left adjoint \(F\),
+  then \(G\) preserves filtered colimits if and only if \(F\) preserves compact objects in \(\cat{C}\).
+\end{proposition}
+
+The latter part of \cref{saftrex} follows from \(\Ind(F)\) preserving both finite and filtered colimits, and thus preserving all colimits.
+Since filtered colimits in a locally finitely presentable category are exact,
+the extension \(\Ind(G)\) of a left exact functor \(G\) is left exact.
+However, it is not clear that \(\Ind(G)\) preserves arbitrary products.
+
+\begin{definition}
+  An object \(X \in \Ind(\cat{C})\)
+  for a locally finite abelian category \(\cat{C}\)
+  is \emph{finitely cogenerated}
+  if the functor \(\Ind(\cat{C})(\blank,X)\) preserves arbitrary products.
+\end{definition}
+
+One can verify that for a coalgebra \(D\) such that \(\Ind(\cat{C}) \simeq \rComod{D}\),
+a comodule \(M\) is finitely cogenerated if and only if \(M\) embeds into a comodule of the form \(D^{\oplus m}\) for some \(m \in \nat\).
+Observe that an object \(M \in \Ind(\cat{D})\) is compact if and only if it lies in the essential image of the embedding \(\cat{D} \longhookrightarrow \Ind(\cat{D})\).
+
+\begin{definition}\label{qfFunctor}
+  Let \(\cat{C}\) and \(\cat{D}\) be locally finite abelian categories.
+  A functor \(F\from \Ind(\cat{C}) \to \Ind(\cat{D})\) is called \emph{quasi-finite} if
+  for any finitely cogenerated injective object \(I\) in \(\Ind(\cat{C})\) and compact object \(M\) of \(\cat{D}\),
+  the \(\Bbbk\)\hyp{}vector space \(\Ind(\cat{D})(M, FI)\) is finite\hyp{}dimensional.
+\end{definition}
+
+Using the equivalence \(\cat{C} \simeq \tetramodfd[C]{}\) of \cref{lem:campus-bar},
+the following result is a direct consequence of~\cite[Proposition~1.3]{takeuchi77:morit}.
+
+\begin{proposition}\label{locallyfiniteadjoints}
+  Let \(G\from \cat{C} \to \cat{D}\) be a left exact functor of locally finite abelian categories.
+  The functor \(\Ind(G)\) has a left adjoint if and only if it is quasi-finite.
+\end{proposition}
+
+A stronger result holds for finite abelian categories,
+as a direct consequence of the Eilenberg--Watts theorem for categories of bimodules,
+see for example~\cite[Lemma~2.1]{fuchs20:eilen-watts-radfor-s}.
+
+\begin{proposition}\label{finiteadjoints}
+  A functor \(F\from \cat{A} \to \cat{B}\) of finite abelian categories
+  is right exact if and only if it has a right adjoint,
+  and left exact if and only if it has a left adjoint.
+\end{proposition}
+
+Recall that an object \(A\) in a category \(\cat{A}\) that admits \(\Phi\)\hyp{}colimits is
+said to be \emph{\(\Phi\)\hyp{}small} if the functor \(\cat{A}(A, \blank)\) preserves them.
+
+\begin{lemma}\label{leftadjointssmallobjects}
+  Let \(G\from \cat{C} \to \cat{D}\) be a \(\Phi\)\hyp{}cocontinuous functor,
+  and assume \(G\) has a left adjoint \(F\).
+  Then \(F\) sends \(\Phi\)\hyp{}small objects to \(\Phi\)\hyp{}small objects.
+\end{lemma}
+\begin{proof}
+  Let \(x \in \cat{D}\) be a \(\Phi\)\hyp{}small object.
+  Then
+  \[
+    \cat{C}(Fx,\blank) \cong \cat{D}(x,G(\blank)) = \cat{D}(x,\blank) \circ G.
+  \]
+  The functor \(\cat{C}(Fx,\blank)\) is thus naturally isomorphic to a composition of two \(\Phi\)\hyp{}cocontinuous functors,
+  and hence it itself is a \(\Phi\)\hyp{}cocontinuous functor.
+\end{proof}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../main"
+%%% TeX-command-extra-options: "-shell-escape -fmt=prec.fmt -file-line-error -synctex=1"
+%%% End:

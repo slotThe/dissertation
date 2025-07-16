@@ -1,0 +1,1096 @@
+\textsc{Bimonads and Hopf monads} are a vast generalisation of bialgebras and Hopf algebras.
+They naturally arise in the study of (rigid) monoidal categories and topological quantum field theories,
+see amongst others~\cite{Kerler2001, Moerdijk2002, Bruguieres2007, Bruguieres2011, Turaev2017}.
+Recall that the definition of a bialgebra object necessarily requires
+a braided monoidal category as a base,
+in order to write down what it means for the multiplication to be a morphism of comonoids.
+However, in general the category of endofunctors is not braided,
+so the naïve notion of bialgebras does not generalise to the monadic setting and needs to be adjusted.
+One possible way of overcoming this problem was introduced and studied by Moerdijk under the name
+\emph{Hopf monad},~\cite{Moerdijk2002}.\note{%
+  As remarked in~\cite{Moerdijk2002},
+  this concept is strictly dual to that of monoidal comonads,
+  which are studied in~\cite{Boardman1995}.%
+}
+Here, the structure morphisms of
+an oplax monoidal functor
+serve as a substitute of the comultiplication and counit.
+There are other, sometimes non-equivalent, notions of Hopf monad,
+see~\cite{Boardman1995,Mesablishvili2011}.
+We follow~\cite{Moerdijk2002},
+with a slight terminology change due to~\cite{Bruguieres2007,Bruguieres2011}.
+This definition aims to generalise the paradigmatic example of the free–forgetful adjunction of a Hopf algebra.
+Thus, equipping a monad with the prefixes ``bi-'' or ``Hopf''
+refers to additional structure or properties put on its Eilenberg–Moore category.
+
+More generally, a monadic interpretation of module categories was given by Aguiar and Chase under the name \emph{comodule monad},~\cite{Aguiar2012}.
+A comodule monad over a bimonad generalises the notion of a comodule algebra over a bialgebra,
+see \cref{ex:comodule-algebra} below.
+The main result of this chapter extends the reconstruction results
+of~\cite[Proposition~4.1.2]{Aguiar2012} and~\cite[Lemma~7.10]{Turaev2017}:
+
+\begin{reptheorem}{thm:comodule-adjunctions-correspond-to-strong-comodule-functors}
+  Let \(\cat{C}\) and \(\cat{D}\) be monoidal categories,
+  and suppose that \(\cat{M}\) and \(\cat{N}\) are right \(\cat{C}\)\hyp{} and \(\cat{D}\)\hyp{}module categories, respectively.
+  Let \(\stdadj\) be an oplax monoidal adjunction.
+  Lifts of an adjunction \(\adj{G}{V}{\cat{M}}{\cat{N}}\) to a comodule adjunction are in bijection with lifts of \(V \from \cat{N} \to \cat{M}\) to a strong comodule functor.
+\end{reptheorem}
+
+From the proof of this result one immediately obtains
+an analogue of Kelly's doctrinal adjunction result,~\cite{kelly74:doctr},
+for \(\cat{C}\)\hyp{}module categories.
+
+\begin{reptheorem}{porism:doctrinal-module-adjunctions}
+  An adjunction \(\adj{G}{V}{\cat{M}}{\cat{N}}\) of \(\cat{C}\)\hyp{}module categories
+  yields a bijection between oplax \(\cat{C}\)\hyp{}module structures on \(F\)
+  and lax \(\cat{C}\)\hyp{}module structures on \(U\).
+\end{reptheorem}
+
+We then obtain a Tannaka--Krein reconstruction result for comodule monads
+in the spirit of~\cite[Theorem~7.1]{Moerdijk2002} and~\cite[Corollary~3.13]{McCrudden2002}.
+
+\begin{reptheorem}{thm:comodule-monad-reconstruction}
+  Let \(B\) be a bimonad on the monoidal category \(\cat{C}\),
+  and \(T\) a monad on a right \(\cat{C}\)\hyp{}module category \(\cat{M}\).
+  Coactions of \(B\) on \(T\) are
+  in bijection with
+  right actions of \(\cat{C}^B\) on \(\cat{M}^T\), such that \(U^{T}\) is a strict comodule functor over \(U^{B}\).
+\end{reptheorem}
+
+We can subsequently apply these results in order to study the comparison functor of \cref{sec:comp-funs}.
+Namely, this functor always inherits the strong module structure of the ``strong adjoint'';
+\ie, the right adjoint for oplax \(\cat{C}\)\hyp{}module adjunctions, and the left one in the lax case.
+
+\begin{reptheorem}{strongcomparisons}
+  Let \(\cat{M}\) and \(\cat{N}\) be left \(\cat{C}\)\hyp{}module categories.
+  \begin{itemize}[noitemsep]
+    \item The comparison functor \(K^{VG}\)
+    of an oplax \(\cat{C}\)\hyp{}module adjunction \(\adj{G}{\!{}V}{\cat{M}}{\cat{N}}\)
+    is a strong \(\cat{C}\)\hyp{}module functor.
+    \item
+    The comparison functor \(K_{VG}\) of
+    a lax \(\cat{C}\)\hyp{}module adjunction
+    \(\adj{G}{\!{}V}{\cat{M}}{\cat{N}}\)
+    is a strong \(\cat{C}\)\hyp{}module functor.
+  \end{itemize}
+\end{reptheorem}
+
+\section{Bimonads}\label{sec:monads-bimonads}
+
+\begin{definition}\label{def:bimonad}
+  A \emph{bimonad} on a monoidal category \(\cat{C}\) consists of
+  an oplax monoidal endofunctor \(B\) on \(\cat{C}\), as well as
+  oplax monoidal natural transformations \(\mu \from B^2 \nt B,\ \eta\from \Id_{\cat{C}} \nt B\)
+  such that \((B, \mu, \eta)\) is a monad on \(\cat{C}\).
+
+  A \emph{morphism of bimonads} is
+  a natural transformation \(f\from B \nt H\) between bimonads
+  that is oplax monoidal as well as a morphism of monads.
+\end{definition}
+
+Let us make \cref{def:bimonad} explicit.
+In order for a monad \((B, \mu, \eta)\) to be a bimonad, there has to exist
+a natural transformation \(B_2 \colon B \circ \otimes \nt B \otimes B\)
+and a morphism \(B_0 \colon B1 \to 1\), such that all diagrams in \cref{fig:bimonad-explicitly} commute.
+Further,
+what it means for \(\mu\) and \(\eta\) to be oplax monoidal transformations
+in the diagrammatic calculus of \cref{sec:string-diagr-mono}
+is displayed in \cref{fig:mu-eta-opmonoidal-nt}.
+
+\begin{figure}[htbp]
+  \[\mathscale{0.95}{\begin{mytikzcd}[ampersand replacement=\&]
+        {B (x \otimes y \otimes z)} \& {Bx \otimes B(y \otimes z)} \& {B1 \otimes Bx} \& Bx \& {Bx \otimes B1} \\
+        {B(x \otimes y) \otimes Bz} \& {Bx \otimes By \otimes Bz} \&\& Bx
+        \arrow["{B_{2; x,y \otimes z}}", from=1-1, to=1-2]
+        \arrow["{x \otimes B_{2; y,z}}", from=1-2, to=2-2]
+        \arrow["{B_{2; x \otimes y, z}}"', from=1-1, to=2-1]
+        \arrow["{B_{2; x,y} \otimes z}"', from=2-1, to=2-2]
+        \arrow["{B_{2; x,1}}", from=1-4, to=1-5]
+        \arrow["{B_{2; 1,x}}"', from=1-4, to=1-3]
+        \arrow["{\id_x}"', from=1-4, to=2-4]
+        \arrow["{B_0 \otimes Bx}"', from=1-3, to=2-4]
+        \arrow["{Bx \otimes B_0}", from=1-5, to=2-4]
+      \end{mytikzcd}}\]
+  \[\begin{mytikzcd}[ampersand replacement=\&]
+      \& {B^2 (x \otimes y)} \&\& {B^2 1} \\
+      {B(Bx \otimes By)} \&\& {B(x \otimes y)} \& B1 \\
+      {B^2x \otimes B^2y} \&\& {Bx \otimes By} \& 1
+      \arrow["{\mu_{x \otimes y}}", from=1-2, to=2-3]
+      \arrow["{B_{2; x,y}}", from=2-3, to=3-3]
+      \arrow["{BB_{2; x,y}}"', from=1-2, to=2-1]
+      \arrow["{B_{2; Bx,By}}"', from=2-1, to=3-1]
+      \arrow["{\mu_x \otimes \mu_y}"', from=3-1, to=3-3]
+      \arrow["{\mu_{1}}"', curve={height=6pt}, from=1-4, to=2-4]
+      \arrow["{B_0}"', from=2-4, to=3-4]
+      \arrow["{B B_0}", curve={height=-6pt}, from=1-4, to=2-4]
+    \end{mytikzcd}\]
+  \[\begin{mytikzcd}[ampersand replacement=\&]
+      {x \otimes y} \& {B(x \otimes y)} \&\& 1 \& B1 \\
+      \& {Bx \otimes By} \&\& 1
+      \arrow["{\eta_{x \otimes y}}", from=1-1, to=1-2]
+      \arrow["{B_{2; x,y}}", from=1-2, to=2-2]
+      \arrow["{\eta_x \otimes \eta_y}"', from=1-1, to=2-2]
+      \arrow["{\id_{1}}"', from=1-4, to=2-4]
+      \arrow["{\eta_{1}}", from=1-4, to=1-5]
+      \arrow["{B_0}", from=1-5, to=2-4]
+    \end{mytikzcd}\]
+  \scaption[-6cm]{%
+    Explicit conditions for \(B\) to be a bimonad.%
+    \label{fig:bimonad-explicitly}%
+  }
+\end{figure}
+\begin{figure}[htbp]
+  \centering
+  \mathscale{0.95}{\tikzfig{mu-eta-opmonoidal-nt}}
+  \scaption[.5cm]{%
+    Conditions for the multiplication and unit of a bimonad to be oplax monoidal natural transformations.%
+    \label{fig:mu-eta-opmonoidal-nt}%
+  }
+\end{figure}
+
+\begin{remark}\label{rmk:bimonad-in-bicategorical-language}
+  We can also express \cref{def:bimonad} in more bicategorical language.
+  Then, a bimonad may be defined as a monad\note{%
+    A monoid in the monoidal category \(\BiCat{OplMon^{opl}}(\cat{C},\cat{C})\).%
+  }
+  in the bicategory \(\BiCat{OplMon^{opl}}\) where
+  objects are monoidal categories,
+  1-cells are oplax monoidal functors,
+  and 2-cells are oplax monoidal transformations.
+\end{remark}
+
+\begin{example}\label{ex:bialgebra-gives-rise-to-bimonad}
+  Let \(A \in \cat{C}\) be an object in a monoidal category.
+  In \cref{ex:monoid-iff-tensoring-is-monad}
+  we saw that the functor \(A \otimes \blank\) is a monad on \(\cat{C}\)
+  if and only if \(A\) is an algebra object in \(\cat{C}\).
+  This relationship extends to bialgebras:
+  let \(B \in \cat{C}\) be an algebra object,
+  and suppose \(T \defeq B \otimes \blank\) is the associated monad on \(\cat{C}\).
+  Then \(T\) is a bimonad if and only if \(B\) is a bialgebra.
+  More precisely, starting with a bialgebra structure \((\Delta,\varepsilon)\) on \(B\), set
+  \[
+    T_2\from B \otimes \blank \xrightarrow{\ \Delta \otimes \blank\ } B \otimes B \otimes \blank
+    \qquad\text{and}\qquad
+    T_0\from B \otimes \blank \xrightarrow{\ \varepsilon \otimes \blank\ } \blank.
+  \]
+  This turns \(T\) into a bimonad.
+
+  Conversely,
+  assume \((T, T_2, T_0)\) is an oplax monoidal functor.
+  One defines a bialgebra structure on \(B\) by
+  \[
+    \Delta \from B = B \otimes 1 \otimes 1 \xrightarrow{T_{2; 1, 1}} B \otimes 1 \otimes B \otimes 1 = B \otimes B, \qquad
+    \varepsilon \from B = B \otimes 1 \xrightarrow{\;T_0\;} 1.
+  \]
+  The fact that these arrows satisfy all of the required identities follows from a straightforward calculation.
+\end{example}
+
+\begin{example}\label{ex:oplaxmonoidal-adjunction-gives-bimonad}
+  The intricate interplay between monads and adjunctions
+  of \cref{ex:interplay-monad-adjunction}
+  transcends to monoidal categories and bimonads.
+  Given an oplax monoidal adjunction \(\stdadj\),
+  the monad \(UF \from \cat{C} \to \cat{C}\)
+  is a bimonad,
+  whose comultiplication is defined for every \(x,y \in \cat{C}\) as the composition
+  \[
+    UF(x \otimes y)
+    \trightarrow{UF_{2;x,y}}
+    U(F x \otimes F y)
+    \trightarrow{U_{2; F x,F y}}
+    UF x \otimes UF y.
+  \]
+  Its counit is given by \(UF 1 \trightarrow{U F_0} U1 \trightarrow{\;U_0\;} 1\).
+\end{example}
+
+The following statement is a special case of~\cite[Theorem~1.2]{kelly74:doctr}.
+
+\begin{proposition}\label{prop:doctrinaladjunction}
+  Given monoidal categories \(\cat{C}\) and \(\cat{D}\),
+  as well as an adjunction \(\adj{F}{U}{\cat{C}}{\cat{D}}\),
+  there is a bijection between oplax monoidal structures on \(F\)
+  and lax monoidal structures on \(U\).
+\end{proposition}
+
+The proof of~\cite[Theorem~1.2]{kelly74:doctr} is given constructively in terms of mates.
+Given an oplax monoidal structure \((F_2, F_0)\) on \(F\),
+the lax monoidal natural transformation \(U_2\) of \(U\) is,
+for all \(x,y \in \cat{D}\),
+given by
+\[
+  Ux \otimes Uy
+  \xrightarrow{\eta_{Ux \otimes Uy}} UF(Ux \otimes Uy)
+  \xrightarrow{UF_{2;Ux,Uy}} U(FUx \otimes FUy)
+  \xrightarrow{U(\varepsilon_x \otimes \varepsilon_{y})} U(x \otimes y),
+\]
+where \(\eta\) and \(\varepsilon\) are the unit and counit of the adjunction.
+Constructing an oplax monoidal structure on \(F\) from a lax monoidal structure on \(U\) is similar.
+
+\newpage% XXX Sort of manual orphan prevention, as the below single line
+        % paragraph should be "attached" to the following result more
+        % than to the above paragraph.
+Let us now highlight an important special case of \cref{prop:doctrinaladjunction}.
+
+\begin{lemma}[{\cite[Lemma~7.10]{Turaev2017}}]\label{lem: monoidal_adjunctions_vs_bimonads}
+  Any adjunction between two monoidal categories
+  is oplax monoidal if and only if the right adjoint is strong monoidal.
+\end{lemma}
+
+\begin{example}
+  Let \(\Bbbk\) be a field, and \(B \in \kVect\) a bialgebra.
+  Then, by \cref{ex:oplaxmonoidal-adjunction-gives-bimonad},
+  the monad \(B \kotimes \blank\from \kVect \to \kVect\) is a bimonad,
+  and hence the adjunction \(\adj{B \kotimes \blank}{U}{\kVect}{B\textnormal{-Mod}}\)
+  is oplax monoidal, where \(U\from B\textnormal{-Mod} \to \kVect\)
+  is the canonical forgetful functor that simply forgets the \(B\)-module structure.
+  By~\cref{lem: monoidal_adjunctions_vs_bimonads}, we obtain that \(U\) is even strong monoidal.
+
+  More generally,
+  let \(B \from \cat{C} \to \cat{C}\) be
+  the bimonad arising from an oplax monoidal adjunction \stdadj.
+  As the forgetful functor \(U^B \from \cat{C}^B \to \cat{C}\) is strict monoidal,
+  the Eilenberg–Moore adjunction \(F^B \adjoint U^B\) is, oplax monoidal.
+\end{example}
+
+The following result is due to~\cite{kelly74:doctr},
+see also~\cite[Theorem~2.6]{Bruguieres2007}.
+
+\begin{lemma}\label{lem: comparison_functor_bimonad_monoidal}
+  Let \(\stdadj\) be an oplax monoidal adjunction.
+  Then the comparison functor \(K^{UF}\from \cat{D} \to \cat{C}^{UF}\)
+  of the bimonad \(UF\) is strong monoidal,
+  and \(U^{UF} K^{UF} = U\) and \(K^{UF} F = F^{UF}\)
+  as strong respectively oplax monoidal functors.
+\end{lemma}
+
+The question to which extent the monoidal structure on \(\cat{C}^B\) is unique
+was answered
+by Moerdijk~\cite[Theorem~7.1]{Moerdijk2002}
+and McCrudden~\cite[Corollary~3.13]{McCrudden2002}.
+In particular,
+this kind of Tannaka--Krein reconstruction
+gives another justification for the name ``bimonad''.
+
+\begin{proposition}\label{prop: Moerdijk_reconstruction}
+  Let \((B, \mu, \eta)\) be a monad on a monoidal category \(\cat{C}\).
+  There exists a one-to-one correspondence between
+  bimonad structures on \(B\) and
+  monoidal structures on \(\cat{C}^B\)
+  such that the forgetful functor \(U^B\) is strict monoidal.
+\end{proposition}
+\begin{proof}[Sketch of proof]
+  Given a bimonad \((B, \mu ,\eta, B_2, B_0)\from \cat{C} \to \cat{C}\),
+  as well as two modules \((m, \nabla_{m})\) and \((n, \nabla_{n}) \in \cat{C}^B\),
+  we set
+  \[
+    (m, \nabla_{m}) \otimes (n, \nabla_n)
+    \defeq
+    \big(m \otimes n,\,
+    B(m \otimes n) \xrightarrow{B_{2; m, n}} Bm \otimes Bn \xrightarrow{\nabla_m\otimes \nabla_n} m \otimes n
+    \big).
+  \]
+  Moreover, define \(\nabla_{1}\from B1 \xrightarrow{\ B_0\ } 1\).
+  The coassociativity and counitality of the comultiplication of \(B\)
+  imply that the above construction implements a monoidal structure on \(\cat{C}^B\),
+  parallel to that on the modules over a bialgebra.
+
+  Conversely, let \((B, \mu, \eta)\) be a monad
+  on the monoidal category \(\cat{C}\).
+  Suppose \(\cat{C}^{T}\) is monoidal
+  such that the forgetful functor \(U^T\) is strict monoidal.
+  Consider the free modules \((Bm, \mu_m)\) and \((Bn, \mu_n)\),
+  and denote their tensor product by
+  \[
+    (Bm, \mu_m) \otimes (Bn, \mu_n) = (Bm \otimes Bn, \mu_m \cdot \mu_n\from B(Bm \otimes Bn) \to Bm \otimes Bn).
+  \]
+  The comultiplication of \(B\) is then given by
+  \[
+    B(m \otimes n) \xrightarrow{B(\eta_m \otimes \eta_n)} B(Bm \otimes Bn) \xrightarrow{\mu_m \cdot \mu_n} Bm \otimes Bn.
+  \]
+  For the counit, take the action \(B1 \to 1\) of the unit of \(\cat{C}^{B}\).
+\end{proof}
+
+\section{Hopf monads}\label{sec:hopf-monads}
+
+\textsc{We can now incorporate rigidity} into the framework of \cref{sec:monads-bimonads}.
+
+\begin{definition}[{\cite[Section~2.6]{Bruguieres2011}}]\label{fusioninclusion}
+  Let \(H\) be a bimonad on a monoidal category \(\cat{C}\).
+  The \emph{right fusion operator} \(H_{\mathsf{rf}}\) of \(H\) is the natural transformation
+  \[
+    {H_{\mathsf{rf};x,y}}\from H(Hx \otimes y)
+    \xrightarrow{H_{2;Hx,y}} H^{2}x \otimes Hy
+    \xrightarrow{\mu_{x} \otimes Hy} Hx \otimes Hy, \quad\text{ for } x,y \in \cat{C}.
+  \]
+  The bimonad \(H\) is called \emph{right Hopf} if its right fusion operator is invertible.
+\end{definition}
+
+Left fusion operators and left Hopf monads are defined dually,
+and a bimonad is said to be a \emph{Hopf monad} if it is both left and right Hopf.
+
+\begin{theorem}[{\cite[Theorem~3.6]{Bruguieres2011}}]
+  Let \(\cat{C}\) be a right closed monoidal category and let \(H\) be a bimonad on \(\cat{C}\).
+  Then \(H\) is a right Hopf monad if and only if \(\cat{C}^H\) is right closed
+  and the forgetful functor \(U^H\from \cat{C}^H \to \cat{C}\) is right closed.
+\end{theorem}
+
+A Hopf monad \(H\from \cat{C}\to \cat{C}\) can be defined on any monoidal category.
+If \(\cat{C}\) is rigid then one may use~\cite[Lemma~3.4 and Theorem~3.6]{Bruguieres2011}
+to obtain a rigid—not just closed—monoidal structure on the category of \(H\)\hyp{}modules.
+This is reflected by the existence of two natural transformations
+\begin{equation}\label{eq: left_and_right_antipode}
+  s^{\ell}\from H(\ld{H}) \nt \ld{H}
+  \qquad\text{and}\qquad
+  s^{r}\from H(\rd{H}) \nt \rd{H}, \qquad \text{ for all }x \in \cat{C},
+\end{equation}
+called the \emph{left} and \emph{right antipode} of \(H\).
+In Example~2.4 of~\cite{Bruguieres2012} it is explained how these generalise the antipode of a Hopf algebra;
+an analogous result to \cref{ex:bialgebra-gives-rise-to-bimonad} holds in the Hopf case.
+
+\section{(Co)module monads}\label{sec:comodule-monads}
+
+\textsc{Alongside the theory of comodule monads} of Aguiar and Chase,~\cite{Aguiar2012},
+we will also develop the special case of (op)lax \(\cat{C}\)\hyp{}module monads in this section.
+The latter will play an important role in \cref{sec:infinite-non-rigid-reconstruction,sec:hopf-trimodules}.
+
+\begin{definition}[{\cite[Definition~3.3.1]{Aguiar2012}}]\label{def: comodule_functor}
+  Let \((F, F_2, F_0)\from \cat{C} \to \cat{D}\) be an oplax monoidal functor,
+  \(\cat{M}\) a right \(\cat{C}\)-module,
+  and \(\cat{N}\) a right \(\cat{D}\)-module category.
+  A \emph{(right) comodule functor over \(F\)}\note{%
+    Alternatively, we will say that \(G\) is a \emph{(right) \(F\)\hyp{}comodule functor}.%
+  }
+  is a pair \((G, G_{\mathsf{a}})\) consisting of
+  a functor \(G \from \cat{M} \to \cat{N}\)
+  together with a natural transformation
+  \[
+    G_{\mathsf{a}; m,x} \from G(m \ract x) \to G m \ract F x, \qquad \text{for all \(x\in\cat{C}\) and \(m \in \cat{M}\)},
+  \]
+  called the \emph{coaction} of \(G\),
+  which is \emph{coassociative} and \emph{counital},
+  in the sense that the following diagrams commute for all \(x,y \in \cat{C}\) and \(m \in \cat{M}\):
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+	{G((m \ract x) \ract y)} \& {G(m \ract (x \otimes y))} \& {G(m \ract 1)} \& Gm \\
+	{G(m \ract x) \ract Fy} \& {Gm \ract F(x \otimes y)} \& {Gm \ract F1} \& {Gm \ract 1} \\
+	{(Gm \ract Fx) \ract Fy} \& {Gm \ract (Fx \otimes Fy)}
+	\arrow["\cong", from=1-1, to=1-2]
+	\arrow["{G_{\mathsf{a}; m\ract x, y}}"', from=1-1, to=2-1]
+	\arrow["{G_{\mathsf{a}; m, x \otimes y}}", from=1-2, to=2-2]
+	\arrow["\cong", from=1-3, to=1-4]
+	\arrow["{G_{\mathsf{a};m,1}}"', from=1-3, to=2-3]
+	\arrow["{G_{\mathsf{a};m,x} \ract Fy}"', from=2-1, to=3-1]
+	\arrow["{Gm \ract F_{2;x,y}}", from=2-2, to=3-2]
+	\arrow["{Gm \ract F_0}"', from=2-3, to=2-4]
+	\arrow["\cong"', from=2-4, to=1-4]
+	\arrow["\cong"', from=3-1, to=3-2]
+      \end{mytikzcd}
+    \]
+
+  A comodule functor is called \emph{strong} if its coaction is an isomorphism,
+  and \emph{strict} if it is the identity.
+\end{definition}
+
+\begin{example}\label{ex:comodule-functors-as-module-functors}
+  A right comodule functor over the identity functor \(\Id_{\cat{C}}\) of a monoidal category \(\cat{C}\) is
+  nothing more than an oplax \(\cat{C}\)\hyp{}module functor in the sense of \cref{def:lax-module-functor},
+  considering right instead of left \(\cat{C}\)\hyp{}module categories.
+\end{example}
+
+\begin{example}[{\cite[Section~6.1]{Aguiar2012}}]\label{ex:comodule-algebra}
+  If \(B\) is a bialgebra over a commutative ring \(\Bbbk\),
+  then \(B \otimes_{\Bbbk} \blank \from \Bbbk\text{-Mod} \to \Bbbk\text{-Mod}\) becomes an oplax monoidal functor.
+  Let \(A\) be a right \(B\)\hyp{}comodule algebra
+  with coaction \(\nu \from A \to A \otimes_{\Bbbk} B\).
+  Recall that the subalgebra of \emph{\(B\)-coinvariants} of \(A\) is given by
+  \[
+    A^{\mathrm{co}B} \defeq \{\, a \in A \mid \nu(a) = a \otimes 1 \,\}.
+  \]
+  Suppose that \(C\) is a subalgebra of \(A^{\mathrm{co}B}\).
+  Then \(\nu\) is a map of \(C\)\hyp{}\(C\)\hyp{}bimodules,
+  which turns \(A \otimes_{C} \blank \from C\text{-Mod} \to C\text{-Mod}\) into a right comodule functor over \(B \otimes_{\Bbbk} \blank\).
+  The action of \(\Bbbk\textnormal{-Mod}\) on \(C\text{-Mod}\) is given by tensoring over \(\Bbbk\).
+\end{example}
+
+Recall the constructions of the centre and twisted centre from \cref{sec:drinfeld-centre,subsec: twisted_centres}.
+The canonical functor \(U^{(Z)} \from \cent{C} \to \cat{C}\)
+that forgets the half braiding is strict monoidal.
+Similarly,
+given a strong monoidal functor \(L\),
+the forgetful functor \(U^{(L)} \from \cent[L]{C} \to \cat{C}\)
+is a strict comodule functor over \(U^{(Z)}\).
+
+\begin{remark}\label{rmk:graphical-comodule-functors}
+  The diagrammatic calculus of \cref{sec:string-diagr-mono} can be adapted to the setting of comodule functors.
+  In addition to combining sheets using tensor products,
+  we now additionally consider actions to do so as well.
+  In order to keep track of which splitting occurred,
+  functors between the module categories shall be coloured blue.
+  For example, a coaction will be drawn as:
+  \[
+    \tikzfig{graphical-coaction}
+  \]
+
+  The coassociativity and counitality of \(G_{\mathsf{a}}\) is displayed in \cref{fig:coassoc-and-counital-comodule-functor};
+  notice the analogous nature of the diagrams to \cref{fig:coassoc-and-counital-opmonoidal-functor}.
+  \begin{figure}[htbp]
+    \centering
+    \tikzfig{coassoc-and-counital-comodule-functor}
+    \scaption[-1cm]{%
+      Coassociativity and counitality conditions of the coaction of a comodule functor.%
+      \label{fig:coassoc-and-counital-comodule-functor}%
+    }
+  \end{figure}
+\end{remark}
+
+\begin{definition}\label{def: morphism-of-comodules}
+  Suppose that \(C, G \from \cat{M} \to \cat{N}\) are comodule functors over \(B, F \from \cat{C} \to \cat{D}\).
+  A \emph{comodule (natural) transformation} from \(C\) to \(G\) comprises
+  a pair of natural transformations \(\phi \from C \nt G\) and \(\psi \from B \nt F\),
+  such that the following diagram commutes
+  for all \(x \in \cat{C}\) and \(m \in \cat{M}\):
+  \begin{equation}\label[diagram]{eq:comodule-natural-transformation}
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {C(m \ract x)} \& {G(m \ract x)} \\
+      {Cm \ract Bx} \& {Gm \ract Fx}
+      \arrow["{\phi_{m \ract x}}", from=1-1, to=1-2]
+      \arrow["{G_{\mathsf{a}; m,x}}", from=1-2, to=2-2]
+      \arrow["{C_{\mathsf{a}; m,x}}"', from=1-1, to=2-1]
+      \arrow["{\phi_m \ract \psi_x}"', from=2-1, to=2-2]
+    \end{mytikzcd}
+  \end{equation}
+
+  We call \((\phi, \psi)\) a \emph{morphism of comodule functors}
+  if \(B=F\) and \(\psi=\id_B\).
+\end{definition}
+
+\begin{example}\label{ex:module-trafos-as-comodule-trafos}
+  If \(\cat{C} = \cat{D}\) and \(B = F = \Id_{\cat{C}}\),
+  then \(C\) and \(G\) are oplax \(\cat{C}\)\hyp{}module functors, see \cref{ex:comodule-functors-as-module-functors}.
+  A comodule natural transformation from \(C\) to \(G\) is exactly a \(\cat{C}\)\hyp{}module transformation
+  in the sense of \cref{def:module-transformation}.
+\end{example}
+
+Given a comodule natural transformation \((\phi \from G \nt C,\, \psi \from B \nt F)\),
+the graphical version of \cref{eq:comodule-natural-transformation} is displayed in our next picture,
+where the blue dot represents \(\phi\) and the black dot represents \(\psi\).
+\[
+  \tikzfig{comodule-transformation}
+\]
+
+The notion of a morphism of comodule functors might seem restrictive;
+however, it is actually sufficient to only consider arrows of this form.
+
+\begin{example}\label{ex:comod-nat-trafo-is-comod-morphism}
+  Let the pair \(\phi \from C \nt G\) and \(\psi \from B \nt F\) be a comodule transformation.
+  We can view \(\phi \from C \nt G\) as a morphism of comodule functors over \(F\) if we equip \(C\) with a new coaction.
+  It is given by
+  \[
+    C(m \ract x) \xrightarrow{\;C_{\mathsf{a};m,x}\;} Cm \ract Bx \xrightarrow{Cm\ract\psi_x} Cm \ract Fx,
+    \qquad\text{for all \(x \in \cat{C}\) and \(m \in \cat{M}\).}
+  \]
+  Thus, by suitably altering the involved coactions,
+  comodule natural transformations and morphisms of comodule functors can be identified.
+\end{example}
+
+Let \(B\from \cat{C} \to \cat{C}\) be a bimonad and \(\cat{M}\) a module category over \(\cat{C}\).
+The unit \(\eta \from \Id_{\cat{C}} \nt B\) implements a coaction on \(\Id_{\cat{M}} \from \cat{M} \nt \cat{M}\) via
+\[
+  \id_m \ract \eta_x \from \Id_{\cat{M}}(m \ract x) \to \Id_{\cat{M}}m \ract Bx, \qquad \text{ for all } x \in \cat{C}, m \in \cat{M}.
+  \]
+Using the multiplication \(\mu \from B^2 \nt B\), we can equip the composition \(CG\) of two comodule functors \(C, G \from \cat{M} \to \cat{M}\) with a comodule structure:
+\[
+  {(CG)}_{\mathsf{a}}
+  \from CG(\blank \ract \bblank)
+  \xrightarrow{CG_{\mathsf{a}}} C(G(\blank) \ract B(\bblank))
+  \xrightarrow{C_{\mathsf{a}}} CG(\blank) \ract B^2(\bblank)
+  \xrightarrow{\id \ract \mu}
+  CG(\blank) \ract B(\bblank).
+\]
+Due to the associativity and unitality of the multiplication of \(B\),
+in this way the category of comodule endofunctors on \(\cat{M}\) over \(B\) becomes monoidal.
+
+\begin{definition}\label{def: comodule_monad}
+  Consider a bimonad \(B \from \cat{C} \to \cat{C}\)
+  and a module category \(\cat{M}\) over \(\cat{C}\).
+  A \emph{comodule monad} over \(B\) on \(\cat{M}\) comprises
+  a comodule endofunctor \((C,C_{\mathsf{a}}) \from \cat{M} \to \cat{M}\) together with
+  comodule morphisms \(\mu \from C^2 \nt C\)  and \(\eta \from \Id_{\cat{M}} \nt C\)
+  such that \((C,\mu,\eta)\) is a monad.
+
+  A \emph{morphism of comodule monads} is
+  a natural transformation of comodule functors \(f \from C \nt G\)
+  that is also a morphism of monads.
+\end{definition}
+
+The conditions for the multiplication and unit of
+a comodule monad \(C\) on \(\cat{M}\)
+over a bimonad \(B\) on \(\cat{C}\)
+to be morphisms of comodule functors is given in \cref{fig:comodule-monad}.
+Notice how the conditions are analogous to \cref{fig:mu-eta-opmonoidal-nt}.
+\begin{figure}[htbp]
+  \centering
+  \tikzfig{comodule-monad}\vspace{-0.3cm}% XXX
+  \scaption{%
+    Conditions for the multiplication and unit of a comodule monad to be morphisms of comodule functors.%
+    \label{fig:comodule-monad}%
+  }
+\end{figure}
+
+\begin{example}\label{ex:oplax-module-monad}
+  An \emph{oplax \(\mathcal{C}\)\hyp{}module monad} is a comodule monad over the identity monad on \(\cat{C}\).
+  Alternatively, it is monoid in the category
+  \(\mathsf{Oplax}\mathcal{C}\mathsf{Mod}(\cat{M},\cat{M})\)
+  of oplax \(\cat{C}\)\hyp{}module endofunctors on a (left) \(\cat{C}\)\hyp{}module category \(\cat{M}\).
+
+  Analogously, one can define the notion of a \emph{lax \(\cat{C}\)\hyp{}module comonad}.
+\end{example}
+
+\begin{example}\label{ex:comodule-monads-example}
+  Consider the poset \((\real, \leq)\).
+  It is a monoidal category with addition as tensor product and \(0 \in \real\) as unit.
+  In~\cite{hasegawa-lemay2018:LinearHopf}, Hasegawa and Lemay defined a bimonad using the ceiling function.
+  Let
+  \[
+    H \from \real\to \real, \qquad x \mapsto \lceil x \rceil \defeq \min \{\, n\in \mathbb{Z} \mid n \geq x \,\}.
+  \]
+  As \(\lceil x + y \rceil \leq \lceil x \rceil + \lceil y \rceil\) for all \(x,y \in \real\) and \(\lceil 0 \rceil = 0\), the functor \(H\) is oplax monoidal.
+  The comultiplication and counit are given by the unique arrows
+  \[
+    H_0\from H0 = 0 \to 0 \qquad\text{and}\qquad H_{2; x,y} \from H(x+y) \to Hx+ Hy,
+  \]
+  for all \(x,y \in \real\).
+  The idempotence of the ceiling function implies that the identity natural transformation defines a multiplication \(\mu \from H^2 \nt H\).
+  Its unit corresponds to \({\{\, x \to Hx \,\}}_{x \in \real}\).
+
+  Given a number \(z\) in the half-open interval \([0, 1)\), let
+  \[
+    C^{(z)} \from \real \to \real, \qquad x \mapsto \min\{\, z+ n \mid n \in \mathbb{Z}, z+n \geq x \,\}.
+  \]
+  In case \(z=0\), we have \(C^{(z)} = H\).
+  Otherwise \(C^{(z)}0 = z > 0\) and \(C^{(z)}\) cannot be oplax monoidal.
+  Nonetheless, \(C^{(z)}(x+y) \leq C^{(z)} x + \lceil y \rceil = C^{(z)} x + Hy\) holds,
+  and the unique natural arrow
+  \[
+    C^{(z)}_{\mathsf{a};x,y}\from C^{(z)}(x+y) \to C^{(z)} x + Hy, \qquad\qquad \text{for all } x,y\in \real,
+  \]
+  defines a coaction of \(H\) on \(C\).
+  Again, we have that \({(C^{(z)})}^2 = C^{(z)}\) is idempotent
+  and \(x \leq C^{(z)}x\), for all \(x \in \real\).
+  Thus, it is a comodule monad over \(H\).
+\end{example}
+
+\begin{example}\label{ex:copower-as-comodule-monad}
+  Let \((\cat{V}, \otimes, 1)\) be a closed symmetric monoidal category.
+  A \(\cat{V}\)\hyp{}category \(\cat{C}\)
+  is said to be \emph{copowered}
+  over \(\cat{V}\),
+  see~\cite[Section~3.7]{kelly05:basic},
+  if there exists a functor \(\blank \cdot \bblank \from \cat{C} \times \cat{V} \to \cat{C}\),
+  such that for all \(c \in \cat{C}\) we have
+  \[
+    \adj{c \cdot \blank}{\cat{C}(c, \blank)}{\cat{V}}{\cat{C}}.
+  \]
+  One obtains \(c\cdot (v \otimes w) \cong (c\cdot v) \cdot w\) by the Yoneda lemma:
+  \begin{align*}
+    \cat{C}\big(c \cdot (v \otimes w), x\big)
+    & \cong \cat{V}\big(v \otimes w, \cat{C}(c, x)\big)
+      \cong \cat{V}\big(w, \cat{V}(v, \cat{C}(c, x))\big) \\
+    & \cong \cat{V}\big(w ,\cat{C}((c \cdot v), x)\big)
+      \cong \cat{C}\big((c \cdot v)\cdot w, x\big).
+  \end{align*}
+
+  In fact, this turns \(\cat{C}\) into a \(\cat{V}\)\hyp{}module category,
+  and therefore the identity monad on \(\cat{C}\) into a comodule monad over \(\Id_{\cat{V}}\) with trivial coaction.
+
+  Suppose that \(B \defeq UF\) is a bimonad on \(\cat{V}\).
+  The unit \(\eta \from \Id_{\cat{V}} \nt B\) is a morphism of bimonads and we may extend the coaction of \(\Id_{\cat{C}}\) to
+  \[
+    \delta\from \blank \cdot \bblank \xrightarrow{\; \blank \,\cdot\, \eta\;} \blank \cdot B\bblank,
+  \]
+  turning \(B\) into a \(\cat{C}\)-module monad.
+\end{example}
+
+The following proposition connects
+the notion of a \(\cat{C}\)\hyp{}module monad
+to that of an algebra object in \(\cat{C}\) in the sense of \cref{sec:algebra-and-module-objects}.
+
+\begin{proposition}\label{prop:strong-module-monad-and-algebra-objects}
+  Let \(\cat{C}\) be a monoidal category.
+  There is a bijection between strong \(\cat{C}\)\hyp{}module monads on \(\cat{C}\)
+  and algebra objects in \(\cat{C}\).
+\end{proposition}
+\begin{proof}
+  By \cref{prop:bicategorical-yoneda-correspondence-monads-and-algebras},
+  there is an equivalence of left module categories
+  \begin{align*}
+    \mathsf{Str}\cat{C}\mathsf{Mod}(\cat{C}, \cat{C}) \iso \cat{C}^{\tensorop}, \qquad
+    T \mapsto T1, \qquad
+    \blank \otimes A \longmapsfrom A,
+  \end{align*}
+  and by \cref{ex:monoid-iff-tensoring-is-monad}, \(A\) is an algebra object if and only if \(\blank \otimes A\) is a monad.
+
+  In particular, if \((A, \tau, \upsilon)\) is an algebra object in \(\cat{C}\),
+  then \((\blank \otimes A,\, \blank \otimes \tau,\, \blank \otimes \upsilon)\) becomes a strong \(\cat{C}\)\hyp{}module monad on \(\cat{C}\).
+  The strong \(\cat{C}\)\hyp{}module structure is given by the associator of \(\cat{C}\):
+  \[
+    {(\blank \otimes A)}_{\mathsf{a};X} \defeq X \otimes (\blank \otimes A) \iso (X \otimes \blank) \otimes A, \qquad\text{for all \(X \in \cat{C}\)}.
+  \]
+
+  If \((T, \mu, \eta)\) is a strong \(\cat{C}\)\hyp{}module monad,
+  then evaluating at the monoidal unit yields an algebra object in \(\cat{C}\),
+  with multiplication \(\mu_1\) and unit \(\eta_1\).
+\end{proof}
+
+In particular, the category of right \(A\)\hyp{}modules and the Eilenberg–Moore category of \(\blank \otimes A\) coincide as \(\cat{C}\)\hyp{}module categories.
+
+\begin{remark}\label{rem:comodule-monads-induce-module-categories}
+  Let \(B \from \cat{C} \to \cat{C}\) be a bimonad and  \((C, C_{\mathsf{a}}) \from \cat{M} \to \cat{M}\) a comodule monad over it.
+  The coaction of \(C\) allows us to define an action
+  \[
+    \ract \from \cat{M}^{C}\times \cat{C}^B \to \cat{M}^C.
+  \]
+  For any two modules \((m, \nabla_{m}) \in \cat{M}^C\) and \((x, \nabla_{x}) \in \cat{C}^B\), it is given by
+  \[
+    (m, \nabla_{m}) \ract (x, \nabla_{x}) \defeq \big(m \ract x, (\nabla_{m}\ract \nabla_{x}) \circ C_{\mathsf{a};m,x} \big).
+  \]
+  The axioms of the coaction of \(B\) on \(C\) translate precisely to the compatibility of the action of \(\cat{C}^B\) on \(\cat{M}^{C}\) with the tensor product and unit of \(\cat{C}^B\).
+\end{remark}
+
+\begin{definition}\label{def:comodule-adjunction}
+  Let \(\stdadj\) be an oplax monoidal adjunction.
+  Suppose that \(\adj{G}{V}{\cat{M}}{\cat{N}}\) is an adjunction
+  such that \(G\) is an \(F\)-comodule functor,
+  and \(V\) is a \(U\)-comodule functor.
+  The pair \((G \dashv V,\ F \dashv U)\) is a \emph{comodule adjunction}
+  if the following identities hold:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+	{m \ract x} \& {VG(m \ract x)} \& {GV(m \ract x)} \& {G(Vm \ract Ux)} \\
+	{VGm \ract UFx} \& {V(Gm \ract Fx)} \& {m \ract x} \& {GVm \ract FUx}
+	\arrow["{\eta^{(G \lad V)}_{m\ract x}}", from=1-1, to=1-2]
+	\arrow["{VG_{\mathsf{a};m,x}}", from=1-2, to=2-2]
+	\arrow["{V_{\mathsf{a};Gm,Fx}}", from=2-2, to=2-1]
+	\arrow["{\eta^{(G \lad V)}_m \ract \eta^{(F \lad U)}_x}"', from=1-1, to=2-1]
+	\arrow["{\varepsilon^{(G \lad V)}_{m \ract x}}"', from=1-3, to=2-3]
+	\arrow["{GV_{\mathsf{a};m,x}}", from=1-3, to=1-4]
+	\arrow["{G_{\mathsf{a};Vm,Ux}}", from=1-4, to=2-4]
+	\arrow["{\varepsilon^{(G \lad V)}_m \ract \varepsilon^{(F \lad U)}_x}", from=2-4, to=2-3]
+      \end{mytikzcd}
+  \]
+\end{definition}
+
+\begin{example}\label{ex:module-adjunction-as-comodule-adjunction}
+  If \(F = U = \Id_{\cat{M}}\) for a (left) \(\cat{C}\)\hyp{}module category \(\cat{M}\),
+  then we say that \(G \lad V\) is an \emph{oplax \(\cat{C}\)\hyp{}module adjunction}.
+  More explicitly, we have that \(G\) and \(V\) are oplax \(\cat{C}\)\hyp{}module functors
+  such that the unit and counit of the adjunction are \(\cat{C}\)\hyp{}module transformations.
+
+  Analogously to this, one can define the notion of a \emph{lax \(\cat{C}\)\hyp{}module adjunction}.
+\end{example}
+
+\Cref{fig:comodule-adjunction-unit-and-counit}
+makes plain that the conditions required by \cref{def:comodule-adjunction}
+are analogous to those stated in \cref{fig:comonoidal-adjunction-epsilon}.
+\begin{figure}[htbp]
+  \centering
+  \tikzfig{comodule-adjunction-unit-and-counit}
+  \scaption[.5cm]{%
+    String diagrammatic conditions for a comodule adjunction.%
+    \label{fig:comodule-adjunction-unit-and-counit}%
+  }
+\end{figure}
+
+\begin{example}\label{ex:comodule-monad-over-bimonad}
+  The philosophy that monads and adjunctions are two sides of the same coin
+  extends to comodule functors.
+  Suppose that we have an oplax monoidal adjunction \(\stdadj\)
+  and over it a comodule adjunction \(\adj{G}{V}{\cat{M}}{\cat{N}}\).
+  By~\cite[Proposition~4.3.1]{Aguiar2012},
+  the bimonad \(B \defeq UF\) admits a coaction on the monad \(C \defeq VG\);
+  for all \(m \in \cat{M}\) and \(x \in \cat{C}\) it is given by
+  \[
+    VG(m \ract x) \xrightarrow{VG_{\mathsf{a};m,x}} V(Gm\ract Fx) \xrightarrow{V_{\mathsf{a};Gm,Fx}} VGm \ract UFx = Cm\ract Bx.
+  \]
+\end{example}
+
+\subsection{Reconstruction for comodule monads}
+
+\textsc{The next theorem offers a way}
+to reconstruct comodule monads from their module categories.
+It extends~\cite[Proposition~4.1.2]{Aguiar2012}
+and~\cite[Lemma~7.10]{Turaev2017}.
+Recall \cref{def:lift-to-monoidal-adjunction}, and note that
+one can analogously define lifts of adjunctions to comodule adjunctions.
+
+\begin{theorem}\label{thm:comodule-adjunctions-correspond-to-strong-comodule-functors}
+  Let \(\cat{C}\) and \(\cat{D}\) be monoidal categories,
+  and suppose that \(\cat{M}\) and \(\cat{N}\) are right \(\cat{C}\)\hyp{} and \(\cat{D}\)\hyp{}module categories, respectively.
+  Let \(\stdadj\) be an oplax monoidal adjunction.
+  Lifts of an adjunction \(\adj{G}{V}{\cat{M}}{\cat{N}}\) to a comodule adjunction are in bijection with lifts of \(V \from \cat{N} \to \cat{M}\) to a strong \(U\)-comodule functor.
+\end{theorem}
+\begin{proof}
+  Let \(G \dashv V\) be a comodule adjunction over \(F \dashv U\).
+  Define the inverse \(V_{\mathsf{a}}^{-1}\from V\blank \ract U\bblank \nt V(\blank \ract \bblank)\) of \(V_{\mathsf{a}}\) by
+  \begin{equation}\label[diagram]{eq:inverse-of-coaction}
+    \tikzfig{inverse-of-coaction}
+  \end{equation}
+  Using that \(G\) and \(V\) are part of a comodule adjunction,
+  a straightforward computation proves \(V_{\mathsf{a}}^{-1} \circ V_{\mathsf{a}} = \id_{V(\blank \,\ract\, \bblank)}\):
+  \[
+    \tikzfig{inverse-of-coaction-calc}
+  \]
+  A similar strategy can be used to show that \(V_{\mathsf{a}} \circ V_{\mathsf{a}}^{-1} = \id_{V\blank \,\ract\, U\bblank}\).
+  Thus, \(V_{\mathsf{a}}\) is a natural isomorphism and therefore \(V\) is a strong comodule functor.
+
+  Conversely, suppose that \(V \from \cat{N} \to \cat{M}\) is a strong comodule functor over \(U\).
+  Define an arrow \(G_{\mathsf{a}}\from G(\blank \ract \bblank) \nt G(\blank) \ract F(\bblank)\) by
+  \begin{equation}\label[diagram]{eq:coaction-via-counit-unit-and-inverse}
+    \tikzfig{coaction-via-counit-unit-and-inverse}
+  \end{equation}
+  By~\cite[Lemma~7.10]{Turaev2017}, the comultiplication and counit of \(F\) are given by
+  \[
+    F(x \otimes y)
+    \xrightarrow{F(\eta_x \otimes \eta_y)} F(UFx \otimes UFy)
+    \xrightarrow{F U_{-2; Fx, Fy}} FU(Fx \otimes Fy)
+    \xrightarrow{\varepsilon_{Fx \otimes Fx}} Fx \otimes Fy,
+  \]
+  \[
+    F1 \xrightarrow{FU_{-0}} FU1 \xrightarrow{\ \varepsilon_1\ } 1,
+    \qquad\text{for all \(x,y \in \cat{C}\)}.
+  \]
+  Note that, graphically, \(F_2\) looks just like \cref{eq:coaction-via-counit-unit-and-inverse},
+  with black strings taking the place of blue ones.
+
+  We will show that \(G\) is a comodule functor over \(F\).
+  \Cref{fig:ga-is-coassociative} shows that \(G_{\mathsf{a}}\from G(\blank \ract \bblank) \nt G(\blank) \ract F(\bblank)\) is
+  coassociative in the sense of \cref{fig:coassoc-and-counital-comodule-functor}.
+  \begin{figure}[htbp]
+    \centering
+    \tikzfig{ga-is-coassociative}\vspace{-0.3cm}% XXX
+    \scaption[-1cm]{%
+      The coassociativity condition of \(G\).%
+      \label{fig:ga-is-coassociative}%
+    }
+  \end{figure}
+
+  The fact that \(G_{\mathsf{a}}\) is counital follows from
+  \[
+    \tikzfig{ga-is-counital}
+  \]
+
+  A straightforward computation proves that the unit of the adjunction \(G \dashv V\) satisfies
+  the axioms displayed in \cref{fig:comodule-adjunction-unit-and-counit}:
+  \[
+    \tikzfig{unit-is-comodule-adjunction}
+  \]
+  A similar argument for the counit shows that \(G \dashv V\) is a comodule adjunction.
+
+  To see that these constructions are inverse to each other,
+  first suppose that we have a comodule adjunction \(G \adjoint V\).
+  By utilising \(V_{\mathsf{a}}^{-1}\) as given in \cref{eq:inverse-of-coaction}, we obtain another coaction \(\lambda\) on \(G\),
+  see \cref{eq:coaction-via-counit-unit-and-inverse}.
+  Now, a direct computation shows that \(G_{\mathsf{a}} = \lambda\):
+  \[
+    \tikzfig{ga-is-lambda}
+  \]
+
+  The converse is clear:
+  the map that associates a comodule adjunction \(G \lad V\) to any strong comodule structure on \(V\)
+  preserves the coaction of \(V\).
+\end{proof}
+
+The proof of \cref{thm:comodule-adjunctions-correspond-to-strong-comodule-functors}
+yields an analogue of \cref{prop:doctrinaladjunction},
+which we formulate in the language of \(\cat{C}\)\hyp{}module functors.
+
+\begin{porism}\label{porism:doctrinal-module-adjunctions}
+  Let \(\cat{M}\) and \(\cat{N}\) be \(\cat{C}\)\hyp{} and \(\cat{D}\)\hyp{}module categories, respectively.
+  For an adjunction \(\adj{F}{U}{\cat{M}}{\cat{N}}\),
+  there is a bijection between oplax \(\cat{C}\)\hyp{}module structures on \(F\)
+  and lax \(\cat{C}\)\hyp{}module structures on \(U\).
+\end{porism}
+
+\begin{corollary}\label{oplaxEMcorrespondence}
+  Let \(\mathcal{M}\) be a \(\mathcal{C}\)\hyp{}module category,
+  and let \(T\) be a monad on \(\mathcal{M}\).
+  Then there exists a bijective correspondence\\
+  \hspace{-2em}
+  \scalebox{0.9}{\parbox{\linewidth}{%
+      \vspace{-0.5em}
+      \begin{align*}
+        \big\{
+        \text{oplax \(\mathcal{C}\)\hyp{}module monad structures on \(T\)}
+        \big\}
+        \;\leftrightarrow\,
+        &\,\Bigg\{
+          {\begin{aligned}
+            &\text{\(\mathcal{C}\)\hyp{}module category structures on \(\cat{M}^T\)}\\
+            &\text{such that \(U^T\) is a strict module functor}
+          \end{aligned}}
+          \Bigg\} \\
+        \{\, T(\blank \triangleright \bblank) \xrightarrow{\;\;{}T_{\mathsf{a}}\;\;} \blank \triangleright T(\bblank) \,\}
+        \mapsto &\,\{\, T(\blank \triangleright \bblank) \xrightarrow{\;\;{}T_{\mathsf{a}}\;\;} \blank \triangleright T(\bblank) \xrightarrow{\id \,\triangleright\, \mathrm{act}} \blank \triangleright \bblank \,\}\\
+        \{\, U^T F^T(\blank \lact \bblank) \xrightarrow{U^T_{\mathsf{a}} \,\circ\, U^T F^T_{\mathsf{a}}} \blank \lact U^T F^T(\bblank) \,\}
+        \longmapsfrom&\,\{\, U^T(\blank \lact \bblank) \xrightarrow{U^T_{\mathsf{a}}} \blank \lact U^T(\bblank) \,\}
+      \end{align*}}}
+\end{corollary}
+
+\Cref{thm:comodule-adjunctions-correspond-to-strong-comodule-functors}
+also yields a description of a comodule monad coaction in terms of its \EM{} adjunction;
+\ie, a Tannaka--Krein reconstruction result in the spirit of \cref{prop: Moerdijk_reconstruction}.
+
+\begin{theorem}\label{thm:comodule-monad-reconstruction}
+  Let \(B\) be a bimonad on the monoidal category \(\cat{C}\),
+  and \(T\) a monad on a right \(\cat{C}\)\hyp{}module category \(\cat{M}\).
+  Coactions of \(B\) on \(T\) are
+  in bijection with
+  right actions of \(\cat{C}^B\) on \(\cat{M}^T\) such that \(U^{T}\) is a strict comodule functor over \(U^{B}\).
+\end{theorem}
+\begin{proof}
+  Suppose \(\cat{C}^{B}\) acts from the right on \(\cat{M}^{T}\) such that \(U^{T}\) is a strict comodule functor.
+  Due to \cref{thm:comodule-adjunctions-correspond-to-strong-comodule-functors},
+  \(T = U^T F^T\) is a comodule monad via the coaction
+  \[
+    T_{\mathsf{a}}\from T(\blank \ract \bblank)
+    \xrightarrow{U^T F^T_{\mathsf{a}}} U^T(F^T(\blank) \ract F^B(\bblank))
+    \xrightarrow{\ U^T_{\mathsf{a}}\ } T(\blank) \ract B(\bblank),
+  \]
+  which is equal to \(U^T F^T_{\mathsf{a}}\), as \(U^T\) is a strict \(U^B\)-comodule functor.
+
+  Conversely, if \(T\) is a comodule monad,
+  then \(\cat{M}^{T}\) becomes a right \(\cat{C}^{B}\)-module category,
+  with action given as in \cref{rem:comodule-monads-induce-module-categories}.
+
+  As \(T_{\mathsf{a}}\) and the action of \(\cat{C}^B\) on \(\cat{M}^T\)
+  determine the coaction \(F^T_{\mathsf{a}}\) of \(F^{T}\) uniquely,
+  the two constructions are inverse to each other by
+  \cref{thm:comodule-adjunctions-correspond-to-strong-comodule-functors}.
+\end{proof}
+
+The following result is dual to \cref{thm:comodule-adjunctions-correspond-to-strong-comodule-functors}
+for the special case of \(\cat{C}\)\hyp{}module adjunctions,
+where we study strong \(\mathcal{C}\)\hyp{}module structures on the left rather than the right adjoint.
+
+\begin{proposition}\label{prop:dual-module-adjunctions}
+  Let \(\cat{C}\) be a monoidal category,
+  and suppose that \(\cat{M}\) and \(\cat{N}\) are left
+  \(\cat{C}\)\hyp{}module categories.
+  Given an adjunction \(\adj{F}{U}{\cat{M}}{\cat{N}}\),
+  there is a one-to-one correspondence between
+  lifts of \(F\) to a strong \(\cat{C}\)\hyp{}module functor,
+  and lifts of \(F \dashv U\) to a lax \(\cat{C}\)\hyp{}module adjunction.
+\end{proposition}
+\begin{proof}
+  Suppose that \(\adj{F}{U}{\cat{M}}{\cat{N}}\) is a lax \(\cat{C}\)\hyp{}module adjunction.
+  Define the inverse of the action \(F_{\mathrm{a}} \from \blank \lact F(\bblank) \nt F(\blank \lact \bblank)\)
+  by
+  \[
+    F(\blank \lact \bblank)
+    \xrightarrow{F(\eta \,\lact\, \bblank)} F(UF(\blank) \lact \bblank)
+    \xrightarrow{F U_{\mathrm{a}}} FU(F(\blank) \lact \bblank)
+    \xrightarrow{\;\;\varepsilon\;\;} F(\blank) \lact \bblank.
+  \]
+  Conversely, given an adjunction \(\adj{F}{U}{\cat{M}}{\cat{N}}\)
+  such that \(F\) is a strong \(\cat{C}\)\hyp{}module functor,
+  define
+  \[
+    U(\blank) \lact \bblank
+    \xrightarrow{\;\;\eta\;\;} UF(U(\blank) \lact \bblank)
+    \xrightarrow{U F_{\mathrm{a}}^{-1}} U(FU(\blank) \lact \bblank)
+    \xrightarrow{U(\varepsilon \,\lact\, \bblank)} U(\blank \lact \bblank).
+  \]
+
+  Reading the string diagrams in the proof of \cref{thm:comodule-adjunctions-correspond-to-strong-comodule-functors} upside down
+  verifies the necessary the coherence conditions,
+  and that these two constructions are inverses of each other.
+\end{proof}
+
+We obtain a version of \cref{oplaxEMcorrespondence}
+for the Kleisli category of a monad.
+
+\begin{corollary}\label{laxKlCorrespondence}
+  Let \(\mathcal{M}\) be a left \(\mathcal{C}\)\hyp{}module category,
+  and suppose \(T\) to be a monad on \(\mathcal{M}\).
+  There is a bijection between
+  lax \(\cat{C}\)\hyp{}module monad structures on \(T\),
+  and
+  \(\cat{C}\)\hyp{}module category structures on \(\cat{M}_T\),
+  such that \(F_T\) is a strict \(\cat{C}\)\hyp{}module functor.
+\end{corollary}
+\begin{proof}
+  Let \(\cat{M}_T\) be a \(\cat{C}\)\hyp{}module category
+  such that \(F_T\) is a strict \(\cat{C}\)\hyp{}module functor.
+  Then
+  \(T \defeq U_T F_T \from \cat{M} \to \cat{M}\)
+  is a lax \(\cat{C}\)\hyp{}module monad by \cref{prop:dual-module-adjunctions}.
+
+  Conversely, if \(T\) is a lax \(\cat{C}\)\hyp{}module monad,
+  \(\cat{M}_T\) becomes a \(\cat{C}\)\hyp{}module category as follows:
+  for \(x \in \cat{C}\) and \(m,n \in \cat{M}\),
+  set \(x \lact_{\cat{M}_T} m \defeq x \lact_{\mathcal{M}} m\) on objects,
+  and for a morphism \(f \from m \to Tn\) in \(\cat{M}_T\),
+  we define the action of \(x \in \cat{C}\) by
+  \[
+    x \lact_{\cat{M}_T} f \defeq x \lact m \xrightarrow{x \,\lact\, f} x \lact Tn \xrightarrow{T_{\mathsf{a};x,n}} T(x \lact n).
+  \]
+  It is easy to check that these assignments define a \(\cat{C}\)\hyp{}module structure,
+  for which \(F_T\) is a strict \(\cat{C}\)\hyp{}module functor.
+
+  The \(\cat{C}\)\hyp{}module structure of \(\cat{M}_T\)
+  and the lax module monad structure on \(T\) uniquely determine the \(\cat{C}\)\hyp{}module structure of \(F_T\).
+  Hence, \(F_{T;\mathsf{a}}^{-1}\) is given as in \cref{prop:dual-module-adjunctions}
+  and the two constructions are inverse of each other.
+\end{proof}
+
+Using these insights, we may now clarify the structure of comparison functors associated to comodule adjunctions.
+
+\begin{proposition}\label{prop:comparison-functor-comodule-monad-comodule}
+  Consider a comodule adjunction \(\adj{G}{V}{\cat{M}}{\cat{N}}\) over an oplax monoidal adjunction \(\stdadj\),
+  and denote the associated comodule monad and bimonad by
+  \(C \defeq VG \from \cat{M} \to \cat{M}\)
+  and \(B \defeq UF \from \cat{C} \to \cat{C}\), respectively.
+
+  Then the comparison functor \(K^{C} \from \cat{N} \to \cat{M}^C\) is
+  a strong comodule functor over \(K^{B} \from \cat{D} \to \cat{C}^B\),
+  and the following identities of comodule functors hold:
+  \[
+    U^C K^{C} = V \qquad\text{and}\qquad K^{C} G = F^C.
+  \]
+\end{proposition}
+\begin{proof}
+  We proceed analogously to~\cite[Theorem~2.6]{Bruguieres2007}.
+  For any \(n \in \cat{N}\) we have \(K^{C}n= (Vn, V\varepsilon_{n})\) and a direct computation shows that the coaction of \(V\) lifts to a coaction of \(K^{C}\).
+  That is,
+  \[
+    U^{C} K^C_{\mathsf{a}; n, y} = V_{\mathsf{a}; n, y}, \qquad \qquad \text{ for all } n \in \cat{N} \text{ and } y \in \cat{D}.
+  \]
+  Using that \(U^{C} \from \cat{M}^{C} \to \cat{M}\) is a faithful and conservative functor,
+  one observes that \(K^{C}\) becomes a strong comodule functor in this manner.
+  Furthermore, as \(U^{C}\) is a strict comodule functor,
+  the coactions of \(U^{C}K^{C}\) and \(V\) coincide.
+  Lastly, we compute the following, for any \(x \in \cat{C}\) and
+  \(m \in \cat{M}\):
+  \[\mathscale{0.98}{
+      {(K^{C} G)}_{\mathsf{a};m, x}
+      = {(U^C K^{C} G)}_{\mathsf{a};m,x}
+      = {(VG)}_{\mathsf{a};m,x}
+      = C_{\mathsf{a};m,x}
+      = {(U^C F^C)}_{\mathsf{a};m,x}
+      = F^C_{\mathsf{a};m,x}.
+    }\qedhere\]
+\end{proof}
+
+\begin{proposition}\label{strongcomparisons}
+  Let \(\cat{M}\) and \(\cat{N}\) be left \(\cat{C}\)\hyp{}module categories.
+  \begin{itemize}
+    \item Let \(\adj{F}{U}{\cat{M}}{\cat{N}}\) be an oplax \(\cat{C}\)\hyp{}module adjunction
+    and consider the corresponding \(\cat{C}\)\hyp{}module category structure on \(\cat{M}^T\) of \cref{oplaxEMcorrespondence}.
+    Then for \(T \defeq UF\) the comparison functor \(K^T\) is a strong \(\cat{C}\)\hyp{}module functor.
+    \item Let \(\adj{F}{U}{\cat{M}}{\cat{N}}\) be
+    a lax \(\cat{C}\)\hyp{}module adjunctions
+    and consider the corresponding \(\cat{C}\)\hyp{}module category structure on \(\cat{M}_T\) of \cref{laxKlCorrespondence}.
+    Then for \(T \defeq UF\) the comparison functor \(K_T\) is a strong \(\cat{C}\)\hyp{}module functor.
+  \end{itemize}
+\end{proposition}
+
+\begin{proposition}\label{EMMonadCorrespondence}
+  Let \(\cat{M}\) be a \(\cat{C}\)\hyp{}module category,
+  \(T\from \cat{M} \to \cat{M}\) an oplax \(\cat{C}\)\hyp{}module monad,
+  and \(S\from \cat{M} \to \cat{M}\) a right adjoint to \(T\).
+  Then the isomorphism \(\cat{M}^T \cong \cat{M}^S\) of Proposition~\ref{pyramidscheme} is a strict \(\cat{C}\)\hyp{}module isomorphism,
+  where \(\cat{M}^T\) is endowed with the \(\cat{C}\)\hyp{}module structure of Proposition~\ref{oplaxEMcorrespondence},
+  and similarly for \(\cat{M}^S\).
+\end{proposition}
+\begin{proof}
+  Note that,
+  by \cref{thm:comodule-adjunctions-correspond-to-strong-comodule-functors}
+  the comonad \(S\from \cat{M}\to \cat{M}\) comes equipped with the following lax \(\cat{C}\)\hyp{}module structure,
+  for all \(x \in \cat{C}\) and \(m \in \cat{M}\):
+  \[
+    S_{\mathsf{a}; x, m} \from
+    x \lact S m
+    \xrightarrow{\eta_{x \lact S m}} S T(x \lact S m)
+    \xrightarrow{S T_{\mathsf{a}; x, S m}} S(x \lact TS m)
+    \xrightarrow{S(x \lact \varepsilon_m)} S(x \lact m).
+  \]
+  Further, the isomorphism \(L\from \cat{M}^T \iso \cat{M}^S\) of \cref{pyramidscheme} is given by
+  \[
+    \big(m,\ \nabla_m\from Tm \to m\big) \mapsto \big(m,\ m \xrightarrow{\ \eta_m\ } S Tm \xrightarrow{\,S\nabla_m\,} S m\big).
+  \]
+
+  We have to prove that \(L(x \lact (m, \nabla_m)) = x \lact L((m, \nabla_m))\),
+  for all \(x \in \cat{C}\) and \((m, \nabla_m) \in \cat{M}^T\).
+  This is equivalent to the equality of
+  \[
+    \big(
+    x \lact m,\
+    x \lact m
+    \xrightarrow{\eta_{x \lact m}} S T(x \lact m)
+    \xrightarrow{S T_{\mathsf{a};x, m}} S(x \lact Tm)
+    \xrightarrow{S(x \lact \nabla_m)} S(x \lact m)
+    \big)
+  \]
+  and
+  \begin{align*}
+    \big(
+    x \lact m,\
+    x \lact m
+    &\xrightarrow{x \lact \eta_m} x \lact S Tm
+      \xrightarrow{x \lact S \nabla_m} x \lact S m
+      \xrightarrow{\eta_{x \lact S m}} S T(x \lact S m) \\
+    &\xrightarrow{S{(T_{\mathsf{a}})}_{x,S(m)}} S(x \lact TS m)
+      \xrightarrow{S(x \lact \varepsilon_m)} S(x \lact m)
+      \big).
+  \end{align*}
+  This is evidenced by the following commutative diagram:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {x \lact m} \& {S T(x\lact m)} \&\& {S(x\lact Tm)} \\
+      {x\lact S Tm} \& {S T(x \lact S Tm)} \& {S(x \lact TS T m)} \& {S(x\lact Tm)} \\
+      {x\lact S m} \& {S T(x \lact S m)} \& {S(x\lact TS m)} \& {S(x \lact m)}
+      \arrow[""{name=0, anchor=center, inner sep=0}, "{{{\eta_{x\lact m}}}}", from=1-1, to=1-2]
+      \arrow["{{{x\lact \eta_m}}}"', from=1-1, to=2-1]
+      \arrow[""{name=1, anchor=center, inner sep=0}, "{{{S T_{\mathsf{a};x,m}}}}", from=1-2, to=1-4]
+      \arrow["{{{S T(x \lact \eta_m)}}}", from=1-2, to=2-2]
+      \arrow[""{name=2, anchor=center, inner sep=0}, "{{{S(x \lact T\eta_m)}}}"', from=1-4, to=2-3]
+      \arrow[equals, from=1-4, to=2-4]
+      \arrow[""{name=3, anchor=center, inner sep=0}, "{{{\eta_{x \lact S Tm}}}}"', from=2-1, to=2-2]
+      \arrow["{{{x \lact S \nabla_m}}}"', from=2-1, to=3-1]
+      \arrow[""{name=4, anchor=center, inner sep=0}, "{{{S T_{\mathsf{a}; x, S T m}}}}", from=2-2, to=2-3]
+      \arrow["{{{S T(x \lact S \nabla_m)}}}", from=2-2, to=3-2]
+      \arrow[""{name=5, anchor=center, inner sep=0}, "{{{S(x \lact \varepsilon_{Tm})}}}"', from=2-3, to=2-4]
+      \arrow["{{{S(x \lact TS \nabla_m)}}}", from=2-3, to=3-3]
+      \arrow["{{{S(x \lact \nabla_m)}}}", from=2-4, to=3-4]
+      \arrow[""{name=6, anchor=center, inner sep=0}, "{{{\eta_{x \lact S m}}}}"', from=3-1, to=3-2]
+      \arrow["{{{S T_{\mathsf{a};x,S m}}}}"', from=3-2, to=3-3]
+      \arrow["{{{S(x \lact \varepsilon_{m})}}}"', from=3-3, to=3-4]
+      \arrow["{\mathsf{nat}\ \eta}"{description}, draw=none, from=0, to=3]
+      \arrow["{\mathsf{nat}\ T_{\mathsf{a}}}"{description}, draw=none, from=1, to=4]
+      \arrow["{{\mathsf{adj}}}"{description}, draw=none, from=2, to=2-4]
+      \arrow["{\mathsf{nat}\ \eta}"{description}, draw=none, from=3, to=6]
+      \arrow["{\mathsf{nat}\ T_{\mathsf{a}}}"{description, pos=0.7}, draw=none, from=4, to=3-3]
+      \arrow["{\mathsf{nat}\ \varepsilon}"{description, pos=0.7}, draw=none, from=5, to=3-4]
+    \end{mytikzcd}
+  \]
+\end{proof}
+
+In an analogous way to \cref{EMMonadCorrespondence},
+one obtains the following result.
+
+\begin{proposition}\label{KleisliMonadCorrespondence}
+  Let \(\cat{M}\) be a \(\cat{C}\)\hyp{}module category,
+  \(T\from \cat{M}\to \cat{M}\) a lax \(\cat{C}\)\hyp{}module monad,
+  and \(L\from \cat{M} \to \cat{M}\) a left adjoint to \(T\).
+  Then the isomorphism \(\cat{M}_T \cong \cat{M}_{L}\) of \cref{einerKleinerKleisliÄquivalenz}
+  is a \(\cat{C}\)\hyp{}module isomorphism,
+  where \(\cat{M}_T\) and \(\cat{M}_L\) are
+  endowed with the \(\cat{C}\)\hyp{}module structure of \cref{laxKlCorrespondence}.
+\end{proposition}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../main"
+%%% TeX-command-extra-options: "-shell-escape -fmt=prec.fmt -file-line-error -synctex=1"
+%%% End:

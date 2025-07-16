@@ -1,0 +1,26 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (35) at (-3, -1.05) {};
+		\node [style=none] (36) at (-5, -1.05) {};
+		\node [style=none] (37) at (-4, 0.2) {};
+		\node [style=none] (39) at (-4, 1.45) {};
+		\node [style=whitedot] (48) at (3.25, -0.3) {};
+		\node [style=none] (49) at (3.25, 1.45) {};
+		\node [style=none] (55) at (4.25, 1.45) {};
+		\node [style=none] (61) at (-4, 1.75) {\tiny $T$};
+		\node [style=none] (62) at (-5, -1.3) {\tiny $T$};
+		\node [style=none] (63) at (-3, -1.3) {\tiny $T$};
+		\node [style=none] (64) at (3.25, 1.75) {\tiny $T$};
+		\node [style=none] (65) at (-5.75, -1.05) {};
+		\node [style=none] (69) at (-2.25, 1.45) {};
+		\node [style=none] (70) at (2.25, -1.3) {};
+		\node [style=none] (72) at (0, 0) {and};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=morphism-edge] (36.center)
+			 to [in=-180, out=90] (37.center)
+			 to [in=90, out=0] (35.center);
+		\draw [style=morphism-edge] (37.center) to (39.center);
+		\draw [style=morphism-edge] (48) to (49.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

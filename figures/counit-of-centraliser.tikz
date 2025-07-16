@@ -1,0 +1,32 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-2, 2.1) {\scriptsize$Tx = Tx \otimes 1$};
+		\node [style=none] (1) at (-2, -2.1) {\scriptsize$x = 1 \otimes x$};
+		\node [style=none] (2) at (-2, -1.75) {};
+		\node [style=none] (3) at (-2, 1.75) {};
+		\node [style=box] (4) at (-2, 0) {\tiny$\eta^T_x$};
+		\node [style=none] (5) at (0, 0) {$=$};
+		\node [style=BL] (6) at (2, -0.5) {};
+		\node [style=box] (7) at (2.75, 0.75) {\tiny${(Z_T)}_{0}$};
+		\node [style=none] (8) at (1.25, 1.75) {};
+		\node [style=none] (9) at (2.75, 2.1) {\scriptsize$1$};
+		\node [style=none] (10) at (2.75, 1.75) {};
+		\node [style=none] (11) at (1.25, 2.1) {\scriptsize$x$};
+		\node [style=none] (12) at (1.25, 0.5) {};
+		\node [style=none] (13) at (1.25, -1.75) {};
+		\node [style=none] (14) at (2.75, -1.75) {};
+		\node [style=none] (15) at (1.25, -2.1) {\scriptsize$1$};
+		\node [style=none] (16) at (2.75, -2.1) {\scriptsize$x$};
+		\node [style=none] (17) at (2.75, 0.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=morphism-edge] (3.center) to (4);
+		\draw [style=morphism-edge] (4) to (2.center);
+		\draw [style=unit] (10.center) to (7);
+		\draw [style=morphism-edge] (12.center) to (8.center);
+		\draw [style=morphism-edge, in=-195, out=-90] (12.center) to (6);
+		\draw [style=unit, in=-270, out=-165] (6) to (13.center);
+		\draw [style=morphism-edge, in=-270, out=-15] (6) to (14.center);
+		\draw [style=morphism-edge, in=270, out=15] (6) to (17.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,52 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (6) at (-9.75, 0) {};
+		\node [style=none] (7) at (-7.25, 0) {};
+		\node [style=none] (8) at (-3.75, -1.75) {};
+		\node [style=none] (9) at (-2.25, -1.75) {};
+		\node [style=none] (10) at (-0.75, -1.75) {};
+		\node [style=none] (11) at (0.75, -1.75) {};
+		\node [style=none] (12) at (2.25, -1.75) {};
+		\node [style=none] (13) at (3.75, -1.75) {};
+		\node [style=none] (15) at (-2.25, 1.75) {};
+		\node [style=none] (16) at (-0.75, 1.75) {};
+		\node [style=none] (17) at (0.75, 1.75) {};
+		\node [style=none] (18) at (2.25, 1.75) {};
+		\node [style=none] (19) at (5.25, -1.75) {};
+		\node [style=none] (20) at (6.75, -1.75) {};
+		\node [style=none] (21) at (3.75, 1.75) {};
+		\node [style=none] (22) at (5.25, 1.75) {};
+		\node [style=none] (23) at (-2.25, 2.25) {\(1\)};
+		\node [style=none] (24) at (-0.75, 2.25) {\(2\)};
+		\node [style=none] (25) at (0.75, 2.25) {\(3\)};
+		\node [style=none] (26) at (2.25, 2.25) {\(4\)};
+		\node [style=none] (27) at (3.75, 2.25) {\(5\)};
+		\node [style=none] (28) at (5.25, 2.25) {\(6\)};
+		\node [style=blackdot] (29) at (5.15, -0.5) {};
+		\node [style=blackdot] (30) at (0.85, 1.2) {};
+		\node [style=none] (31) at (-6.5, 0) {};
+		\node [style=none] (32) at (-4, 0) {};
+		\node [style=blackdot] (33) at (-6.5, 0) {};
+		\node [style=none] (34) at (-3.75, -2.25) {\(1\)};
+		\node [style=none] (35) at (-2.25, -2.25) {\(2\)};
+		\node [style=none] (36) at (-0.75, -2.25) {\(3\)};
+		\node [style=none] (37) at (0.75, -2.25) {\(4\)};
+		\node [style=none] (38) at (2.25, -2.25) {\(5\)};
+		\node [style=none] (39) at (3.75, -2.25) {\(6\)};
+		\node [style=none] (40) at (5.25, -2.25) {\(7\)};
+		\node [style=none] (41) at (6.75, -2.25) {\(8\)};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=morphism-edge] (8.center) to (16.center);
+		\draw [style=morphism-edge, bend left=90, looseness=1.50] (9.center) to (11.center);
+		\draw [style=morphism-edge] (10.center) to (15.center);
+		\draw [style=morphism-edge, bend right=270, looseness=1.50] (7.center) to (6.center);
+		\draw [style=morphism-edge, bend left=90, looseness=1.50] (6.center) to (7.center);
+		\draw [style=morphism-edge] (12.center) to (22.center);
+		\draw [style=morphism-edge, bend left=90, looseness=1.50] (21.center) to (17.center);
+		\draw [style=morphism-edge] (18.center) to (20.center);
+		\draw [style=morphism-edge, bend right=90, looseness=1.50] (19.center) to (13.center);
+		\draw [style=morphism-edge, bend right=270, looseness=1.50] (32.center) to (31.center);
+		\draw [style=morphism-edge, bend left=90, looseness=1.50] (31.center) to (32.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,457 @@
+\textsc{This dissertation generalises several reconstruction results}
+in classical algebra to the language of monoidal categories, module categories, and monads.
+We start with some brief historical remarks,
+and summarise our main contributions in \cref{sec:summary} below.
+
+Monoidal and module categories are ubiquitous in many fields of mathematics.
+Briefly, a monoidal category is a category \(\cat{C}\) equipped with a tensor product functor \(\otimes\from \cat{C} \times \cat{C} \to \cat{C}\)
+and a unit \(1 \in \cat{C}\), satisfying associativity and unitality conditions.
+A (left) module category \(\cat{M}\) over \(\cat{C}\), in turn,
+is endowed with an associative and unital action functor \(\lact \from \cat{C} \times \cat{M} \to \cat{M}\).
+One motivating example of these structures comes from linear algebra.
+The category \(\kVect\) of vector spaces over a field \(\Bbbk\) is monoidal,
+and the right modules over a \(\Bbbk\)\hyp{}algebra \(A\) form a left \(\kVect\)\hyp{}module category.
+Given \(V \in \kVect\) and a right \(A\)\hyp{}module \(M\),
+the tensor product \(V \kotimes M\) is again a right \(A\)\hyp{}module,
+with action given by \((v \otimes m).a \defeq v \otimes m.a\),
+for all \(a \in A\), \(m \in M\), and \(v \in V\).
+
+The areas in which the language and theory of monoidal and module categories has been applied include
+quantum field theories~\cite{fuchs02:tft-rcft,day07:assoc-rcfts},
+categorification in representation theory~\cite{stroppel23:categ,liu24:soerg,stroppel24:braid-soerg},
+algebraic geometry~\cite{ben-zvi10:integ-drinf,ben-zvi18:integ,pascaleff18:poiss-fukay-floer},
+and many aspects of the theory of Hopf algebras and tensor categories~\cite{schauenburg00:duals-r-hopf,kowalzig14:batal-vilkov,Etingof2015,fuchs22:spher-morit-serre,shimizu23:relat-serre,stroinski24:modul-tambar}.
+For a survey on the role of module categories in applied category theory and computer science,
+better known as actegories therein,
+see~\cite{capucci22:acteg-workin-amthem}.
+
+Just as in the category of vector spaces,
+given an algebra object \(A \in \cat{C}\),
+the category \(\modc{A}\) of right \(A\)\hyp{}modules in \(\cat{C}\) is naturally a left \(\cat{C}\)\hyp{}module category.
+Conversely, when considering a given \(\cat{C}\)\hyp{}module category \(\cat{M}\),
+it is often useful to find and study an algebra object \(A\) in \(\cat{C}\)
+such that there is an equivalence \(\cat{M} \simeq \modc{A}\) of \(\cat{C}\)\hyp{}module categories.
+This kind of \emph{reconstruction} process lies at the heart of \cref{sec:infinite-non-rigid-reconstruction,sec:hopf-trimodules} of the present thesis.
+An early result of this kind is~\cite[Theorem~1]{ostrik03:modul-hopf},
+in which a ``nice'' module category over a finite tensor category \(\cat{C}\)%
+—one that is equivalent to the finite-dimensional modules over a finite-dimensional algebra—%
+is expressed as an algebra object in \(\cat{C}\),
+see \cref{finiterecon} of \cref{sec:infinite-non-rigid-reconstruction}.
+Many generalisations and variants have appeared since;
+for instance
+\cite[Theorem~7.10.1]{Etingof2015},
+\cite[Theorem~2.24]{douglas19},
+\cite[Theorem~4.7]{mackaay19:simpl},
+and \cite[Theorem~4.6]{ben-zvi18:integ}.
+
+All of the reconstruction results cited above involve rigid monoidal categories:
+those in which every object has a dual.
+For example, to every finite-dimensional vector space \(V\),
+there exist canonical evaluation and coevaluation maps
+\(\ev \from \rd*{V} \kotimes V \to \Bbbk\) and \(\coev\from \Bbbk \to V \kotimes \rd*{V}\),
+where \(\rd*{V} \defeq \mathrm{Hom}_{\Bbbk}(V, \Bbbk)\) is the dual space.
+However, in~\cite[Example~2.20]{douglas19} it is shown that, in the absence of rigidity,
+there exist \(\cat{C}\)\hyp{}modules categories from which it is impossible to reconstruct an algebra object in \(\cat{C}\).
+This forces us to consider a further generalisation—monads.
+
+\froufrou%
+
+\textsc{Historically, the study of} (co)monads arose out of (co)homology and homotopy theory,\marginnote{%
+  The term ``monad'' first appears in print in Section~5.4 of~\cite{benabou67:introd}.
+  Other names include ``triple'', ``standard con\-struc\-tion'', or ``triad''.
+}
+where one can use comonads to construct simplicial resolutions, see~\cite{godement58:topol,huber61:homot}.
+Already noted in~\cite{huber61:homot} is the deep connection of monads with the theory of adjunctions:
+every adjunction gives rise to a monad
+and, in turn, every monad arises from an adjunction.
+In fact, there exists a category of all adjunctions that realise a given monad.
+The initial and terminal object therein%
+—the Kleisli and Eilenberg–Moore category of the monad,~\cite{eilenberg65:adjoin,kleisli65:every}—%
+play a pivotal role in this work.
+
+Further applications are manifold and include
+category theory~\cite{Beck1969,Street1972,blackwell89:two,lack02,arkor24},
+categorical representation theory~\cite{Moerdijk2002,Bruguieres2011,stroinski24:modul-tambar,batista22:como-part},
+Hopf algebras and quantum groups~\cite{Bruguieres2007,Aguiar2012,kowalzig15:cyclic,hasegawa-lemay2018:LinearHopf},
+universal algebra~\cite{linton66:aspects,walters70:cat-ualg,hyland07},
+formal semantics~\cite{moggi89:comput,moggi91:notion,turi97-math-op},
+functional programming~\cite{wadler92:compr,wadler93:mon-fun-prog,peytonjones93:imp-fun-prog}, and
+algebraic effects~\cite{benton02:monad,plotkin02:notion,plotkin09:handl,bauer15:prog-alg}.
+
+For this thesis,
+the most important aspect of monads lies in
+monadic reconstruction theory%
+—relating additional structure on a monad \(T\) on \(\cat{C}\)
+to structure on its Eilenberg–Moore category \(\cat{C}^T\).
+The connection to the theory of adjunctions
+yields a canonical forgetful functor \(U^T\from \cat{C}^T \to \cat{C}\).
+This relationship can thus be seen as
+a generalisation of \emph{Tannaka--Krein duality}~\cite{tannaka38:ueber-dualit-grupp,krein49:princ-ual-block-alg},
+in which one reconstructs a compact group from its category of representations.
+Generalisations of this type of result have been proposed in a variety of different contexts,
+see~\cite{%
+  saavedra72:categ,%
+  woronowicz88:tannak-krein,%
+  deligne90:categ,%
+  lurie04:tannak-dualit-geomet-stack,%
+  szlachanyi09:fiber-tannak,%
+  schaeppi13:tannak%
+}.
+A crucial feature of all of these statements is the involvement of a \emph{fibre functor}:
+a forgetful strict monoidal functor to a nice underlying category,
+like the category of vector spaces or bimodules over a ring.
+
+In the monadic case,
+Tannaka--Krein-type reconstruction results were obtained for bimonads~\cite{Moerdijk2002,McCrudden2002},
+Hopf monads~\cite{Bruguieres2007},
+as well as linearly distributive and \(*\)\hyp{}autonomous monads~\cite{pastro09:closed,pastro12:note}.
+We enrich this already broad landscape of results
+with new insights from the module category\hyp{}theoretic perspective,
+offering a new reconstruction result for comodule monads over bimonads
+in the spirit of the algebraic version of considering coideal subalgebras over bialgebras.
+
+\section{Summary}\label{sec:summary}
+
+\textsc{We shall now provide a short outline};
+a more detailed description and introduction will be provided at the start of each respective chapter.
+All original contributions of this thesis are already contained in either of the following articles or preprints.%
+\marginnote{%
+  The order in which the articles are listed here is that in which they were uploaded to the
+  \href{https://arxiv.org/}{arXiv}.%
+}
+
+\begin{itemize}
+  \item\cite{halbig24:pivot-hopf}:
+  Sebastian Halbig and Tony Zorman.\ %
+  Pivotality, twisted centres, and the anti\hyp{}double of a Hopf monad.\ %
+  In: Theory Appl.~Categ.~41 (2024), pp.~86–149.\ issn:~1201-561\textsc{x}.
+  \item\cite{halbig23:diagr-comod-monad}:
+  Sebastian Halbig and Tony Zorman. Diagrammatics for Comodule Monads.\ %
+  In: Appl.~Categ.~Struct.~32 (2024).\ Id/No 27, p.~17.\ %
+  issn:~0927-2852.\ %
+  doi:~10.1017/cbo9781139542333.
+  \item\cite{halbig23:dualit-monoid-categ}:
+  Sebastian Halbig and Tony Zorman.\ %
+  Duality in Monoidal Categories; 2023.\ %
+  arXiv:~\href{https://arxiv.org/abs/2301.03545}{2301.03545}.
+  \item\cite{stroinski2024:reconstr}:
+  Mateusz Stroiński and Tony Zorman.\ %
+  Reconstruction of module categories in the infinite and non-rigid settings; 2024.\ %
+  arXiv:~\href{https://arxiv.org/abs/2409.00793}{2409.00793}.
+  \item\cite{zorman25:duoid-r-matric}:
+  Tony Zorman.\ %
+  Duoidal R-Matrices; 2025.\ %
+  arXiv:~\href{https://arxiv.org/abs/2503.03445}{2503.03445}.
+\end{itemize}
+To keep a common thematic focal point, the article~\cite{coulembier25:simpl}%
+—although created during the author's PhD studies—%
+will not be part of this work.
+
+\bigskip
+In the interest of brevity, we shall refrain from citing either of the articles%
+~\cite{%
+  halbig23:dualit-monoid-categ,%
+  halbig23:diagr-comod-monad,%
+  halbig24:pivot-hopf,%
+  stroinski2024:reconstr,%
+  zorman25:duoid-r-matric%
+}
+beyond this introduction.
+
+\subsection*{\Cref{chap:preliminaries}: Preliminaries}
+
+Being an amalgamate of the preliminaries of all articles,
+this chapter fixes notation
+and recalls basic properties of, for example,
+2-categories,
+monoidal and module categories,
+the Drinfeld centre,
+linear and abelian categories,
+coends,
+as well as monads.
+We furthermore introduce one of the main tools for computation employed throughout—the graphical calculus.
+
+\subsection*{\Cref{sec:trep-categories}: Duality theory for monoidal categories}
+
+Being mainly based on~\cite{halbig23:dualit-monoid-categ},
+in this chapter we study various dualities for monoidal categories and how they interact:
+rigidity, tensor representability, Grothendieck–Verdier duality, and closedness.
+These notions form a hierarchy,
+with closedness—the least restrictive type of duality—on one end,
+and rigidity on the other.
+However, it is not obvious whether all inclusions are strict.
+Taken together,
+% Putting everything into one \cref here produces an extra ", " :(
+\cref{prop:right-tensor-rep->right-gv,prop:gv->closed,prop:trep-criteria};
+\cref{ex:r-cat-not-always-trep,rmk:closed-but-not-gv}; and
+\cref{thm:props-of-c}
+yield
+\[
+  \text{Rigid}
+  \subsetneq \text{Tensor representable}
+  \subsetneq \text{\GV}
+  \subsetneq \text{Closed},
+\]
+answering a question of Heunen.
+
+We then more closely investigate duality structures
+on finite\hyp{}dimensional functor categories
+endowed with Day convolution as its tensor product.
+Intuitively, this generalises the tensor product of modules over a commutative algebra,
+see \cref{ex:day-conv-as-tensor-product}.
+Given a nice base category,
+closedness and \GV{} duality
+lift to this setting.
+
+\begin{reptheorem}{prop:fun-cat-GV}
+  Let \(\cat{C}\) be a \(\Bbbk\)\hyp{}linear hom-finite Grothendieck–Verdier category.
+  Under the assumptions of \cref{hypothesis:tens-repr-mack},
+  the finite-dimensional functor category \([\cat{C}, \kvect]\) is a Grothendieck–Verdier category.
+\end{reptheorem}
+
+Being motivated by representation theoretic questions,
+the Cauchy completion of a category
+also plays an important role for us.
+For example,
+the full subcategory of projective modules over a ring
+is the Cauchy completion of
+the full subcategory of all free modules.
+We find that the Cauchy completion completely mirrors the duality behaviour of its base category.
+
+\begin{reptheorem}{cor:pres-ref-dual-struct}
+  Let \(\cat{C}^{\op}\) be a \(\Bbbk\)\hyp{}linear right closed monoidal category.
+  Then \(\cat{C}^{\op}\) is right rigid (tensor representable)
+  if and only if
+  its Cauchy completion \(\overline{\cat{C}^{\op}}\) is right rigid (tensor representable).
+  Further, \((\cat{C}^{\op}, d)\) is a right \GV{} category
+  if and only if
+  \((\overline{\cat{C}^{\op}}, \yo_{d})\) is.
+\end{reptheorem}
+
+\subsection*{\Cref{sec:twisted-centres}: Twisted centres}
+
+In this chapter, mainly based on~\cite{halbig24:pivot-hopf},
+we hoist \cref{thm: equiv_in_Hopf_setting}
+from the Hopf-theoretic world
+into that of monoidal categories.
+It lays the groundwork for later monadic generalisations.
+
+\begin{reptheorem}{thm: equivalence_in_the_rigid_setting}
+  Let \(\cat{C}\) be a rigid category.
+  There is a bijection between
+  \begin{thmlist}[noitemsep]
+    \item equivalence classes of quasi-pivotal structures on \(\cat{C}\),
+    \item the Picard heap of the anti\hyp{}centre, and
+    \item isomorphism classes of equivalences of module categories between the centre and the anti\hyp{}centre.
+  \end{thmlist}
+\end{reptheorem}
+
+We then more closely investigate the heap structure of the anti-centre,
+answering a question of Shimizu about the relationship to quasi-pivotal structures on the underlying category.
+
+\begin{reptheorem}{thm: non_induced_pivotal_structure}
+  There exists a category \(\cat{C}\)
+  on which there exists a pivotal structure
+  that is not induced by any element of the Picard heap of the anti\hyp{}centre of \(\cat{C}\).
+\end{reptheorem}
+
+\subsection*{\cref{sec:monadic-tannaka-reconstruction}: Monadic Tannaka--Krein reconstruction}
+
+In this chapter,
+which is mainly based on~\cite{halbig23:diagr-comod-monad,halbig24:pivot-hopf,stroinski2024:reconstr},
+we study comodule monads in the sense of~\cite{Aguiar2012}.
+These structures can be seen as generalising comodule algebras over a bialgebra, see \cref{ex:comodule-algebra}.
+We then prove our main Tannaka--Krein reconstruction result for comodule monads
+in the spirit of~\cite[Theorem~7.1]{Moerdijk2002} and~\cite[Corollary~3.13]{McCrudden2002}.
+
+\begin{reptheorem}{thm:comodule-monad-reconstruction}
+  Let \(B\) be a bimonad on the monoidal category \(\cat{C}\),
+  and \(T\) a monad on a right \(\cat{C}\)\hyp{}module category \(\cat{M}\).
+  Coactions of \(B\) on \(T\) are
+  in bijection with
+  right actions of \(\cat{C}^B\) on \(\cat{M}^T\) such that \(U^{T}\) is a strict comodule functor over \(U^{B}\).
+\end{reptheorem}
+
+In particular, we prove statements akin to Kelly's doctrinal adjunctions result
+in the case of comodule and \(\cat{C}\)\hyp{}module monads%
+—the latter play an important role in \cref{sec:infinite-non-rigid-reconstruction,sec:hopf-trimodules}.
+
+\begin{reptheorem}{thm:comodule-adjunctions-correspond-to-strong-comodule-functors,porism:doctrinal-module-adjunctions}
+  Let \(\stdadj\) be an oplax monoidal adjunction.
+  Lifts of an ordinary adjunction \(\adj{G}{V}{\cat{M}}{\cat{N}}\) to a comodule adjunction are
+  in bijection with lifts of \(V \from \cat{N} \to \cat{M}\) to a strong comodule functor.
+
+  An adjunction \(\adj{F}{U}{\cat{M}}{\cat{N}}\) between \(\cat{C}\)\hyp{}module categories
+  yields a bijection of oplax \(\cat{C}\)\hyp{}module structures on \(F\)
+  and lax \(\cat{C}\)\hyp{}module structures on \(U\).
+\end{reptheorem}
+
+\subsection*{\Cref{sec:monad-twist-centr}: Monadic twisted centres}
+
+This chapter,
+mainly based on~\cite{halbig24:pivot-hopf},
+provides a monadic interpretation of \cref{sec:twisted-centres}.
+Based on the Drinfeld double of a Hopf monad, we develop the notion of an anti\hyp{}double,
+which realises the anti\hyp{}centre of \emph{ibid} as its Eilenberg–Moore category,
+and present a monadic variant of \cref{thm: equivalence_in_the_rigid_setting}.
+\begin{reptheorem}{thm: equivalence_in_the_monad_setting}
+  Let \(\cat{C}\) be a rigid monoidal category.
+  For a Hopf monad \(H\) on \(\cat{C}\) that admits a double and anti\hyp{}double,
+  the following statements are equivalent:
+  \begin{thmlist}[noitemsep]
+    \item the monoidal unit of \(\cat{C}\) lifts to a module over the anti-double,
+    \item the double and anti\hyp{}double of \(H\) are isomorphic as comodule monads, and
+    \item the double and anti\hyp{}double of \(H\) are isomorphic as monads.
+  \end{thmlist}
+  If \(\cat{C}\) is pivotal,
+  the above statements hold if and only if \(H\) admits a pair in involution.
+\end{reptheorem}
+
+Investigating the interplay between the double and anti\hyp{}double,
+we obtain a new criterion for when a rigid monoidal category is pivotal.
+
+\begin{reptheorem}{cor: pivotal_from_central_anti_central}
+  Let \(\cat{C}\) be a rigid monoidal category.
+  If \(\cat{C}\) admits a central Hopf monad \(\mathfrak{D}(\cat{C})\)
+  and an anti\hyp{}central comodule monad \(\mathfrak{Q}(\cat{C})\),
+  then it is pivotal if and only if \(\mathfrak{D}(\cat{C}) \cong \mathfrak{Q}(\cat{C})\) as monads.
+\end{reptheorem}
+
+\subsection*{\Cref{sec:duoidal-reconstruction}: Duoidal R-matrices}
+
+Being mainly based on~\cite{zorman25:duoid-r-matric},
+this chapter introduces R\hyp{}matrices in duoidal categories,
+generalising the well\hyp{}known R\hyp{}matrices for bialgebras,
+and those for bimonads~\cite{Bruguieres2007}.
+As it turns out, R-matrices on a suitable monad correspond to duoidal structures its Eilenberg–Moore category.
+
+\begin{reptheorem}{thm:r-matrices-iff-duoidal-structure}
+  Let \(\cat{D}\) be a category with monoidal structures \(\circ\) and \(\bullet\),
+  and \(T\) a monad on \(\cat{D}\) that has a \(\circ\)\hyp{}oplax monoidal and a \(\bullet\)\hyp{}oplax monoidal structure.
+  Then quasi\-triangular structures on \(T\) are in bijection with duoidal structures on \(\cat{D}^T\).
+\end{reptheorem}
+
+We then explore the connection between normal duoidal categories,
+and (non-planar) linearly distributive categories~\cite{cockett97:weakl,garner16:commut}.
+The latter can be seen as an analogue of Grothendieck–Verdier categories without an explicit notion of dual.
+In \cref{prop:cocommutative-double opmonoidal monads-are-pastro-monads},
+we relate a cocommutative version of duoidal monads
+to the linearly distributive monads of~\cite{pastro12:note}.
+
+\subsection*{\Cref{sec:infinite-non-rigid-reconstruction}: Infinite and non-rigid reconstruction}
+
+This chapter,
+mainly based on~\cite{stroinski2024:reconstr},
+studies reconstruction without a fibre functor,
+as done for example in~\cite[Theorem~1]{ostrik03:modul-hopf}.
+
+Since every object \(m\) in a module category \(\cat{M}\) over \(\cat{C}\)
+gives rise to a strong \(\cat{C}\)\hyp{}module functor \(\blank \lact m \from \cat{C} \to \cat{M}\),
+and in good cases this functor has a right adjoint,
+the resulting monad is naturally a lax \(\cat{C}\)\hyp{}module monad.
+However, it is a priori not clear whether the Eilenberg–Moore category
+of a (right exact) lax \(\cat{C}\)\hyp{}module monad even has a canonical \(\cat{C}\)\hyp{}module structure.
+Using multicategorical techniques, we establish when such an \emph{extension} exists.
+
+\begin{reptheorem}{extendingalways,strongembeddingalways}
+  Let \(\cat{C}\) be an abelian monoidal and \(\cat{M}\) an abelian \(\cat{C}\)\hyp{}module category.
+  Suppose that the action functor \(\lact \from \cat{C} \kotimes \cat{M} \to \cat{M}\) is right exact in both variables,
+  and let \(T\from \cat{M}\to \cat{M}\) be a right exact lax \(\cat{C}\)\hyp{}module monad.
+  Then there exists an essentially uniquely \(\cat{C}\)\hyp{}module structure on \(\cat{M}^{T}\),
+  such that the canonical inclusion \(\iota\from \cat{M}_T \to \cat{M}^T\) is a strong \(\cat{C}\)\hyp{}module functor.
+\end{reptheorem}
+
+Using the constructed \(\cat{C}\)\hyp{}module structure,
+we then establish a reconstruction and classification result
+under mild additional assumptions.
+
+\begin{reptheorem}{mainnonsenseprojective,mainnonsenseinjective,projcorrespondence}
+  Assume that \(\cat{C}\) and \(\cat{M}\) have enough projectives (injectives)
+  and that there exists an object \(\ell \in \cat{M}\) such that:
+  \begin{itemize}[noitemsep]
+    \item there is a right adjoint \(\hom{\ell,\blank}\) (left adjoint \(\cohom{\ell,\blank}\)) to \(\blank \triangleright \ell\);
+    \item for \(x \in \cat{C}\) projective (injective), the object \(x \triangleright \ell\) is projective (injective);
+    \item any projective (injective) object of \(\cat{M}\) is a direct summand of an object of the form \(x \triangleright \ell\), for \(x\) projective (injective).
+  \end{itemize}
+  Let \(T\) be the monad \(\hom{\ell, \blank\,\triangleright\,\ell}\).
+  Then there is an equivalence \(\cat{M} \simeq \cat{C}^T\) of \(\cat{C}\)\hyp{}module categories,
+  where the \(\cat{C}\)\hyp{}module structure of the category of \(T\)\hyp{}modules is extended from the Kleisli category.
+  Furthermore, this gives rise to a bijection
+  \begin{align*}
+    \faktor{\{\,(\cat{M},\ell) \text{ as above}\,\}}{(\cat{M} \simeq \cat{N})}
+    &\;\leftrightarrow\,
+      \Bigg\{
+      \begin{aligned}
+        &\text{Right exact lax \(\cat{C}\)\hyp{}module}\\
+        &\text{monads on \(\cat{C}\)}
+      \end{aligned}
+      \Bigg\}
+      /\, (\cat{C}^T \simeq \cat{C}^S) \\
+    (\cat{M},\ell) &\longmapsto \hom{\ell,-\lact \ell} \\
+    (\cat{C}^T, T1) &\longmapsfrom T
+  \end{align*}
+\end{reptheorem}
+
+\subsection*{\Cref{sec:hopf-trimodules}: Hopf trimodules}
+
+The final chapter,
+mainly based on~\cite{stroinski2024:reconstr},
+further develops the non-rigid reconstruction results of \cref{sec:infinite-non-rigid-reconstruction}
+in the case of several examples.
+
+For a Hopf algebra \(B\),
+the \emph{Fundamental Theorem of Hopf Modules}
+says that the category \(\Tetramod[B][B]\) of Hopf modules is
+naturally equivalent to
+the category of vector spaces~\cite{larson69:hopf}.
+Likewise, the category of \emph{Hopf trimodules} \(\Trimod\) is equivalent to that of right comodules.
+In comparison to plain Hopf modules, one can generalise Hopf trimodules to the quasi-Hopf algebraic world.
+
+If \(B\) is just a bialgebra%
+—\ie, does not have an antipode—%
+then we can still extract interesting structure from such modules.
+
+\begin{reptheorem}{thm:hopf-trimodules-are-lax-monoidal-functors}
+  For a bialgebra \(B\) and \(\cat{V} \defeq \Tetramod[B]\),
+  there is a monoidal equivalence
+  \[
+    \Trimod \simeq \mathsf{LexfLax}\cat{V}\mathsf{Mod}(\cat{V}, \cat{V})
+  \]
+  between the category of Hopf trimodules, and
+  the category of left exact finitary lax \(\cat{V}\)\hyp{}module endofunctors on \(\cat{V}\).
+\end{reptheorem}
+
+This allows us to give a categorical interpretation of
+the aforementioned Fundamental Theorem of Hopf Modules.
+
+\begin{reptheorem}{LaxIsStrongThenLeftRigid,cor:twisted-anti-iff-bestoftimes}
+  The functor \(\Tetramod[B] \to \Tetramod[B][B][][B]\) corresponds to
+  the inclusion of strong \(\Tetramod[B]\)\hyp{}module endofunctors into the category of lax \(\Tetramod[B]\)\hyp{}module endofunctors.
+  It is an equivalence if and only if
+  \(\tetramodfd[B]\) is left rigid,
+  which is the case if and only if \(B\) has a twisted antipode.
+\end{reptheorem}
+
+We also give applications in the setting of semigroup algebras, see \cref{coreps,fiberfunctorthings}.
+This can be seen as an example of a non-rigid category
+where the reconstruction procedure described in~\cite[Chapter~7]{Etingof2015} fails.
+
+Lastly, the fusion operators of a bimonad may be expressed in terms of its canonical module structure.
+
+\begin{reptheorem}{delusion,diffusion}
+  Let \(\adj{F}{U}{\cat{C}}{\cat{D}}\) be an oplax monoidal adjunction.
+  The strong monoidal structure of \(U\) turns \(\cat{C}\) into a \(\cat{D}\)\hyp{}module category, by defining \(\blank \lact \bblank \defeq U(\blank) \otimes \bblank\).
+  With respect to this \(\cat{D}\)\hyp{}module structure,
+  the bimonad \(T \defeq UF\) on \(\cat{C}\) becomes an oplax \(\cat{D}\)\hyp{}module monad.
+  The right fusion operator is given by
+  evaluating the \(\cat{D}\)\hyp{}module coherence morphism at a free \(T\)\hyp{}module,
+  and furthermore \(T\) is right Hopf
+  if and only if
+  it is a strong \(\cat{C}^T\)\hyp{}module monad.
+\end{reptheorem}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../main"
+%%% TeX-command-extra-options: "-shell-escape -fmt=prec.fmt -file-line-error -synctex=1"
+%%% End:

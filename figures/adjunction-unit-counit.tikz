@@ -1,0 +1,73 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (63) at (1.25, 0) {\scriptsize $\eqdef$};
+		\node [style=none] (64) at (2, -1.85) {};
+		\node [style=none] (67) at (4.5, 1.65) {};
+		\node [style=none] (68) at (2.75, 1.65) {};
+		\node [style=none] (69) at (2.75, 2) {\tiny $U^T$};
+		\node [style=none] (70) at (3.75, 1.65) {};
+		\node [style=none] (71) at (3.75, 2) {\tiny $F^T$};
+		\node [style=none] (72) at (3.25, -0.1) {};
+		\node [style=none] (73) at (-3, -1.85) {};
+		\node [style=none] (74) at (0.5, -1.85) {};
+		\node [style=none] (75) at (-3, 1.65) {};
+		\node [style=none] (76) at (0.5, 1.65) {};
+		\node [style=none] (77) at (-0.25, 1.65) {};
+		\node [style=none] (78) at (-0.25, 2) {\tiny $F^T$};
+		\node [style=box] (79) at (-1.25, -0.1) {\scriptsize$\eta$};
+		\node [style=none] (80) at (-2.25, 1.65) {};
+		\node [style=none] (81) at (-2.25, 2) {\tiny $U^T$};
+		\node [style=none] (82) at (-1, 0.15) {};
+		\node [style=none] (83) at (-1.5, 0.15) {};
+		\node [style=none] (84) at (-1.25, -1.85) {};
+		\node [style=none] (85) at (-1.25, -2.13) {\tiny $\Id_{\cat{C}}$};
+		\node [style=none] (86) at (13.25, -0.03) {\scriptsize $\eqdef$};
+		\node [style=none] (87) at (16.5, 1.62) {};
+		\node [style=none] (90) at (14, -1.88) {};
+		\node [style=none] (91) at (15.75, -1.88) {};
+		\node [style=none] (92) at (15.75, -2.13) {\tiny $U^T$};
+		\node [style=none] (93) at (14.75, -1.88) {};
+		\node [style=none] (94) at (14.75, -2.13) {\tiny $F^T$};
+		\node [style=none] (95) at (15.25, -0.13) {};
+		\node [style=none] (96) at (12.5, 1.62) {};
+		\node [style=none] (97) at (9, 1.62) {};
+		\node [style=none] (98) at (12.5, -1.88) {};
+		\node [style=none] (99) at (9, -1.88) {};
+		\node [style=none] (100) at (9.75, -1.88) {};
+		\node [style=none] (101) at (9.75, -2.13) {\tiny $F^T$};
+		\node [style=box] (102) at (10.75, -0.13) {\scriptsize$\varepsilon$};
+		\node [style=none] (103) at (11.75, -1.88) {};
+		\node [style=none] (104) at (11.75, -2.13) {\tiny $U^T$};
+		\node [style=none] (105) at (10.5, -0.38) {};
+		\node [style=none] (106) at (11, -0.38) {};
+		\node [style=none] (107) at (10.75, 1.62) {};
+		\node [style=none] (108) at (10.75, 2) {\tiny $\Id_{\cat{C}^T}$};
+		\node [style=none] (109) at (-0.25, -1.13) {\scriptsize $\cat{C}$};
+		\node [style=none] (110) at (-2.25, -1.13) {\scriptsize $\cat{C}$};
+		\node [style=none] (111) at (-1.25, 1.12) {\scriptsize $\cat{C}^T$};
+		\node [style=none] (112) at (10.75, -1.38) {\scriptsize $\cat{C}$};
+		\node [style=none] (113) at (9.75, 0.87) {\scriptsize $\cat{C}^T$};
+		\node [style=none] (114) at (11.75, 0.87) {\scriptsize $\cat{C}^T$};
+		\node [style=none] (120) at (6.75, 0) {and};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=morphism-edge, in=-90, out=0] (72.center) to (70.center);
+		\draw [style=morphism-edge, in=-90, out=180] (72.center) to (68.center);
+		\draw (76.center) to (75.center);
+		\draw (75.center) to (73.center);
+		\draw (73.center) to (74.center);
+		\draw (74.center) to (76.center);
+		\draw [style=morphism-edge, in=-90, out=90] (82.center) to (77.center);
+		\draw [style=morphism-edge, in=-90, out=90] (83.center) to (80.center);
+		\draw [style=morphism-edge, dotted] (84.center) to (79);
+		\draw [style=morphism-edge, in=90, out=180] (95.center) to (93.center);
+		\draw [style=morphism-edge, in=90, out=0] (95.center) to (91.center);
+		\draw (99.center) to (98.center);
+		\draw (98.center) to (96.center);
+		\draw (96.center) to (97.center);
+		\draw (97.center) to (99.center);
+		\draw [style=morphism-edge, in=90, out=-90] (105.center) to (100.center);
+		\draw [style=morphism-edge, in=90, out=-90] (106.center) to (103.center);
+		\draw [style=morphism-edge, dotted] (107.center) to (102);
+	\end{pgfonlayer}
+\end{tikzpicture}

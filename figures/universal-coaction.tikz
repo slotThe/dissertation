@@ -1,0 +1,33 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=blackdot] (0) at (0, 0) {};
+		\node [style=none] (1) at (-1, 1.25) {};
+		\node [style=none] (2) at (1, 1.25) {};
+		\node [style=none] (3) at (-1, -1.25) {};
+		\node [style=none] (4) at (1, -1.25) {};
+		\node [style=none] (5) at (-1, -1.55) {\scriptsize$x$};
+		\node [style=none] (6) at (1, -1.55) {\scriptsize$y$};
+		\node [style=none] (7) at (-1, 1.65) {\scriptsize$Ty$};
+		\node [style=none] (8) at (1, 1.65) {\scriptsize$Z_T x$};
+		\node [style=none] (9) at (-4, 2.25) {};
+		\node [style=none] (10) at (4, 2.25) {};
+		\node [style=none] (11) at (-4, -2) {};
+		\node [style=none] (12) at (4, -2) {};
+		\node [style=none] (13) at (-4, -3.5) {};
+		\node [style=none] (14) at (4, -3.5) {};
+		\node [style=none] (15) at (0, -2.75) {\scriptsize$\chi_{x,y}\colon x \otimes y \to Ty \otimes Z_T x$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=morphism-edge, in=-195, out=-90] (1.center) to (0);
+		\draw [style=morphism-edge, in=-90, out=15] (0) to (2.center);
+		\draw [style=morphism-edge, in=-270, out=-15] (0) to (4.center);
+		\draw [style=morphism-edge, in=-270, out=-165] (0) to (3.center);
+		\draw (9.center) to (10.center);
+		\draw (11.center) to (12.center);
+		\draw (12.center) to (10.center);
+		\draw (9.center) to (11.center);
+		\draw (11.center) to (13.center);
+		\draw (13.center) to (14.center);
+		\draw (14.center) to (12.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

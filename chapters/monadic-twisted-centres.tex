@@ -1,0 +1,1074 @@
+\textsc{The anti\hyp{}\YetterDrinfeld{} modules}
+of a finite\hyp{}dimensional Hopf algebra
+are a module category
+over the \YetterDrinfeld{} modules.
+Subsequently, they are implemented by a comodule algebra over the Drinfeld double,
+see~\cite{Hajac2004a}.
+As explained in \cref{sec: pivotality_of_the_df_centre},
+we find ourselves in a similar situation.
+The anti\hyp{}Drinfeld centre,
+our replacement of the anti\hyp{}\YetterDrinfeld{} modules,
+is a module category over the Drinfeld centre.
+
+Replacing finite\hyp{}dimensional vector spaces by
+a rigid, possibly pivotal, category \(\cat{C}\),
+and the underlying Hopf algebra with a Hopf monad \(H\) on \(\cat{C}\),
+this section serves to study a Hopf monad \(D(H) \from \cat{C} \to \cat{C}\)
+and over it a comodule monad \(Q(H)\from \cat{C} \to \cat{C}\),
+which realise the centre and its twisted cousin as their respective modules.
+\Bruguieres{} and Virelizier gave a transparent description of \(D(H)\) in~\cite{Bruguieres2012}
+by extending results of Day and Street,~\cite{Day2007}.
+If \(H\) is the identity functor,
+one defines the \emph{central Hopf monad} \(\mathfrak{D}(\cat{C}^H)\) on \(\cat{C}^H\),
+with \(\cent*{\cat{C}^H}\) as its \EilenbergMoore{} category.
+As an application of Beck's theory of distributive laws,
+one obtains the Drinfeld double \(D(H) \from \cat{C} \to \cat{C}\).
+We apply the same techniques to define the anti\hyp{}double \(Q(H)\) of \(H\),
+whose modules are isomorphic to the ``dual'' of the anti\hyp{}Drinfeld centre \(\QCat*{\cat{C}^H}\).
+This approach is best summarised by \cref{fig:twisted_centres_and_monads}.
+We obtain a monadic version of \cref{thm: equiv_in_Hopf_setting}.
+\begin{reptheorem}{thm: equivalence_in_the_monad_setting}
+  Let \(\cat{C}\) be a rigid monoidal category,
+  and suppose that \(H \from \cat{C} \to \cat{C}\) is a Hopf monad
+  that admits a double \(D(H)\) and anti\hyp{}double \(Q(H)\).
+  The following statements are equivalent:
+  \begin{thmlist}[noitemsep]
+    \item the monoidal unit \(1 \in \cat{C}\) lifts to a module over \(Q(H)\),
+    \item there is an isomorphism of comodule monads \(D(H) \cong Q(H)\), and
+    \item there is an isomorphism of monads \(Q(H) \cong D(H)\).
+  \end{thmlist}
+  If \(\cat{C}\) is pivotal with pivotal structure \(\phi\),
+  any of the above statements hold if and only if \(H\) and \(\phi\) admit a pair in involution.
+\end{reptheorem}
+\begin{figure}[htbp]
+  \centering\vspace{-0.2cm}% XXX
+  \begin{mytikzcd}[column sep={1cm,between origins}, row sep={0.875cm,between origins}, ampersand replacement=\&]
+    \& \&
+    \cent*{\cat{C}^H}
+    \arrow[rrddd, "U^{(Z)}" description, bend left]
+    \arrow[lldddd, leftrightarrow, "K^{\mathfrak{D}}" description, bend left=15]
+    \& \& \& \&
+    \QCat*{\cat{C}^H}
+    \arrow[llddd, "U^{(Q)}" description, bend left]
+    \arrow[llll, "\textnormal{action}" description, no head, dotted]
+    \arrow[rrdddd, leftrightarrow, "K^{\mathfrak{Q}}" description, bend right=15]
+    \& \& \\
+    \& \& \& \& \& \& \& \& \\
+    \& \& \& \& \& \& \& \& \\
+    \& \& \& \&
+    {\cat{C}^H}
+    \arrow[rruuu, "F^{(Q)}" description, bend left]
+    \arrow[lluuu, "F^{(Z)}" description, bend left]
+    \arrow[lllld, "F^{\mathfrak{D}}" description, bend left=20]
+    \arrow[rrrrd, "F^{\mathfrak{Q}}" description, bend left=20]
+    \arrow[ddd, "U^H" description, bend left]
+    \& \& \& \& \\
+    {{\cat{C}^H}}^{\mathfrak{D}}
+    \arrow[rrrru, "U^{\mathfrak{D}}" description, bend left=20]
+    \arrow[rrdddd, leftrightarrow, "\Sigma^{(D(H))}" description, bend left=15]
+    \& \& \& \& \& \& \& \&
+    {{\cat{C}^H}}^{\mathfrak{Q}}
+    \arrow[llllu, "U^{\mathfrak{Q}}" description, bend left=20]
+    \arrow[lldddd, leftrightarrow, "\Sigma^{(Q(H))}" description, bend right=15]
+    \\
+    \& \& \& \& \& \& \& \& \\
+    \& \& \& \&
+    \cat{C}
+    \arrow[uuu, "F^H" description, bend left]
+    \arrow[rrdd, "F^{Q(H)}" description, bend left]
+    \arrow[lldd, "F^{D(H)}" description, bend left]
+    \& \& \& \& \\
+    \& \& \& \& \& \& \& \& \\
+    \& \&
+    \cat{C}^{D(H)}
+    \arrow[rruu, "U^{D(H)}" description, bend left]
+    \& \& \& \&
+    \cat{C}^{Q(H)}
+    \arrow[lluu, "U^{Q(H)}" description, bend left]
+    \arrow[llll, "\textnormal{action}" description, no head, dotted]
+    \& \&
+  \end{mytikzcd}\vspace{-0.1cm}% XXX
+  \scaption[-1.5cm]{%
+      A cobweb of adjunctions, monads, and various versions of the centre and anti\hyp{}centre.%
+      \label{fig:twisted_centres_and_monads}%
+  }
+\end{figure}
+
+From \cref{thm: equivalence_in_the_monad_setting} we can deduce how pivotal structures on \(\cat{C}^H\) arise from module morphisms
+between the central Hopf monad \(\mathfrak{D}\) and the anti\hyp{}central comodule monad \(\mathfrak{Q}\).
+
+\begin{reptheorem}{cor: pivotal_from_central_anti_central}
+  Let \(\cat{C}\) be a rigid monoidal category.
+  If \(\cat{C}\) admits a central Hopf monad \(\mathfrak{D}(\cat{C})\)
+  and an anti\hyp{}central comodule monad \(\mathfrak{Q}(\cat{C})\),
+  then it is pivotal if and only if \(\mathfrak{D}(\cat{C}) \cong \mathfrak{Q}(\cat{C})\) as monads.
+\end{reptheorem}
+
+\section{Cross products and distributive laws}\label{sec:cross_products_and_distributive_laws}
+
+\textsc{The Hopf monadic description}
+of the Drinfeld centre \(\ZCat*{\cat{C}^H}\), for a rigid category \(\cat{C}\) and Hopf monad \(H\) on \(\cat{C}\),
+is achieved as a two-step process:
+one first finds a suitable monad on \(\cat{C}^H\), which is then ``lifted'' to a monad on \(\cat{C}\).
+We shall review this lifting process based on~\cite[Sections~3 and~4]{Bruguieres2012}.
+
+\begin{definition}\label{def: crossed_product_monad}
+  Let \(H\from \cat{C} \to \cat{C}\) be a monad
+  and \(T \from \cat{C}^H \to \cat{C}^H\) a functor.
+  The \emph{cross product} \(T\rtimes H\) of \(T\) by \(H\) is the endofunctor
+  \(U^H T F^H \from \cat{C} \to \cat{C}\).
+\end{definition}
+
+If \(\stdmonad\) is a monad, then the cross product \(T \rtimes H\) inherits this structure:
+the multiplication and unit are given by
+\marginnote{%
+  Here \(\varepsilon\) and \(\eta\) are the unit and counit of the adjunction \(F^H \adjoint U^H\).%
+}
+\[
+  \mu^{(T \rtimes H)}\from
+  U^H T F^H U^H T F^H
+  \xrightarrow{U^H T \varepsilon TF^H} U^H T T F^H
+  \xrightarrow{U^H \mu^{(T)}F^H} U^H T F^H
+\]
+and
+\[
+  \eta^{(T \rtimes H)}\from \Id_{\cat{C}}
+  \xrightarrow{\;\;\eta\;\;} U^H F^H
+  \xrightarrow{U^H \eta^{(T)}} U^H T F^H.
+\]
+
+Given two bimonads \(H \from \cat{C} \to \cat{C}\) and \(B \from \cat{C}^H \to \cat{C}^H\),
+iteratively applying
+the comultiplication and counit of \(U^H\), \(B\), and \(F^H\)
+yields a bimonad structure on \(B \rtimes H \from \cat{C} \to \cat{C}\).
+The comultiplication is given by
+\[
+  U^H_{2; TF^H(\blank), TF^H(\bblank)} \circ U^H T_{2; F^H(\blank), F^H(\bblank)} \circ U^H T F^H_{2; \blank, \bblank},
+\]
+and for the counit we have
+\[
+  \varepsilon^{(U^H)} \circ U^H \varepsilon^{(T)} \circ U^H T \varepsilon^{(F^H)}.
+\]
+
+Similar considerations imply the following result.
+
+\begin{lemma}\label{lem: cross_product_of_bi/comonads_is_bi/comonad}
+  Let \(H \from \cat{C} \to \cat{C}\) and \(B \from \cat{C}^H \to \cat{C}^H\)
+  be bimonads which respectively coact on the comodule monads
+  \(G \from \cat{M} \to \cat{M}\) and \(C \from \cat{M}^G \to \cat{M}^G\).
+  The cross product \(C \rtimes G \from \cat{M} \to \cat{M}\)
+  is a comodule monad over \(B \rtimes H\) via the coaction
+  \[
+    U^G_{\mathsf{a}; C F^G(\blank), B F^H(\bblank)} \circ U^G C_{\mathsf{a}; F^G(\blank), F^H(\bblank)} \circ U^G C F^G_{\mathsf{a}; \blank, \bblank}.
+  \]
+\end{lemma}
+
+\begin{remark}
+  Let \(H \from \cat{C} \to \cat{C}\) and \(B \from \cat{C}^H \to \cat{C}^H\) be monads.
+  The question under which conditions
+  the modules \(\cat{C}^{B\rtimes H}\) of \(B\rtimes H\) are isomorphic to \({(\cat{C}^H)}^B\)
+  is closely related to the theory of distributive laws of \cref{sec:distributive-laws}.
+  We may apply the formal theory thereof, see~\cite{Street1972},
+  to the bicategory \(\BiCat{OplMon^{opl}}\) of
+  monoidal categories,
+  oplax monoidal functors,
+  and oplax monoidal natural transformations,
+  to obtain a description of bimonads and \emph{oplax monoidal distributive laws}%
+  —oplax monoidal natural transformations \(\Lambda \from HB \to BH\) between
+  bimonads \(H, B \from \cat{C} \to \cat{C}\)
+  that are moreover distributive laws, see~\cite{McCrudden2002}.
+
+  Suppose \(\Lambda \from HB \to BH\) to be an oplax monoidal distributive law.
+  The comultiplication and counit of the underlying functor
+  \(BH \from \cat{C} \to \cat{C}\) turn the composite \(B \circ_{\Lambda} H\) into a bimonad.
+  Thus, comodule monads can be intrinsically described in the bicategory that has
+  \begin{itemize}[noitemsep]
+    \item as objects, pairs \((\cat{M}, \cat{C})\)
+    consisting of a right module category \(\cat{M}\) over a monoidal category \(\cat{C}\);
+    \item as 1-morphisms, pairs \((G, F)\)
+    of a comodule functor \(G\) over an oplax monoidal functor \(F\); and
+    \item as 2-morphisms, pairs \((\phi, \psi)\)
+    that form a comodule transformation.
+  \end{itemize}
+\end{remark}
+
+The subsequent results arise immediately from~\cite{Street1972}.
+
+\begin{definition}\label{def: comodule_distributive_law}
+  Let \(G, C \from \cat{M} \to \cat{M}\) be two comodule monads
+  over the bimonads \(H,B \from \cat{C} \to \cat{C}\), respectively.
+  A \emph{comodule distributive law} is a pair of distributive laws
+  \(\Omega \from GC \to CG\) and \(\Lambda \from HB \to BH\)
+  such that \((\Lambda, \Omega)\) is a comodule natural transformation.
+\end{definition}
+
+\begin{proposition}\label{prop: distributive_laws_are_lifts_of_monads}
+  Consider two comodule monads \(G, C \from \cat{M} \to \cat{M}\)
+  over the bimonads \(H,B \from \cat{C} \to \cat{C}\).
+  There exists a bijective correspondence between:
+  \begin{thmlist}[noitemsep]
+    \item comodule distributive laws \(\big(GC \trightarrow{\;\;\Omega\;\;} CG, HB \trightarrow{\;\;\Lambda\;\;} BH\big)\); and
+    \item lifts of \(B\) to a bimonad \(\widetilde{B} \from \cat{C}^H \to \cat{C}^H\)
+    together with lifts of \(C\) to a comodule monad \(\widetilde{C} \from \cat{M}^G \to \cat{M}^G\) over \(\widetilde{B}\),
+    such that \(B U^H = U^H\widetilde{B}\) as oplax monoidal functors
+    and \(C U^G = U^G \widetilde{C}\) as comodule functors.
+  \end{thmlist}
+\end{proposition}
+
+Let \(\big(GC \trightarrow{\;\;\Omega\;\;} CG, HB \trightarrow{\;\;\Lambda\;\;} BH\big)\) be a comodule distributive law.
+The coactions of \(G\) and \(C\) turn \(C \circ_{\Omega} G\) into a comodule monad over \(B \circ_{\Lambda} H\).
+
+\begin{lemma}\label{lem: distributive_laws_and_comparison_functor}
+  Suppose \(\Omega \from GC \to CG\) and \(\Lambda \from HB \to BH\) to form a comodule distributive law.
+  Then there are equivalences \({(\cat{C}^H)}^{\widetilde{B}^{\Lambda}} \simeq \cat{C}^{B \circ_{\Lambda} H}\) as monoidal categories,
+  and \({(\cat{M}^G)}^{\widetilde{C}^{\Omega}} \simeq \cat{M}^{C \circ_{\Omega} G}\) as \(\cat{C}^{B \circ_{\Lambda} H}\)\hyp{}module categories.
+\end{lemma}
+
+In fact, by~\cite[Section~4.5]{Bruguieres2012}, the previous results transcend to the Hopf monadic setting.
+Let \(B, H \from \cat{C} \to \cat{C}\) be Hopf monads.
+If \(\Lambda \from HB \to BH\) is an oplax monoidal distributive law,
+then \(B \circ_{\Lambda} H\from \cat{C} \to \cat{C}\)
+and the lift \(\widetilde{B}^{\Lambda} \from \cat{C}^H \to \cat{C}^H\) are Hopf monads as well.
+
+\section{Centralisable functors and the central bimonad}\label{section: centralisable_functors_and_the_central_bimonad}
+
+\textsc{The construction of the double} of a Hopf monad \(H\from \cat{C} \to \cat{C}\) given in~\cite{Bruguieres2012} relies on
+explicitly describing the left dual of the forgetful functor \(U^{(Z)} \from \ZCat*{\cat{C}^H} \to \cat{C}^H\),
+which is realised as a coend.
+
+\begin{definition}\label{def:centraliser}
+  Let \(\cat{C}\) be a rigid category and \(T \from \cat{C} \to \cat{C}\) an endofunctor.
+  We call \(T\) \emph{centralisable} if the following coend exists for all \(x \in \cat{C}\):
+  \[
+    Z_T(x) \defeq \int^{y \in \cat{C}} \ld{Ty} \otimes x \otimes y.
+  \]
+\end{definition}
+
+\begin{remark}\label{rmk:universal-coaction}
+  Any centralisable functor \(T \from \cat{C} \to \cat{C}\) admits a \emph{universal coaction}
+  \[
+    \chi_{x,y} \defeq (\id_{Ty} \otimes \mathrm{copr}_{y,x}) \circ (\coev^l_{Ty} \otimes\, \id_{x \otimes y}),
+    \qquad \text{ for } x, y \in \cat{C},
+  \]
+  which is natural in both variables.
+  We call the pair \((Z_T, \chi)\) a \emph{centraliser} of \(T\).
+\end{remark}
+
+\begin{remark}\label{rmk:universal-coaction-graphically}
+  Graphically, we represent the universal coaction as follows:
+  \[
+    \tikzfig{universal-coaction}
+  \]
+  For all \(f\from x\to x'\) and \(g\from y\to y'\), the naturality condition equates to
+  \[
+    \tikzfig{universal-coaction-naturality}
+  \]
+\end{remark}
+
+Universal coactions have a certain universal property that will be vital in the rest of this chapter%
+—the \emph{extended factorisation property}.
+In particular, it provides us with a potent tool for constructing bi- and comodule monads.
+
+\begin{lemma}[{\cite[Lemma~5.4]{Bruguieres2012}}]\label{lem: extended_factorisation_property}
+  Let \((Z_T, \chi)\) be the centraliser of a functor \(T \from \cat{C} \to \cat{C}\)
+  and suppose that \(L, R \from \cat{D} \to \cat{C}\) are two functors.
+  For any \(n \in \nat\), \(y \in \cat{D}\), and \(x_1, \dots, x_n \in \cat{C}\), and any natural transformation
+  \[
+    \phi_{y, x_1, \dots, x_n}\from Ly \otimes  x_1 \otimes \dots \otimes x_n \to Tx_1 \otimes \dots \otimes Tx_n \otimes Ry,
+  \]
+  there exists a unique natural transformation \(\nu \from Z_T^n L \nt R\), satisfying
+  \[
+    \tikzfig{univ-coaction-univ-prop}
+  \]
+\end{lemma}
+
+\begin{example}\label{ex:unit-and-multiplication-from-universal-prop-of-universal-coaction}
+  Let \(T \from \cat{C} \to \cat{C}\) be an oplax monoidal functor with centraliser \((Z_T, \chi)\).
+  For all \(x \in \cat{C}\),
+  define the unit of \(Z_T\) by
+  \[
+    \eta^{(Z_T)}_x \from x \xrightarrow{\ \chi_{x, 1}\ } T1 \otimes Z_T x \xrightarrow{\ T_0 \otimes Z_T x} Z_T x.
+  \]
+
+  By \cref{lem: extended_factorisation_property},
+  we can derive a unique multiplication \(\mu^{(Z_T)} \from Z_T^2 \nt Z_T\) from the comultiplication of \(T\).
+  \[
+    \tikzfig{mult-by-univ-fact}
+  \]
+\end{example}
+
+The following result is due to Day and Street,~\cite[191--192]{Day2007},
+see also~\cite[Theorem~5.6]{Bruguieres2012} for a proof.
+
+\begin{lemma}\label{lem: oplax_centralisable_leads to_monad}
+  The centraliser \((Z_T, \chi)\)  of an oplax monoidal endofunctor \(T\) on \(\cat{C}\)
+  is a monad with multiplication and unit as given in
+  \cref{ex:unit-and-multiplication-from-universal-prop-of-universal-coaction}.
+\end{lemma}
+
+In the proof of \cref{lem: oplax_centralisable_leads to_monad} given in \cite[Theorem~5.6]{Bruguieres2012},
+the authors further consider \(T \from \cat{C} \to \cat{C}\) to be equipped with a Hopf monad structure and show that in this case \(Z_T\) is a Hopf monad as well.
+The extended factorisation property given in \cref{lem: extended_factorisation_property}
+reconstructs a comultiplication on \(Z_T\)
+from a twofold application of the universal coaction and the multiplication of \(T\):
+\begin{equation}\label{eq:comult-of-centraliser}
+  \tikzfig{comult-of-centraliser}
+\end{equation}
+
+Likewise, the unit of \(T\) induces a counit on \(Z_T\) via
+\[
+  \tikzfig{counit-of-centraliser}
+\]
+A direct computation verifies that the centraliser \(Z_T\) is a bimonad as well.
+For the construction of left and right antipodes, see~\cite[Theorem~5.6]{Bruguieres2012}.
+
+\begin{remark}\label{rem: twisted_centre_of_Hopf_monad_is_rigid}
+  We think of \(\ZCat[H]{C}\) as the centre of an oplax bimodule category as stated
+  in \cref{rem: other_variants_of_twisted_centres},
+  see also~\cite[Section 5.5]{Bruguieres2007}.
+  Objects in \(\ZCat[H]{C}\) are pairs \((x, \sigma_{x, \blank})\),
+  where \(x \in \cat{C}\) and \(\sigma_{x,\blank} \from x \otimes \blank \nt H(\blank) \otimes x\)
+  is a natural transformation, satisfying for all \(x,y,z \in \cat{C}\)
+  \begin{align*}
+    (H_{2;y,z} \otimes x) \circ \sigma_{x, y \otimes z} &= (Hy \otimes \sigma_{x,z}) \circ (\sigma_{x,y} \otimes z), \\
+    (H_0 \otimes x) \circ \sigma_{x,1} &= \id_{x}.
+  \end{align*}
+  Analogous to the centres studied before,
+  the arrows in \(\ZCat[H]{C}\) are those morphisms of \(\cat{C}\)
+  that commute with the half-braidings.
+  As shown in~\cite[Proposition~5.9]{Bruguieres2012},
+  the structure morphisms of a Hopf monad \(H \from \cat{C} \to \cat{C}\)
+  can be used to define a rigid structure on \(\ZCat[H]{C}\).
+  For example, the tensor product of
+  \((x, \sigma_{x,\blank}),\, (y, \sigma_{y,\blank}) \in \ZCat[H]{C}\) is \(x\otimes y \in \cat{C}\),
+  together with the half-braiding
+  \[
+    \tikzfig{tensor-product-with-hopf-monad}
+  \]
+  For a treatment of centres twisted by (op)lax monoidal functors,
+  see~\cite{femić23:categ-yetter}.
+\end{remark}
+
+Since centralisers of Hopf monads are Hopf monads themselves,
+their modules implement the twisted centres
+of \cref{rem: twisted_centre_of_Hopf_monad_is_rigid} as a rigid category.
+This is proven in~\cite[Theorem~5.12 and Corollary~5.14]{Bruguieres2012}.
+
+\begin{proposition}\label{prop: central_bimonad_Drinfeld_centre}
+  Suppose \(H \from \cat{C} \to \cat{C}\) to be a centralisable Hopf monad.
+  The modules \(\cat{C}^{Z_H}\) of its centraliser \((Z_H, \chi)\)
+  are isomorphic as a rigid category to \(\ZCat[H]{C}\).
+\end{proposition}
+
+Applying the above proposition to the identity functor \(\Id \from \cat{C} \to \cat{C}\),
+we obtain a Hopf monadic description of the Drinfeld centre \(\ZCat{C}\) of a rigid category \(\cat{C}\).
+The terminology of our next definition is due to Shimizu, see~\cite{Shimizu2017}.
+
+\begin{definition}\label{def: central_bimonad}
+  Let \(\cat{C}\) be a monoidal category,
+  and let the identity functor on \(\cat{C}\) be centralisable with centraliser \((Z, \chi)\).
+  The \emph{central Hopf monad of \(\cat{C}\)}
+  is
+  \(\mathfrak{D}(\cat{C}) \defeq Z_{\mathrm{Id}} \from \cat{C} \to \cat{C}\).
+  We denote its Eilenberg–Moore by \(\cat{C}^{\mathfrak{D}}\).
+\end{definition}
+
+An important step in proving \cref{prop: central_bimonad_Drinfeld_centre}
+is determining an inverse to the comparison functor \(K^{Z_T}\from \ZCat[T]{C} \to \cat{C}^{Z_T}\).
+This construction will also play a substantial role in our monadic description of the anti\hyp{}Drinfeld centre,
+so we recall it in its full generality.
+Let \(T \from \cat{C} \to \cat{C}\) be a centralisable oplax monoidal endofunctor
+with \((Z_T, \chi)\) as its centraliser.
+To every \(Z_T\)\hyp{}module \((m, \nabla_m)\),
+we associate a half-braiding \(\sigma_{m, \blank} \from m \otimes \blank \nt T(\blank) \otimes m\).
+For any \(x \in \cat{C}\), it is given by the composition
+\begin{equation}\label{eq: free_half_braiding}
+  \sigma_{m, x} \colon m \otimes x \xrightarrow{\ \chi_{m,x}\ } Tx \otimes Z_T x \xrightarrow{Tx \otimes \nabla_m} Tx \otimes m.
+\end{equation}
+This yields a functor \(E^{Z_T}\from \cat{C}^{Z_T} \to \ZCat[T]{C}\),
+which is the identity on morphisms and on objects is given by
+\begin{equation}\label{eq: inverse_comparison_functor}
+  E^{Z_T}(m, \nabla_{m}) = (m, \sigma_{m,\blank}), \qquad \text{ for all }(m, \nabla_{M}) \in \cat{C}^{Z_T}.
+\end{equation}
+
+Conversely, to every object \((m, \sigma_{m, \blank}) \in \ZCat[T]{C}\)
+we may assign a \(Z_T\)\hyp{}module,
+whose action \(\nabla_m\) is,
+due to \cref{lem: extended_factorisation_property},
+uniquely defined by
+\[
+  \tikzfig{action-via-univ-coaction}
+\]
+This yields the comparison functor \(K^{Z_T}\from \ZCat[T]{C} \to \cat{C}^{Z_T}\).
+
+\begin{remark}\label{rem: adjoint_from_inverse_of_the_comparison_functor}
+  Suppose \(T \from \cat{C} \to \cat{C}\) to be a centralisable oplax monoidal endofunctor
+  with  \((Z_T, \chi)\) as its centraliser.
+  Denote the free functor of the \EilenbergMoore{} adjunction of \(Z_T\) by \(F^{Z_T} \from \cat{C} \to \cat{C}^{Z_T}\).
+  The composition
+  \[
+    \cat{C} \trightarrow{\,F^{Z_T}\,} \cat{C}^{Z_T} \trightarrow{\,E^{Z_T}\,}  \ZCat[T]{C}
+  \]
+  defines a left adjoint of the forgetful functor \(U^{(T)} \from \ZCat[T]{C} \to \cat{C}\).
+\end{remark}
+
+In fact, the central adjunction \(F^{(T)} \adjoint U^{(T)}\) is monadic.
+
+\begin{proposition}[{\cite[Theorem~5.12]{Bruguieres2012}}]\label{prop: inverse_comparison_functor}
+  Let \((Z_T, \chi)\) be a centraliser of the oplax monoidal endofunctor
+  \(T \from \cat{C} \to \cat{C}\).
+  The comparison functor \(K^{Z_T} \from \ZCat[T]{C} \to \cat{C}^{Z_T}\)
+  is an isomorphism of categories with inverse \(E^{Z_T} \from \cat{C}^{Z_T} \to \ZCat[T]{C}\).
+\end{proposition}
+
+\section{Centralisers and comodule monads}
+
+\textsc{We will now apply the methods of} \Bruguieres{} and Virelizier to twisted centres,
+for the purpose of obtaining a comodule monad that implements the anti\hyp{}Drinfeld centre.
+Hereto, we need a generalised version of the concept of modules over a monad.
+Our approach is based on~\cite{Mesablishvili2011}.
+
+\begin{definition}\label{def: oplax_right_action}
+  Let \((B, \mu, \eta) \from \cat{C} \to \cat{C}\) be a bimonad
+  and \(F \from \cat{C} \to \cat{D}\) an oplax monoidal functor.
+  An \emph{oplax monoidal right action} of \(B\) on \(F\) is
+  an oplax natural transformation \(\alpha\from FB \nt F\),
+  such that the following diagrams commute:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {FBB} \& FB \& F \& FB \\
+      FB \& F \&\& F
+      \arrow["F\mu", from=1-1, to=1-2]
+      \arrow["\alpha", from=1-2, to=2-2]
+      \arrow["{\alpha B}"', from=1-1, to=2-1]
+      \arrow["\alpha"', from=2-1, to=2-2]
+      \arrow["F\eta", from=1-3, to=1-4]
+      \arrow["{\id_F}"', from=1-3, to=2-4]
+      \arrow["\alpha", from=1-4, to=2-4]
+    \end{mytikzcd}
+  \]
+
+  Similarly, one defines oplax monoidal left actions.
+\end{definition}
+
+\begin{remark}\label{rmk:oplax-nat-trafo-as-monoid-action}
+  Recall from \cref{rmk:bimonad-in-bicategorical-language} that a bimonad \(B\) is a monoid in the monoidal category \(\BiCat{OplMon^{opl}}(\cat{C},\cat{C})\) of
+  oplax monoidal endofunctors on \(\cat{C}\),
+  with oplax monoidal natural transformations between them.
+  There is an obvious right action of this category on
+  \(\BiCat{OplMon^{opl}}(\cat{C},\cat{D})\)
+  given by composition of functors.
+  In this context,
+  an oplax monoidal right action of a bimonad \(B\from \cat{C}\to \cat{C}\)
+  is the same as an
+  \(\BiCat{OplMon^{opl}}(\cat{C},\cat{D})\)\hyp{}module of \(B\).
+\end{remark}
+
+A prime example of an oplax monoidal left action is given
+by the forgetful functor \(U^B \from \cat{C}^B \to \cat{C}\)
+of a bimonad \(B \from \cat{C} \to \cat{C}\) together with the action \(\nabla = U^B \varepsilon \from B U^B \to U^B\),
+see \cref{rmk:diagrammatic-algebras}.
+
+\begin{hypothesis}
+  To keep our notation concise, in the following we
+  fix an oplax monoidal functor \(L \from \cat{C} \to \cat{C}\)
+  with an oplax right action \(\alpha \from LB \nt L\) by a bimonad \(B\from \cat{C} \to \cat{C}\)
+  and assume that \(L\) and \(B\) are centralisable.
+  Their centralisers will be denoted by \((Z_L, \xi)\) and \((Z_B, \chi)\), respectively.
+\end{hypothesis}
+
+We think of \(\ZCat[B]{C}\) as a more general version of the Drinfeld centre
+which is supposed to act on \(\ZCat[L]{C}\) from the right.
+To emphasise this, and in line with the colouring scheme of \cref{sec: pivotality_of_the_df_centre}, we use black for objects in \(\cat{C}\) or its generalised Drinfeld centre and blue for objects in \(\ZCat[L]{C}\).
+
+Consider objects \((m, \sigma_{m,\blank}) \in \ZCat[L]{C}\) and \((x, \sigma_{x,\blank}) \in \ZCat[B]{C}\).
+The action of \(B\) on \(L\) and the half-braidings of \(m\) and \(x\) yield
+a natural transformation
+\[
+  \sigma_{m \otimes x, y} \from m \otimes x \otimes y \to Ly \otimes m \otimes x,
+\]
+which we can depict graphically by
+\begin{equation}\label{eq:right-action-of-gen-centre}
+  \tikzfig{right-action-of-gen-centre}
+\end{equation}
+
+\begin{lemma}\label{lem: right_action_through_centralisers}
+  The centre \(\ZCat[B]{C}\) acts on \(\ZCat[L]{C}\) from the right
+  by tensoring the underlying objects
+  and gluing together the half-braidings
+  as in \cref{eq:right-action-of-gen-centre}.
+  With respect to this action,
+  the forgetful functor \(U^{(L)} \from \ZCat[L]{C} \to \cat{C} \)
+  is a strict comodule functor over \(U^{(B)} \from  \ZCat[B]{C} \to \cat{C}\).
+\end{lemma}
+\begin{proof}
+  We proceed as in~\cite[Proposition~5.9]{Bruguieres2012}.
+  Fix objects \((m, \sigma_{m, \blank} ) \in \ZCat[L]{C}\) and \((x, \sigma_{x,\blank}) \in \ZCat[B]{C}\).
+  The compatibility of the half-braiding of \(m \otimes x\)
+  with the unit of \(\cat{C}\) is a short computation:
+  \[
+    \tikzfig{half-braiding-and-unit}
+  \]
+
+  Similarly, we verify the hexagon axiom:
+  \[
+    \tikzfig{half-braiding-and-hexagon}
+  \]
+
+  The compatibility of the action \(\alpha \from LB \nt L\) with the multiplication and unit of \(B\)
+  asserts that \(\ZCat[L]{C}\) is a right \(\ZCat[B]{C}\)\hyp{}module category.
+  By construction,
+  for all \((m, \sigma_{m, \blank} ) \in \ZCat[L]{C}\) and \((x, \sigma_{x,\blank}) \in \ZCat[B]{C}\)
+  we have
+  \[
+    U^{(L)}\big( (m, \sigma_{m,\blank}) \ract (x, \sigma_{x,\blank}) \big)
+    \,=\, m \otimes x \,=\,
+    U^{(L)}(m, \sigma_{m,\blank}) \otimes U^{(B)} (x, \sigma_{x,\blank}).
+  \]
+  Thus, \(U^{(L)}\) is a strict comodule functor over \(U^{(B)}\).
+\end{proof}
+
+\begin{notation}
+  We extend our colouring scheme to universal coactions:
+  \[
+    \tikzfig{colouring-scheme-universal-coactions}
+  \]
+\end{notation}
+
+\begin{remark}
+  The identification of \(\cat{C}^{Z_B}\) and \(\cat{C}^{Z_L}\) with the generalised Drinfeld centre
+  and its twisted cousin suggest that \(Z_L\) is a comodule monad over \(Z_B\).
+  In analogy with \cref{eq:comult-of-centraliser}
+  we define the coaction \(Z_{L;\mathsf{a}}\) of \(Z_L\) by
+  \begin{equation}\label{eq:coaction-anti-central-monad}
+    \tikzfig{coaction-anti-central-monad}
+  \end{equation}
+\end{remark}
+
+\begin{proposition}\label{prop: construction_anti_central_comonad}
+  Let \(\alpha \from LB \nt L\) be an oplax monoidal right action of a bimonad \(B \from \cat{C} \to \cat{C}\) on an oplax monoidal functor \(L \from \cat{C} \to \cat{C}\).
+  Suppose furthermore that the centralisers \((Z_L, \xi)\) of \(L\)  and  \((Z_B, \chi)\) of \(B\) exist.
+  The coaction of \cref{eq:coaction-anti-central-monad} turns \(Z_L\) into a comodule monad over \(Z_B\) such that \(\cat{C}^{Z_L}\) is isomorphic as a right module category over \(\cat{C}^{Z_B}\) to \(\ZCat[L]{C}\).
+\end{proposition}
+\begin{proof}
+  By \cref{rem: adjoint_from_inverse_of_the_comparison_functor}
+  and \cref{prop: inverse_comparison_functor},
+  we have monadic adjunctions
+  \[
+    \adj{F^{(B)}}{U^{(B)}}{\cat{C}}{\ZCat[B]{C}}
+    \qquad \text{ and } \qquad
+    \adj{F^{(L)}}{U^{(L)}}{\cat{C}}{\ZCat[L]{C}}
+  \]
+  that, due to~\cite[Remark~5.13]{Bruguieres2012},
+  give rise to the bimonad \(Z_B\) and monad \(Z_L\).
+  \Cref{lem: right_action_through_centralisers} shows that
+  \(U^{(L)}\) is a strict comodule functor over \(U^{(B)}\).
+
+
+  By  \cref{thm:comodule-monad-reconstruction},
+  see also \cref{rem:comodule-monads-induce-module-categories,ex:comodule-monad-over-bimonad},
+  \(Z_L\) is a comodule monad over \(Z_{B}\);
+  the coaction \(\lambda \from Z_L(\blank \otimes \bblank) \to Z_L(\blank) \otimes Z_B(\bblank)\) implementing the action of \(\cat{C}^{Z_B}\) on \(\cat{C}^{Z_L}\) is for all \(x, y \in \cat{C}\) given by
+  \[
+    \lambda_{x,y}\from Z_L(x \otimes y)
+    \xrightarrow{Z_L(\eta^{(Z_L)}_{x} \otimes \eta^{(Z_B)}_{y})} Z_L(Z_L x \otimes Z_B y)
+    \xrightarrow{\nabla_{Z_L x \otimes Z_B y}} Z_L x \otimes Z_B y,
+  \]
+  where \(\nabla\) is defined as in \cref{eq:action-as-nat-trafo}.
+
+  By using the relation between universal coactions and half-braidings,
+  explained in \cref{eq: free_half_braiding},
+  and applying the hexagon identity we compute \cref{fig:lambda-is-really-qa}.
+  The uniqueness of universal coactions implies that \(\lambda = Z_{L;\mathsf{a}}\).
+  \begin{figure}[htbp]
+    \centering
+    \vspace{-0.2cm}\tikzfig{lambda-is-really-qa}\vspace{-\onelineskip}% XXX
+    \scaption[-.5cm]{%
+      The arrows \(\lambda\) and \(Z_{L;\mathsf{a}}\) satisfy the same universal property.%
+      \label{fig:lambda-is-really-qa}%
+    }
+  \end{figure}
+
+  It remains to show that \(\cat{C}^{Z_L}\) and \(\ZCat[L]{C}\) are isomorphic as modules over \(\cat{C}^{Z_B}\).
+  By~\cref{prop:comparison-functor-comodule-monad-comodule}, the comparison functor
+  \(K^{Z_B} \from \ZCat[B]{C} \to \cat{C}^{Z_B}\) is strong monoidal
+  and \(K^{Z_L} \from \ZCat[L]{C} \to \cat{C}^{Z_L}\) is a strong comodule functor over it.
+  Furthermore, due to \cref{prop: inverse_comparison_functor},
+  both \(K^{Z_B}\) and \(K^{Z_L}\)  admit inverses
+  \[
+    E^{Z_B} \from \cat{C}^{Z_B} \to \ZCat[B]{C}
+    \qquad \text{ and } \qquad
+    E^{Z_L} \from \cat{C}^{Z_L} \to \ZCat[L]{C}.
+  \]
+  Using that \(E^{Z_B}\) is monoidal, we identify the right action of \(\ZCat[B]{C}\) on \(\ZCat[L]{C}\)
+  with a right action \(\bract\from\ZCat[L]{C} \times \cat{C}^{Z_B} \to \ZCat[L]{C} \) of \(\cat{C}^{Z_B}\) by setting
+  \[
+    \ZCat[L]{C} \times \cat{C}^{Z_B} \trightarrow{\id \times E^{Z_B}}
+    \ZCat[L]{C} \times \ZCat[B]{C} \trightarrow{\ \ \ract \ \ }
+    \ZCat[L]{C}.
+  \]
+  For any \(m \in \ZCat[L]{C}\) and \(x \in\ZCat[L]{C}\) we have
+  \[
+    K^{Z_L} (m \bract x)
+    =
+    K^{Z_L} (m \ract E^{Z_B}x)
+    \trightarrow{K^{Z_L}_{\mathsf{a};m, E^{Z_B}x}} K^{Z_L}m \ract K^{Z_B}E^{Z_B}x = K^{Z_L}m \ract x,
+  \]
+  and hence \(K^{Z_L} \from \ZCat[L]{C} \to \cat{C}^{Z_L}\) is an isomorphism of module categories.
+\end{proof}
+
+\begin{example}
+  Let \(\cat{C}\) be a rigid monoidal category, and
+  let \((Z_L, \xi)\) and  \((Z_B, \chi)\) be
+  the centralisers of \(\lbiDual{\!(\blank)}\from \cat{C}\to \cat{C}\) and \(\Id_{\cat{C}}\), respectively.
+  Then there exists a trivial right action of \(\Id_{\cat{C}}\) on \(\lbiDual{\!(\blank)}\):
+  \[
+    \id_x\from \lbiDual{\!(\Id_{\cat{C}} (x))} \to \lbiDual{\!x}, \qquad \qquad \text{for all } x \in \cat{C}.
+  \]
+  This action turns \(Z_L\) into a comodule monad over \(Z_B\),
+  and its modules \(\cat{C}^{Z_L}\) become isomorphic to \(\QCat{C}\) as a \(\cat{C}^{Z_B}\)\hyp{}module category.
+\end{example}
+
+Recall that,
+by \cref{rem: right_vs_left_twisted_centres},
+we can identify \(\QCat{C}\) with \({\ACat*{\cat{C}^{\op,\tensorop}}}^{\op}\).
+
+\begin{definition}\label{def: anti_central_comodule_monad}
+  Assume \(\lbiDual{\!(\blank)},\, \Id_{\cat{C}}\from \cat{C} \to \cat{C}\) to admit centralisers \((Z_L, \xi)\) and \((Z_B, \chi)\).
+  We call \(\mathfrak{Q}(\cat{C}) \defeq Z_L\) the \emph{anti\hyp{}central comodule monad of \(\cat{C}\)}.
+\end{definition}
+
+\section{The Drinfeld and anti-Drinfeld double of a Hopf monad}\label{subsec: Drinfeld_anti-Drinfeld_double}
+
+\textsc{We are now able to untangle}
+the relationship between the various different categories and adjunctions in \cref{fig:twisted_centres_and_monads}.
+
+\begin{hypothesis}
+  For the rest of this chapter, fix a Hopf monad \(H\) on a rigid category \(\cat{C}\),
+  together with an oplax monoidal endofunctor \(L\) on \(\cat{C}^H\),
+  a bimonad \(B\) on \(\cat{C}^H\),
+  an oplax monoidal right action \(\alpha \from LB \nt B\),
+  and assume that the cross products \(B \rtimes H\) and \(L \rtimes H\) have centralisers \((Z_{B \rtimes H}, \nu)\) and \((Z_{L \rtimes H}, \tau)\).
+\end{hypothesis}
+
+The following observation%
+—which follows by a straightforward calculation—%
+extends the action of \(B\) on \(L\) to an action of the respective cross products.
+
+\begin{lemma}\label{lem: cross_products_and_oplax_monoidal_actions}
+  The oplax monoidal right action \(\alpha \from LB \nt B\) induces an oplax monoidal action of \(B \rtimes H\) on \(L \rtimes H\) by
+  \[
+    \tikzfig{oplax-mon-right-action-rtimes}
+  \]
+\end{lemma}
+
+The next result is a variant of~\cite[Theorem~7.4]{Bruguieres2012}.
+
+\begin{theorem}\label{thm: centralisablity_of_lifts}
+  The functors \(B, L\from \cat{C}^H\to \cat{C}^H\) admit centralisers \((Z_B, \chi), (Z_L, \xi)\),
+  such that \(Z_B\) lifts \(Z_{B \rtimes H}\) as a bimonad
+  and \(Z_L\) lifts \(Z_{L \rtimes H}\) as a comodule monad.
+\end{theorem}
+\begin{proof}
+  By~\cite[Theorem~7.4(a)]{Bruguieres2012},
+  there are centralisers \((Z_L, \xi)\) and \((Z_B, \chi)\) of \(L\) and \(B\)
+  that, for all \((x, \nabla_x),\, (y, \nabla_y) \in \cat{C}^H\), satisfy
+  \begin{align*}
+    U^H Z_L (x, \nabla_x) &= Z_{L \rtimes H}x, & U^H\xi_{(x, \nabla_x), (y, \nabla_y)} &= (U^H L\nabla_y \otimes Z_{L \rtimes H}x) \circ \tau_{x,y}, \\
+    U^H Z_B (x, \nabla_x) &= Z_{B \rtimes H}x, & U^H\chi_{(x, \nabla_x), (y, \nabla_y)} &= (U^H B\nabla_y \otimes Z_{B \rtimes H}x) \circ \nu_{x,y}.
+  \end{align*}
+  The second and third part of \emph{ibid} state that \(Z_L\) is a lift of the monad \(Z_{L \rtimes H}\) and \(Z_B\) is a lift of the bimonad \(Z_{B \rtimes H}\).
+  It remains for us to show that the coactions of \(Z_L\) and \(Z_{L \rtimes H}\) are compatible with the forgetful functor \(U^H \from \cat{C}^H \to \cat{C}\).
+  Fixing objects \((x, \nabla_x),\, (y, \nabla_y) \in \cat{C}^H\) and \(w \in \cat{C}\),
+  this follows from \cref{fig:q-and-qh-compatible-with-forgetful}.
+  \begin{figure}[htbp]
+    \centering
+    \vspace{-0.3cm}\mathscale{0.93}{\tikzfig{q-and-qh-compatible-with-forgetful}}% XXX
+    \scaption[3.5cm]{%
+      The coactions of \(Z_L\) and \(Z_{L \rtimes H}\) are compatible with the forgetful functor.%
+      \label{fig:q-and-qh-compatible-with-forgetful}%
+    }
+  \end{figure}
+
+  The uniqueness property of universal coactions as given in
+  \cref{lem: extended_factorisation_property}
+  then implies that \(U^H Z_{L;\mathsf{a};(x, \nabla_x), (y, \nabla_y)} = Z_{L \rtimes H;\mathsf{a};x,y}\).
+  Since \(U^{H}\from \cat{C}^H \to \cat{C}\) is a strict comodule functor, the claim follows.
+\end{proof}
+
+\begin{remark}\label{blackstar}
+  The previous theorem together with \cref{lem: cross_product_of_bi/comonads_is_bi/comonad}
+  imply that we obtain a comodule monad \(D(L,H) \defeq Z_L \rtimes H\) over \(D(B, H) \defeq Z_B \rtimes H\).
+  The correspondence between lifts and monads given in
+  \cref{prop: distributive_laws_are_lifts_of_monads} yields a unique comodule distributive law
+  \[
+    \big(
+    H Z_{L \rtimes H}  \trightarrow{\;\Omega\;} Z_{L \rtimes H} H
+    ,\;
+    H Z_{B \rtimes H} \trightarrow{\;\Lambda\;} Z_{B \rtimes H} H
+    \big),
+  \]
+  such that
+  \[
+    D(L, H) = Z_{L \rtimes H} \circ_{\Omega} H
+    \qquad \text{and} \qquad
+    D(B, H) = Z_{B \rtimes H} \circ_{\Lambda} H.
+  \]
+\end{remark}
+
+\begin{definition}\label{def: double-and-twisted-double}
+  We call \(D(B,H)\) and \(D(L,H)\) of \cref{blackstar} the \emph{double} and \emph{twisted double}
+  of the pairs \((B,H)\) and \((L,H)\), respectively.
+\end{definition}
+
+The relationship between doubles and generalised Drinfeld centres
+is studied in~\cite[Proposition~7.5 and Theorem~7.6]{Bruguieres2012}.
+Our next result uses the same techniques to prove
+how twisted doubles parameterise twisted centres.
+
+\begin{theorem}\label{thm: twisted_doubles_vs_twisted_centres}
+  The twisted double \(D(L, H)\) is a comodule monad over \(D(B,H)\),
+  and \(\cat{C}^{D(L, H)}\) is isomorphic to \(\ZCat*[L]{\cat{C}^H}\) as a \(\cat{C}^{D(B, H)}\)\hyp{}module category.
+\end{theorem}
+\begin{proof}
+  Since \(Z_L\) is a lift of \(Z_{L \rtimes H}\) as a comodule monad,
+  the twisted double \(D(L, H)\) is a comodule monad over \(D(B,H)\).
+  By \cref{lem: distributive_laws_and_comparison_functor},
+  this implies the existence of an isomorphism
+  \(I\from \cat{C}^{D(L, H)} \iso {\left(\cat{C}^H\right)}^{Z_L}\)
+  of \(\cat{C}^{D(B, H)}\)\hyp{}module categories.
+  Due to the proof of \cref{prop: construction_anti_central_comonad},
+  the comparison functor \(K^{Z_L}\from  \ZCat*[L]{\cat{C}^H} \to {\left(\cat{C}^H\right)}^{Z_L}\)
+  implements an isomorphism of module categories and the statement follows by considering
+  \[
+    \cat{C}^{D(L, H)} \trightarrow{\ \ I\ \ }
+    {(\cat{C}^H)}^{Z_L} \trightarrow{\,E^{Z_L}\,}
+    \ZCat*[L]{\cat{C}^H}.\qedhere
+  \]
+\end{proof}
+
+The following definition can be understood as an extension of the notion of the anti\hyp{}Drinfeld double given by~\cite{Hajac2004a} to the monadic framework.
+
+\begin{definition}\label{def: double_of_bimonad}
+  Let \(H\) be a Hopf monad on a rigid category \(\cat{C}\).
+  For \(B \defeq \Id_{\cat{C}^H}\) and \(L \defeq \lbiDual{\!(\blank)} \from \cat{C}^H \to \cat{C}^H\),
+  we call \(D(H) \defeq D(B,H)\) and \(Q(H) \defeq D(L,H)\)
+  the \emph{Drinfeld} and \emph{anti\hyp{}Drinfeld double} of \(H\), respectively.
+\end{definition}
+
+\section{Pairs in involution for Hopf monads}\label{subsec: monadic_perspective_piv_structures}
+
+\textsc{We now consider a Hopf monad}
+that admits a double and anti\hyp{}double,
+and develop the notion of pairs in involution in this setting.
+Classically, these consist of a group-like and character of a Hopf algebra
+that implement the square of its antipode by their adjoint actions.
+
+\begin{definition}\label{def: character_and_group-like}
+  Let \(H\) be a Hopf monad on a rigid monoidal category \(\cat{C}\).
+  A \emph{character} of \(H\) is an \(H\)-algebra \(\beta \defeq (1, \nabla_{\beta}) \in \cat{C}^H\),
+  whose underlying object is the monoidal unit \(1 \in \cat{C}\).
+\end{definition}
+
+\begin{remark}
+  Explicitly, \cref{def: character_and_group-like} says that
+  a group-like \(g\) of \(H\) satisfies
+  \[
+    H_{2;x,y} \circ g_{x\otimes y} = g_x \otimes g_y
+    \qquad \text{ and } \qquad
+    H_0 \circ g_1= \id_1,\qquad
+    \text{for all \(x, y \in \cat{C}\)}.
+  \]
+\end{remark}
+
+The characters \(\Char(H)\) of a Hopf monad \(H\) on \(\cat{C}\) form a monoid
+and, by~\cite[Lemma~3.21]{Bruguieres2007}, the set \(\Gr(H)\) of group-likes bears a group structure.
+
+\begin{example}
+  The group-likes of a Hopf monad \(H\) act on it by conjugation.
+  We recall this construction based on~\cite[Section~1.4]{Bruguieres2007}.
+  Given a natural transformation \(g \from \Id_{\cat{C}} \to H\),
+  define the \emph{left} and \emph{right regular action} of \(g\) on \(H\) to be the natural transformations defined by
+  \[
+    L_{g}\from H \trightarrow{gH} H^2 \trightarrow{\mu^{(H)}} H
+    \qquad\text{and}\qquad
+    R_{g}\from H \trightarrow{Hg} H^2 \trightarrow{\mu^{(H)}} H.
+  \]
+\end{example}
+
+\begin{definition}\label{def: adjoint_action}
+  Every pair \((g \in \Gr(H),\ \beta \in \Char(H))\)
+  of a Hopf monad \(H \from \cat{C} \to \cat{C}\)
+  gives rise to natural transformations%
+  \marginnote{Recall the definition of \(H_3\) from \cref{rmk:whynotthree}.}
+  \begin{align*}
+    \Ad_{g} &\defeq L_{g} \circ R_{g^{-1}} \from H \nt H, \\
+    \Ad_{\beta} &\defeq (\nabla_{\beta} \otimes H(\blank) \otimes \nabla_{\ld{\!\beta}}) \circ H_{3; 1, \blank ,1} \from H \nt H,
+  \end{align*}
+  called the \emph{adjoint actions} of \(g\) and \(\beta\) on \(H\), respectively.
+\end{definition}
+
+To define pairs in involution, we need an analogue of the square of the antipode of a Hopf algebra.
+This notion is developed in~\cite[Section~7.3]{Bruguieres2007}.
+
+\begin{definition} \label{def: s-squared}
+  Suppose \(\phi \from \Id_{\cat{C}} \to \lbiDual{\!(\blank)}\) to be a pivotal structure on \(\cat{C}\)
+  and let \(H \from \cat{C} \to \cat{C}\) be a Hopf monad.
+  The \emph{square of the antipode} of \(H\) is a natural transformation \(S^{2}\from H \nt H\),
+  given for all \(x \in \cat{C}\) by
+  \[
+    S^2_x \defeq \phi^{-1}_{Hx} \circ s^l_{\ld{Hx}} \circ H\ld{s^l_x} \circ H\phi_x,
+  \]
+  where \(s^l\) is the left antipode of \(H\),
+  see \cref{eq: left_and_right_antipode} and~\cite[Section~3.3]{Bruguieres2007}.
+\end{definition}
+
+Analogous to the Hopf algebraic case, we state the following:
+
+\begin{definition}\label{def: pair_in_involution_Hopf_monad}
+  Let \(H \from \cat{C} \to \cat{C}\) be a Hopf monad,
+  and \(\phi \from \Id_{\cat{C}} \to \lbiDual{\!(\blank)}\) a pivotal structure.
+  A \emph{pair in involution}
+  \((g, \beta) \in \mathrm{PI}_H^{\phi}\)
+  of \(H\) and \(\phi\) consists of
+  a group-like \(g \in \Gr(H)\) and
+  a character \(\beta \in \Char(H)\),
+  such that for all \(x \in \cat{C}\)
+  \[
+    Ad_{g, x} =  Ad_{\beta,x} \circ S^{2}_{x}.
+  \]
+\end{definition}
+
+To prove that pairs in involution correspond to certain pivotal structures on the Drinfeld centre of \(\cat{C}^H\), we need two technical results.
+The first one is classical; for a proof see for example~\cite[Lemmas~1.2 and~1.3]{Bruguieres2007}.
+
+\begin{lemma}\label{lem: sharp-lift}
+  Let \(H\) be a monad with canonical forgetful functor \(U^H \from  \cat{C}^H \to \cat{C}\).
+  If \(F, G \from \cat{C} \to \cat{D}\) are functors, for some category \(\cat{D}\),
+  then there is a canonical bijection
+  \[
+    {(\blank)}^{\sharp}\from \Nat(F, GH) \to \Nat(FU^H, GU^H), \qquad \alpha \mapsto \alpha^{\sharp},
+  \]
+  where \(\alpha^{\sharp}_{(m, \nabla_m)} \defeq G\nabla_m \circ \alpha_m\).
+\end{lemma}
+
+The next lemma is a variant of~\cite[Lemma~7.5]{Bruguieres2007}.
+
+\begin{lemma}\label{lem: s2-is-conjugate}
+  Let \(\phi \from \Id_{\cat{C}} \to \lbiDual{\!(\blank)}\) be a pivotal structure on \(\cat{C}\)
+  and \(H \from \cat{C} \to \cat{C}\) a Hopf monad.
+  For any group-like \(g \in \Gr(H)\) and character \(\beta \in \Char(H)\) the following are equivalent:
+  \begin{thmlist}[noitemsep]
+    \item the morphisms \(g\) and \(\beta\) form a pair in involution of \(H\) and \(\phi\); and
+    \item the arrow \(\phi g^{\sharp}\in \Nat(U^H, \lld{(\blank)} \circ U^H)\) lifts
+    to \(\Nat(\Id_{\cat{C}^H}, \beta \otimes \lbiDual{\!(\blank)}\otimes \ld{\!\beta} )\).
+  \end{thmlist}
+\end{lemma}
+\begin{proof}
+  Consider a module \((m, \nabla_m) \in \cat{C}^H\).
+  By~\cite[Theorem~3.8(a)]{Bruguieres2007} and the definition of \(S^2\),
+  the action on \(\lld{m}\) is given by
+  \[
+    \nabla_{\lbiDual{m}}
+    = \lbiDual{\nabla_m} \circ s^l_{\lbiDual{Hm}} \circ H(\ld{\!{}s^l_m})
+    = \phi_m \circ \nabla_m \circ S^2_m \circ H(\phi^{-1}_m),
+  \]
+  and therefore we have
+  \[
+    \nabla_{\beta \otimes \lbiDual m \otimes \ld{\!\beta}}
+    = (\nabla_{\beta} \otimes \nabla_{\lbiDual{m}} \otimes \nabla_{\ld{\!\beta}}) H_{3; 1,m,1}
+    = (\nabla_{\beta} \otimes \phi_m \nabla_m S^2_m H(\phi^{-1}_m) \otimes \nabla_{\ld{\!\beta}}) H_{3; 1,m,1}.
+  \]
+  By definition, \(\phi g^{\sharp}\) lifts to a natural transformation from \(\Id_{\cat{C}^H}\) to \(\beta \otimes \lbiDual{\!(\blank)} \otimes \ld{\!\beta}\)
+  if and only if for any \(H\)\hyp{}module \((m, \nabla_m)\) we have
+  \begin{equation} \label{eq: sharpbeta-lifts}
+    {(\phi g^{\sharp})}_m \nabla_m = \nabla_{\beta \otimes \lbiDual{m} \otimes \ld{\!\beta}}H \big( {(\phi g^{\sharp})}_m \big).
+  \end{equation}
+
+  Let us now successively simplify both sides of this equation.
+  Using the naturality of \(g \from \Id_{\cat{C}} \nt H\),
+  the fact that \(\nabla_m\) is an action,
+  and the definition of \(g^{\sharp}\) as given in \cref{lem: sharp-lift},
+  we can rewrite the left hand side as
+  \[
+    {(\phi g^{\sharp})}_m \nabla_m
+    = \phi_m \nabla_m g_m \nabla_m
+    = \phi_m \nabla_m H(\nabla_m) g_{Hm}
+    = \phi_m \nabla_m \mu^{(H)}_m g_{Hm}.
+  \]
+  Similarly, we simplify the right-hand side to
+  \begin{align*}
+    \nabla_{\beta \otimes \lbiDual{m} \otimes \ld{\!\beta}}H\big( {(\phi g^{\sharp})}_m \big)
+    & = (\nabla_{\beta} \otimes \phi_m \nabla_m S^2_m H(\phi^{-1}_m) \otimes \nabla_{\ld{\!\beta}}) H_{3; 1,m,1} H\big( {(\phi g^{\sharp})}_m \big) \\
+    & = (\nabla_{\beta} \otimes \phi_m \nabla_m  S^2_m H(\phi^{-1}_m) H\big( {(\phi g^{\sharp})}_m\big) \otimes \nabla_{\ld{\!\beta}}) H_{3;1,m,1} \\
+    & = (\nabla_{\beta} \otimes \phi_m \nabla_m  S^2_m H(\nabla_m g_m ) \otimes \nabla_{\ld{\!\beta}}) H_{3;1,m,1} \\
+    & = (\nabla_{\beta} \otimes \phi_m \nabla_m   H(\nabla_m g_m ) S^2_m \otimes \nabla_{\ld{\!\beta}}) H_{3;1,m,1} \\
+    & = \phi_m \nabla_m   H(\nabla_m g_m ) (\nabla_{\beta} \otimes  \id_{Hm}\otimes \nabla_{\ld{\!\beta}}) H_{3;1,m,1}S^2_m \\
+    & = \phi_m \nabla_{m}\mu^{(H)}_m H(g_m) \Ad_{\beta,m} S^2_m .
+  \end{align*}
+  Using the fact that \(\phi\) is an isomorphism,
+  \Cref{eq: sharpbeta-lifts} can be restated as
+  \begin{align*}
+    & & \nabla_m \mu^{(H)}_m g_{Hm} &= \nabla_m\mu^{(H)}_m H(g_m)  \Ad_{\beta,m} S^2_m \\
+    \iff & & \nabla_m L_{g, m} &= \nabla_m R_{g, m} \Ad_{\beta, m} S^2_m
+  \end{align*}
+  By \cref{lem: sharp-lift},
+  the above is equivalent to
+  \(L_{g, m} = R_{g, m} \Ad_{\beta, m} S^2_m\).
+  We conclude the proof by multiplying both sides with \(R_{g^{-1}, m}\).
+\end{proof}
+
+\Cref{lem: s2-is-conjugate} leads to an identification of pairs in involution of \(H\) and \(\phi\)
+with certain quasi-pivotal structures on \(\cat{C}^H\).
+
+\begin{proposition}\label{prop: piis_are_qpiv}
+  Let \(H\) be a Hopf monad on \(\cat{C}\)
+  and \(\phi \from \Id_{\cat{C}} \to \lbiDual{\!(\blank)}\) a pivotal structure on \(\cat{C}\).
+  Then \((H, \phi)\) admits a pair in involution
+  if and only if
+  there exists a quasi-pivotal structure on \(\cat{C}^{H}\)
+  whose underlying invertible object is a character.
+\end{proposition}
+\begin{proof}
+  We proceed analogous to~\cite[Proposition~7.6]{Bruguieres2007}.
+  Suppose \((g, \beta) \in \mathrm{PI}_{H}^{\phi}\).
+  By \cref{lem: s2-is-conjugate}, the natural transformation \(\phi g^{\sharp}\) lifts to a natural isomorphism
+  \[
+    \rho_{\beta,x}\from x \to \beta \otimes \lbiDual x \otimes \ld{\!\beta}, \qquad \text{ for all } x \in \cat{C}^H.
+  \]
+  Since \(\phi\) is monoidal by definition,
+  and \(g^{\sharp}\) is monoidal by virtue of \(g\) being a group-like%
+  —see~\cite[Lemma~3.20]{Bruguieres2007}—%
+  we obtain a quasi-pivotal structure
+  \[
+    \rho_{\beta} \from \Id_{\cat{C}^H} \to \beta \otimes \lbiDual{(\blank)}\otimes \ld{\!\beta}.
+  \]
+
+  On the other hand, let \((\beta,\rho_{\beta})\) be a quasi-pivotal structure, for \(\beta \in \Char(H)\).
+  Since the forgetful functor \(U^H\) is strong monoidal and thus
+  \[
+    U^H (\beta\otimes \lbiDual{(\blank)}\otimes \ld{\!\beta}) = U^H(\lbiDual{(\blank)}) = \lbiDual{(U^H(\blank))},
+  \]
+  there exists a monoidal natural transformation
+  \[
+    \phi^{-1}_{U^H x} \circ U^H(\rho_{\beta,x}) \from U^H x \to U^H x, \qquad \qquad \text{for all } x \in \cat{C}^H.
+  \]
+  Apply~\cite[Lemma~3.20]{Bruguieres2007} to
+  obtain a unique group-like \(g\in \Gr(H)\), with
+  \[
+    g^{\sharp} = \phi^{-1}_{U^H(x)} \circ U^H(\rho_{\beta,x}).
+  \]
+  As \(\phi g^{\sharp} = U^H(\rho_{\beta})\) lifts to the quasi-pivotal structure \((\beta,\rho_{\beta})\) on \(\cat{C}^H\),
+  \cref{lem: s2-is-conjugate} implies that \((g, \beta) \in \mathrm{PI}_{H}^{\phi}\).
+\end{proof}
+
+Let us now study a variant of~\cite[Lemma~2.9]{Bruguieres2007}.
+
+\begin{proposition}\label{prop: functors_as_morphisms_of_monads}
+  Let \(C, D \from \cat{M} \to \cat{M}\) be two comodule monads over a bimonad \(B \from \cat{C} \to \cat{C}\).
+  There is a bijective correspondence between morphisms of comodule monads \(f \from D \nt C\)
+  and strict module functors \(F \from \cat{M}^C \to \cat{M}^D\) with \(U^D F = U^C\).
+\end{proposition}
+\begin{proof}
+  As shown in~\cite[Lemma~1.7]{Bruguieres2007},
+  any functor \(F\from \cat{M}^C \to \cat{M}^D\) with \(U^D F = U^C\)
+  is induced by a unique  morphism of monads \(f \from D \to C\).
+  That is, \(F\) is the identity on morphisms and on objects it is defined by
+  \[
+    F(m, \nabla_m) = (m, \nabla_m f_m), \qquad \qquad \text{ for all } (m, \nabla_m) \in \cat{m}^C.
+  \]
+
+  It remains to show that \(f\) is a morphism of comodules
+  if and only if
+  \(F\) is a strict \(\cat{C}^B\)\hyp{}module functor.
+  Let \((m, \nabla_m)\in \cat{m}^C\) and \((x, \nabla_x) \in \cat{C}^B\).
+  We compute
+  \begin{align*}
+    F\big((m, \nabla_m) \ract (x, \nabla_x)\big)
+    &= (m \ract x,\ (\nabla_m \ract \nabla_x) \circ C_{\mathsf{a};m,x} \circ f_{m\ract x}), \\
+    F(m, \nabla_m) \ract  (x, \nabla_x)
+    &= (m \ract x,\ (\nabla_m \ract \nabla_x) \circ (f_m \ract Bx) \circ D_{\mathsf{a}; m, x}).
+  \end{align*}
+  According to~\cite[Lemma~1.4]{Bruguieres2007}, these modules coincide if and only if
+  \[
+    C_{\mathsf{a};m,x} \circ f_{m \ract x} = (f_m \ract Bx) \circ D_{\mathsf{a}; m, x},
+  \]
+  which is exactly the condition for \(f\) to be a comodule morphism.
+\end{proof}
+
+The above result implies the desired monadic version of \cref{thm: equiv_in_Hopf_setting}.
+
+\begin{theorem}\label{thm: equivalence_in_the_monad_setting}
+  Let \(\cat{C}\) be a rigid monoidal category,
+  and suppose that \(H \from \cat{C} \to \cat{C}\) is a Hopf monad
+  that admits a double \(D(H)\) and anti\hyp{}double \(Q(H)\).
+  The following statements are equivalent:
+  \begin{thmlist}[noitemsep]
+    \item\label{big-monadic-equiv-1} the monoidal unit \(1 \in \cat{C}\) lifts to a module over \(Q(H)\);
+    \item\label{big-monadic-equiv-2} there is an isomorphism of comodule monads \(D(H) \cong Q(H)\); and
+    \item\label{big-monadic-equiv-3} there is an isomorphism of monads \(Q(H) \cong D(H)\).
+  \end{thmlist}
+  Additionally, if \(\cat{C}\) is pivotal with pivotal structure \(\phi\),
+  any of the above statements hold if and only if \(H\) and \(\phi\) admit a pair in involution.
+\end{theorem}
+\begin{proof}\ref{big-monadic-equiv-1}\(\implies\)\ref{big-monadic-equiv-2}:
+  Suppose \(\omega \in \QCat*{\cat{C}^H}\) with \(U^{Q(H)}\omega = 1\).
+  As shown in \cref{eq: objs_as_mod_funs},
+  this induces a functor of module categories
+  \[
+    \omega \otimes \blank  \from \cat{C}^{D(H)} \to \cat{C}^{Q(H)}.
+  \]
+  Since \(U^{Q(H)}\omega = 1 \in \cat{C}\),
+  we can apply \cref{prop: functors_as_morphisms_of_monads},
+  and obtain that \(Q(H)\) and \(D(H)\) are isomorphic as comodule monads.
+
+  It immediately follows that~\ref{big-monadic-equiv-2} implies~\ref{big-monadic-equiv-3};
+  we proceed with~\ref{big-monadic-equiv-3}\(\implies\)\ref{big-monadic-equiv-1}:
+  consider an isomorphism of monads \(g \from Q(H) \nt D(H)\).
+  It gives rise to a functor \(G \from \cat{C}^{D(H)} \to \cat{C}^{Q(H)}\) that, on objects, is defined by
+  \[
+    G(m, \nabla_m) = (m, \nabla_m g_m), \qquad \qquad \text{ for all } (m, \nabla_m) \in \cat{C}^{D(H)}.
+  \]
+  We compose \(G\) with \(E^{Q(H)} \from \cat{C}^{Q(H)} \to \QCat*{\cat{C}^H}\)—%
+  the inverse of the comparison functor defined in Equation~\eqref{eq: inverse_comparison_functor}—%
+  and see that there exists an object
+  \[
+    1^{(Q)} \defeq E^{Q(H)}G(1) \in \QCat*{\cat{C}^H},
+  \]
+  whose underlying object is the unit of \(\cat{C}\).
+  Now let \((\cat{C}, \phi)\) be pivotal.
+  By \cref{lem: quasi_piv_vs_inv_ayds}, lifts of \(1\in \cat{C}\) to the dual of
+  the anti\hyp{}centre \(\QCat*{\cat{C}^H}\)
+  are in correspondence with quasi-pivotal structures
+  \((\beta, \rho_{\beta})\), where \(\beta \in \Char(H)\).
+  By \cref{prop: piis_are_qpiv}, such a quasi-pivotal structure exists if and only if
+  there exists a pair in involution for \(H\) and \(\phi\).
+\end{proof}
+
+As a corollary, we can determine whether a category is pivotal
+in terms of monad isomorphisms between the central and anti\hyp{}central monad.
+For a category \(\cat{C}\),
+recall \cref{def: central_bimonad} of its central Hopf monad,
+and \cref{def: anti_central_comodule_monad} of its anti\hyp{}central comodule monad.
+
+\begin{corollary}\label{cor: pivotal_from_central_anti_central}
+  Let \(\cat{C}\) be a rigid monoidal category.
+  If \(\cat{C}\) admits a central Hopf monad \(\mathfrak{D}(\cat{C})\)
+  and an anti\hyp{}central comodule monad \(\mathfrak{Q}(\cat{C})\),
+  then it is pivotal if and only if \(\mathfrak{D}(\cat{C}) \cong \mathfrak{Q}(\cat{C})\) as monads.
+\end{corollary}
+\begin{proof}
+  We consider the identity \(\Id_{\cat C} \from \cat C \to \cat C\) as a Hopf monad.
+  Its Drinfeld and anti\hyp{}Drinfeld double are
+  \(D(\Id_{\cat C}) = \mathfrak D(\cat C) \rtimes \Id_{\cat C}\)
+  and \(Q(\Id_{\cat C}) = \mathfrak Q(\cat C) \rtimes \Id_{\cat C}\).
+  From here it follows that \(D(\Id_{\cat C}) = \mathfrak D(\cat C)\),
+  and similarly \(Q(\Id_{\cat C}) = \mathfrak Q(\cat C)\).
+  The proof is concluded by \cref{thm: equivalence_in_the_monad_setting}.
+\end{proof}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../main"
+%%% TeX-command-extra-options: "-shell-escape -fmt=prec.fmt -file-line-error -synctex=1"
+%%% End:

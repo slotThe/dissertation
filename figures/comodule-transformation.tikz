@@ -1,0 +1,73 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (6) at (1.25, 1.75) {};
+		\node [style=none] (7) at (3.5, 1.75) {};
+		\node [style=none] (8) at (1.25, -1.75) {};
+		\node [style=none] (9) at (3.5, -1.75) {};
+		\node [style=none] (10) at (6.5, -2.5) {};
+		\node [style=none] (11) at (7.25, -1) {};
+		\node [style=none] (12) at (7.25, 2.5) {};
+		\node [style=none] (13) at (6.5, 1.25) {};
+		\node [style=none] (14) at (3.5, -0.5) {};
+		\node [style=none] (15) at (2, -1.75) {};
+		\node [style=none] (17) at (5.75, 1.23) {};
+		\node [style=none] (18) at (6.5, 2.5) {};
+		\node [style=none] (19) at (2, -2.05) {\tiny $G$};
+		\node [style=none] (20) at (6.5, 2.8) {\tiny $F$};
+		\node [style=none] (21) at (5.75, 1.55) {\tiny $C$};
+		\node [style=none] (24) at (0.25, 0) {$=$};
+		\node [style=none] (25) at (-6.75, 1.75) {};
+		\node [style=none] (26) at (-4.5, 1.75) {};
+		\node [style=none] (27) at (-6.75, -1.75) {};
+		\node [style=none] (28) at (-4.5, -1.75) {};
+		\node [style=none] (29) at (-1.5, -2.5) {};
+		\node [style=none] (30) at (-0.75, -1) {};
+		\node [style=none] (31) at (-0.75, 2.5) {};
+		\node [style=none] (32) at (-1.5, 1.25) {};
+		\node [style=none] (33) at (-4.5, -0.5) {};
+		\node [style=none] (34) at (-6, -1.75) {};
+		\node [style=none] (35) at (-2.25, 1.23) {};
+		\node [style=none] (36) at (-1.5, 2.5) {};
+		\node [style=none] (37) at (-6, -2.05) {\tiny $G$};
+		\node [style=none] (38) at (-1.5, 2.8) {\tiny $F$};
+		\node [style=none] (39) at (-2.25, 1.55) {\tiny $C$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=morphism-edge, in=270, out=15] (14.center) to node [style=blackdot, pos=0.6] {} (18.center);
+		\draw [in=180, out=30] (9.center) to (11.center);
+		\draw [style=Front] (13.center)
+			 to (10.center)
+			 to [in=315, out=180] (9.center)
+			 to (7.center)
+			 to [in=180, out=330] cycle;
+		\draw (7.center) to (6.center);
+		\draw (6.center) to (8.center);
+		\draw (8.center) to (9.center);
+		\draw [in=30, out=-180] (12.center) to (7.center);
+		\draw (12.center) to (11.center);
+		\draw (10.center) to (13.center);
+		\draw (9.center) to (7.center);
+		\draw [in=180, out=-45] (9.center) to (10.center);
+		\draw [in=330, out=180] (13.center) to (7.center);
+		\draw [style=blue, in=195, out=90] (15.center) to (14.center);
+		\draw [style=morphism-edge, in=270, out=15] (33.center) to (36.center);
+		\draw [in=180, out=30] (28.center) to (30.center);
+		\draw [style=Front] (32.center)
+			 to (29.center)
+			 to [in=315, out=180] (28.center)
+			 to (26.center)
+			 to [in=180, out=330] cycle;
+		\draw (26.center) to (25.center);
+		\draw (25.center) to (27.center);
+		\draw (27.center) to (28.center);
+		\draw [in=30, out=-180] (31.center) to (26.center);
+		\draw (31.center) to (30.center);
+		\draw (29.center) to (32.center);
+		\draw (28.center) to (26.center);
+		\draw [in=180, out=-45] (28.center) to (29.center);
+		\draw [in=330, out=180] (32.center) to (26.center);
+		\draw [style=blue, in=270, out=0] (33.center) to (35.center);
+		\draw [style=blue, in=270, out=0] (14.center) to node [style=bluedot, midway] {} (17.center);
+		\draw [style=blue, in=195, out=90] (34.center) to node [style=bluedot, midway] {} (33.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

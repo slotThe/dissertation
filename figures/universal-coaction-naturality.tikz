@@ -1,0 +1,55 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (3) at (-0.5, 0) {};
+		\node [style=none] (4) at (-0.5, 4) {};
+		\node [style=none] (5) at (2, 4) {};
+		\node [style=none] (6) at (2, 0) {};
+		\node [style=blackdot, color=black] (14) at (0.75, 2.5) {};
+		\node [style=box] (15) at (2, 1) {\scriptsize \(g\)};
+		\node [style=none] (16) at (3.5, 2) {\(=\)};
+		\node [style=none] (20) at (7.5, 4) {};
+		\node [style=none] (21) at (7.5, 0) {};
+		\node [style=none] (22) at (5, 0) {};
+		\node [style=none] (23) at (5, 4) {};
+		\node [style=blackdot, color=black] (29) at (6.25, 1.5) {};
+		\node [style=box] (30) at (5, 3) {\scriptsize \(Tg\)};
+		\node [style=box] (61) at (-0.5, 1) {\scriptsize \(f\)};
+		\node [style=box] (62) at (7.5, 3) {\scriptsize \(Z_Tf\)};
+		\node [style=none] (63) at (-0.5, -0.3) {\scriptsize$x$};
+		\node [style=none] (64) at (2, -0.3) {\scriptsize$y$};
+		\node [style=none] (65) at (5, -0.3) {\scriptsize$x$};
+		\node [style=none] (66) at (7.5, -0.3) {\scriptsize$y$};
+		\node [style=none] (67) at (-0.5, 4.45) {\scriptsize$T(y')$};
+		\node [style=none] (68) at (2, 4.45) {\scriptsize$Z_T(x')$};
+		\node [style=none] (69) at (5, 4.45) {\scriptsize$T(y')$};
+		\node [style=none] (71) at (7.5, 4.45) {\scriptsize$Z_T(x')$};
+		\node [style=none] (72) at (-2, 5.25) {};
+		\node [style=none] (73) at (9.25, 5.25) {};
+		\node [style=none] (74) at (-2, -1) {};
+		\node [style=none] (75) at (9.25, -1) {};
+		\node [style=none] (76) at (-2, -2.5) {};
+		\node [style=none] (77) at (9.25, -2.5) {};
+		\node [style=none] (78) at (3.5, -1.75) {\scriptsize$\chi_{x',y'} \circ (f \otimes g) = (Tg \otimes Z_Tf) \circ \chi_{x,y}$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=morphism-edge, in=270, out=30] (14) to (5.center);
+		\draw [style=morphism-edge, in=270, out=165] (14) to (4.center);
+		\draw [style=morphism-edge] (6.center) to (15);
+		\draw [style=morphism-edge, in=345, out=90] (15) to (14);
+		\draw [style=morphism-edge, in=90, out=-165] (29) to (22.center);
+		\draw [style=morphism-edge, in=90, out=-15] (29) to (21.center);
+		\draw [style=morphism-edge] (23.center) to (30);
+		\draw [style=morphism-edge, in=165, out=-90] (30) to (29);
+		\draw [style=morphism-edge] (3.center) to (61);
+		\draw [style=morphism-edge, in=195, out=90] (61) to (14);
+		\draw [style=morphism-edge, in=270, out=15] (29) to (62);
+		\draw [style=morphism-edge] (62) to (20.center);
+		\draw (75.center) to (73.center);
+		\draw (73.center) to (72.center);
+		\draw (72.center) to (74.center);
+		\draw (74.center) to (75.center);
+		\draw (77.center) to (75.center);
+		\draw (74.center) to (76.center);
+		\draw (76.center) to (77.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,39 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (1) at (-10, 2.25) {};
+		\node [style=none] (3) at (-10, 2.55) {\scriptsize$x$};
+		\node [style=none] (6) at (-9, 1) {};
+		\node [style=none] (7) at (-8, 1) {};
+		\node [style=none] (8) at (-10, 1) {};
+		\node [style=none] (9) at (-10, 0) {};
+		\node [style=none] (10) at (-9, 0) {};
+		\node [style=none] (12) at (-10, -1) {};
+		\node [style=none] (13) at (-9, -1) {};
+		\node [style=none] (14) at (-8, 0) {};
+		\node [style=none] (15) at (-8, -1) {};
+		\node [style=none] (17) at (-8, -2.25) {};
+		\node [style=none] (19) at (-8, -2.525) {\scriptsize$x$};
+		\node [style=none] (20) at (-9.25, 1.6) {\tiny$\beta$};
+		\node [style=none] (21) at (-7.75, 1.6) {\tiny$\ld{\!\beta}$};
+		\node [style=none] (22) at (-8.75, -1.6) {\tiny$\ld{\!\beta}$};
+		\node [style=none] (23) at (-10.25, -1.6) {\tiny$\beta$};
+		\node [style=none] (24) at (-6.75, 0) {$=$};
+		\node [style=none] (25) at (-5.5, -2.25) {};
+		\node [style=none] (26) at (-5.5, 2.25) {};
+		\node [style=none] (27) at (-5.5, -2.525) {\scriptsize$x$};
+		\node [style=none] (28) at (-5.5, 2.55) {\scriptsize$x$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=morphism-edge, in=90, out=-90] (6.center) to (9.center);
+		\draw [style=morphism-edge, in=90, out=90, looseness=2.00] (6.center) to (7.center);
+		\draw [style=braid-over, in=90, out=-90] (8.center) to (10.center);
+		\draw [style=morphism-edge] (12.center) to (9.center);
+		\draw [style=morphism-edge, in=-90, out=-90, looseness=2.00] (12.center) to (13.center);
+		\draw [style=morphism-edge, in=90, out=-90] (10.center) to (15.center);
+		\draw [style=morphism-edge] (14.center) to (7.center);
+		\draw [style=braid-over, in=-90, out=90] (13.center) to (14.center);
+		\draw [style=morphism-edge] (8.center) to (1.center);
+		\draw [style=morphism-edge] (15.center) to (17.center);
+		\draw [style=morphism-edge] (26.center) to (25.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

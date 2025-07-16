@@ -1,0 +1,31 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-0.5, 2) {};
+		\node [style=none] (1) at (0.75, 2) {};
+		\node [style=none] (2) at (-1.75, 2) {};
+		\node [style=none] (4) at (0.75, 2.375) {\scriptsize$F^H$};
+		\node [style=none] (5) at (-1.75, 2.375) {\scriptsize$U^H$};
+		\node [style=none] (6) at (-0.5, 2.375) {\scriptsize$L$};
+		\node [style=box] (7) at (-0.5, 0) {\tiny$\alpha$};
+		\node [style=none] (8) at (3.25, -2) {};
+		\node [style=none] (9) at (2, -2) {};
+		\node [style=none] (10) at (0.75, -2) {};
+		\node [style=none] (11) at (3.25, -2.375) {\scriptsize$F^H$};
+		\node [style=none] (12) at (0.75, -2.375) {\scriptsize$U^H$};
+		\node [style=none] (13) at (2, -2.375) {\scriptsize$B$};
+		\node [style=none] (14) at (-0.5, -2) {};
+		\node [style=none] (15) at (-1.75, -2) {};
+		\node [style=none] (16) at (-3, -2) {};
+		\node [style=none] (17) at (-0.5, -2.375) {\scriptsize$F^H$};
+		\node [style=none] (18) at (-3, -2.375) {\scriptsize$U^H$};
+		\node [style=none] (19) at (-1.75, -2.375) {\scriptsize$L$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=morphism-edge, in=90, out=90, looseness=2.00] (10.center) to (14.center);
+		\draw [style=morphism-edge, in=90, out=-90] (2.center) to (16.center);
+		\draw [style=morphism-edge, in=-90, out=90] (8.center) to (1.center);
+		\draw [style=morphism-edge, in=-90, out=90] (15.center) to (7);
+		\draw [style=morphism-edge, in=0, out=90] (9.center) to (7);
+		\draw [style=morphism-edge] (7) to (0.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

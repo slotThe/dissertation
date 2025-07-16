@@ -1,0 +1,1207 @@
+\textsc{A peculiarity of Hopf-cyclic cohomology} in the sense of Connes and Moscovici
+is the lack of ``canonical'' coefficients~\cite{Connes1999}.
+Originally, modular pairs in involution were considered~\cite{Connes2000}.
+These consist of a group-like element and a character
+of the Hopf algebra under consideration
+implementing the square of the antipode by their respective adjoint actions.
+Later, Hajac, Khalkhali, Rangipour, and Sommerhäuser obtained a more general source of coefficients
+in the category of anti\hyp{}\YetterDrinfeld{} modules,~\cite{Hajac2004a}.
+As mentioned in \cref{ex:ayd-def-as-modules-over-yd},
+anti\hyp{}\YetterDrinfeld{} modules do not form a monoidal category,
+but rather a module category over the \YetterDrinfeld{} modules.
+This is reflected by the fact that they can be identified with the modules over the anti\hyp{}Drinfeld double,
+a comodule algebra over the Drinfeld double,
+see \cref{rmk:anti-drinfeld-double}.
+The special role of pairs in involution is captured by the following theorem due to Hajac and Sommerhäuser.
+
+\begin{theorem}[{\cite[Theorem~3.4]{Halbig2019}}]\label{thm: equiv_in_Hopf_setting}
+  For a finite\hyp{}dimensional Hopf algebra \(H\), the following statements are equivalent:
+  \begin{thmlist}[noitemsep]
+    \item The Hopf algebra \(H\) admits a pair in involution.
+    \item There exists a one-dimensional anti\hyp{}\YetterDrinfeld{} module over \(H\).
+    \item The Drinfeld double and anti\hyp{}Drinfeld double of \(H\) are isomorphic algebras.
+  \end{thmlist}
+\end{theorem}
+
+Pairs in involution are of categorical interest because they give rise to pivotal structures on the \YetterDrinfeld{} modules.
+Using the theory of heaps,
+certain algebraic structures equipped with a ternary operation,
+we can lift the Picard group of a space into the Picard heap of a category.
+These can be seen as an analogue of the classical pairs in involution.
+Further abstracting the anti\hyp{}Yetter–Drinfeld modules into the anti\hyp{}centre,
+we can reformulate \cref{thm: equiv_in_Hopf_setting} in more categorical terms,
+emphasising the role of pivotal structures.
+
+\newpage% XXX Manual orphan prevention
+\begin{reptheorem}{thm: equivalence_in_the_rigid_setting}
+  \marginnote{\textnormal{%
+      In \cref{thm: equivalence_in_the_monad_setting}
+      we shall give a monadic interpretation of this result.%
+  }}
+  Let \(\cat{C}\) be a rigid category.
+  There is a bijection between
+  \begin{thmlist}[noitemsep]
+    \item equivalence classes of quasi-pivotal structures on \(\cat{C}\),
+    \item the Picard heap of the anti\hyp{}centre, and
+    \item isomorphism classes of equivalences of module categories between the centre and the anti\hyp{}centre.
+  \end{thmlist}
+\end{reptheorem}
+
+Further investigating the heap structure of the anti\hyp{}centre of \(\cat{C}\),
+we study the natural injective map \(\kappa \from \Pic \ACat{C} \to \Piv \cent{C}\),
+see \cref{thm: equiv_establishes_piv},
+first introduced by Shimizu~\cite{Shimizu2019:non-degeneracy}.
+By~\cite[Theorem~4.1]{shimizu23:pivot-drinf},
+this arrow is always bijective if \(\cat{C}\) is a finite tensor category.
+However, we show that this fails to be true in general,
+confirming a conjecture raised in the introduction of \emph{ibid}.
+
+\begin{reptheorem}{thm: non_induced_pivotal_structure}
+  There exists a pivotal structure on a category \(\cat{C}\)
+  that is not induced by any element of the Picard heap of the anti\hyp{}centre of \(\cat{C}\).
+  In other words,
+  the map \(\kappa \from \Pic \ACat{C} \to \Piv \cent{C}\) is not surjective.
+\end{reptheorem}
+
+\section{Heaps}\label{sec: heaps}
+
+\textsc{Heaps can be thought of} as groups without a fixed neutral element.
+They were first studied under the name \emph{Schar},~\cite{Pruefer1924,baer29:shar}.
+Recently, their homological properties were studied in~\cite{Elhamdadi2019},
+and a generalisation towards a ``quantum version'' is hinted at in~\cite{Skoda2007}.
+Heaps are equivalent to \emph{\(G\)\hyp{}torsors}%
+—nonempty sets with a freely transitive \(G\)\hyp{}action—%
+for a group \(G\), see for example~\cite{giraud71:cohom}.
+We follow Section 2 of~\cite{Brzezinski2020} for our exposition.
+
+\begin{definition}\label{def: heap}
+  A \emph{heap} is a set \(G\) together with a ternary operation
+  \[
+    \langle \blank , \bblank, \bbblank\rangle \from G\times G \times G \to G,
+  \]
+  which we call the \emph{heap operation},
+  satisfying a generalised associativity axiom and the \emph{\Malcev{} identities},
+  which we think of as unitality axioms:
+  \begin{align}
+    \langle g, h, \langle i,j,k\rangle \rangle &= \langle \langle g,h,i\rangle , j , k \rangle, &&\text{ for all } g,h, i ,j, k \in G,
+                                                   \label{eq: heap_ass_constraint} \\
+    \langle g, g, h \rangle &= h = \langle h, g, g \rangle, &&\text{ for all } g, h \in G.
+                                       \label{eq: heap_unit_constraint}
+  \end{align}
+\end{definition}
+
+There are two peculiarities we would like to point out.
+First, our definition does intentionally not exclude the empty set from being a heap.
+Second, due to a slightly different setup,
+an additional ``middle associativity axiom'' is required in~\cite{Hollings2017}.
+However, as noted in~\cite[Lemma~2.3]{Brzezinski2020}, this is implied by
+\cref{eq: heap_ass_constraint,eq: heap_unit_constraint}.
+
+\begin{definition}\label{def: morphism_of_heaps}
+  A map \(f \from G \to H\) between heaps is a \emph{morphism of heaps} if
+  \[
+    f \left( \langle g, h, i\rangle \right) = \langle f(g), f(h), f(i) \rangle, \qquad \qquad \text{ for all } g,h, i \in G.
+  \]
+\end{definition}
+
+The next lemma can be shown analogously to its group-theoretical version.
+
+\begin{lemma}\label{lem: isomorphisms_of_heaps}
+  A morphism of heaps is an isomorphism if and only if it is bijective.
+\end{lemma}
+
+By forgetting its unit, any group defines a heap,
+Conversely, any non-empty heap can be turned into a group
+by choosing a unit, see~\cite{Certaine1943}.
+
+\begin{lemma}\label{lem: groups_to_heaps}
+  Every group \((G, \cdot, e)\) is a heap via
+  \[
+    \langle \blank,\bblank,\bbblank \rangle \from G\times G \times G \to G, \qquad \qquad \langle g, h, i \rangle \defeq g \cdot h^{-1} \cdot i.
+  \]
+  A morphism of groups becomes a morphism of the induced heaps.
+\end{lemma}
+
+\begin{lemma}\label{lem: heaps_to_groups}
+  A non-empty heap \(G\) with a fixed element \(e \in G\) can be considered as a group with unit \(e\) via the multiplication
+  \[
+    \blank \cdot_e \bblank \from G \times G \to G, \qquad g \cdot_e h \defeq \langle g, e, h \rangle.
+  \]
+  The inverse of an element \(g \in G\) with respect to \(\cdot_e\) is given by \(g^{-1} \defeq \langle e, g, e \rangle\).
+  A morphism of heaps is a morphism of the induced groups, provided it maps the fixed element of its source to the fixed element of its target.
+\end{lemma}
+
+More generally, if \(\cat{G}\) is a groupoid and \(x, y \in \cat{G}\),
+then the set of morphisms \(\cat{G}(x, y)\) becomes a heap with heap operation given by
+\(\langle f, g, h \rangle \defeq f g^{-1} h\).
+The next example is a special case of this construction,
+which will play a prominent role in this chapter.
+
+\begin{example}\label{ex: heap_of_nat_isos}
+  Let \(F, G \from \cat C \to \cat C\) be oplax monoidal endofunctors. The set
+  \[
+    \Isospace_\otimes (F, G) \defeq \left\{\text{oplax monoidal natural isomorphisms from \(F\) to \(G\)} \right\}
+  \]
+  bears a heap structure with heap operation
+  \[
+    \langle \blank , \bblank , \bbblank \rangle \from {\Isospace_\otimes(F, G)}^3 \to \Isospace_\otimes (F, G),
+    \qquad \qquad
+    \langle \phi, \psi, \xi \rangle \defeq \phi \psi^{-1} \xi.
+  \]
+\end{example}
+
+\section{Pivotal structures and twisted centres}\label{sec: pivotality_of_the_df_centre}
+
+\subsection{Twisted centres and their Picard heaps}\label{subsec: twisted_centres}
+
+\textsc{Recall from \cref{ex:module-twisting} that we can twist the regular action}
+of a monoidal category on itself with strong monoidal functors.
+If \(\cat{C}\) is a rigid monoidal category,
+then we refer to the centre \(\ZCat[L]{C}[R]\) as a \emph{twisted centre},
+and to \(\ZCat{C}[R]\) and \(\ZCat[L]{C}\) as \emph{right} and \emph{left} twisted centres.
+
+\begin{remark}\label{rmk:twisted-centre-as-loop}
+  A natural description of twisted centres is obtained from the perspective of bicategories.
+  Given a monoidal category \(\cat{C}\),
+  let \(\mathbf{B}\cat{C}\) denote its \emph{delooping};
+  that is, \(\mathbf{B}\cat{C}\) is a bicategory with a single object \(\bullet\),
+  and \(\mathbf{B}\cat{C}(\bullet, \bullet) \simeq \cat{C}\).
+  In this setting, strong monoidal functors are identified with pseudofunctors between one-object bicategories,
+  and strong monoidal transformations correspond to pseudo-\textsc{icon}\(s\),
+  see for example~\cite[Proposition~4.6.9]{johnson-yau2021:TwoDimensionalCategories}.
+
+  Let \(\BiCat{Ps^{ps}}(\mathbf{B}\cat{C})\) be the bicategory of endopseudofunctors of \(\mathbf{B}\cat{C}\),
+  their pseudonatural transformations,
+  and modifications.
+  Then \(\BiCat{Ps^{ps}}(\mathbf{B}\cat{C})(L, R) \simeq \ZCat[L]{C}[R]\).
+  See~\cite[Proposition~3.6]{femić23:categ-yetter} for a proof of this fact.
+\end{remark}
+
+For the rest of this section, fix a strict rigid category \(\cat{C}\), see \cref{thm: rigid_strictification}.
+The forgetful functor from the centre of a twisted bimodule category to the underlying monoidal category is faithful,
+so we can use a variant of the graphical calculus for monoidal categories, as long as we pay special attention to the half-braidings.
+Whence, we introduce a colouring scheme to help us keep track of the various categories.
+
+\begin{thmlist}[noitemsep]
+  \item Red for objects in the right twisted centre \(\ZCat{C}[R]\),
+  \item blue for objects in the left twisted centre \(\ZCat[L]{C}\), and
+  \item black for objects in the Drinfeld centre \(\ZCat{C}\) or in \(\cat{C}\).
+\end{thmlist}
+For example, the half-braidings of objects \(a \in \ZCat{C}[R]\) and \(q \in \ZCat[L]{C}\) are:
+\[
+  \tikzfig{twisted-half-braidings}
+\]
+
+\begin{hypothesis}\label{conv: twisting_with_only_one_functor}
+  In the rest of this chapter, we are predominantly interested in twisting with the same strict monoidal functor from the left or right.
+  For the purpose of brevity, we therefore fix such a functor
+  \(L = R \from \cat{C} \to \cat{C}\) and consider the categories \({}_{L\!}{\cat{C}}\) and \({\cat{C}}_{R}\).
+\end{hypothesis}
+
+Suppose we are given three objects
+\[
+  (a, \sigma_{a, \blank}) \in \ZCat{C}[R],
+  \qquad\qquad
+  (q, \sigma_{q, \blank}) \in \ZCat[L]{C},
+  \qquad\text{and}\qquad
+  (x, \sigma_{x, \blank}) \in \ZCat C.
+\]
+
+\begin{proposition}\label{prop: Left_or_right_twisted_centre_is_mod_cat}
+  The tensor product of \(\cat{C}\) extends to
+  a left action of \(\ZCat{C}\) on \(\ZCat{C}[R]\)
+  and a right action of \(\cent{C}\) on \(\ZCat[L]{C}\).
+  The half-braidings are as defined in \cref{fig:gluing-of-half-brainings}.
+  \begin{figure}[htbp]
+    \centering
+    \tikzfig{gluing-of-half-brainings}
+    \scaption[-.6cm]{%
+      Canonical actions of \(\cent{C}\) on \(\cent[L]{\cat{C}}\) and \(\cent{\cat{C}}[R]\).%
+      \label{fig:gluing-of-half-brainings}%
+    }
+  \end{figure}
+\end{proposition}
+
+\begin{remark}\label{rem: right_vs_left_twisted_centres}
+  A direct computation proves the categories \(\ZCat*{\cat{C}^{\op, \tensorop}}[R]\) and \(\ZCat[R]{C}^{\op}\) to be equivalent.
+  Furthermore, this identification is compatible with the module structure:
+  for all \(x \in \ZCat*{\cat{C}^{\op, \tensorop}}\) and \(a \in \ZCat*{\cat{C}^{\op, \tensorop}}[R]\),
+  we have
+  \(x \mathbin{\otimes^{\op}} R(a) = R(a) \otimes x\)
+  and \(\sigma_{x \mathbin{\otimes^{\op}} a, \blank} = \sigma_{a \otimes x, \blank}\).
+  Hence, we restrict ourselves to the study of right twisted centres.
+\end{remark}
+
+Recall from \cref{prop: rigdity_of_centre} that, since \(\cat{C}\) is a rigid monoidal category,
+the centre \(\cent{C}\) is rigid as well.
+While the same cannot be said of the twisted centre,
+the left dual \(\ld{a}\) of any object \((a, \sigma_{a,\blank}) \in \ZCat{C}[R]\)
+can be turned into an object of \(\ZCat[R]{C}\) if we equip it with the half-braiding
+\[
+  \tikzfig{braiding-of-left-dual-twisted-centre}
+\]
+This suggests that, in analogy with \cref{prop: rigdity_of_centre},
+we may lift the dualising functor of \(\cat{C}\) to the  level of twisted centres by interchanging right with left twists.
+A more conceptual description is provided in~\cite[Proposition~3.15]{femić23:categ-yetter}.
+
+\begin{proposition}\label{prop: left_dualising_as_a_module_fun}
+  The left dualising functor \(\ld{\!(\blank)} \from \cat{C} \to \cat{C}^{\op, \tensorop}\) lifts to a functor between right and left twisted centres
+  \[
+    \ld{\!(\blank)} \from \ZCat{C}[R] \to \ZCat[R]{C}^{\op}.
+  \]
+\end{proposition}
+
+The half-braidings displayed in the right column of \cref{fig:gluing-of-half-brainings}
+show that every object \(a \in \ZCat{C}[R]\) gives rise to two functors of left \(\ZCat{C}\)\hyp{}modules:
+\begin{equation}\label{eq: objs_as_mod_funs}
+  \blank \otimes a \from \ZCat C \to \ZCat{C}[R]
+  \qquad \text{ and } \qquad
+  \blank \otimes \ld{a} \from \ZCat{C}[R] \to \ZCat C.
+\end{equation}
+
+Let \((a, \sigma_{a, \blank}) \in \ZCat{C}[R]\).
+In view of \cref{prop: left_dualising_as_a_module_fun},
+we use the following notation
+for the evaluation and coevaluation morphisms of twisted centres:
+\begin{equation}\label{eq: ev_and_coev_for_twisted_centres}
+  \tikzfig{ev-and-coev-for-twisted-centres}
+\end{equation}
+
+\begin{proposition}\label{prop: adjunction_twisted_centre}
+  Every object \(a \in \ZCat{C}[R]\) induces adjoint \(\cent{C}\)\hyp{}module functors
+  \begin{equation}\label{eq:adjunctioin-twisted-centre}
+    \adj{\blank \otimes a}{\blank \otimes \ld{a}}{\cent{C}}{\ZCat{C}[R]}.
+  \end{equation}
+\end{proposition}
+\begin{proof}
+  We know that for any object \((a, \sigma_{a,\blank}) \in \ZCat{C}[R]\),
+  \cref{eq:adjunctioin-twisted-centre}
+  is an ordinary adjunction,
+  whose unit \(\eta\) and counit \(\varepsilon\) are given by
+  \begin{align*}
+    \eta_y &\defeq \id_y \otimes \coev^{\ell}_a \from y \to y\otimes a \otimes \ld{a},&& \text{ for all } y \in \cent{C},\\
+    \varepsilon_x &\defeq \id_x \otimes \ev^{\ell}_a \from x \otimes \ld{a} \otimes a \to x,&& \text{ for all } x \in \cent{C}[R].
+  \end{align*}
+  The next diagram shows that \(\varepsilon_x\) is a morphism in \(\ZCat{C}[R]\) for every \(x \in \cent{C}[R]\):
+  \begin{equation}\label{eq:ev-induces-morph-of-mod-functors}
+    \tikzfig{ev-induces-morph-of-mod-functors}
+  \end{equation}
+  Furthermore, \(\varepsilon_{w \otimes x} = \id_w \otimes \varepsilon_x\) for all \(w \in \cent{C}\).
+  A similar argument shows that the unit of the adjunction is a natural transformation of module functors.
+\end{proof}
+
+Since the forgetful functor from the (twisted) centre to its underlying category is faithful,
+it is also conservative\note{%
+  A functor \(F \from \cat{C}\to \cat{D}\) is called \emph{conservative} if it reflects isomorphisms;
+  \ie, if for all \(f \in \cat{C}(x,y)\), the fact that \(Ff\) is an isomorphism implies that \(f\) is one.%
+},
+which allows us to characterise equivalences of module categories between \(\cent{C}\) and right twisted centres.
+
+\begin{remark}\label{rem:module-funs-have-adjoints}
+  Recall from \cref{prop:bicategorical-yoneda-correspondence-monads-and-algebras}
+  that for a monoidal category \(\cat{C}\) and a \(\cat{C}\)\hyp{}module category \(\cat{M}\),
+  there is an equivalence of \(\cat{C}\)\hyp{}module categories
+  \[
+    \mathsf{Str}\cat{C}\mathsf{Mod}(\cat{C}, \cat{M}) \iso \cat{M}, \qquad \qquad
+    F \mapsto F1, \qquad \qquad
+    \blank \lact m \longmapsfrom m.
+  \]
+  In particular, any functor of left module categories \(F\from \cent{C} \to \ZCat{C}[R]\) is naturally isomorphic to
+  \(\blank \otimes F1 \from \cent{C} \to \ZCat{C}[R]\).
+  By \cref{prop: rigidity_yields_adjoints}, \(F\) is an equivalence if and only if \(F1 \in \cat{C}\) is invertible,
+  and two left \(\cent{C}\)\hyp{}module functors \(F, G \from \ZCat{C} \to \ZCat{C}[R]\) are isomorphic if and only if \(F1 \cong G1\).
+\end{remark}
+
+\begin{definition}\label{def: C-invertible}
+  An object \((\alpha, \sigma_{\alpha, \blank}) \in \ZCat{C}[R]\) in is called \emph{\(\cat{C}\)\hyp{}invertible}
+  if the image \(U\alpha \in\cat{C}\) of \(\alpha\) under the forgetful functor \(U^{(R)}\from \ZCat{C}[R] \to\cat{C}\) is invertible.
+\end{definition}
+
+\begin{notation}
+  Let \((\alpha, \sigma_{(\alpha, \blank)}) \in \ZCat{C}[R]\) be  a \(\cat{C}\)\hyp{}invertible element.
+  Analogously to \cref{eq: ev_and_coev_for_twisted_centres},
+  we use the following notation for the inverses
+  \(\ev^{-\ell}\) and \(\coev^{-\ell}\) of \(\ev^{\ell}\) and \(\coev^{\ell}\),
+  respectively:
+  \[
+    \tikzfig{c-inv-object-inv-ev-coev}
+  \]
+\end{notation}
+
+The notion of heaps allows us to define an algebraic structure on the isomorphism classes of objects implementing module equivalences between the Drinfeld centre \(\ZCat C\) and its twisted relative \(\ZCat{C}[R]\).
+In analogy with the Picard group, we call this the Picard heap of a twisted centre.
+
+\begin{definition}\label{def:picard-heap}
+  The \emph{Picard heap} of the right twisted centre \(\ZCat{C}[R]\) is the set of isomorphism classes
+  \[
+    \Pic \ZCat{C}[R] \defeq
+    \big\{
+    [\alpha]
+    \;\big|\;
+    \alpha \in \ZCat{C}[R] \text{ is }\cat{C}\text{-invertible}
+    \big\}
+  \]
+  together with the heap operation defined for \([\alpha], [\beta], [\gamma] \in \Pic \ZCat{C}[R]\) by
+  \[
+    \left \langle [\alpha], [\beta] , [\gamma] \right \rangle = [\alpha \otimes \ld{\!\beta} \otimes \gamma] .
+  \]
+\end{definition}
+
+\newpage% XXX: Manual orphan prevention
+\begin{lemma}\label{lem: inv_twisted_form_heap}
+  The Picard heap defined in \cref{def:picard-heap} forms a heap.
+\end{lemma}
+\begin{proof}
+  The generalised associativity, see \cref{eq: heap_ass_constraint},
+  follows from the associativity of the tensor product of \(\cat{C}\) and its compatibility with the ``gluing'' of half-braidings.
+  To show that the \Malcev{} identities hold, fix \(\cat{C}\)\hyp{}invertible objects \(\alpha, \beta \in \ZCat{C}[R]\).
+  \Cref{prop: rigdity_of_centre} and \cref{eq:ev-induces-morph-of-mod-functors} imply that
+  \[
+    \alpha \otimes \ld{\alpha} \otimes \beta \trightarrow{{\coev^{\ell}_\alpha}^{-1}\otimes {\id_\beta}} \beta
+    \qquad
+    \text { and }
+    \qquad
+    \beta \otimes \ld{\alpha} \otimes \alpha \trightarrow{{\id_\beta} \otimes {\ev^{\ell}_\alpha}} \beta
+  \]
+  are isomorphisms in \(\ZCat{C}[R]\), hence
+  \(\left \langle [\alpha], [\alpha] , [\beta] \right \rangle = [\beta] = \left \langle [\beta], [\alpha] , [\alpha] \right \rangle\).
+\end{proof}
+
+In general, the twisted centre \(\ZCat{C}[R]\) does not inherit a monoidal structure from \(\cat{C}\).
+\Cref{lem: inv_twisted_form_heap}, however,
+hints towards a slight generalisation where the tensor product is replaced by a trivalent functor,
+essentially categorifying heaps (without the \Malcev{} identities).
+The well-definedness of this concept was hinted at in~\cite{Skoda2007} under the name of \emph{heapy categories}.
+
+\subsection{Quasi-pivotality}\label{subsec: quasi-pivotality}
+
+\textsc{A particularly interesting consequence of our previous findings} arises in the case of \(R \defeq \lbiDual{(\blank)}\);
+the centre of the regular bimodule twisted on the right by \(R\) can be understood as a generalisation of anti\hyp{}\YetterDrinfeld{} modules, see~\cite[Theorem~2.3]{Hassanzadeh2019}.
+As before, fix a strict rigid category \(\cat{C}\) and consider the twisted bimodules categories
+\({\cat{C}}_{\lbiDual{(\blank)}}\) and \({}_{\lbiDual{(\blank)}} {\cat{C}}\).
+
+\begin{notation}\label{not: twisted_centres_with_charge}
+  We write \(\ACat{C} \defeq \ZCat{C}[\lbiDual{(\blank)}]\)
+  and \(\QCat C \defeq \ZCat[\lbiDual{(\blank)}]{C}\),
+  and call the former the \emph{anti\hyp{}Drinfeld centre} of \(\cat{C}\).
+\end{notation}
+
+We have already mentioned the connection between the twisted centre \(\ACat{C}\) and anti\hyp{}\YetterDrinfeld{} modules over Hopf algebras given in~\cite{Hassanzadeh2019}.
+The case where \(\cat{C}\) is the category of modules over a Hopf algebroid was investigated by Kowalzig in~\cite{kowalzig24:centr}.
+The counterpart \(\QCat{C}\) of the generalised anti\hyp{}\YetterDrinfeld{} modules is less common in the literature,
+but plays a crucial role in the monadic investigations of \cref{sec:monadic-tannaka-reconstruction,sec:monad-twist-centr}.
+
+\begin{definition}[{\cite[Section 4]{shimizu23:pivot-drinf}}]\label{def: quasi_pivotal}
+  A \emph{quasi-pivotal structure} on a rigid monoidal category \(\cat{C}\)
+  is a pair \((\beta, \rho_{\beta})\) consisting of
+  an invertible object \(\beta \in \cat{C}\)
+  and a monoidal natural isomorphism
+  \[
+    \rho_\beta \from (\blank) \Iso \beta \otimes \lbiDual{\!(\blank)} \otimes \ld{\!\beta}.
+  \]
+
+  The tuple \((\cat{C}, (\beta, \rho_\beta))\) will be called a \emph{quasi-pivotal} category.
+\end{definition}
+
+If \(\cat{C}\) is the category of finite\hyp{}dimensional modules over a finite\hyp{}dimensional Hopf algebra,
+quasi-pivotal structures have a well-known interpretation—they translate to pairs in involution.
+This can be deduced from a slight variation of~\cite[Lemma~5.6]{Halbig2019},
+the main observation being that the invertible object \(\beta\) of a quasi-pivotal structure \((\beta, \rho_\beta)\) on \(\cat{C}\) corresponds to a character,
+and that \(\rho_{\beta}\) determines a group-like element.
+The fact that \(\rho_\beta\) is a natural transformation from the identity to a conjugate of the double dual functor
+is captured by the character and group-like implementing the square of the antipode.
+We study a monadic analogue of this in \cref{subsec: monadic_perspective_piv_structures}.
+
+\begin{remark}\label{rem: quasi_pivotal_vs_pivotal}
+  Every pivotal category is quasi-pivotal; the converse does not hold.
+  A counterexample are the finite\hyp{}dimensional modules over the generalised Taft algebras discussed in~\cite{Halbig2018}.
+  Any of these Hopf algebras admit pairs in involution but in general neither the character nor the group-like can be trivial.
+  The previous discussion and~\cite[Lemma~5.6]{Halbig2019} show that \(\rMod{H}\) is quasi-pivotal but not pivotal%
+  —in contrast to its Drinfeld centre \(\ZCat*{\rMod{H}}\),
+  which admits a pivotal structure by~\cite[Lemma~5.5]{Halbig2019}.
+\end{remark}
+
+Let \((\beta, \rho_\beta)\) be a quasi-pivotal structure on \(\cat{C}\) and \(\phi \from \beta' \to \beta\) an isomorphism in \(\cat{C}\).
+Clearly, the pair \((\beta',\,(\phi^{-1}\otimes \id \otimes \ld{\phi}) \circ \rho_\beta)\) is another quasi-pivotal structure on \(\cat{C}\).
+This defines an equivalence relation and we write
+\[
+  \QPiv (\cat{C}) \defeq \{\, [(\beta, \rho_\beta)] \mid (\beta, \rho_\beta) \text{ is a quasi-pivotal structure on } \cat{C} \,\}
+\]
+for the set of equivalence classes of quasi-pivotal structures on \(\cat{C}\).
+
+\begin{lemma}\label{lem: quasi_piv_vs_inv_ayds}
+  Let \(\cat{C}\) be a strict rigid category.
+  The Picard heap \(\Pic \ACat{C}\) and the set of equivalence classes of quasi-pivotal structures \(\QPiv (\cat{C})\) are in bijection.
+\end{lemma}
+\begin{proof}
+  Let \((\beta, \rho_\beta)\) be a quasi-pivotal structure on \(\cat{C}\).
+  Writing \(\ev^{-\ell}_{\beta} \defeq {(\ev^\ell_{\beta})}^{-1}\),
+  we define the half-braiding
+  \[
+    \tikzfig{half-braiding-via-qp}
+  \]
+  Then, as \(\rho_{\beta}\) is monoidal, \(\sigma_{\beta,x}\) satisfies the hexagon identity.
+  This defines
+  \[
+    \phi \from \QPiv (\cat{C}) \to \Pic \ACat C, \qquad
+    [(\beta, \rho_\beta)] \mapsto [(\beta, \sigma_{\beta, \blank})].
+  \]
+
+  Conversely, let \((\alpha, \sigma_{\alpha,\blank}) \in \ACat C\) be \(\cat{C}\)\hyp{}invertible.
+  From its half-braiding we obtain a monoidal natural transformation
+  \[
+    \tikzfig{quasi-pivot-from-braiding}
+  \]
+  Due to the snake identities, the following map is the inverse of \(\phi\):
+  \[
+    \psi \from \Pic \ACat C \to \QPiv (\cat{C}), \qquad
+    [(\alpha, \sigma_{\alpha, \blank})] \mapsto [(\alpha, \rho_\alpha)].\qedhere
+  \]
+\end{proof}
+
+\begin{theorem}\label{thm: equivalence_in_the_rigid_setting}
+  Let \(\cat{C}\) be a strict rigid category.
+  Then there is a bijection between
+  \begin{thmlist}[noitemsep]
+    \item\label{lbl:rigiv-equiv:qp} equivalence classes of quasi-pivotal structures on \(\cat{C}\),
+    \item\label{lbl:rigiv-equiv:ph} the Picard heap of \(\ACat{C}\), and
+    \item\label{lbl:rigiv-equiv:me} isomorphism classes of \(\ZCat{C}\)\hyp{}module equivalences between \(\ZCat{C}\) and \(\ACat{C}\).
+  \end{thmlist}
+\end{theorem}
+\begin{proof}
+  The equivalence of~\ref{lbl:rigiv-equiv:ph} and~\ref{lbl:rigiv-equiv:me} follows by \cref{rem:module-funs-have-adjoints},
+  and for~\ref{lbl:rigiv-equiv:qp} being equivalent to~\ref{lbl:rigiv-equiv:ph} we invoke \cref{lem: quasi_piv_vs_inv_ayds}.
+\end{proof}
+
+\subsection{Pivotality of the Drinfeld centre}\label{subsec: piv_of_centre}
+
+\textsc{In this section we shall examine the relationship} between pairs in involution and pivotal structures,
+see for example \cref{rem: quasi_pivotal_vs_pivotal}, from a categorical perspective.
+Let \(a \defeq (\alpha, \sigma_{\alpha, \blank}) \in \ACat{C}\) be \(\cat{C}\)\hyp{}invertible
+and write \(\Omega \defeq (\omega, \sigma_{\omega, \blank}) \in \QCat{C}\) for its left dual.
+\Cref{fig:unit-braiding-coev} collects some useful properties of the coevaluation of \(\alpha\)
+and its inverse \(\coev^{-\ell}_{\alpha}\).
+\begin{figure}[htbp]
+  \centering%
+  \tikzfig{unit-braiding-coev}\vspace{-\onelineskip}% XXX
+  \scaption[-.7cm]{%
+    Properties of \(\coev^{\ell}_{\alpha}\) and \(\coev^{-\ell}_{\alpha}\).%
+    \label{fig:unit-braiding-coev}%
+  }%
+\end{figure}%
+
+\begin{definition}\label{def:swirlyiso}
+  Let \(a \defeq (\alpha, \sigma_{\alpha, \blank}) \in \ACat{C}\) be a \(\cat{C}\)\hyp{}invertible element with left dual \(\Omega \defeq (\omega, \sigma_{\omega, \blank}) \in \QCat{C}\).
+  For any \(x \in \ZCat{C}\),
+  define the morphism \(\rho_{a,x}\) by
+  \[
+    \tikzfig{def-of-nat-iso}
+  \]
+\end{definition}
+
+As mentioned in \cref{rmk:twisted-centre-as-loop},
+objects in twisted centres correspond to pseudonatural transformations between deloopings of monoidal functors.
+The following lemma
+shows that if these objects are \(\cat{C}\)\hyp{}invertible, then
+one can reconstruct monoidal natural isomorphisms from them.
+
+\begin{lemma}[{\cite[Section 4.4]{shimizu23:pivot-drinf}}]\label{lem: pivotal_structure_from_entwinement}
+  For any \(\cat{C}\)\hyp{}invertible object \(a \in \ACat{C}\)
+  the map \(\rho_{a, \blank}\from (\blank) \nt \lld{\!(\blank)}\)
+  defines a pivotal structure on \(\ZCat{C}\).
+\end{lemma}
+\begin{proof}
+  Fix an object \(a \defeq (\alpha, \sigma_{\alpha, \blank}) \in \ACat{C}\),
+  such that \(\alpha\) is invertible in \(\cat{C}\), and write \(\Omega \defeq (\omega, \sigma_{\omega, \blank}) \in \QCat{C}\) for its left dual.
+  Furthermore, we assume \(x \in \ZCat{C}\) to be any object in the Drinfeld centre of \(\cat{C}\).
+  We note that for any \(y \in \cat{C}\) a variant of the \YangBaxter{} identity holds:
+  \[
+    \tikzfig{auxiliary-yb-identity}
+  \]
+  Combining this fact with \cref{fig:unit-braiding-coev},
+  one obtains that \(\rho_{a,x} \from x \to \lbiDual{x}\) is a morphism in the Drinfeld centre of \(\cat{C}\):
+  \[
+    \tikzfig{rho-is-morp-in-drin-centre}
+  \]
+  Since the forgetful functor \(U^{(Z)} \from \ZCat{C} \to \cat{C}\) is conservative
+  and \(\rho_{a, x}\) is a composite of isomorphisms in \(\cat{C}\),
+  it is an isomorphism in the centre \(\ZCat C\).
+
+  The naturality of the half-braidings implies that \(\rho_{a}\) is natural as well:
+  \[
+    \tikzfig{rho-a-is-nat}
+  \]
+
+  Lastly, the natural isomorphism \(\rho_a \from \Id_{\cent{C}} \to \lbiDual{(\blank)}\) being monoidal is established by the hexagon identities.
+  \[
+    \tikzfig{rho-a-is-monoidal}
+  \]
+\end{proof}
+
+Given different pivotal structures of \(\cent{C}\),
+induced by \(\cat{C}\)\hyp{}invertible objects in \(\ACat{C}\),
+it is a priori unclear whether they coincide.
+The following lemma is a first step in this direction.
+It shows that the induced pivotal structures only depend on the isomorphism classes of \(\cat{C}\)\hyp{}invertible objects in \(\ACat{C}\).
+
+\begin{lemma}\label{lem: pivotal_morphisms_depend_only_on_iso_class}
+  Suppose that \(a_1, a_2 \in \ACat{C}\) are two representatives of the equivalence class \([a_1] = [a_2] \in \Pic \ACat{C}\).
+  Then \(\rho_{a_1} = \rho_{a_2}\).
+\end{lemma}
+\begin{proof}
+  Suppose that there exists an isomorphism  \(\phi \from a_1 \to a_2\) in the anti\hyp{}Drinfeld centre.
+  Then by \cref{fig:lem:piv-morph-iso-classes}
+  the induced pivotal structures \(\rho_{a_1}\) and \(\rho_{a_2}\) are the same,
+  for any \(x \in \cent{C}\).
+  \begin{figure}[htbp]
+    \centering
+    \tikzfig{lem:piv-morph-iso-classes}\vspace{-\onelineskip}% XXX
+    \scaption[-1cm]{%
+      The induced pivotal structures of \(\rho_{a_1}\) and \(\rho_{a_2}\) coincide.%
+      \label{fig:lem:piv-morph-iso-classes}%
+    }
+  \end{figure}
+\end{proof}
+
+\begin{definition}\label{def: symmetric_object}
+  We call an object \(x \in \ZCat{C}\) \emph{symmetric} if we have
+  \[
+    \sigma_{x,y}^{-1} = \sigma_{y,x}^{\vphantom{-1}}, \qquad \qquad \text{for all } y \in \cent{C}.
+  \]
+
+  We call the full (symmetric) monoidal subcategory \(\SZCat{C}\) of \(\cent{C}\)
+  whose objects are symmetric the \emph{symmetric} or \emph{Müger centre} of \(\cent{C}\),
+  see~\cite{Mueger2013}.
+\end{definition}
+
+\begin{lemma}\label{lem: symmetric_centre_and_rigidity}
+  If \(\cat{C}\) is a rigid monoidal category, then \(\SZCat{C}\) is rigid monoidal.
+\end{lemma}
+\begin{proof}
+  Suppose \(x \in \cent{C}\) to be symmetric and let \(y \in \cent{C}\).
+  We compute
+  \[
+    \tikzfig{lem:sym-centre-and-rigid}
+  \]
+  This implies that \(\sigma_{\ld{x},y}^{-1} = \sigma_{y,\ld{x}}^{\vphantom{-1}}\).
+  Since the left dual of any \(x \in \SZCat{C} \subseteq \cent{C}\) can be equipped with the structure of a right dual and \(\SZCat{C}\) is a full subcategory of \(\cent{C}\),
+  it must be rigid.
+\end{proof}
+
+Let us now consider the Picard group \(\Pic \SZCat{C}\).
+It acts on \(\Pic \ACat{C}\) via tensoring from the left,
+as shown in \cref{fig:gluing-of-half-brainings}.
+Two elements \(a, c \in \Pic \ACat{C}\) are equivalent if they are contained in the same orbit;
+that is,
+\[
+  [a] \sim [c] \iff \text{ there exists a } [b] \in\Pic \SZCat{C} \text{ such that } [b \otimes a] = [c].
+\]
+
+To show that two objects are equivalent if and only if they induce the same pivotal structure on \(\cent{C}\),
+we need two technical observations.
+First, an alternate description of symmetric invertible objects;
+and second, a more detailed investigation into the inverse of an induced pivotal structure.
+
+\begin{lemma}\label{lem: alternative_char_of_sym_objs}
+  An invertible object \((\beta, \sigma_{\beta, \blank}) \in \cent{C}\) is symmetric
+  if and only if, for all \(x \in \cent{C}\), it satisfies
+  \begin{equation}\label{eq: alternative_char_of_sym_objs}
+    \tikzfig{alt-char-of-sym-objects}
+  \end{equation}
+\end{lemma}
+\begin{proof}
+  Let \(B = (\beta, \sigma_{\beta, \blank}) \in \cent{C}\) be invertible and \(x \in \cent{C}\).
+  The left-hand side of \cref{eq: alternative_char_of_sym_objs} can be rephrased as:
+  \[
+    \tikzfig{rephrase-of-sym-obj-entanglement}
+  \]
+
+  Define the morphism \(f \defeq \id_x \otimes \coev_\beta^{\ell} \from x \to x \otimes \beta \otimes \ld{\!\beta}\) and
+  observe that \cref{eq: alternative_char_of_sym_objs} is identical to
+  \[
+    f^{-1} \circ ({(\sigma_{\beta, x} \circ \sigma_{x, \beta})}^{-1} \otimes \id_{\ld{\!\beta}}) \circ f = \id_x.
+  \]
+  This is equivalent to \((\sigma_{\beta, x} \circ \sigma_{x, \beta}) \otimes \id_{\ld{\!\beta}} = \id_{x \otimes \beta} \otimes \id_{\ld{\!\beta}}\).
+  As the functor \(\blank \otimes \ld{\!\beta}\) is conservative, the claim follows.
+\end{proof}
+
+\begin{lemma}\label{lem: inverse_of_ind_piv_struc}
+  Let \(a \defeq (\alpha, \sigma_{\alpha,\blank}) \in \ACat{C}\) be \(\cat{C}\)\hyp{}invertible,
+  and write \(\Omega \defeq (\omega, \sigma_{\omega, \blank })\) for its dual in \(\QCat{C}\).
+  For any \(x \in \cent{C}\), the inverse of \(\rho_{a, x}\) is
+  \[
+    \tikzfig{inverse-of-ind-piv-structure}
+  \]
+\end{lemma}
+\begin{proof}
+  For \(x \in \cent{C}\),
+  the snake identities and a variant of \cref{fig:unit-braiding-coev} imply \cref{fig:diagram-inverse}.
+  Thus, for \(\Omega \defeq (\ld{\alpha}, \sigma_{\ld{\alpha}, \blank }) \in \cent{C}\),
+  we have \(\rho_{a,x} \circ \rho_{\Omega, x} = \id_x\).
+  \begin{figure}[htbp]
+    \centering
+    \tikzfig{diagram-inverse}\vspace{-.5cm}% XXX
+    \scaption[2cm]{%
+      Verification of \cref{lem: inverse_of_ind_piv_struc}.%
+      \label{fig:diagram-inverse}%
+    }
+  \end{figure}
+\end{proof}
+
+\begin{proposition}\label{prop:induced-piv-structure-depends-only-on-orbit}
+  Two elements \([a], [c] \in \Pic\ACat{C}\) induce the same pivotal structure on \(\cent{C}\)
+  if and only if there exists a \([b] \in \Pic\SZCat{C}\) such that \([b \otimes a] = [c]\).
+\end{proposition}
+\begin{proof}
+  Let \([a], [c] \in \Pic \ACat{C}\).
+  Suppose there exists a \([b] \in \Pic \SZCat C\) such that \([b \otimes a] = [c]\).
+  For any \(x\in \cent{C}\), we compute:
+  \begin{equation}\label{eq: seperating_entwinments_via_hex_ids}
+    \tikzfig{separating-entwinments-via-hex-ids}
+  \end{equation}
+
+  If conversely \(\rho_a = \rho_c\), we claim that \(c \otimes \ld{a}\) is symmetric.
+  By \cref{lem: alternative_char_of_sym_objs}
+  we have to show that for every \(x\in \cent{C}\) the ``entwinement'' \(\rho_{c \otimes \ld{a}}\) of \(c \otimes \ld{a}\) with \(x\) is the identity.
+  Indeed,
+  \[
+    \rho_{c \otimes \ld{a}, x}^{\vphantom{-1}}
+    = \rho_{\ld{a}, x}^{\vphantom{-1}} \circ \rho_{c, x}^{\vphantom{-1}}
+    = \rho_{a, x}^{-1} \circ \rho_{c, x}^{\vphantom{-1}}
+    = \id_x^{\vphantom{-1}}.
+  \]
+  For the first equality we used the hexagon identities as in \cref{eq: seperating_entwinments_via_hex_ids}
+  to separate \(\rho_{c \otimes \ld{a}, x}\) into two parts.
+  The second one follows from the description of the inverse of \(\rho_{a,x}\) given in \cref{lem: inverse_of_ind_piv_struc}.
+  Finally, since \(\id_{c}\otimes \ev_{a}^{\ell} \from c \otimes \ld{a} \otimes a \to c\) is an isomorphism in \(\ACat{C}\),
+  we have \([(c\otimes \ld{a}) \otimes a] = [c]\).
+\end{proof}
+
+The isomorphism classes of \(\cat{C}\)\hyp{}invertible objects in \(\ACat{C}\)
+are not just a set, but form the Picard heap \(\Pic \ACat{C}\).
+
+\begin{lemma}\label{lem: quotient_of_Pic_A_is_heap}
+  The canonical projection \(\pi \from \Pic \ACat{C} \to \Pic\ACat{C} / \Pic\SZCat{C}\) induces a heap structure on the set of equivalence classes \(\Pic\ACat{C} / \Pic\SZCat{C}\).
+\end{lemma}
+\begin{proof}
+  The claim follows from a general observation.
+  Let \(x \in \cent{C}\) and \(a \in \ACat{C}\).
+  The half-braiding \(\sigma_{x,a} \from x \otimes a \to a \otimes x\) is an isomorphism in \(\ACat{C}\):
+  \[
+    \tikzfig{half-braiding-iso-in-acat}
+  \]
+
+  Likewise, \(\sigma_{x, \ld{a}} \from x \otimes \ld{a} \to \ld{a} \otimes x\) is an isomorphism in \(\QCat{C}\).
+  For all \([a], [a'], [a''] \in \Pic \ACat{C}\)
+  and \([b], [b'], [b''] \in\Pic \SZCat{C}\),
+  one calculates
+  \begin{align*}
+    \pi & \left(\left\langle [a], [a'], [a''] \right\rangle \right)
+        = \pi \left( [a \otimes\ld{a'}\otimes a''] \right)
+        = \pi \left( [b \otimes \ld{b'} \otimes b'' \otimes a \otimes\ld{a'}\otimes a''] \right)\\
+      & = \pi \left( [b \otimes a \otimes \ld{(b' \otimes a')} \otimes b'' \otimes a''] \right)
+        = \pi \left(\left\langle [b \otimes a], [b' \otimes a'], [b'' \otimes a''] \right\rangle \right).
+        \qedhere
+  \end{align*}
+\end{proof}
+
+Recall that,
+by \cref{ex: heap_of_nat_isos},
+the pivotal structures on \(\ZCat{C}\) form a heap.
+Using \cref{def:swirlyiso}, we can relate this structure to that of the anti-centre.
+
+\begin{theorem}\label{thm: equiv_establishes_piv}
+  The morphism of heaps
+  \[
+    \kappa \from \Pic \ACat{C} \to \Piv \cent{C}, \qquad
+    [a] \mapsto \rho_a
+  \]
+  induces a unique injective heap morphism
+  \(\iota \from \Pic\ACat{C} / \Pic\SZCat{C} \to \Piv \cent{C}\),
+  such that the following diagram commutes:
+  \begin{equation}\label[diagram]{eq: induced_heap_morphism_condition_cd}
+    \begin{mytikzcd}[ampersand replacement=\&]
+      \Pic \ACat{C}
+      \arrow[dd, "\pi"', two heads]
+      \arrow[rr, "\kappa"]
+      \& \&
+      \Piv \cent{C} \\
+      \& \& \\
+      \Pic \ACat{C} /\Pic \SZCat{C}
+      \arrow[rruu, "\exists! \iota"', dashed, hook]
+      \& \&
+    \end{mytikzcd}
+  \end{equation}
+\end{theorem}
+\begin{proof}
+  \Cref{lem: pivotal_structure_from_entwinement,lem: pivotal_morphisms_depend_only_on_iso_class}
+  show that \(\kappa\) is well-defined.
+  Given three elements \([a], [b], [c] \in \Pic \ACat{C}\), we compute
+  \[
+    \kappa(\langle [a], [b], [c] \rangle )
+    = \rho_{a \otimes \ld{b} \otimes c}
+    = \rho_{a} \circ \rho_{\ld{b}} \rho_{c}
+    = \rho_{a} \circ \rho_{b}^{-1} \circ \rho_{c}
+    = \langle \rho_{a}, \rho_{b}^{-1}, \rho_{c}\rangle.
+  \]
+  The second equality follows from the hexagon identities as \cref{eq: seperating_entwinments_via_hex_ids},
+  and the third one by \cref{lem: inverse_of_ind_piv_struc}.
+
+  \Cref{prop:induced-piv-structure-depends-only-on-orbit} states that
+  for any two elements \([a], [b]\in \Pic \ACat{C}\)
+  we have \(\kappa([a]) =\kappa([b])\) if and only if \(\pi([a]) = \pi([b])\).
+  It follows from \cref{lem: quotient_of_Pic_A_is_heap} that the unique injective map
+  \(\iota \from \Pic\ACat{C} / \Pic\SZCat{C} \to \Piv \cent{C}\)
+  that lets \cref{eq: induced_heap_morphism_condition_cd} commute is a morphism of heaps.
+\end{proof}
+
+\begin{example}\label{ex: projection_modular_tensor_category}
+  By~\cite[Theorem~1.1]{Shimizu2019:non-degeneracy},
+  the Picard group \(\Pic \SZCat{C}\)
+  of the Müger centre of a finite tensor category \(\cat{C}\) over an algebraically closed field
+  is trivial.
+  In this setting, the induced pivotal structures depend only on the Picard heap \(\Pic \ACat{C}\)
+  and not on a quotient thereof.
+
+  On the other side of the spectrum, one might consider the discrete category \(\mathbf{E}G\) of an abelian group \(G\);
+  its set of objects is \(G\) and all morphisms are identities.\note{%
+    In analogy with the delooping \(\mathbf{B}G\) of \(G\),
+    the category \(\mathbf{E}G\) is also called the \emph{total space} of the group.%
+  }
+  The category \(\mathbf{E}G\) is rigid monoidal;
+  the tensor product given by the multiplication of \(G\)
+  and the left and right duals given by the respective inverses.
+  A direct computation shows that
+  \(\SZCat*{\mathbf{E}G} = \ZCat*{\mathbf{E}G} \cong \mathbf{E}G\).
+  Since \(\mathbf{E}G\) is skeletal
+  and every object is invertible, \(\Pic \SZCat*{\mathbf{E}G} \cong G\).
+  As the double dual and identity functor on \(\mathbf{E}G\) coincide,
+  the same argument implies that \(\Pic\ACat*{\mathbf{E}G} \cong G\),
+  whence it follows that \(\Pic\ACat*{\mathbf{E}G} / \Pic\SZCat*{\mathbf{E}G} \cong \{\,1\,\}\).
+\end{example}
+
+In good cases, all pivotal structures on the centre of \(\cat{C}\)
+are induced by the quasi-pivotal structures of \(\cat{C}\).
+
+\begin{proposition}[{\cite[Theorem~4.1]{shimizu23:pivot-drinf}}]
+  For a finite tensor category \(\cat{C}\),
+  the map
+  \[
+    \iota \from \faktor{\Pic\ACat{C}}{\Pic\SZCat{C}} \to \Piv\cent{C}
+  \]
+  is bijective.
+\end{proposition}
+
+However, in the introduction of~\cite{shimizu23:pivot-drinf}
+the author states that it is not to be expected that this holds true in general.
+In the remainder of this section, we will construct an explicit counterexample.
+
+Let us sketch our general approach:
+suppose there is an object \(x \in \cat{C}\)
+that can be endowed with two different half-braidings \(\sigma_{x, \blank}\) and \(\chi_{x, \blank}\).
+Assume furthermore that there is a pivotal structure \(\zeta \from \Id_{\cent{C}} \to \lbiDual{(\blank)}\) on \(\cent{C}\) such that \(\zeta_{(x,\sigma_{x,\blank})} \neq \zeta_{(x, \chi_{x, \blank})}\).
+If the unit of \(\cat{C}\) is the only invertible object,
+there is no (quasi-)pivotal structure inducing \(\zeta\) and therefore
+\(\iota\) cannot be surjective.
+\bigskip
+
+Let us define such a category \(\cat{C}\) in terms of generators and relations.
+Our approach is similar to \cref{sec:negative} and again follows~\cite[Chapter~\textsc{xii}]{Kassel1998}.
+Consider the free monoidal category \(\cat{C}^{\text{free}}\)
+generated by a single object \(x\).
+Their tensor product is given by \(x^n\otimes x^m \defeq x^{n+m}\).
+The morphisms of \(\cat{C}^{\text{free}}\) are identities on objects plus the set \(M\) of generating morphisms:
+\[
+  \tikzfig{generating-morphisms}
+\]
+
+\begin{remark}
+  By~\cite[Lemma~\textsc{xii}.1.2]{Kassel1998},
+  every morphism \(f \from x^n \to x^m\) in \(\cat{C}^{\text{free}}\) is either the identity or can be written as
+  \[
+    f = (\id_{x^{j_l}}\otimes f_l \otimes \id_{x^{i_l}})
+    \circ \dots \circ (\id_{x^{j_2}}\otimes f_2 \otimes \id_{x^{i_2}})
+    \circ (\id_{x^{j_1}}\otimes f_1 \otimes \id_{x^{i_1}}),
+  \]
+  where \(i_1,j_1, \dots, i_l,j_l \in \nat\) and \(f_1, \dots, f_l \in M\).
+  Such a presentation is not unique,
+  but the number \(l \in \nat\) of generating morphisms needed to write \(f\) in such a manner is.
+  We call it the \emph{degree} of \(f\) and write \(\deg(f) \defeq l\).
+\end{remark}
+
+\begin{definition}\label{def:thecthatwedefine}
+  The category \(\cat{C}\) is defined as the quotient of \(\cat{C}^{\text{free}}\) by the relations depicted below.
+  This turns \(\cat{C}\) into a pivotal (strict) rigid monoidal category,
+  and allows us to extend \(\sigma\) to a symmetric braiding.
+  To increase readability, we omit labelling the strings with \(x\).
+
+  \begin{equation}\label{eq:squares-are-ids-left-snake}
+    \tikzfig{squares-are-ids-left-snake}
+  \end{equation}
+  \begin{equation}\label{eq:everything-is-self-dual}
+    \tikzfig{everything-is-self-dual}
+  \end{equation}
+  \begin{equation}\label{eq:rho-is-nat}
+    \tikzfig{rho-is-nat}
+  \end{equation}
+\end{definition}
+
+By~\cite[Proposition~\textsc{xii}.1.4]{Kassel1998} there is a unique functor
+\(P \from \cat{C}^{\text{free}}\to \cat{C}\)
+that maps objects to themselves and the generating morphisms to their respective equivalence classes.
+
+\begin{definition}\label{def: degree of morphism}
+  Consider a morphism \(f \in \cat{C}(x^n, x^m)\).
+  A \emph{presentation} of \(f\) is a morphism \(g \in \cat{C}^{\text{free}}(x^n,y^n)\) such that \(f = Pg\).
+  If the degree of \(g\) is minimal amongst the presentations of \(f\), we call it a \emph{minimal presentation}.
+\end{definition}
+
+\begin{theorem}\label{thm: counterexample_underlying_cat_properties}
+  The category \(\cat{C}\) of \cref{def:thecthatwedefine}
+  is strict rigid and the double dual functor is the identity.
+  Further,
+  \(\id_x,\, \rho_x\from x \to x\) can be extended to pivotal structures,
+  and \(\sigma_{x,x}\from x^2 \to x^2\) may be extended to a symmetric braiding.
+\end{theorem}
+\begin{proof}
+  The evaluation and coevaluation morphisms plus their snake identities make \(x \in \cat{C}\),
+  and by extension every object of \(\cat{C}\),
+  its own left and right dual.
+  Using \cref{eq:everything-is-self-dual}, we compute
+  \begin{align*}
+    \ld{\rho_x} &= \rho_x = \rd{\rho_x}, \qquad \qquad \qquad \qquad &\ld{ \sigma_{x,x}} &= \sigma_{x,x} =\rd{\sigma_{x,x}},\\
+    \ld{\ev_x} &= \coev_x = \rd{\ev_x}, \qquad \qquad \qquad \qquad &\ld{\coev_x} &= \ev_x = \rd{\coev_x}.
+  \end{align*}
+  Hence, \(\cat{C}\) is strict rigid and its double dual functor is equal to the identity.
+
+  Our candidate for a non-trivial pivotal structure on \(\cat{C}\) is
+  \[
+    \rho \from \Id_\cat{C} \to \Id_\cat{C}, \qquad
+    \rho_{x^n} \defeq \rho_x \otimes \dots \otimes \rho_x \from x^n \to x^n , \text{ for } n \in \nat.
+  \]
+  By construction, this family of isomorphisms is compatible with the monoidal structure of \(\cat{C}\),
+  so we only have to prove naturality,
+  for which it suffices to check the generators.
+  \Cref{eq:rho-is-nat} implies that \(\rho_{x^2}\) commutes with \(\sigma_{x,x}\).
+  For the evaluation of \(x\in \cat{C}\) we use the dual of \cref{eq:everything-is-self-dual} to compute
+  \[
+    \ev_x \circ \rho_{x^2}
+    = \ev_x \circ (\rho_x \otimes \rho_x)
+    = \ev_x \circ (\ld{\rho_x} \otimes \rho_x)
+    = \ev_x \circ (\id_x \otimes \rho^2_x)
+    = \rho_1 \circ \ev_x.
+  \]
+  Applying the left dualising functor,
+  one obtains \(\coev_x \circ \rho_1 = \rho_{x^2} \circ \coev_x\),
+  whence \(\rho\) defines a pivotal structure.
+
+  Lastly, \(\sigma_{x,x}\) implements a symmetry \(\sigma \from \otimes \nt \otimes^{\op}\) on \(\cat{C}\).
+  Set
+  \[
+    \sigma_{x,x^m}\defeq (\id_x\otimes\sigma_{x, x^{m-1}}) \circ (\sigma_{x,x}\otimes \id_{x^{m-1}}), \quad\text{for } m \in \nat,
+  \]
+  and extend this to arbitrary objects by
+  \[
+    \sigma_{x^n,x^m}\defeq (\sigma_{x^{n-1,m}}\otimes \id_x) \circ (\id_{x^{n-1}}\otimes \sigma_{x,x^m}), \quad \text{for } n,m \in \nat.
+  \]
+  As this family of isomorphisms is constructed according to the hexagon axioms, we only have to prove its naturality.
+  Again, it suffices to consider the generating morphisms.
+  \Cref{eq:rho-is-nat} implies that \(\sigma\) is natural with respect to \(\rho_x\), \(\sigma_{x,x}\), and \(\coev_x\).
+  The self-duality of \(\sigma_{x,x}\) and \(\ld{\coev_x} = \ev_x\) imply the desired commutation between \(\sigma\) and \(\ev_x\).
+  Thus \(\sigma\) is a braiding on \(\cat{C}\), which is symmetric by \cref{eq:squares-are-ids-left-snake}.
+\end{proof}
+
+We think of a generic morphism of \(\cat{C}\) to be of the form
+\begin{equation}\label{eq: generic_morphism_of_cat_C}
+  \tikzfig{generic-morphism-of-cat-c}
+\end{equation}
+This diagram suggests a distinction between different kinds of morphisms:
+there are \emph{connectors}, which link an input to an output vertex,
+\emph{closed loops},
+and \emph{half-circles} of \emph{evaluation} and \emph{coevaluation-type}.
+Connectors induce a permutation on a subset of \(\nat\).
+For example, the permutation arising from \cref{eq: generic_morphism_of_cat_C}
+can be identified with \((1 \; 2)(3 \; 4)\).
+
+Conversely, let \(s \defeq t_{i_1} \dots t_{i_l}\in S_{n}\)
+\marginnote{%
+  As usual, \(S_n\) denotes the symmetric group on \(\{\, 1, 2, \dots, n \,\}\).%
+}
+be a permutation written as a product of elementary transpositions and set \(f_s \defeq f_{t_{i_1}}\dots f_{t_{i_l}} \from x^n \to x^n\),
+where
+\[
+  f_{t_i} \defeq \id_{x^{i-1}} \otimes \sigma_{x,x}\otimes \id_{x^{n-(i+1)}}\from x^n \to x^n, \qquad \text{for} \qquad  1\leq i \leq n-1.
+\]
+As the braiding \(\sigma\) is symmetric, \(f_s\) does not depend on the presentation of \(s\).
+If the presentation of \(s\) is minimal, however, so is the corresponding one of \(f_s\).
+
+To derive a normal form of the automorphisms of \(\cat{C}\) and turn our previously explained thoughts into precise mathematical statements,
+we need to study the ``topological'' features of the  morphisms in \(\cat{C}\).
+
+\begin{remark}\label{rem: category_of_tangles}
+  We recall the \emph{category of tangles} \(\cat{T}\),
+  a close relative to the string diagrams arising from \(\cat{C}\),
+  based on~\cite[Chapter~\textsc{xii}.2]{Kassel1998}.
+  Its objects are finite sequences in \(\{\, {+}, {-}\,\}\) and its morphisms are isotopy classes of oriented tangles.
+  A detailed discussion of tangles is given in~\cite[Definition~\textsc{x}.5.1]{Kassel1998}.
+  For us, it suffices to think of an oriented tangle \(L\) of type \((n,m)\) as
+  a finite disjoint union of embeddings of either the unit circle \(S^1\) or the interval \([0,1]\)
+  into \(\real^2 \times [0,1]\), such that
+  \[
+    \partial L = L \, \cap \left( \real^2 \times \{0,1\} \right) = \left([n] \times \left\{(0,0)\right\}\right) \cup \left([l]\times \left\{(0,1)\right\}\right),
+  \]
+  where \([n] = \{\, 1, \dots, n \,\}\) and \([l] = \{\, 1, \dots, l \,\}\).
+  The orientation on each of the connected components of \(L\)
+  is induced by the counter-clockwise orientation of \(S^1\) and the (ascending) orientation of \([0,1]\).
+  The tensor product of tangles is given by pasting them next to each other.
+  Their composition is implemented, by appropriate gluing and rescaling.
+\end{remark}
+
+To distinguish isotopy classes of tangles, one can study their images under the projection \(\real^2 \times [0,1] \sur \real \times [0,1]\).
+This leads to a combinatorial description of \(\cat{T}\), see for example~\cite[Theorem~\textsc{xii}.2.2]{Kassel1998}.
+
+\begin{proposition}\label{prop: presentation_tangle_category}
+  The strict monoidal category \(\cat{T}\) is  generated by the morphisms
+  \[
+    \tikzfig{tangle-generators}
+  \]
+  They are subject to the following relations:
+  \[
+    \tikzfig{tangle-relations1}
+  \]
+  \[
+    \tikzfig{tangle-relations2}
+  \]
+  \[
+    \mathscale{0.90}{\tikzfig{tangle-relations3}}
+  \]
+  \[
+    \mathscale{0.90}{\tikzfig{tangle-relations4}}
+  \]
+  \[
+    \tikzfig{tangle-relations5}
+  \]
+\end{proposition}
+
+The connection between tangles and the category \(\cat{C}\) is attained by applying~\cite[Proposition~\textsc{xii}.1.4]{Kassel1998}
+in a similar way as we did in \cref{lem:kassel-tangle-strong-mon-fun}.
+
+\begin{lemma}\label{lem: functor_tangles_to_C}
+  There exists a strict monoidal functor \(S \from \cat{T} \to \cat{C}\) that is uniquely determined by
+  \(S(+) = x = S(-)\) and
+  \[
+    S(\ev_{\pm}) = \ev_x,
+    \qquad  S(\coev_{\pm}) = \coev_x,
+    \qquad S(\tau^{\pm}_{{+},{+}}) = \sigma_{x,x}.
+  \]
+\end{lemma}
+
+We now want to lift the morphisms of \(\cat{C}\) to \(\cat{T}\).
+Hereto we want to ``trivialise'' the generator \(\rho_{x,x}\from x \to x\).
+Set \(\cat{C}/\langle \rho_x \rangle\) to be the category obtained from \(\cat{C}\) by identifying \(\rho_x\) with \(\id_x\).
+The projection functor \(\Pr\from \cat{C} \to\cat{C}/\langle \rho_x \rangle\)
+allows us to define an equivalence relation on the morphisms of \(\cat{C}\):
+\[
+  f \sim g \qquad \iff \qquad \Pr(f) = \Pr(g).
+\]
+
+For example the endomorphisms \(\bigcirc\from 1 \to 1\) and \(\bullet\!\!\bigcirc \from 1\to 1\) of the monoidal unit of \(\cat{C}\) would be equivalent with respect to this relation.
+
+\begin{proposition}\label{prop: unique_decomposition_of_automorphisms}
+  Every \(f \in \mathrm{Aut}_{\cat{C}}(x^n, x^n)\) can be uniquely written as \(f = f_s \circ f_\phi\),
+  where \(f_s \from x^n \to x^n\) is the automorphism induced by a permutation \(s \in S_n\) and
+  \(f_\phi = \rho_x^{\phi_1} \otimes \dots \otimes \rho_x^{\phi_n}\),
+  with \(\phi_1, \dots, \phi_n \in \integer_2\).
+  Furthermore, if a minimal presentation \(s \defeq t_{i_1}\dots t_{i_l}\) is fixed, the resulting presentation of \(f\) is minimal as well.
+\end{proposition}
+\begin{proof}
+  For any \(f \in \mathrm{Aut}_{\cat{C}}(x^n)\)
+  there exists another automorphism \(g \in \mathrm{Aut}_{\cat{C}}(x^n)\),
+  such that \(\Pr f = \Pr g\) and \(g\) has a presentation in which no copies of \(\rho\) occur.
+
+  By proceeding analogous to~\cite[Lemma~\textsc{x}.3.3]{Kassel1998},
+  we construct a tangle \(L_g\) out of \(g\) such that \(S(L_g)=g\),
+  and it is isotopic to a tangle \(L_g'\) whose images of its connected components under the projection \(\real^2\times [0,1] \to \real\times [0,1]\) are either closed loops, half-circles of evaluation or coevaluation-type, or straight lines.
+  Write \(L_n^{\text{triv}}\) for a tangle that projects to \(n\) parallel straight lines:
+  \[
+    \{\, (k,t) \mid t \in [0,1] \text{ and } k \in \{\,1, \dots, n\,\} \,\}.
+  \]
+  Since \(g\) is invertible by assumption,
+  we can lift its inverse \(g^{-1}\) to a tangle \(L_{g^{-1}}\)
+  with \([L_g] \circ [L_{g^{-1}}] = [L_n^{\text{triv}}] = [L_{g^{-1}}] \circ [L_g] \).
+  This equation implies that \(L_g'\) could not have contained any loops or half-circles.
+  In other words \(g = f_s\), where \(f_s\) is the morphism obtained from the permutation \(s \in S_n\),
+  induced by the projection of \(L_g'\) onto \(\real \times [0,1]\).
+  Due to the naturality of \(\sigma_{x,x}\),
+  the equivalence between \(f\) and \(g\) implies \(f = f_s \circ f_\phi\),
+  with \(f_\phi\) being a tensor product of identities and copies of \(\rho_x\).
+  Consequentially, a minimal representation of \(s\) induces a minimal representation of \(f\).
+\end{proof}
+
+The first step in showing that the \(\iota\) defined in \cref{thm: equiv_establishes_piv} cannot be surjective
+is to prove that the \(\Pic \ACat{C}\) contains at most two elements.
+
+\begin{corollary}\label{cor: piv_on_C}
+  The only quasi-pivotal structures on the category \(\cat{C}\) of \cref{def:thecthatwedefine} are
+  \(\id \from \Id_\cat{C} \to \Id_\cat{C}\)
+  and \(\rho\from \Id_\cat{C} \to \Id_\cat{C}\).
+\end{corollary}
+\begin{proof}
+  The only invertible object of \(\cat{C}\) is its monoidal unit,
+  which implies that any quasi-pivotal structure on \(\cat{C}\) is pivotal.
+  By \cref{prop: unique_decomposition_of_automorphisms},
+  these are determined by their value on \(x\) and
+  \(\mathrm{Aut}_{\cat{C}}(x) = \{\,\id_x, \rho_x\,\}\).
+\end{proof}
+
+Let us now focus on the various ways in which we can equip an object \(y \in \cat{C}\) with a half-braiding.
+Our classification of automorphisms in \(\cat{C}\) allows us to easily verify that  on \(x\in \cat{C}\) there are four different half-braidings,
+which are determined by
+\[
+  \tikzfig{half-braidings-on-x}
+\]
+
+The fact that these braidings are distinguished by the appearances of \(\rho\) on the respective strings
+motivates our next definition.
+
+\begin{definition}\label{def: characteristic_sequence}
+  Let \(f \defeq f_s f_\phi \from x^n \to x^n\) be an automorphism in \(\cat{C}\).
+  Its \emph{characteristic sequence} is
+  \(\phi \defeq (\phi_1, \dots, \phi_n) \in {\left( \integer_2 \right)}^n\) with
+  \[
+    f_\phi = \rho_x^{\phi_1}\otimes \dots \otimes \rho_x^{\phi_n}.
+  \]
+\end{definition}
+
+Indeed, it is the interplay between instances of \(\rho\) and the underlying permutation that determine whether an automorphism \(\chi_{y,x}\from y \otimes x \to x \otimes y\) can be lifted to a half-braiding.
+
+\begin{lemma}\label{lem: half-braidings_on_C}
+  Any automorphism \(\chi_{y, x} \from y \otimes x \to x \otimes y\) extends to a half-braiding on \(y\) if and only if
+  there exists an \(f \in \mathrm{Aut}_{\cat{C}}(y)\) with characteristic sequence \((\phi_1, \dots, \phi_n)\) and underlying permutation \(s \in S_n\),
+  such that
+  \(s^2(i) = i\) and \(\phi_{s(i)} = \phi_i\)
+  for all \(1 \leq i \leq n\),
+  and \(\chi_{y, x}= \sigma_{y,x}\circ (f\otimes \rho_x^j)\) for an integer \(j \in \integer_2\).
+\end{lemma}
+\begin{proof}
+  Assume \(\chi_{y, x} \from y \otimes x \to x \otimes y\)  to induce a half-braiding on \(y \defeq x^n\).
+  Due to \cref{prop: unique_decomposition_of_automorphisms},
+  we can write \(\chi_{y, x}= \sigma_{y,x} \circ (f \otimes \rho_x^j)\),
+  where \(f\from y \to y\) is an automorphism of \(y\) and \(j \in \integer_2\).
+  Let \(\phi = (\phi_1, \dots, \phi_n)\) be the characteristic sequence of \(f\) and \(s \in S_{n}\) its underlying permutation.
+  Write \(f_s\from y \to y\) for the morphism induced by \(s\) and set
+  \[
+    f_\phi = \rho_x^{\phi_1} \otimes \dots \otimes \rho_x^{\phi_n}, \qquad \qquad
+    f_{s^{-1}(\phi)} = \rho_x^{\phi_{s^{-1}(1)}} \otimes \dots \otimes \rho_x^{\phi_{s^{-1}(n)}}.
+  \]
+  Using that \(f= f_s \circ f_\phi\), the naturality of \(\chi_{y, \blank}\), and \cref{eq:everything-is-self-dual}, we compute
+  \[
+    \tikzfig{conditions-on-braiding}
+  \]
+  This is equivalent to \(s\) being an involution and \(\phi\) being invariant under \(s\).
+
+  Conversely, let \(\chi_{y, x}= \sigma_{y,x} \circ (f \otimes \rho_x^j) \from y \otimes x \to x \otimes y\),
+  where \(f\) is an automorphism satisfying the assumptions of the lemma.
+  We extend it to a family of automorphisms \(\chi_{y, \blank} \from y \otimes \blank \to \blank \otimes y\)
+  according to the hexagon axioms and verify its naturality on the generators of \(\cat{C}\).
+  For \(\rho_x\) and \(\sigma_{x,x}\) this is immediate consequence of their respective naturality conditions.
+  To prove the commutation relations between \(\chi_{y, \blank}\), \(\coev_x\), and \(\ev_x\),
+  argue as above.
+\end{proof}
+
+The previous lemma severely restricts the number of possibilities in which an automorphism of \(\cat{C}\) can lift to the centre \(\ZCat{C}\).
+
+\begin{corollary}\label{cor: criterion_lifting_automorphisms}
+  Consider an object \(x^n\in \cat{C}\) equipped with two half-braidings
+  \[
+    \chi_{x^n, x} = \sigma_{x^n,x} \circ ((f_s \circ f_\phi)\otimes \rho_x^j), \qquad \qquad
+    \theta_{x^n, x} =\sigma_{x^n,x} \circ ((f_t \circ f_\psi)\otimes \rho_x^k).
+  \]
+  If \(g= g_r \circ g_\lambda \in \mathrm{Aut}_{\cat{C}}(x^n)\) lifts to
+  a morphism \(g \from (x^n, \chi_{x^n, \blank}) \to (x^n, \theta_{x^n, \blank})\) of objects in the centre of \(\cat{C}\),
+  then
+  \[
+    \phi_{i}\circ\lambda_{sr(i)} = \psi_{r(i)}\circ\lambda_{r(i)} \qquad \qquad \text{ for all } 1 \leq i \leq n.
+  \]
+\end{corollary}
+\begin{proof}
+  For \(g = f_r \circ f_\lambda \in \mathrm{Aut}_{\cat{C}}(x^n)\) to lift to the centre it must satisfy
+  \begin{align*}
+    \sigma_{x^n,x} \circ ((f_s \circ f_\phi \circ g) \otimes \rho_x^j)
+    & = \chi_{x^n,x} \circ (g \otimes \id_x)
+      = (\id_x\otimes g) \circ \theta_{x^n, x} \\
+    & = \sigma_{x^n,x} \circ ((g \circ f_t \circ f_\psi)\otimes \rho_x^k).
+  \end{align*}
+  This implies that \(f_s \circ f_\phi \circ g = g \circ f_t \circ f_\psi\),
+  and therefore \(\phi_{s(i)} \circ \lambda_{sr(i)} = \lambda_{r(i)} \circ \psi_{rt(i)}\) for all \(1\leq i \leq n\).
+  Since \(\integer_2\) is abelian and \(\phi_{s(i)}= \phi_i\) as well as \(\psi_{t(i)}= \psi_{i}\), the claim follows.
+\end{proof}
+
+In view of \cref{lem: half-braidings_on_C},
+we state a refined version of \cref{def: characteristic_sequence}.
+
+\begin{definition}\label{def: characteristic_sequence_of_half_braiding.}
+  Consider an object \(y = (x^n, \chi_{x^n, x})\in \ZCat{C}\) whose half-braiding is defined by
+  \(\chi_{x^n, x}= \sigma_{x^n,x} \circ (f\otimes \rho_x^j)\) for an integer \(j \in \integer_2\).
+  We call the characteristic sequence \(\phi\) of \(f\) the \emph{signature} of \(y\).
+\end{definition}
+
+We now construct a pivotal structure on the centre of \(\cat{C}\)
+that differs from the lifts of \(\id\) and \(\rho\) from \(\cat{C}\) to \(\ZCat{C}\).
+
+\begin{theorem}\label{thm: additional_pivotal_structure}
+  The Drinfeld centre \(\ZCat{C}\) of \(\cat{C}\) admits a pivotal structure \(\zeta\) with
+  \[
+    \zeta_{(x, \sigma^{\circ, \circ}_{x,\blank})}= \id_x, \qquad
+    \zeta_{(x, \sigma^{\circ, \bullet}_{x,\blank})}= \id_x, \qquad
+    \zeta_{(x, \sigma^{\bullet, \circ}_{x,\blank})}= \rho_x, \qquad
+    \zeta_{(x, \sigma^{\bullet, \bullet}_{x,\blank})}= \rho_x.
+  \]
+\end{theorem}
+\begin{proof}
+  For any object \(y\in \ZCat{C}\), define
+  \[
+    \zeta_y = \rho_x^{\phi_1}\otimes\dots\otimes \rho_x^{\phi_n}, \qquad \text{where \(\phi=(\phi_1, \dots, \phi_n)\) is the signature of \(y\)}.
+  \]
+  Since the signature of a tensor product of objects in \(\ZCat{C}\) is given by concatenating the signatures of its components,
+  this defines a family of isomorphisms \(\zeta \from \Id_{\ZCat{C}} \to \Id_{\ZCat{C}}\)
+  that is compatible with the monoidal structure.
+
+  It remains to prove the naturality of \(\zeta\),
+  which can be verified by considering all possible lifts of identities and generators of \(\cat{C}\) to its Drinfeld centre.
+  For \(\id_x,\, \rho_x \from x \to x\) and \(\sigma_{x,x}\from x^2 \to x^2\), this follows from \cref{cor: criterion_lifting_automorphisms}.
+  To study the coevaluation of \(x\),
+  fix a half-braiding \(\chi_{x^2, \blank}\from x^2 \otimes \blank \to \blank \otimes x^2\) on \(x^2\).
+  Due to \cref{lem: half-braidings_on_C}, it is determined by
+  \[
+    \chi_{x^2, x} = \sigma_{x^2,x} \circ \big((\sigma_{x,x}^i \circ (\rho_x^j \otimes \rho_x^k)) \otimes \rho_x^l \big), \qquad \text{ where } i,j,k,l \in \integer_2.
+  \]
+  Now suppose \(\coev_x \from 1 \to x^2\) lifts to a morphism in \(\ZCat{C}\),
+  where \(x^2\) is equipped with this half-braiding.
+  \Cref{eq:everything-is-self-dual} and the self-duality of \(\sigma_{x,x}\) imply that
+  \(\sigma_{x,x} \circ \coev_x = \coev_x\) and \(\ev_x \circ \sigma_{x,x} = \ev_x\);
+  we compute
+  \[
+    \tikzfig{piv-str-nat}
+  \]
+  Therefore, \(j=k\) and \(\zeta_{(x^2, \chi_{x^2, \blank})} = \id_x^2\) or \(\zeta_{(x^2, \chi_{x^2, \blank})} = \rho_x^2\),
+  implying naturality.
+  A similar argument for the evaluation of \(x\) concludes the proof.
+\end{proof}
+
+By \cref{cor: piv_on_C}, the Picard heap of \(\ACat{C}\) can have at most two elements.
+However, the above theorem constructs a third pivotal structure on \(\ZCat{C}\);
+this implies our desired result.
+
+\begin{theorem}\label{thm: non_induced_pivotal_structure}
+  The pivotal structure \(\zeta\) of \(\ZCat{C}\) is not induced by the Picard heap of \(\ACat{C}\).
+  In particular, the map \(\iota \from \Pic \ACat{C} / \Pic \SZCat{C} \to \Piv \ZCat{C}\)
+  of \cref{thm: equiv_establishes_piv}
+  is not surjective.
+\end{theorem}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../main"
+%%% TeX-command-extra-options: "-shell-escape -fmt=prec.fmt -file-line-error -synctex=1"
+%%% End:

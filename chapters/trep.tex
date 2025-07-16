@@ -1,0 +1,1979 @@
+\textsc{The aim of this chapter is to compare}
+several notions of ``duality'' in monoidal categories.
+On the one hand, we have closedness,
+exemplifying the tensor–hom adjunction in the category of sets;
+on the other lies rigidity,
+generalising the duals of finite\hyp{}dimensional vector spaces.
+\GV{} duality~\cite{boyarchenko13:groth-verdier},
+also called \(*\)\hyp{}autonomy~\cite{barr79},
+describes a duality theory between the strict confinements of rigidity
+and the very general notion of monoidal closedness.
+Roughly speaking, Grothendieck–Verdier categories
+consist of a closed monoidal category and a chosen dualising object,
+such that the internal hom into this object induces an anti-equivalence of categories.
+While closed and rigid categories have left and right variants, \GV{} duality is an inherently ambidextrous concept.
+
+Our first goal is
+to more closely investigate the converse of \cref{prop: rigidity_yields_adjoints},
+see also \cref{rmk:trep-is-not-rigid-first-exposure}.
+That is, we study whether one can decide
+if a closed monoidal category is rigid
+solely by verifying that the internal hom is
+given by tensoring with an object.
+We thank Chris Heunen for suggesting this may not hold in general at the
+\href{https://conferences.leeds.ac.uk/bcqt2022/}{\textsc{bcqt}\oldstylenums{2022}} summer school.
+
+\begin{reptheorem}{thm:props-of-c}
+  There exists a non-rigid tensor representable category.
+\end{reptheorem}
+\marginnote{%
+  For the second inclusion
+  we assume that the natural transformations ``comparing'' the left and right-handed version of tensor representability are invertible,
+  see \cref{prop:trep-criteria,prop:right-tensor-rep->right-gv}.
+  For rigid categories this is always the case.%
+}
+In particular,
+taking
+\cref{thm:props-of-c},
+\cref{prop:right-tensor-rep->right-gv,ex:r-cat-not-always-trep},
+as well as \cref{prop:gv->closed,rmk:closed-but-not-gv}
+together yields a strict hierarchy:
+\[
+  \text{Rigid}
+  \subsetneq \text{Tensor representable}
+  \subsetneq \text{\GV}
+  \subsetneq \text{Closed}.
+\]
+
+We then investigate closed and \GV{} structures on functor categories endowed with Day convolution as its tensor product.
+Given a sufficiently nice base category, the functor category inherits these dualities.
+
+\begin{reptheorem}{prop:fun-cat-GV}
+  Let \(\cat{C}\) be a \(\Bbbk\)\hyp{}linear hom-finite Grothendieck–Verdier category.
+  If \cref{hypothesis:tens-repr-mack} holds%
+  —all relevant coends exist and are finite-dimensional vector spaces—%
+  then \([\cat{C}, \kvect]\) is a Grothendieck–Verdier category.
+\end{reptheorem}
+
+We furthermore investigate the duality properties of Cauchy completions.
+Since we are working with the functor category
+\([\cat{C}, \kvect]\) instead of the presheaves \([\cat{C}^{\op}, \kvect]\),
+we work with the Cauchy completion \(\overline{\cat{C}^{\op}}\) of \(\cat{C}^{\op}\),
+it being a subcategory of the free cocompletion \(\Cpsh = [\cat{C}, \kvect]\) of \(\cat{C}^{\op}\).
+Recall the definition of the Yoneda embedding from \cref{eq:yoneda-embedding}.
+
+\begin{reptheorem}{cor:pres-ref-dual-struct}
+  Let \(\cat{C}^{\op}\) be a \(\Bbbk\)\hyp{}linear right closed monoidal category.
+  \begin{thmlist}[noitemsep]
+    \item \(\cat{C}^{\op}\) is right rigid if and only if its Cauchy completion \(\overline{\cat{C}^{\op}}\) is.
+    \item \(\cat{C}^{\op}\) is right tensor representable if and only if \(\,\overline{\cat{C}^{\op}}\) is.
+    \item \((\cat{C}^{\op}, d)\) is a right \GV{} category if and only if \((\overline{\cat{C}^{\op}}, \yo_{d})\) is.
+  \end{thmlist}
+\end{reptheorem}
+
+The chapter concludes with an investigation of three examples of abelian closed monoidal functor categories.
+The first is finite Boolean algebras,
+which historically arose in the study of order theory and universal algebra;
+the connection to Grothendieck–Verdier duality was already noted in~\cite{barr79}.
+
+\begin{reptheorem}{prop:qf2-algebras-from-boolean}
+  The path algebra of a finite Boolean algebra is \textsc{qf}-2.%
+  \marginnote{\normalfont{See \cref{def:qf-2} for when an algebra is \textsc{qf}-2.}}
+\end{reptheorem}
+
+We subsequently study the category of finite-dimensional Mackey functors,
+objects abstracting and generalising the induction, restriction, and conjugation functors
+in classical representation theory~\cite{lindner76:mackey,thevenaz95:mackey,webb00:mackey}.
+
+\begin{reptheorem}{prop:mky-GV-and-rigid}
+  Let \(G\) be a finite group and suppose \(\Bbbk\) is a field.
+  The category \(\mkyfin_\Bbbk(G)\) is a \GV{} category,
+  and its rigid objects are precisely the finitely\hyp{}generated projective Mackey functors.
+  Furthermore, \(\mkyfin_{\Bbbk}(G)\) is rigid
+  if and only if the Mackey algebra \(\mathbb{M}G\) is semisimple,
+  which is equivalent to \(\mathrm{char}\,\Bbbk\) not dividing the order of \(G\).
+\end{reptheorem}
+
+Finally, we concern ourselves with strict 2-groups and their equivalent formulation as crossed modules~\cite{wagemann2021:CrossedModules}.
+These are related to \emph{\(r\)-categories},
+a special case of Grothendieck–Verdier duality
+in which the dualising object is isomorphic to the monoidal unit.
+
+\begin{reptheorem}{prop:2-groups-tensor-product}
+  Let \(G\) and \(H\) be finite groups, and suppose
+  Suppose that
+  \[
+    \big( G,\, H,\, t\from H \to G,\, \alpha \from G \to \mathrm{Aut}(H) \big)
+  \]
+  is a crossed module.
+  Let \(\cat{G}\) be its associated strict \(2\)\hyp{}group.
+  The category \(\mathsf{rep}_{\cat{G}}(\ker t)\)
+  of finite-dimensional representations of \(\,\ker t\)
+  is a right \(r\)\hyp{}category.
+\end{reptheorem}
+
+\section{Tensor representability}\label{sec:tensor-rep->gv}
+
+\begin{definition}\label{def:tensor-representable-endo-functors}
+  We call an endofunctor \(F\from \cat{C} \to\cat{C}\) of a monoidal category \emph{right tensor representable}
+  if there exists an \(x \in\cat{C}\) such that \(F \cong x \otimes \blank \).
+\end{definition}
+
+\Cref{prop: rigidity_yields_adjoints} states that the internal hom of a rigid monoidal category is tensor-re\-pre\-sent\-able at every object.
+From now on, for the sake of brevity, we will simply speak of ``(monoidal) tensor representable categories'' instead of ``closed monoidal categories with tensor representable internal homs''.
+As shown in \cref{lem:condition-closed->tensor-dual} below, this is equivalent to the following definition, which does not rely on closedness.
+
+\begin{definition}\label{def:tensor-representable}
+  A monoidal category \(\cat{C}\) is called \emph{right tensor representable}
+  if for all \(x \in \cat{C}\) there exists an object \(Rx \in\cat{C}\),
+  called the \emph{right tensor dual} of \(x\),
+  such that
+  \(x \otimes \blank \adjoint Rx \otimes \blank\).
+\end{definition}
+
+A monoidal category \(\cat{C}\) is called \emph{left tensor representable} if \(\cat{C}^{\tensorop}\) is right tensor representable.
+A left and right tensor repre\-sentable category will be referred to as \emph{tensor representable}.
+
+Tensor representable categories encompass all rigid monoidal categories.
+As such, some results in the theory of the latter carry over to the former.
+For example, the following result is well-known in the case of rigid monoidal abelian categories,
+see for example~\cite[Corollary~4.2.13]{Etingof2015}.
+
+\begin{lemma}\label{lem:projectivity-in-tr-cats}
+  All objects of an abelian monoidal right tensor representable category are projective
+  if and only if its unit is projective.
+\end{lemma}
+\begin{proof}
+  As the first claim implies the second, we only have to show its converse.
+  Fix an object \(x\) in an abelian right tensor representable category \(\cat{A}\).
+  There exists a chain of adjunctions
+  \[
+    x \otimes \blank \,\lad\, Rx \otimes \blank \,\lad\, R^2x \otimes \blank \,\lad\, \dots.
+  \]
+  Hence, the functor \(Rx \otimes \blank \from \cat{A} \to\cat{A}\) has left and right adjoints and is therefore exact.
+  Consequently, \(\cat{A}(x, \blank) \cong \cat{A}(1, Rx \otimes \blank)\) is—as a composite of exact functors—exact itself.
+\end{proof}
+
+While \cref{lem:transfer-of-rigidity} holds in the rigid case,
+it need not be true for tensor representable categories:
+given a strong monoidal functor \(F\),
+the image \(Fx\) of an object \(x\) admitting a (right) tensor dual may not have a (right) tensor dual itself.
+However, the property is preserved by monoidal equivalences.
+
+\begin{lemma}\label{lem:transfer-of-tensor-rep}
+  Let \(\cat{C}\) be a right tensor representable category,
+  and suppose that \(\cat{D}\) is monoidal.
+  Any strong monoidal adjoint equivalence
+  \(\adj{F}{F^{-1}}{\cat{C}}{\cat{D}}\)
+  equips \(\cat{D}\) with a right tensor representable structure.
+\end{lemma}
+\begin{proof}
+  For any \(x \in \cat{D}\), define \(Dx \defeq FRF^{-1}x \in\cat{D}\),
+  where \(RF^{-1}x\) is a right tensor dual of \(F^{-1}x\in\cat{C}\).
+  Then \(Dx \otimes \blank\) is right adjoint to \(x \otimes \blank\):
+  \begin{align*}
+    \cat{D}(x \otimes y, z)
+    & \cong \cat{C}(F^{-1}(x \otimes y), F^{-1}z)
+      \cong \cat{C}(F^{-1}x \otimes F^{-1}y, F^{-1}z) \\
+    & \cong \cat{C}(F^{-1}y, RF^{-1}x \otimes F^{-1}z)
+      \cong \cat{D}(FF^{-1}y, F(RF^{-1}x \otimes F^{-1}z)) \\
+    & \cong \cat{D}(y, FRF^{-1}x \otimes z)
+      = \cat{D}(y, Dx \otimes z).
+  \end{align*}
+  Thus, \(\cat{D}\) is right tensor representable.
+\end{proof}
+
+Just like in the rigid case,
+the relationship between closedness and tensor repre\-sentability is governed by a family of natural isomorphisms.
+
+\begin{lemma}\label{lem:condition-closed->tensor-dual}
+  A monoidal category \(\cat{C}\) is right tensor representable
+  if and only if
+  it is right closed monoidal and for all \(x \in\cat{C}\) there are isomorphisms
+  \begin{equation}\label{eq:closed->trep-merely-isos-required}
+    \varphi^{(x)}_y \from{[x,y]}_r \to {[x,1]}_r \otimes y \qquad \qquad \text{natural in } y \in\cat{C}.
+  \end{equation}
+\end{lemma}
+\begin{proof}
+  For every \(x \in \cat{C}\) in a right tensor representable category \(\cat{C}\),
+  by definition there exists an object \(Rx \in \cat{C}\) such that \(Rx\otimes \blank\) is right adjoint to \(x\otimes \blank\).
+  Hence, the category \(\cat{C}\) is right closed monoidal,
+  and the internal hom from \(x\in \cat{C}\) is given by \(Rx \otimes \blank\).
+  The claim follows by noticing that \cref{eq:closed->trep-merely-isos-required}
+  is now even the functorial equality  \(Rx \otimes \blank = Rx \otimes 1 \otimes \blank \).
+
+  Conversely, for all \(x \in \cat{C}\) there is
+  an isomorphism
+  \[
+    \cat{C}(y, {[x,z]}_r)
+    \cong \cat{C}(x\otimes y, z)
+    \cong \cat{C}(y, {[x,1]}_{r}\otimes z)
+  \]
+  natural in \(y,z \in \cat{C}\);
+  the result follows by the Yoneda lemma.
+\end{proof}
+
+\begin{definition}\label{def:tensor-dual-functors}
+  Assume \(\cat{C}\) to be a right tensor representable category.
+  By \cref{lem:condition-closed->tensor-dual}, it is right closed monoidal.
+  Then \(R \defeq {[\blank, 1]}_r \from \cat{C}^{\op} \to \cat{C}\) is called the \emph{right (tensor-)dualising functor} of \(\cat{C}\).
+  Analogously, \(L \defeq {[ \blank , 1]}_\ell\from \cat{D}^{\op} \to \cat{D}\) is the \emph{left (tensor-)dualising functor} of a left tensor representable category \(\cat{D}\).
+\end{definition}
+
+A right rigid monoidal category is simultaneously left rigid if and only if its right dualising functor is an equivalence of categories.
+This is more complicated in the tensor representable case.
+Assume \(\cat{C}\) to be of this type.
+Write \(R \from\cat{C}^{\op} \to\cat{C}\) and \(L \from\cat{C}^{\op} \to\cat{C}\) for the right and left tensor dualising functors, respectively.
+Set
+\begin{align*}
+  \eta^{(x)}_y &\from y \to Rx \otimes x \otimes y, & \varepsilon^{(x)}_y&\from x \otimes Rx \otimes y \to y ,\\
+  u^{(x)}_y & \from y \to y \otimes x \otimes Lx, & c^{(x)}_{y} &\from y \otimes Lx \otimes x \to y
+\end{align*}
+for the units and counits of the correspondig adjunctions.
+The left and right tensor dualising functors are related to each other by
+\begin{align}
+  x \xrightarrow{u^{(Rx)}_x} x \otimes Rx \otimes LRx \xrightarrow{\varepsilon^{(x)}_1 \otimes LRx}LRx, \label{eq:can-morph-unit} \\
+  x \xrightarrow{\eta^{(Lx)}_x} RLx \otimes Lx \otimes x \xrightarrow{RLx \otimes c^{(x)}_1}RLx. \label{eq:can-morph-counit}
+\end{align}
+
+\begin{proposition}\label{prop:trep-criteria}
+  The right dualising functor \(R\from\cat{C}^{\op} \to\cat{C}\)
+  of a tensor representable category \(\cat{C}\)
+  is right adjoint to \(L^{\op}\from\cat{C}\to\cat{C}^{\op}\).
+  Further, \(R\) is an equivalence if and only if
+  the canonical morphisms of \cref{eq:can-morph-unit,eq:can-morph-counit} are invertible.
+  In this case \(L^{\op}\) is a quasi-inverse of \(R\).
+\end{proposition}
+\begin{proof}
+  For any two objects \(x,y \in\cat{C}\), we have
+  \[
+    \cat{C}^{\op}(Lx, y) =  \cat{C}(y, Lx) \cong  \cat{C} (y \otimes x, 1) \cong  \cat{C}(x,  Ry).
+  \]
+  A direct computation shows that the unit and counit of this adjunction are given by the natural transformations
+  displayed in \cref{eq:can-morph-unit,eq:can-morph-counit}.
+  If these morphisms are invertible, \(R\) and \(L^{\op}\) are quasi-inverse to each other.
+
+  Conversely, assume \(R\) to be an equivalence of categories.
+  Since any equivalence can be bettered to an adjoint equivalence
+  and adjoints are unique up to unique natural isomorphism,
+  \(L^{\op}\) must be quasi-inverse to \(R\)
+  and the unit and counit morphisms of \cref{eq:can-morph-unit,eq:can-morph-counit} are invertible.
+\end{proof}
+
+\subsection{Grothendieck–Verdier duality}
+
+\textsc{We are going to loosely follow}
+the notation and terminology of~\cite{boyarchenko13:groth-verdier}.
+
+\begin{definition}\label{def:*-autonomous-drinfeld}
+  A \emph{(right) \GV{} category} consists of a pair \((\cat{C}, d)\) of a monoidal category \(\cat{C}\) and an
+  object \(d\in \cat{C}\),
+  such that for all \(x\in\cat{C}\) there exists a representing object \(D_r x \in \cat{C}\) for \(\cat{C}(x \otimes \blank, d)\);
+  \ie,
+  \begin{equation}\label{eq:*-aut-condition}
+    \cat{C}(x \otimes \blank ,d) \cong \cat{C}(\blank, D_{r} x),
+  \end{equation}
+  and the induced \emph{right dualising functor} \(D_r\from \cat{C}^{\op}\to\cat{C}\) is an equivalence of categories.
+  If \(d=1\) is the monoidal unit, one speaks of an \emph{\(r\)\hyp{}category}.
+\end{definition}
+
+Because \(D_r\) is an equivalence,
+one also obtains
+\begin{equation}\label{eq:gv-inverse-condition}
+  \cat{C}(x \otimes y, d) \cong \cat{C}(y, D_r x) \cong \cat{C}^{\op}(D^{-1}_{\ell}y, x) = \cat{C}(x, D_r^{-1} y),
+  \quad \text{for all } x, y \in \cat{C}.
+\end{equation}
+
+\begin{remark}\label{rmk:right-gv-vs-the-world}
+  In~\cite{boyarchenko13:groth-verdier}, the authors instead consider
+  a pair \((\cat{C}, d)\)
+  subject to the natural isomorphism \(\cat{C}(\blank \otimes y, d) \cong \cat{C}(\blank, D_{\ell} y)\),
+  such that the induced functor \(D_{\ell}\from \cat{C}^{\op} \to \cat{C}\) is an equivalence.
+  In our framework, we shall call this a \emph{left} \GV{} category structure on \(\cat{C}\),
+  with \emph{left} dualising functor \(D_{\ell}\).
+  \Cref{eq:*-aut-condition,eq:gv-inverse-condition} become
+  \begin{equation}\label{eq:left-gv-condition-and-inverse}
+    \cat{C}(x \otimes y, d) \cong \cat{C}(x, D_{\ell}y) \cong \cat{C}(y, D^{-1}_{\ell}x).
+  \end{equation}
+\end{remark}
+
+\begin{remark}\label{rmk:GV-is-symmetric}
+  Notice that the nomenclature of \cref{rmk:right-gv-vs-the-world} might be misleading at first sight.
+  Because the dualising functor of a \GV{} category is assumed to be an equivalence,
+  \GV{} structures are always two-sided.
+  In view of \cref{eq:gv-inverse-condition},
+  a right \GV{} category \((\cat{C}, d)\)
+  is also a left \GV{} category
+  with the same dualising object \(d\), as well as \(D_r^{-1} = D_{\ell}\).
+  Likewise, all left \GV{} categories are also right-sided.
+
+  For the sake of clarity and to denote the directional bias,
+  \GV{} structures will often nevertheless explicitly carry a prefix.
+  In particular, in \cref{sec:tensor-rep-functor-cats}
+  we consider the induced \GV{} structure of the category of copresheaves \(\Cpsh\) over a \GV{} base category \(\cat{C}\).
+  In this case, the \emph{left} dualising functor of \(\cat{C}\) naturally gives rise to a \emph{right} dualising functor for \(\Cpsh\);
+  see \cref{prop:fun-cat-GV}.
+\end{remark}
+
+The symmetric nature of \GV{} categories is in stark contrast to
+the one\hyp{}sidedness of rigidity and tensor representability.
+
+\begin{example}\label{ex:right-rigid-not-gv}
+  Consider a Hopf algebra \(H\) whose antipode is not invertible,
+  see~\cite{schauenburg2000:FaithfulFlatnessHopf}.
+  Its finite\hyp{}dimensional right comodules are a left-rigid category \(\rcomod{H}\) which,
+  as discussed in~\cite[Remark~2]{ulbrich1990:HopfAlgebrasRigid}, is not right rigid.
+  If \(\rcomod{H}\) was a \GV{} category, there would
+  as a consequence of \cref{rmk:gv-d-from-D}
+  exist a comodule \(M \in \rcomod{H}\),
+  such that \(\ld{\!(\blank)}\otimes M \from {(\rcomod{H})}^{\op}\to \rcomod{H}\) is an equivalence of categories.
+  This would imply that \(M\) is one-dimensional,
+  and therefore the left dualising functor \(\ld{\!(\blank)}\from \rcomod{H}^{\op}\to \rcomod{H}\) would be an equivalence—contradiction.
+\end{example}
+
+The following proposition, also discussed in~\cite[Section~2]{boyarchenko13:groth-verdier},
+is a direct consequence of \cref{eq:*-aut-condition,eq:gv-inverse-condition}.
+
+\begin{proposition}\label{prop:gv->closed}
+  Every (right) \GV{} category \((\cat{C}, d)\) is closed mon\-oidal;
+  for all \(x, y \in \cat{C}\), the left and right internal homs are given by
+  \begin{equation}\label{eq:gv->internal hom}
+    \begin{aligned}
+      {[x, y]}_{\ell} &\defeq D_r^{-1}(x \otimes D_r y) = D_{\ell}(x \otimes D_{\ell}^{-1} y), \\
+      {[x, y]}_r &\defeq D_r(D_r^{-1}y \otimes x) = D_{\ell}^{-1}(D_{\ell}y \otimes x).
+    \end{aligned}
+  \end{equation}
+\end{proposition}
+
+\begin{remark}\label{rmk:gv-d-from-D}
+  If \((\cat{C},d)\) is a \GV{} category,
+  one recovers its dualising object by
+  applying the dualising functor to the monoidal unit of \(\cat{C}\).
+  In fact, as shown in~\cite[Remark~2.1.(4)]{boyarchenko13:groth-verdier},
+  this relationship is bidirectional:
+  \begin{equation}\label{eq:gv:1:from:d:and:d:from:1}
+    D_r 1 \cong d, \quad
+    D_r d \cong 1, \quad
+    D_{\ell} 1 \cong d, \quad
+    D_{\ell} d \cong 1, \quad
+    D_r^2 1 \cong 1, \quad
+    D_{\ell}^2d \cong d.
+  \end{equation}
+
+  In combination with \cref{prop:gv->closed},
+  one obtains an explicit description of the dualising functors of \(\cat{C}\):
+  \begin{equation}\label{eq:gv-dualising-from-internal-hom-vice-versa}
+    D_r x \cong {[x, d]}_r \qquad \text{ and } \qquad
+    D_{\ell}x = D_r^{-1}x \cong {[x, d]}_{\ell}, \qquad \text{for all }x \in \cat{C}.
+  \end{equation}
+\end{remark}
+
+While \GV{} duality is an extra bit of structure on a monoidal category%
+—a priori making it quite distinct from the other dualities—%
+in practise it still behaves very similarly to how a property would,
+as the invertible objects govern the possible choices for dualising objects.
+
+\begin{lemma}[{\cite[Proposition~2.3]{boyarchenko13:groth-verdier}}]\label{lem:choices-of-dualising-objects}
+  Given a right \GV{} category \((\cat{C},d)\), there is an anti\hyp{}equiva\-lence between its full subcategories of invertible and dualising objects given by
+  \[
+    \mathrm{Inv}(\cat{C}) \to \mathrm{Dual}(\cat{C}), \qquad\alpha \mapsto \alpha^{-1}\otimes d.
+  \]
+\end{lemma}
+
+\begin{example}\label{rmk:closed-but-not-gv}
+  The category \((\mathsf{Set}, \times, \1)\) of sets
+  with its usual Cartesian monoidal structure is closed monoidal.
+  If some set \(X\) is invertible,
+  then it must be isomorphic to the terminal set \(\1\).
+  Thus, to deduce that there is no \GV{} structure on \(\Set\),
+  it is sufficient to see that the functor \(\mathsf{Set}(\blank, \1)\) is not an anti\hyp{}equivalence,
+  which follows by \(\1\) being terminal.
+\end{example}
+
+Let us now characterise the relationship between \GV{} and tensor representable categories.
+
+\begin{proposition}\label{prop:right-tensor-rep->right-gv}
+  Let \(\cat{C}\) be a tensor representable category.
+  Then the following statements are equivalent:
+  \begin{thmlist}[noitemsep]
+    \item\label{itm: dualising-functor-trep-invertible} the right dualising functor admits a quasi-inverse,
+    \item\label{itm: trep-is-r-cat} the category \(\cat{C}\) is an \(r\)\hyp{}category, and
+    \item\label{itm: trep-is-GV} the category \(\cat{C}\) is a Grothendieck–Verdier category.
+  \end{thmlist}
+\end{proposition}
+\begin{proof}
+  By definition we have that~\ref{itm: trep-is-r-cat}\(\implies\)\ref{itm: trep-is-GV},
+  and~\ref{itm: dualising-functor-trep-invertible}\(\implies\)\ref{itm: trep-is-r-cat} follows by \cref{def:tensor-dual-functors,rmk:gv-d-from-D}.
+
+  To prove~\ref{itm: trep-is-GV}\(\implies\)\ref{itm: trep-is-r-cat},
+  assume that \(\cat{C}\) is \GV{} with dualising object \(d\in \cat{C}\).
+  Write \(L, R \from \cat{C}^{\op} \to \cat{C}\) for its left and right tensor dualising functors and
+  \(D_r\from \cat{C}^{\op} \to \cat{C}\) for the dualising functor induced by \(d\in \cat{C}\).
+  Then
+  \begin{align*}
+    Rd \otimes d
+    \overset{\eqref{eq:closed->trep-merely-isos-required}}{\cong} {[d,d]}_r
+    & \overset{\eqref{eq:gv->internal hom}}{\cong} D_r(D_r^{-1} d \otimes d)
+      \overset{\eqref{eq:gv:1:from:d:and:d:from:1}}{\cong} D_r d
+      \overset{\eqref{eq:gv:1:from:d:and:d:from:1}}{\cong} 1,\\
+    d \otimes Ld
+    \overset{\eqref{eq:closed->trep-merely-isos-required}}{\cong} {[d,d]}_{\ell}
+    & \overset{\eqref{eq:gv->internal hom}}{\cong} D_r^{-1}(d \otimes D_r d)
+      \overset{\eqref{eq:gv:1:from:d:and:d:from:1}}{\cong} D_r^{-1} d
+      \overset{\eqref{eq:gv:1:from:d:and:d:from:1}}{\cong} 1,
+  \end{align*}
+  and therefore \(d \otimes Rd \cong d \otimes Rd \otimes d \otimes Ld \cong 1\).
+  In other words, \(d\) is invertible and \(1 \cong Rd\otimes d\) is another dualising object due to \cref{lem:choices-of-dualising-objects}.
+
+  To complete the proof notice that the right dualising functor of \(\cat{C}\) considered as an \(r\)\hyp{}category
+  coincides with its right tensor dualising functor.
+\end{proof}
+
+\begin{example}\label{ex:r-cat-not-always-trep}
+  The converse of \cref{prop:trep-criteria} is not true.
+  Let \(A\) be a commutative Frobenius algebra over a field \(\Bbbk\).
+  We write \(\lmod{A}^{\mathrm{f.g.}}\) for the category of finitely\hyp{}generated left \(A\)\hyp{}modules.
+  One can show, see for example~\cite[Sections~15 and~16]{Lam1999}, that for all \(M \in \lmod{A}^{\mathrm{f.g.}}\) the canonical morphism
+  \[
+    \phi_M \from M \to \rrd{M} = \Hom_A(\Hom_A(M,A),A) , \qquad \qquad \phi_M(x)\alpha = \alpha(x)
+  \]
+  is an isomorphism;
+  the module \(M\) is called \emph{reflexive}.
+
+  Put differently, \(\lmod{A}^{\mathrm{f.g.}}\) is an \(r\)\hyp{}category with
+  \[
+    \Hom_A(\blank,A) \from {(\lmod{A}^{\mathrm{f.g.}})}^{\op} \to \lmod{A}^{\mathrm{f.g.}}
+  \]
+  as dualising functor.
+  It is well-known that
+  for any \(A\)\hyp{}module \(M\)
+  there exists an \(A\)\hyp{}module \(N\)
+  such that \(M \otimes \blank \lad N \otimes \blank\) if and only if \(M\) is finitely\hyp{}generated projective;
+  see for example~\cite[Proposition~2.1]{niefield17:coexp}.
+  Thus, \(\lmod{A}^{\mathrm{f.g.}}\) is tensor representable if and only if
+  all (finitely\hyp{}generated) \(A\)\hyp{}modules are projective,
+  which is equivalent to \(A\) being semisimple.
+
+  However, not all commutative Frobenius algebras are semisimple.
+  For example, the group algebra \(\Bbbk[G]\) of a finite abelian group \(G\) is Frobenius.
+  By Maschke's theorem, it is semisimple if and only if the characteristic of \(\Bbbk\) does not divide the order of \(G\).
+\end{example}
+
+\begin{remark}
+  Let \(\cat{C}\) be a right tensor representable category whose dualising functor \(R \from\cat{C}^{\op} \to\cat{C}\) is an equivalence.
+  Following~\cite[Section~4]{boyarchenko13:groth-verdier},
+  for all \(x,y \in\cat{C}\) there exists a canonical isomorphism
+  \begin{align*}
+    \tau_{x,y}\from \cat{C}(y\otimes x\otimes Rx \otimes Ry, 1)
+    &\iso \cat{C}(Rx \otimes Ry, R(y \otimes x)) \\
+    &\iso \cat{C}^{\op}(y \otimes x, R^{-1}(Rx \otimes Ry)).
+  \end{align*}
+
+  As shown in~\cite[Lemma~4.1 and Remark~4.2]{boyarchenko13:groth-verdier},
+  the morphisms
+  \[
+    f \defeq \tau_{x,y}\big(\varepsilon^{(y)}_1 \circ (y \otimes \varepsilon^{(x)}_1 \otimes Ry)\big)\from R^{-1}(Rx \otimes Ry) \to y \otimes x
+  \]
+  \[
+    \mu_{x,y} \defeq Rf \from Rx \otimes Ry \to R(y \otimes x) = R(x \otimes^{\op} y)
+  \]
+  endow \(R\from\cat{C}^{\op,\tensorop} \to\cat{C}\) with the structure of a lax monoidal functor:
+  \begin{align*}
+    &\mu_{x, y \otimes^{\op} z} \circ (Rx \otimes \mu_{y,z}) = \mu_{x \otimes^{\op} y, z} \circ (\mu_{x,y}\otimes Rz), \\
+    &\mu_{1,x} \circ (R1 \otimes Rx) = \id_{Rx} = \mu_{x,1} \circ (Rx \otimes R1),
+      \qquad\text{for all \(x,y,z \in\cat{C}\)}.
+  \end{align*}
+\end{remark}
+
+In the situation of the above remark and
+as a consequence of~\cite[Proposition~4.4]{boyarchenko13:groth-verdier},
+we obtain the following characterisation of rigidity.
+
+\begin{proposition}\label{prop:GV-rigid-characterisation}
+  Let the dualising functor \(R \from\cat{C}^{\op, \tensorop} \to\cat{C}\) of a right tensor representable category be an equivalence.
+  Then \(\cat{C}\) is rigid if and only if the morphism
+  \(\mu_{x,y} \from R(\blank) \otimes R(\bblank) \nt R(\blank \otimes^{\op} \bblank)\) is an isomorphism,
+  making \(R\) strong monoidal.
+\end{proposition}
+
+\subsection{The free tensor representable category is not rigid}\label{sec:negative}
+
+\textsc{The aim of this section is} to concretise \cref{rmk:trep-is-not-rigid-first-exposure}.
+That is, we explicitly construct a ``free'' tensor representable category \(\cat{W}\) and show that it is not rigid;
+see \cref{thm:props-of-c}.
+Due to the reliance of the proof on some technical arguments,
+we will first provide an overview of the underlying strategy.
+
+As an intermediate step in the construction of \(\cat{W}\), we define a strict monoidal category \(\cat{V}\), which has the same generators as \(\cat{W}\) but less relations.
+In other words, \(\cat{W}\) itself will be a quotient of \(\cat{V}\).
+The category \(\cat{V}\) will have the property that all presentations of a given morphism have the same length.
+In order to show that \(\cat{W}\) is not rigid, we will fix an object \(t \in\cat{W}\) and assume it admits a rigid dual.
+In particular, \(t\) would have to admit evaluation and coevaluation morphisms \(\ev_t \from t \otimes \rd t \to 1\) and \( \coev_t \from  1 \to \rd{t} \otimes t\).
+By showing that any morphism in \(\cat{V}\) representing  the class
+\((\ev_t \otimes t) \circ (t \otimes \coev_{t}) \in \cat{W}(t,t)\) has to have length at least 2, we conclude that the snake identities cannot hold.
+Hence, \(\cat{W}\) is not rigid.
+
+We define the strict monoidal category \(\cat{V}\) in terms of generators and relations.
+For details of this type of construction we refer to~\cite[Chapter~\textsc{xii}]{Kassel1998}.
+
+The monoid of objects of the category \(\cat{V}\) is freely generated by the alphabet
+\(\{\, \dots, R^{-1}t,\, t,\, Rt, \dots \,\}\).
+That is, its elements are words of finite length whose letters are \(R^n t\) for some integer \(n \in\mathbb{Z}\).
+Write \(1\in\Ob(\cat{V})\) for the monoidal unit of \(\cat{V}\), given by the empty word.
+For an object \(w \defeq (R^{k_1}t, \dots, R^{k_n}t) \in \Ob(\cat{V})\), set \(Rw \defeq (R^{k_n+1}t, \dots, R^{k_1+1}t)\in \Ob(\cat{V})\).
+This assignment extends to a group action of the free abelian group \(\langle R \rangle \cong (\mathbb{Z},+)\) on \(\Ob(\cat{V})\).
+For any \(i \in\mathbb{Z}\), we write \(R^{i}w\) for the action of \(R^{i}\) on \(w \in \Ob(\cat{V})\).
+
+The morphisms of \(\cat{V}\) are tensor products and compositions of identities and the \emph{generating morphisms}.
+These are given for all \(x \neq 1, y \in \Ob(\cat{V})\) by
+\begin{align*}
+  \eta^{(x)}_{y}&\from y \to Rx \otimes x \otimes y,
+  & \varepsilon^{(x)}_{y} &\from x \otimes Rx \otimes y\to y,\\
+  u^{(x)}_{y} &\from y \to y \otimes x \otimes R^{-1}x,
+  & c^{(x)}_{y} &\from y\otimes R^{-1}x \otimes x \to y.
+\end{align*}
+These relations are tailored to implement natural transformations
+\begin{align*}
+  \eta^{(x)} &\from \Id_{\cat{V}} \nt Rx \otimes x \otimes \blank, &
+  \varepsilon^{(x)} &\from x \otimes Rx \otimes \blank \nt \Id_{\cat{V}}, \\
+  u^{(x)} &\from \Id_{\cat{V}} \nt \blank \otimes x \otimes R^{-1}x, &
+  c^{(x)} & \from \blank \otimes R^{-1}x \otimes x \nt \Id_{\cat{V}}.
+\end{align*}
+Explicitly,
+for any generating morphism \(g \from c\to d\),
+any \(y = a \otimes c \otimes b\), \(z= a \otimes d \otimes b\),
+any arrow \(f = (\id_a \otimes g \otimes \id_b) \from y\to z\),
+and all \(x \in \Ob(\cat{V}) \setminus \{1\}\),
+we require the following conditions to hold:
+\begin{align*}
+  \eta^{(x)}_{z} \circ f &= (Rx \otimes x \otimes f) \circ \eta^{(x)}_{y},
+  & \varepsilon^{(x)}_{z} \circ (x \otimes Rx \otimes f) &= f \circ \varepsilon^{(x)}_{y},\\
+  u^{(x)}_{z} \circ f &= (f \otimes x \otimes R^{-1}x) \circ u^{(x)}_{y},
+  & c^{(x)}_{z} \circ (f \otimes R^{-1} x\otimes x) &= f \circ c^{(x)}_{y}.
+\end{align*}
+
+We obtain the tensor representable category \(\cat{W}\)
+by quotienting out the triangle identities.\note{%
+  The category is obtained by \emph{monoidal localisation}, see~\cite{day73:note}.%
+}
+Explained in more detail, the strict monoidal category \(\cat{W}\) has the same objects and generating morphisms as \(\cat{V}\),
+and the same identities hold.
+In addition, for any \(x,y \in \Ob(\cat{W})\) with \(x \neq 1\), we require
+\begin{equation}\label{eq:defining-relations-of-c}
+  \begin{aligned}
+    \varepsilon^{(x)}_{x \otimes y} \circ (x \otimes \eta^{(x)}_y) &= \id_x, &
+    (Rx \otimes \varepsilon^{(x)}_{y}) \circ \eta^{(x)}_{Rx \otimes y} &= \id_{Rx},\\
+    c^{(x)}_{y\otimes x} \circ (u^{(x)}_{y} \otimes x) &= \id_{x}, &
+    (c^{(x)}_{y} \otimes R^{-1}x) \circ u^{(x)}_{y \otimes R^{-1}x}&= \id_{R^{-1}x},\\
+    (\varepsilon^{(x)}_1 \otimes x) \circ u^{(Rx)}_{x} &= \id_x, &
+    (x \otimes c^{(x)}_1) \circ \eta^{(R^{-1}x)}_{x} &= \id_x.
+  \end{aligned}
+\end{equation}
+
+The next result succinctly summarises the observations made so far concerning the internal hom of \(\cat{W}\).
+
+\begin{lemma}\label{lemma:free-trep-cat}
+  The category \(\cat{W}\) is tensor representable.
+  Furthermore, its right dualising functor \(R\from \cat{W}^{\op}\to\cat{W}\) is an equivalence of categories.
+\end{lemma}
+\begin{proof}
+  By construction, we have \(x \otimes \blank \lad Rx \otimes \blank\) and \(\blank \otimes x \lad \blank \otimes R^{-1}x\) for all \(x \in\cat{W}\).
+  Thus, \(\cat{W}\) is tensor representable.
+  \Cref{eq:defining-relations-of-c,prop:trep-criteria}
+  imply that \(R \from\cat{W}^{\op} \to\cat{W}\) and \(R^{-1} \from\cat{W}^{\op} \to\cat{W}\) are quasi-inverses.
+\end{proof}
+
+To analyse the morphisms in \(\cat{W}\) and show that it is not rigid monoidal, we will rely on two tools.
+The first is the \emph{length} of an arrow \(f\in \cat{W}(x,y)\).
+It is defined as the minimal number of generating morphisms needed to present \(f\).
+The second tool will be given by invariants for morphisms in \(\cat{W}\) arising from functors into the rigid monoidal category \(\kvect\) of finite\hyp{}dimensional vector spaces over a field \(\Bbbk\).
+We will write \(\rd*{(\blank)} \from \kvect^{\op} \to \kvect\) for the right rigid dualising functor of \(\kvect\).
+The \(n\)\hyp{}fold dual of a finite\hyp{}dimensional vector space \(V\) will be denoted by \(V^{(n)}\).
+
+\begin{lemma}\label{lem:kassel-tangle-strong-mon-fun}
+  For all \(V\in\kvect\) there is a strong monoidal functor \(F_V \from\cat{W} \to \kvect\) satisfying
+  \(F_V(R^{n}t) \cong V^{(n)}\) for all \(n \in \mathbb{Z}\) and
+  \begin{align*}
+    F_{V}(\eta^{(x)}_{y}) &= \coev^r_{F_{V}x} \otimes F_{V}y,
+    & F_{V}(\varepsilon^{(x)}_{y}) &=\ev^r_{F_{V}x}\otimes F_{V}y,\\
+    F_{V}(u^{(x)}_{y}) &= F_{V}y \otimes \coev^{\ell}_{F_{V}x},
+    & F_{V}(c^{(x)}_{y}) &= F_{V}y \otimes \ev^{\ell}_{F_{V}x},
+  \end{align*}
+  for suitably chosen evaluation and coevaluation morphisms.
+\end{lemma}
+\begin{proof}
+  \Cref{thm: rigid_strictification} yields a monoidal equivalence \(\adj{G}{H}{\kvect}{\cat{A}}\)
+  between the category of finite\hyp{}dimensional vector spaces and a rigid monoidal category \(\cat{A}\)
+  whose dualising functors \(D_{\ell}, D_r \from \cat{A}^{\op}\to \cat{A}\) satisfy
+  \(D_{\ell}D_r^{\op}=\Id_{\cat{A}}=D_r^{\op}D_{\ell}\).
+  Fix a quasi-inverse \(H \from \cat{A} \to \kvect\) and choose an object \(v\in \cat{A}\) with \(H(v) \cong V\), for some \(V \in \kvect\).
+  A direct computation using the universal property of \(\cat{W}\), see for example~\cite[Proposition~\textsc{xii}.1.4]{Kassel1998}, shows that
+  for any object \(v\in \cat{A}\) there is a unique strict monoidal functor \(F'_{v}\from \cat{W}\to \cat{A}\) such that \(F'_{v}(t)=v\) and for all \(x,y\in \cat{W}\), \(x\neq 1\), we have
+  \begin{align*}
+    F'_{v}\eta^{(x)}_{y} &= \coev^r_{F'_{v}x} \otimes F'_{v}y, &
+    F'_{v}\varepsilon^{(x)}_{y} &=\ev^r_{F'_{v}x}\otimes F'_{v}y,  \\
+    F'_{v}u^{(x)}_{y} &= F'_{v}y \otimes \coev^{\ell}_{F'_{v}x}, &
+    F'_{v}c^{(x)}_{y} &= F'_{v}y \otimes \ev^{\ell}_{F'_{v}x}.
+  \end{align*}
+  The claim now follows by setting \(F=HF'_{G(V)}\).
+\end{proof}
+
+\begin{corollary}\label{cor: structure-of-isos}
+  The following arrows cannot be isomorphisms,
+  for any \(1 \neq x \in\cat{W}\) and any morphism \(g \in \cat{W}(a_1 \otimes y \otimes b_1,a_2 \otimes z \otimes b_2)\):
+  \[
+    (\id_{a_2} \otimes u^{(x)}_{z} \otimes \id_{b_2}) \circ g,
+    \qquad \qquad
+    g \circ (\id_{a_1} \otimes \varepsilon^{(x)}_{y} \otimes \id_{b_1}).
+  \]
+\end{corollary}
+\begin{proof}
+  Suppose that \(g \in \cat{W}(a_1 \otimes y \otimes b_1,a_2 \otimes z \otimes b_2)\)
+  and consider
+  \[
+    f \defeq g \circ (\id_{a_1} \otimes \varepsilon^{(x)}_{y} \otimes \id_{b_1}).
+  \]
+  Let \(V\in\kvect\) be a vector space of dimension at least two.
+  Applying \(F_V\) to \(f\), we get
+  \(F_{V}f = F_{V}g \circ F_{V}(\id_{a_1} \otimes \varepsilon^{(x)}_{y} \otimes \id_{b_1})\).
+  However, due to the difference in the dimensions of its source and target,
+  \(F_{V}(\id_{a_1} \otimes \varepsilon^{(x)}_{y} \otimes \id_{b_1})\) must have a non-trivial kernel and thus \(f\) cannot be an isomorphism.
+
+  A similar argument involving the cokernel proves that the composition
+  \((\id_{a_2} \otimes u^{(x)}_{z} \otimes \id_{b_2}) \circ g\)
+  is not invertible.
+\end{proof}
+
+\begin{theorem}\label{thm:props-of-c}
+  The category \(\cat{W}\) is not rigid.
+\end{theorem}
+\begin{proof}
+  Assume that \(t\in\cat{W}\) admits a right rigid dual \(x\in\cat{W}\).
+  By the uniqueness of adjoints,
+  there exist isomorphisms \(\vartheta \from Rt \otimes t \to x \otimes t\) and \(\theta \from x \to Rt\) such that the evaluation and coevaluation morphisms are given by
+  \[
+    \coev \defeq \vartheta \circ \eta^{(t)}_{1} \from 1 \to x \otimes t, \qquad \qquad
+    \ev \defeq \varepsilon^{(t)}_{1} \circ (t\otimes \theta) \from t \otimes x \to 1.
+  \]
+
+  Let \(\pi \from  \cat{V} \sur \cat{W}\) be the projection functor.
+  We consider the set
+  \[
+    S \defeq \left\{
+      (\varepsilon^{(t)}_1 \otimes t)\,\phi\,(t \otimes \eta^{(t)}_1) \in \cat{V}(t,t) \,\middle\vert\, \begin{gathered}\phi \in \cat{V}(t\otimes Rt \otimes t, t \otimes Rt \otimes t) \\\text{ such that }  \pi(\phi) \text{ is invertible} \end{gathered} \right\}.
+  \]
+  Notice that \(S \subseteq \Mor(\cat{V})\).
+  By construction, there exists a morphism \(s\in S\) such that the composite arrow
+  \((\ev \otimes t) \circ (t\otimes \coev) = \pi(s)\)
+  corresponds to one of the snake identities.
+  Furthermore, every element of \(S\) has length at least two.\note{%
+    Note that the relations of \(\cat{V}\) leave the number of generating morphisms in any presentation of a given arrow invariant.
+  }
+  Thus, by proving that \(S\) is closed under the relations arising from \cref{eq:defining-relations-of-c},
+  it follows that \(\pi(s)\neq \id_t\), which concludes the proof.
+
+  Let us consider an arbitrary element \(f \defeq (\varepsilon^{(t)}_1 \otimes t) \circ \phi \circ (t \otimes \eta^{(t)}_1) \in S\).
+  There are two types of ``moves'' we have to study.
+  First, suppose we expand an identity into one of the morphisms displayed in \cref{eq:defining-relations-of-c}.
+  This equates to either pre or postcomposing \(\phi\) with an arrow \(\psi \in \cat{V}(t \otimes Rt \otimes t,t \otimes Rt \otimes t)\)
+  that projects onto an isomorphism in \(\cat{W}\), leading to another element in \(S\).
+
+  Second, any of the morphisms of \cref{eq:defining-relations-of-c} might be contracted to an identity.
+  A priori, there are three ways in which this might occur:
+  \begin{align}
+    f&= (\varepsilon^{(t)}_1 \otimes t) \circ \phi' \circ \varepsilon^{(t)}_t \circ (t \otimes \eta^{(t)}_1),  &&\!\!\!\text{with } \phi=\phi' \circ \varepsilon^{(t)}_t \text{, or}\label{eq:bad-case-1}\\
+    f&= (\varepsilon^{(t)}_1 \otimes t) \circ u^{(Rt)}_t \circ \phi'' \circ (t \otimes \eta^{(t)}_1), &&\!\!\!\text{with } \phi = u^{(Rt)}_t \circ \phi'' \text{, or}\label{eq:bad-case-2}\\
+    f&= (\varepsilon^{(t)}_1 \otimes t) \circ \phi_2 \circ g \circ \phi_1 \circ (t \otimes \eta^{(t)}_1), &&\!\!\!\text{with } \phi=\phi_2 \circ g \circ \phi_1 \text{ and \(\pi(g)=\id\).}
+  \end{align}
+  Due to \cref{cor: structure-of-isos},
+  neither \(\pi(\phi') \circ \pi(\varepsilon^{(t)}_{t})\) nor \(\pi(u^{(Rt)}_{t}) \circ \pi(\phi'')\) are isomorphisms,
+  contradicting Cases~\eqref{eq:bad-case-1} and~\eqref{eq:bad-case-2}.
+
+  Now, assume \(f = (\varepsilon^{(t)}_1\otimes t) \circ \phi_2 \circ g \circ \phi_1 \circ (t \otimes \eta^{(t)}_1)\) and \(\phi=\phi_2 \circ g \circ \phi_1\).
+  Using the functoriality of \(\pi \from \cat{V} \to \cat{W}\), we get
+  \[
+    \pi(\phi)
+    = \pi(\phi_2 \circ g \circ \phi_1)
+    = \pi(\phi_2) \circ \pi(g) \circ \pi(\phi_1)
+    = \pi(\phi_2) \circ \pi(\phi_1)
+    = \pi(\phi_2 \circ \phi_1).
+  \]
+  Thus, \(\pi(\phi_2 \circ \phi_1)\) is an isomorphism
+  and \((\varepsilon^{(t)}_1\otimes t) \circ \phi_2 \circ \phi_1 \circ (t \otimes \eta^{(t)}_1)\) is an element of \(S\).
+\end{proof}
+
+\section{Functor categories}\label{sec:tensor-rep-functor-cats}
+
+\textsc{We will now investigate} the previously discussed types of dualities
+in the context of functor categories.
+The starting point is the fact that Day convolution is closed monoidal,
+see \cref{thm:closed-mon-str-on-functors}.
+Examples of such categories of functors are abound,
+and include modules over path algebras, Mackey functors, and
+group-graded representations arising from crossed modules;
+we shall more closely investigate these examples in \cref{sec:mky-2-grps}.
+
+\begin{hypothesis}\label{hypo:eso-enriched}
+  Fix a field \(\Bbbk\),
+  and write \(\rd*{(\blank)}\from \kvect^{\op} \to \kvect\) for the \(\Bbbk\)\hyp{}linear dualising functor.
+  Unless explicitly stated,
+  for the remainder of this section
+  all (monoidal) categories and functors will be enriched over \(\kVect\),
+  and \(\cat{C}\) will denote an essentially small monoidal \(\Bbbk\)\hyp{}linear category.
+  For the sake of brevity, the prefixes ``enriched'', ``\(\Bbbk\)\hyp{}linear'', and ``(essentially) small'' will often be omitted.
+  The category of functors from \(\cat{C}\) to \(\kVect\) will be denoted by \(\Cpsh\).
+\end{hypothesis}
+
+Instead of studying functors \(F \in \Cpsh = [\cat{C}, \kVect]\)
+from a hom-finite category \(\cat{C}\) to \emph{all} vector spaces,
+we are interested in the full subcategory \(\Cpsh_{\fin}\) of (point-wise)
+\emph{finite\hyp{}dimensional} functors.
+That is, \(F \in \Cpsh\) such that \(Fx\) is finite-dimen\-sional for all \(x \in \cat{C}\).
+
+\begin{hypothesis}\label{hypothesis:tens-repr-mack}
+  Within this section, we assume that all relevant ends and coends are finite\hyp{}dimensional vector spaces.
+\end{hypothesis}
+
+In particular, \cref{hypothesis:tens-repr-mack}
+implies that \(\Cpsh_{\fin}\) is closed monoidal;
+that is, the tensor product and the internal hom are finite\hyp{}dimensional at every point.
+These assumptions impose a certain finiteness condition on \(\cat{C}\) itself, or—as the next example will show—on a dense\note{%
+  A subcategory \(\cat{O}\) of \(\cat{C}\) is \emph{dense} if
+  the restricted Yoneda embedding from \(\cat{C}\) to \([\cat{O}^{\op}, \kVect]\)
+  is fully faithful.%
+}
+subcategory of it.
+
+\begin{example}\label{ex:mackey-dense-subcategories}
+  Let \(\cat{C}\) be a hom-finite category,
+  and assume that there is a full subcategory \(\cat{S}\) such that every object of \(\cat{C}\) may be written as a finite direct sum of objects in \(\cat{S}\).
+  In this setting, one can reformulate \cref{lem:enriched-yoneda} to index over this finite set:
+  for example, given \(F\from \cat{C}\to \kvect\), we have
+  \begin{align*}
+    Fx &\cong F\Big(\!\bigoplus_{i = 1}^n s_i\Big)
+         \cong \bigoplus_{i = 1}^n Fs_i
+         \cong \bigoplus_{i = 1}^n \int^{s \in \cat{S}}\!\! \cat{S}(s, s_i) \otimes Fs
+         \cong \bigoplus_{i = 1}^n \int^{s \in \cat{S}}\!\! \cat{C}(s, s_i) \otimes Fs \\
+       &\cong \int^{s \in \cat{S}}\!\! \cat{C}\Big(s, \bigoplus_{i = 1}^n s_i\Big) \otimes Fs
+         \cong \int^{s \in \cat{S}}\!\! \cat{C}(s, x) \otimes Fs.
+  \end{align*}
+  Panchadcharam and Street used this to show that finite\hyp{}dimensional Mackey functors are a \GV{} category, see~\cite[Section~9]{panchadcharam07:mackey}.
+\end{example}
+
+Hypothesis~\ref{hypothesis:tens-repr-mack}
+does not only imply a closed structure on \(\Cpsh_{\fin}\),
+but yields a canonical notion of a dual.
+
+\begin{proposition}\label{prop:fun-cat-GV}
+  Let \((\cat{C}, d)\) be a hom-finite left \GV{} category with dualising functor \(D_{\ell}\).
+  Then \(\Cpsh_{\fin}\) is a right \GV{} category with dualising object
+  \(\rd*{\cat{C}(\blank, d)} \in \Cpsh_{\fin}\) and dualising functor
+  \[
+    \mathfrak{D}_r \from \Cpsh_{\fin}^{\op} \to \Cpsh_{\fin}, \qquad \qquad
+    F \mapsto {F(D_{\ell}\blank)}^{*}.
+  \]
+\end{proposition}
+\begin{proof}
+  Using \cref{eq:gv-dualising-from-internal-hom-vice-versa},
+  one can recover the right dualising functor of a \GV{} category from its right internal hom
+  by evaluating it at the dualising object;
+  \ie, \(\mathfrak{D}_r \cong {[\blank, {\cat{C}(\blank, d)}^{*}]}_r\).
+  In our case, we have
+  \begin{align*}
+    {[F, \rd*{\cat{C}(\blank, d)}]}_r x
+    \overset{\eqref{eq:right-internal hom-simplification}}
+    &{\cong} \int_b \kvect\big(F{[x,b]}_{\ell}, \kvect(\cat{C}(b,d), \Bbbk)\big) \\
+    & \cong \int_b \kvect\big(\cat{C}(b, d) \otimes F{[x,b]}_{\ell}, \Bbbk\big) \\
+    & \cong \kvect\Big(\!\int^b\!\!\cat{C}(b,d)\otimes F{[x,b]}_{\ell}, \Bbbk \Big)
+      \overset{\eqref{eq:coYoneda-covariant}}{\cong} \kvect\big(F{[x,d]}_{\ell}, \Bbbk\big)\\
+    \overset{\eqref{eq:gv-dualising-from-internal-hom-vice-versa}}
+    &{\cong} \rd*{F(D_{\ell}x)}.
+  \end{align*}
+  To conclude the proof, notice that  \(\mathfrak{D}_r \from \Cpsh_{\fin}^{\op}\to \Cpsh_{\fin}\) has a quasi-inverse
+  \[
+    \mathfrak{D}_r^{-1} \from\Cpsh_{\fin} \to \Cpsh_{\fin}^{\op}, \qquad \qquad F \mapsto \rd*{F(D_{\ell}^{-1}\blank)}.\qedhere
+  \]
+\end{proof}
+
+While we will develop efficient means to detect tensor representability and rigidity based on properties which exist in the abelian case,
+it is worthwhile to explore how such structures arise as an interplay between the duality type of the base category and that of \(\kvect\).
+
+\begin{corollary}\label{cor:day-compact}
+  \marginnote{\textnormal{%
+    Not all assumptions are strictly needed, see \cref{rmk:reduction-of-assumptions}.}%
+  }
+  Let \((\cat{C}, d)\) be a hom-finite left \GV{} category
+  with dualising functor \(D_{\ell}\).
+  Then the category \(\Cpsh_{\fin}\) is right tensor representable if there are isomorphisms
+  \begin{equation}\label{eq:trep-nice-enough}
+    D_{\ell}^2a \cong a,
+    \qquad D_{\ell}(a\otimes x) \cong D_{\ell}x \otimes D_{\ell}a,
+    \qquad \text{ natural in } a,x \in \cat{C},
+  \end{equation}
+  and for all objects \(F, G \in \Cpsh_{\fin}\) we have
+  \begin{equation}\label{eq:end-coend-commute}
+    \int^a \kvect(F{[\blank,a]}_{\ell}, Ga) \cong \int_a \kvect(F{[\blank,a]}_{\ell},Ga).
+  \end{equation}
+\end{corollary}
+\begin{proof}
+  Let \(\mathfrak{D}_r\) be the dualising functor of \cref{prop:fun-cat-GV},
+  and fix functors \(F, G \in \Cpsh_{\fin}\).
+  Then, by the following calculation,
+  we obtain an isomorphism
+  \((\mathfrak{D}_r F * G) x \cong {[F,G]}_r x\),
+  and hence the claim follows:
+  \begin{align*}
+    (\mathfrak{D}_r F& * G) x
+    \overset{\eqref{eq:day-convolution-simp-left}}{\cong}
+      \int^a\mathfrak{D}_r F({[a,x]}_{\ell}) \otimes Ga
+      \overset{\eqref{eq:gv->internal hom}}{\cong}
+      \int^a\mathfrak{D}_r F(D_{\ell}(a \otimes D_{\ell}x)) \otimes Ga \\
+    \overset{\ref{prop:fun-cat-GV}}%
+    &{\cong}
+      \int^a\rd*{F(D_{\ell}^2(a \otimes D_{\ell}x))} \otimes Ga
+      \overset{\eqref{eq:trep-nice-enough}}{\cong}
+      \int^a\kvect\big(F(a \otimes D_{\ell}x), Ga\big) \\
+    \overset{\eqref{eq:trep-nice-enough}}%
+    &{\cong}
+      \int^a\kvect\big(F(D^2_{\ell} a \otimes D_{\ell} x), Ga\big)
+      \overset{\eqref{eq:trep-nice-enough}}{\cong}
+      \int^a\kvect\big(F(D_{\ell}(x \otimes D_{\ell} a)), Ga\big) \\
+    \overset{\eqref{eq:gv->internal hom}\,+\,\eqref{eq:trep-nice-enough}}%
+    &{\cong}
+      \int^a\kvect\big(F({[x,a]}_{\ell}), Ga\big)
+      \overset{\eqref{eq:end-coend-commute}}{\cong}
+      \int_a\kvect\big(F({[x,a]}_{\ell}), Ga\big) \\
+    \overset{\eqref{eq:left-internal hom-simplification}}%
+    &{=} {[F,G]}_r x.\qedhere
+  \end{align*}
+\end{proof}
+
+\begin{remark}\label{rmk:conditions-for-early-properties}
+  Before we discuss conditions for the interchangeability of ends and coends,
+  let us briefly mention some cases where the dualising functor of a left \GV{} category \((\cat{C}, d)\)
+  admits natural isomorphisms as stated in \cref{eq:trep-nice-enough}.
+
+  The requirement \(D_{\ell}(x \otimes y) \cong D_{\ell}y \otimes D_{\ell}x\) implies that \(\cat{C}\) must be left tensor repre\-sentable,
+  since then for all \(x,y, z \in\cat{C}\) we have
+  \[
+    \cat{C}(x \otimes y, z)
+    \overset{\eqref{eq:left-gv-condition-and-inverse}}{\cong}
+    \cat{C}(x \otimes y \otimes D_{\ell}^{-1}z, d)
+    \overset{\eqref{eq:left-gv-condition-and-inverse}}{\cong}
+    \cat{C}(x, D_{\ell}(y \otimes D_{\ell}^{-1}z))
+    \overset{\eqref{eq:trep-nice-enough}}{\cong}
+    \cat{C}(x,z \otimes  D_{\ell}y).
+  \]
+  In the absence of further coherence assumptions,
+  this does not imply that \(\cat{C}\) must be rigid.
+  The condition \(D_{\ell}^2 \cong \Id_{\cat{C}}\) is met for example if \(\cat{C}\) is braided.
+  For all \(x, y \in\cat{C}\) we have
+  \[
+    \cat{C}(x, y)
+    \overset{\eqref{eq:left-gv-condition-and-inverse}}{\cong}
+    \cat{C}(D_{\ell}y \otimes x,d)
+    \cong
+    \cat{C}(x \otimes D_{\ell}y  ,d)
+    \overset{\eqref{eq:left-gv-condition-and-inverse}}{\cong}
+    \cat{C}(x, D_{\ell}^2 y),
+  \]
+  and the Yoneda lemma  implies that \(\Id_{\cat{C}} \cong D_{\ell}^2\).
+\end{remark}
+
+The following constructions are an adaptation of~\cite{day06:compac}.
+For simplicity, we replaced the promonoidal structure in \emph{ibid}
+with the one induced from a monoidal structure.
+That is, \(J \defeq \cat{C}(1, \blank )\), \(P(x, y, z) \defeq \cat{C}(x \otimes y, z)\),
+for \(J\) and \(P\) the pro\-mon\-oidal unit and multiplication.
+
+\begin{remark}\label{rmk:preconditions-day-yoneda}
+  Let \(\cat{C}\) be a category.
+  Given any functor \(T\from \cat{C}^{\op} \otimes_{\Bbbk} \cat{C} \to \kVect\), there exists a canonical map
+  \begin{equation}\label{eq:canonical-coend-map}
+    \int^{a \in \cat{C}}\int_{b \in \cat{C}} \cat{C}(b, a) \otimes T(a, b)
+    \to \int_{b \in \cat{C}} \int^{a \in \cat{C}} \cat{C}(b, a) \otimes T(a, b).
+  \end{equation}
+  This follows from the fact that ends and coends are functorial;
+  in particular, for any arrow \(f \from x \to y\), the following diagram commutes:
+  \[
+    \mathscale{0.92}{\begin{mytikzcd}[column sep=large, ampersand replacement=\&]
+      {\int_b \cat{C}(b, x) \otimes T(y, b)} \&[10pt] {\int_b \cat{C}(b, y) \otimes T(y, b)} \\
+      {\int_b \cat{C}(b, x) \otimes T(x, b)} \&[10pt] {\int^a\!\! \int_b \cat{C}(b, a) \otimes T(a, b)} \\
+      \&\&[-30pt] {\int_b \int^a \cat{C}(b, a) \otimes T(a, b)}
+      \arrow["{\int_b \cat{C}(b, f) \otimes T(y, b)}", from=1-1, to=1-2]
+      \arrow["{\int_b \cat{C}(b, x) \otimes T(f, b)}"', from=1-1, to=2-1]
+      \arrow["\mathrm{can}", from=1-2, to=2-2]
+      \arrow["\mathrm{can}"', from=2-1, to=2-2]
+      \arrow["{\exists!}", dotted, from=2-2, to=3-3]
+      \arrow["{\int_b \mathrm{can}}"', curve={height=18pt}, from=2-1, to=3-3]
+      \arrow["{\int_b \mathrm{can}}", curve={height=-18pt}, from=1-2, to=3-3]
+    \end{mytikzcd}}
+  \]
+\end{remark}
+
+\begin{lemma}[{\cite[p.~1]{day06:compac}}]\label{lem:day-yoneda}
+  Let \(\cat{C}\) be a hom-finite category,
+  \(P \from \cat{C}^{\op} \otimes_{\Bbbk} \cat{C} \to \kvect\) a functor,
+  and suppose that the map given in \cref{eq:canonical-coend-map} is invertible.
+  If for all \(a, b \in \cat{C}\) there is a natural isomorphism  \(\varphi \from \cat{C}(b, a) \iso \rd*{\cat{C}(a, b)}\),
+  then
+  \[
+    \int^{a} P(a, a) \iso \int_{b} P(b, b).
+  \]
+\end{lemma}
+\begin{proof}
+  We calculate
+  \begin{align*}
+    \int^{a} P(a, a)
+    & \cong \int^{a}\!\int_{b} \kvect(\cat{C}(a, b), P(a, b))
+      \cong \int^{a}\!\int_{b}  \rd*{\cat{C}(a, b)}\otimes P(a, b) \\
+    \overset{\varphi^{-1}}&{\cong} \int^{a}\!\int_{b}  \cat{C}(b, a)\otimes P(a, b)
+                 \overset{\eqref{eq:canonical-coend-map}}{\cong}  \int_{b} \int^{a} \cat{C}(b, a) \otimes P(a, b)
+                 \cong \int_{b} P(b, b).
+  \end{align*}
+  The first and last isomorphisms follow from \cref{lem:enriched-yoneda}
+  and the second one is a consequence of \(\cat{C}(a, b)\) being finite\hyp{}dimensional and \(\kvect\) being rigid.
+\end{proof}
+
+In general, it seems difficult to decide whether a natural isomorphism as that in \cref{lem:day-yoneda} exists.
+However, for certain classes of examples, trace maps provide us with viable candidates.
+
+\begin{remark}\label{rem:day-morphism-invertible}
+  Let \(\cat{C}\) be a hom-finite and pivotal category
+  with pivotal structure \(\psi\from \rd{(\blank)}\to\ld{\!(\blank)}\),
+  and suppose that \(\cat{C}(1,1) \cong \Bbbk\).
+  For all \(a, b \in \cat{C}\), consider
+  \begin{equation}\label{eq:day-canonical-candidate}
+    \begin{aligned}
+      \varphi_{a,b} \from \cat{C}(b, a) &\to \rd*{\cat{C}(a,b)} \\
+      f &\mapsto \big(g \mapsto \tr(f \circ g) \defeq \ev^{\ell}_{a} \circ (\psi_{a}\otimes (f \circ g)) \circ\coev^{r}_{a}\big).
+    \end{aligned}
+  \end{equation}
+  The dual of \(\varphi\) is given by
+  \begin{align*}
+    \rd*{(\varphi_{a,b})}\from \rrd*{\cat{C}(a,b)} \cong \cat{C}(a,b) &\to \rd*{\cat{C}(b,a)} \\
+    g &\mapsto \big(f \mapsto \tr(f \circ g) = \tr(g \circ f) = \varphi_{b,a}(g)(f) \big).
+  \end{align*}
+  Thus, \(\varphi_{a,b}\) is injective if and only if \(\varphi_{b,a}\) is surjective.
+
+  Suppose \(\Bbbk\) has characteristic zero and  \(\cat{C} \defeq \lmod{H}\) is the category of
+  finite\hyp{}dimensional modules of a semisimple Hopf algebra \(H\).
+  As a consequence of~\cite[Theorem~4]{larson-radford1988:SemisimpleCosemisimpleHopf},
+  left and right duals coincide and  we can chose the ``quantum trace'' of \cref{eq:day-canonical-candidate}
+  to agree with the usual trace of endomorphisms between finite\hyp{}dimensional vector spaces.
+  Let \(f\from M \to N\) be a morphism in \(\cat{C}\).
+  By semisimplicity, the following short exact sequence splits:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      0 \&\& {\ker f} \&\& M \&\& {\im f} \&\& 0
+      \arrow[from=1-1, to=1-3]
+      \arrow[from=1-3, to=1-5]
+      \arrow["f", from=1-5, to=1-7]
+      \arrow["\iota"{description}, curve={height=-18pt}, dashed, from=1-7, to=1-5]
+      \arrow[, from=1-7, to=1-9]
+    \end{mytikzcd}
+  \]
+  The  arrow \(g = \iota \oplus 0 \from N \cong \im f \oplus N/\im f \to M\) satisfies
+  \[
+    \tr(fg) = \tr(f\iota)= \tr(\id_{\im f})=\dim \im f,
+  \]
+  implying that \(\varphi_{M,N}\) is injective.
+\end{remark}
+
+\begin{example}\label{ex:trace-map-not-invertible}
+  Consider a field \(\Bbbk\) of characteristic \(p\), as well as \(q\in \mathbb{N}\) a multiple of \(p\).
+  The group algebra \(H \defeq \Bbbk[\GL_q(p)]\) of the group of invertible \(q \times q\)\hyp{}matrices over \(\Bbbk\)
+  provides us with an example of a pivotal hom-finite category where the morphism of \cref{eq:day-canonical-candidate} is not invertible.
+  Matrix-vector multiplication turns \(\Bbbk^q\) into a simple \(H\)\hyp{}module whose endomorphism algebra is one-dimensional.
+  This implies that for all \(f,g \in \End_{\GL_{q}(p)}(\Bbbk^p)\) there exists some \(\lambda \in \Bbbk\) such that \(\tr(fg)=\lambda \tr(\id_{\Bbbk^q}) = \lambda \cdot 0 = 0\).
+\end{example}
+
+\begin{remark}\label{rmk:reduction-of-assumptions}
+  One can use a combination of \cref{cor:day-compact,lem:day-yoneda}
+  to deduce that a given category of finite\hyp{}dimensional functors is right tensor representable.
+  To reduce the number of axioms to be checked,
+  note that the square of the left dualising functor being isomorphic to the identity is implied by the other assumptions.
+  Let \((\cat{C}, d)\) be a hom-finite left \GV{} category with dualising functor \(D_{\ell}\),
+  such that there are isomorphisms
+  \(\cat{C}(a,b) \cong \rd*{\cat{C}(b, a)}\)
+  and
+  \(D_{\ell}(a \otimes b) \cong D_{\ell}b \otimes D_{\ell}a\),
+  natural in \(a, b \in\cat{C}\).
+  Using that
+  \begin{align*}
+    \cat{C}(d,a \otimes D_{\ell}b)
+    \overset{\eqref{eq:left-gv-condition-and-inverse}}%
+    &{\cong} \cat{C}(d \otimes D_{\ell}^{-1} (a \otimes D_{\ell} b), d)
+      \cong \cat{C}(d \otimes b \otimes D_{\ell}^{-1}a, d) \\
+    \overset{\eqref{eq:left-gv-condition-and-inverse}}%
+    &{\cong} \cat{C}(D_{\ell}^{-1}a, D_{\ell}^{-1}(d \otimes b))
+      \overset{\eqref{eq:gv:1:from:d:and:d:from:1}}%
+      {\cong} \cat{C}(D_{\ell}^{-1}a, D_{\ell}^{-1}b)
+      \cong \cat{C}(b,a),
+  \end{align*}
+  one obtains
+  \[
+    \cat{C}(a, D_{\ell}^2b)
+    \overset{\eqref{eq:left-gv-condition-and-inverse}}%
+    {\cong} \cat{C}(a \otimes D_{\ell}b, d)
+    \!\cong\! \rd*{\cat{C}(d, a \otimes D_{\ell}b)}
+    \!\cong\! \rd*{\cat{C}(b, a)}
+    \!\cong\! \rrd*{\cat{C}(a,b)}
+    \!\cong\! \cat{C}(a,b).
+  \]
+  The claim follows from the Yoneda lemma.
+\end{remark}
+
+\begin{lemma}\label{lem:semisimple-lets-ends-commute}
+  Assume \(\Bbbk\) to be a perfect field.
+  If the hom-finite category \(\cat{C}\) has finitely many objects
+  and \(\Cpsh_{\fin}\)  is semisimple,
+  then the canonical map
+  \[
+    \int^a\!\int_b T(b,b,a,a) \cong \int_b \int^a T(a,a,b,b)
+  \]
+  is invertible for all functors \(T \from \cat{C}^{\op}\otimes_{\Bbbk}\cat{C} \otimes_{\Bbbk}\cat{C}^{\op}\otimes_{\Bbbk}\cat{C} \to \kvect\).
+\end{lemma}
+\begin{proof}
+  We endow the vector space \(A \defeq \bigoplus_{a, b\in\cat{C}}\cat{C}(a,b)\) with the structure of an associative unital algebra
+  via the multiplication following multiplication, for \(f \in \cat{C}(a, b)\), \(g \in \cat{C}(c, d)\):
+  \[
+    f \cdot g \defeq
+    \begin{cases*}
+      g \circ f, & \text{if } b = c, \\
+      0, & \text{otherwise.}
+    \end{cases*}
+  \]
+  The unit \(\sum_{a \in\cat{C}} \id_a\) of \(A\)  is a sum of orthogonal idempotents.
+  Thus, any right module \(M\) of \(A\) decomposes as a vector space into a direct sum \(M \cong \bigoplus_{a \in\cat{C}} M_a\), where \(M_a = M\cdot\id_a\), and the action of any  \(f \in\cat{C}(a,b)\)  defines a linear map \(M_a \to M_b\).
+  Accordingly, a morphism of right \(A\)\hyp{}modules corresponds to a collection of homomorphisms \({\{\,\phi_a \from M_a \to N_a\,\}}_{a \in\cat{C}}\) such that
+  \[
+    \phi_b(m \cdot f) = \phi_a(m) \cdot f
+    \qquad \qquad \text{for all \(m \in M_a\) and \(f\in \cat{C}(a,b)\)}.
+  \]
+  This defines a functor \(\Theta \from \rMod{A} \to \Cpsh\).
+  Its quasi-inverse \(\Omega\)
+  maps any \(F \in \Cpsh\) to the module \(\bigoplus_{a \in\cat{C}}Fa\),
+  and any arrow \({\{\,\psi_a \from Fa \to Ga\,\}}_{a \in\cat{C}}\) to the module homomorphism \(\bigoplus_{a\in\cat{C}}\psi_a \from \bigoplus_{a \in\cat{C}} Fa \to \bigoplus_{a\in\cat{C}} Ga\).
+  Thus, \(\Cpsh_{\fin}\) corresponds to the category \(\rmod{A}\) of finite\hyp{}dimensional right \(A\)\hyp{}modules.
+
+  Since \(\Cpsh_{\fin}\) is semisimple, so is \(A\) and \(A^{\op}\).
+  Furthermore, \(\Bbbk\) being perfect implies that the tensor product of any two finite\hyp{}dimensional semisimple algebras is semisimple, see~\cite[Section~3]{farb-dennis1993:Noncommutative}.
+  In particular, we have that the algebra \(B \defeq A^{\op}\otimes_{\Bbbk}A \otimes_{\Bbbk}A^{\op}\otimes_{\Bbbk}A\) is semisimple,
+  and
+  \[
+    [\cat{C}^{\op}\otimes_{\Bbbk}\cat{C} \otimes_{\Bbbk}\cat{C}^{\op}\otimes_{\Bbbk}\cat{C}, \kvect] \cong \rmod{B}.
+  \]
+
+  Write \(\cat{D} \defeq [\cat{C}^{\op}\otimes_{\Bbbk} \cat{C}, [\cat{C}^{\op} \otimes_{\Bbbk}\cat{C}, \kvect]]\);
+  then the functor
+  \[
+    [\cat{C}^{\op}\otimes_{\Bbbk} \cat{C} \otimes_{\Bbbk}\cat{C}^{\op} \otimes_{\Bbbk}\cat{C}, \kvect] \to \cat{D},\qquad
+    F \mapsto \widehat F,
+  \]
+  where \(\widehat{F}(x,y)[u,v] = F(u,v,x,y)\),
+  is a \(\Bbbk\)\hyp{}linear equivalence of categories.
+
+  Further, since limits commute with limits,
+  the functor
+  \[
+    \mathrm{end}\from \cat{D} \to [\cat{C}^{\op} \otimes_{\Bbbk}\cat{C}, \kvect],
+    \qquad
+    F \mapsto (u,v \mapsto \Big(\int_b F(b,b)\Big)(u, v))
+  \]
+  is left exact.
+  By semisimplicity, any short exact sequence in \(\cat{D}\) splits and split epimorphisms are preserved by all functors.
+  Thus, \(\mathrm{end} \from\cat{D}\to [\cat{C}^{\op} \otimes_{\Bbbk}\cat{C}, \kvect]\) is exact and must preserve colimits.
+
+  Given \(F\in  [\cat{C}^{\op}\otimes_{\Bbbk}\cat{C} \otimes_{\Bbbk}\cat{C}^{\op}\otimes_{\Bbbk}\cat{C}, \kvect]\), we now compute
+  \begin{align*}
+    \int^a\!\int_b F(a,a)(b,b)
+    & \cong \int^a\!\int_b\widehat{F}(b,b)[a,a]
+      \cong \int_b\int^a\widehat{F}(b,b)(a,a)\\
+    & \cong \int_b\int^a\! F(a,a,b,b).\qedhere
+  \end{align*}
+\end{proof}
+
+\subsection{Cauchy completions}\label{sec: trep-rigid-fgp}
+
+\textsc{Having assembled all of the necessary tools},
+we can now state explicit criteria for the Cauchy completion of (the opposite of) a \(\Bbbk\)\hyp{}linear category to carry certain duality structures.
+As with modules over (commutative) rings, these notions are closely connected with objects being finitely\hyp{}generated projective.
+Again, we implicitly assume all categories and functors to be \(\Bbbk\)\hyp{}linear, for a field \(\Bbbk\).
+However, we do not require finiteness of hom-spaces and work solely under the assumptions made in \cref{hypo:eso-enriched}.
+
+\begin{definition}\label{def:k-linear-cauchy-completion}
+  Suppose that \(\cat{C}\) is a \(\Bbbk\)\hyp{}linear category.
+  The \emph{Cauchy completion} of \(\cat{C}\) is the full subcategory \(\overline{\cat{C}}\) of \(\psh\)
+  that consists of all presheaves \(F\),
+  such that \(\psh(F, \blank)\) commutes with all small limits.
+\end{definition}
+
+\begin{remark}
+  \Cref{def:k-linear-cauchy-completion} differs from the usual definition of the Cauchy completion of a \(\Bbbk\)\hyp{}linear category \(\cat{C}\)
+  as the additive and idempotent completion of \(\cat{C}\).
+  However, by~\cite[Proposition~2]{borceux-dejean1986:CauchyCompletionCategoryTheory}
+  and~\cite[Corollary~4.22]{lack-tendas2022:FlatFilteredColimts},
+  these two notions are equivalent.
+  We choose the former because it is more convenient to work with for the purposes of this thesis.
+\end{remark}
+
+\begin{example}\label{ex:cauchy-tensor-prod-in-prof-fin}
+  Let \(\iota\from \cat{C} \emb \overline{\cat{C}}\)
+  denote the inclusion of a category \(\cat{C}\) into its Cauchy completion,
+  sending \(x \in \cat{C}\) to \(\cat{C}(\blank, x)\).
+  There is an adjoint equivalence
+  \[
+    \big(\overline{\cat{C} }(\blank, \iota {   =}),\, \overline{\cat{C} }(\iota \blank, { = }),\, \eta,\, \varepsilon\big),
+  \]
+  between \(\cat{C}\) and its Cauchy completion in the monoidal bicategory of profunctors,
+  see \cref{MonoidalBicatProf}.
+  The unit
+  \[
+    \eta_{x, y} \from \cat{C}(x, y) \to \int^{\overline{c} \in \overline{\cat{C}}} \overline{\cat{C}}(\iota_x, \overline{c}) \times \overline{\cat{C} }(\overline{c}, \iota_y)
+  \]
+  is defined by
+  \[
+    \cat{C}(x, y)
+    \xrightarrow{\;\iota_{x, y}\;} \overline{\cat{C} }(\iota_{x}, \iota _{y})
+    \cong \int^{\overline{c} \in \cat{C} } \overline{\cat{C} }(\iota_x, \overline{c}) \times \overline{\cat{C} }(\overline{c}, \iota_y),
+  \]
+  and for the counit we have
+  \begin{align*}
+    \varepsilon_{\overline{x}, \overline{y}}
+    \from \int^{c \in \cat{C} } \overline{\cat{C}}(\overline{x}, \iota_c) \times \overline{\cat{C} }(\iota_c, \overline{y})
+    &\to \overline{\cat{C} }(\overline{x}, \overline{y}) \\
+    [(f, g)] &\mapsto g \circ f.
+  \end{align*}
+
+  Since \(\iota\) is fully faithful,
+  it immediately follows that \(\eta_{x,y}\) is an isomorphism, for all \(x, y \in \cat{C}\),
+  and the counit \(\varepsilon\) is one by~\cite[Theorem~1.1]{adamek01}.
+\end{example}
+
+In principle, the absence of free objects in the category of copresheaves necessitates a development of these notions in abstract categorical terms;
+this is discussed extensively for example in~\cite{prest09:purit}.
+For our purposes, the following characterisation in terms of the Cauchy completion of \(\cat{C}^{\op}\) suffices.
+
+\begin{lemma}\label{lem:projective-if-representable}
+  Let \(\cat{C}\) be a category.
+  For any \(F \in \Cpsh\), the following are equivalent:
+  \begin{thmlist}[noitemsep]
+  \item\label{itm:fgp-char-fgp} \(F\) is finitely\hyp{}generated projective,
+  \item\label{itm:fgp-char-dir-sum} \(F\) is a direct summand of a finite direct sum of representable functors, and
+  \item\label{itm:fgp-char-colim} the functor \(\Cpsh(F, \blank)\) commutes with small colimits.
+  \end{thmlist}
+\end{lemma}
+\begin{proof}
+  The equivalence between~\ref{itm:fgp-char-fgp} and~\ref{itm:fgp-char-dir-sum} is proven in Corollary~10.1.14 of~\cite{prest09:purit}.
+  In order to show that~\ref{itm:fgp-char-dir-sum} and~\ref{itm:fgp-char-colim} are equivalent,
+  observe that the full subcategory \(\overline{\cat{C}^{\op}}\) of \(\Cpsh\) consisting of direct summands of finite direct sums of representable functors is Cauchy complete by~\cite[Corollary~4.22]{lack-tendas2022:FlatFilteredColimts}.
+  The claim now follows by proceeding analogous to Proposition~2 of~\cite{borceux-dejean1986:CauchyCompletionCategoryTheory}.
+\end{proof}
+
+\begin{notation}
+  In view of \cref{lem:projective-if-representable}, we shall adopt the following notation
+  to emphasise that \(X \in \overline{\cat{C}^{\op}}\) is a direct summand of a direct sum of representables:
+  \[
+    \begin{mytikzcd}[cramped, ampersand replacement=\&]
+      X \& {\bigoplus\limits_{i=1}^n \yo_{u_i},}
+      \arrow["{\iota_X}", shift left, from=1-1, to=1-2]
+      \arrow["{\pi_X}", shift left, from=1-2, to=1-1]
+    \end{mytikzcd}
+  \]
+  where \(\pi_X \circ \iota_X = \id_X\), and
+  \[
+    \yo\from \cat{C}^{\op} \to [{(\cat{C}^{\op})}^{\op}, \kVect] = [\cat{C}, \kVect], \qquad x \mapsto \cat{C}^{\op}(\blank, x) = \cat{C}(x, \blank)
+  \]
+  is the contravariant Yoneda embedding as in \cref{eq:yoneda-embedding}.
+\end{notation}
+
+\begin{proposition}\label{prop:cauchy-completion-is-trep}
+  For all objects \(
+  \begin{mytikzcd}[cramped, ampersand replacement=\&]
+    X \& {\bigoplus_{i=1}^n \yo_{u_i}}
+    \arrow["{\iota_X}", shift left, from=1-1, to=1-2]
+    \arrow["{\pi_X}", shift left, from=1-2, to=1-1]
+  \end{mytikzcd}
+  \) and
+  \(
+  \begin{mytikzcd}[cramped, ampersand replacement=\&]
+    Y \& {\bigoplus_{j=1}^m \yo_{v_i}}
+    \arrow["{\iota_Y}", shift left, from=1-1, to=1-2]
+    \arrow["{\pi_Y}", shift left, from=1-2, to=1-1]
+  \end{mytikzcd}
+  \),
+  the right internal hom
+  of the Cauchy completion \(\overline{\cat{C}^{\op}}\)
+  of a right closed monoidal category \(\cat{C}^{\op}\)
+  exists and satisfies
+  \begin{equation}\label{eq:char-of-internal hom-of-trep}
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {[X,Y]}_r \& \& {[\oplus_{i=1}^n \yo_{u_i}, \oplus_{j=1}^m \yo_{v_j}]\cong \bigoplus\limits_{i=1}^n \bigoplus\limits_{j=1}^m \yo_{{[u_i,v_j]}_r}.}
+      \arrow["{{[\pi_{X},\iota_Y]}_r}", shift left, from=1-1, to=1-3]
+      \arrow["{{[\iota_X, \pi_Y]}_r}", shift left, from=1-3, to=1-1]
+  \end{mytikzcd}
+  \end{equation}
+\end{proposition}
+\begin{proof}
+  The category \(\overline{\cat{C}^{\op}} \subseteq \Cpsh\) is closed under taking tensor products
+  since the Yoneda embedding is strong monoidal
+  and \(\overline{\cat{C}^{\op}}\) is the full subcategory of \(\Cpsh\) consisting of direct summands of finite direct sums of representables.
+
+  Let \(X, Y \in \overline{\cat{C}^{\op}}\).
+  Write \(X = \colim_i\cat{C}(u_i, \blank)\) and \(Y = \colim_j\cat{C}(v_j, \blank)\) as direct summands of finite direct sums of representables.
+  We compute
+  \begin{align*}
+    {[X,Y]}_r&
+              \overset{\eqref{eq:Day-internal-hom-right}}{=} \int_{a, b}\!\kVect(\cat{C}(a \otimes \blank, b), \kVect(Xa, Yb))
+              \overset{\eqref{eq:coYoneda-covariant}}{\cong} \int_{a}\!\!\kVect(Xa, Y(a\otimes \blank))\\
+            &\hspace{-0.5cm} \cong \int_{a} \kVect(\colim_i\cat{C}(u_i, a), \colim_j \cat{C}(v_j, a \otimes \blank)) \\
+            &\hspace{-0.5cm} \cong \lim\nolimits_i \colim_j  \int_{a}\kVect(\cat{C}(u_i, a), \cat{C}(v_j, a\otimes \blank))
+              \cong \lim\nolimits_i \colim_j\cat{C}(v_j, u_i \otimes \blank) \\
+            &\hspace{-0.5cm} \cong \lim\nolimits_i \colim_j\cat{C}({[u_i, v_j]}_r, \blank).
+  \end{align*}
+  It follows that \(\overline{\cat{C}^{\op}}\) is right closed monoidal and that \cref{eq:char-of-internal hom-of-trep} holds.
+\end{proof}
+
+\begin{example}
+  \Cref{prop:cauchy-completion-is-trep} can be understood as a variation of the fact that
+  a direct summand or direct sum of (rigidly) dualisable objects is dualisable.
+  Indeed, suppose \(\cat{C}^{\op}\) to be a closed monoidal category
+  and consider three direct summands
+  \(\begin{mytikzcd}[ampersand replacement=\&, cramped]
+    X \& {U}
+    \arrow["{\iota_X}", shift left, from=1-1, to=1-2]
+    \arrow["{\pi_X}", shift left, from=1-2, to=1-1]
+  \end{mytikzcd}
+  \),
+  \(
+  \begin{mytikzcd}[ampersand replacement=\&, cramped]
+    Y \& V
+    \arrow["{\iota_Y}", shift left, from=1-1, to=1-2]
+    \arrow["{\pi_Y}", shift left, from=1-2, to=1-1]
+  \end{mytikzcd}
+  \), and
+  \(\begin{mytikzcd}[ampersand replacement=\&, cramped]
+    Z \& {W}
+    \arrow["{\iota_W}", shift left, from=1-1, to=1-2]
+    \arrow["{\pi_W}", shift left, from=1-2, to=1-1]
+  \end{mytikzcd}\) of objects in \(\overline{\cat{C}^{\op}}\).
+  The following diagram,
+  whose horizontal arrows are the isomorphisms of the tensor--hom adjunction of \(\overline{\cat{C}^{\op}}\),
+  commutes:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\overline{\cat{C}^{\op}}(X * Y, Z)} \&\&\& {\overline{\cat{C}^{\op}}(Y,{[X,Z]}_{r})} \\
+      \\
+      {\overline{\cat{C}^{\op}}(U * V, W)} \&\&\& {\overline{\cat{C}^{\op}}(V, {[U,W]}_{r})}
+      \arrow["{{\phi_{X,Y,Z}}}", from=1-1, to=1-4]
+      \arrow["{{\overline{\cat{C}^{\op}}(\pi_X * \pi_Y, \iota_W)}}"', shift right=2, from=1-1, to=3-1]
+      \arrow["{{\overline{\cat{C}^{\op}}(\pi_V,{[\pi_X,\iota_W]}_r)}}"', shift right=2, from=1-4, to=3-4]
+      \arrow["{{\overline{\cat{C}^{\op}}(\iota_X * \iota_Y, \pi_Z)}}"', shift right=2, from=3-1, to=1-1]
+      \arrow["{{\phi_{U,V,W}}}", from=3-1, to=3-4]
+      \arrow["{{\overline{\cat{C}^{\op}}(\iota_V,{[\iota_X,\pi_Z]}_r)}}"', shift right=2, from=3-4, to=1-4]
+    \end{mytikzcd}
+  \]
+
+  Thus the unit and counit of the adjunction
+  \(\adj{X * \blank}{{[X, \blank]}_r}{\overline{\cat{C}}}{\overline{\cat{C}}}\)
+  satisfy
+  \begin{equation}\label{eq:unit-counit-formula-direct-summand}
+    \begin{aligned}
+      \eta^{(X)}_Y
+      &= Y \xrightarrow{\ \iota_Y\ } V
+      \xrightarrow{\,\eta_V^{(U)}\,} [U, U * V]
+        \xrightarrow{[\iota_X, \pi_X * \pi_Y]} [X, X * V], \\
+      \varepsilon^{(X)}_Y
+      &= X * [X, Y]
+        \xrightarrow{\iota_X* [\pi_X,\iota_Y]} U * [U, V]
+        \xrightarrow{\,\varepsilon^{(U)}_V\,} V
+        \xrightarrow{\ \pi_Y\ } Y.
+    \end{aligned}
+  \end{equation}
+\end{example}
+
+\begin{corollary}\label{cor:pres-ref-dual-struct}
+  Let \(\cat{C}^{\op}\) be a right closed monoidal category.
+  We have:
+  \begin{thmlist}[noitemsep]
+    \item \(\cat{C}^{\op}\) is right rigid if and only if \(\overline{\cat{C}^{\op}}\) is.\label{itm:rigid-implies-rigid}
+    \item \(\cat{C}^{\op}\) is right tensor representable if and only if \(\overline{\cat{C}^{\op}}\) is.\label{itm:trep-implies-trep}
+    \item \((\cat{C}^{\op}, d)\) is a right \GV{} category if and only if \((\overline{\cat{C}^{\op}}, \yo_{d})\) is.\label{itm:GV-implies-GV}
+  \end{thmlist}
+\end{corollary}
+\begin{proof}
+  That right rigidity and tensor representability of \(\cat{C}^{\op}\) imply the same property for \(\overline{\cat{C}^{\op}}\)
+  follows from the description of the internal hom of \(\overline{\cat{C}^{\op}}\)
+  and the units and counits of the tensor-hom adjunctions,
+  see \cref{eq:unit-counit-formula-direct-summand}.
+
+  If \((\cat{C}^{\op}, d)\) is a right \GV{} category,
+  then its right dualising functor is, up to natural isomorphism, given by \({[\blank, d]}_r \from\cat{C} \to\cat{C}^{\op}\).
+  A direct computation using \cref{prop:cauchy-completion-is-trep} shows that
+  \({[\blank, \yo_{d}]}_r \from \overline{\cat{C}^{\op}}^{\op}\to \overline{\cat{C}^{\op}}\) is an equivalence,
+  and therefore \(\big(\overline{\cat{C}^{\op}}, \yo_{d}\big)\) is right \GV{}.
+
+  By \cref{prop:cauchy-completion-is-trep} the right internal hom of two representable functors \(\yo_{x}\) and \(\yo_{y}\) is \({[\yo_{x},\yo_{y}]}_r \cong\yo_{{[x,y]}_r}\).
+  Thus, the converse of any of the three statements is a consequence of the fact that, via the Yoneda embedding, \(\cat{C}^{\op}\) is equivalent as a right closed monoidal category to the full subcategory of \(\overline{\cat{C}^{\op}}\) whose objects are representable functors.
+\end{proof}
+
+\begin{remark}\label{rmk:fgp-is-trep-but-not-rigid}
+  The linearisation \(\Bbbk\cat{W}\) of the tensor representable category \(\cat{W}\) discussed in \cref{thm:props-of-c} is tensor representable,
+  with left and right dualising functors \(L\) and \(R\),
+  but not rigid.
+  The latter follows from the fact that by the proof of \cref{thm:props-of-c} there exists an object \(t \in\cat{W}\)
+  whose canonical morphism \({[t,1]}_r\otimes t \to {[t,t]}_r\) is not invertible.
+
+  Since the right dualising functor \(R\) of \(\cat{W}\) is an anti\hyp{}equivalence,
+  and so \(L \cong R^{-1}\),
+  there also is a tensor representable, but not rigid, structure on \(\Bbbk\cat{W}^{\op}\).
+  One takes the left dualising functor to be \(R\), and the right one to be \(L\).
+  By \cref{cor:pres-ref-dual-struct}, \(\overline{\Bbbk\cat{W}^{\op}}\)
+  is tensor representable but not rigid.
+\end{remark}
+
+Notice that this is in stark contrast to many cases arising in representation theory,
+like modules over commutative rings or \(\Bbbk\)\hyp{}algebras,
+where rigidity and tensor representability are equivalent;
+see for example~\cite[Proposition~2.1]{niefield17:coexp} for a slightly more general statement.
+Since a \(\Bbbk\)\hyp{}algebra can be interpreted as a \(\Bbbk\)\hyp{}linear category with one object,
+the following proposition may be seen as a ``many object'' version of the classical case.
+
+\begin{proposition}\label{prop:characterisation-of-rigidity}
+  Let \(\cat{C}\) be a left rigid monoidal category.
+  the following are equivalent for some \(X \in \Cpsh\):
+  \begin{thmlist}[noitemsep]
+  \item\label{itm:char-rigid} it has a right rigid dual,
+  \item\label{itm:char-trep} there exists a \(\mathbb{D}X \in \Cpsh\) such that \(\adj{X * \blank}{\mathbb{D}X * \blank}{\Cpsh}{\Cpsh}\), and
+  \item\label{itm:char-fgp} it is finitely\hyp{}generated projective.
+  \end{thmlist}
+\end{proposition}
+\begin{proof}
+  By definition, \(\text{\ref{itm:char-rigid}}\!\implies\!\text{\ref{itm:char-trep}}\).
+  To show that \(\text{\ref{itm:char-trep}}\!\implies\!\text{\ref{itm:char-fgp}}\),
+  we assume that there exists a \(\mathbb{D}X \in \Cpsh\)
+  such that  \(\adj{X * \blank}{\mathbb{D}X * \blank}{\Cpsh}{\Cpsh}\),
+  and fix a small colimit \(\colim_{i \in I} Fi \in \Cpsh\) of some diagram \(F \from I \to  \Cpsh\).
+  For every \(i \in I\), write \(\iota_i \from Fi \to \colim_{i \in I} Fi \in \Cpsh\) for its structure morphisms.
+  Now consider the commutative diagram:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&,column sep=3.5em]
+      {\colim_{i \in I} \Cpsh (X, Fi)} \&\& {\Cpsh (X, \colim_{i \in I} Fi)} \\
+      \\
+      {\colim_{i \in I} \Cpsh (1,\mathbb{D}X * Fi)} \&\& { \Cpsh (1, \mathbb{D}X * \colim_{i \in I} Fi)}
+      \arrow["{\colim_{i \in I}(\Cpsh(X,\iota_i))}", from=1-1, to=1-3]
+      \arrow["{\colim_{i \in I} \phi_{X, Fi}}", from=1-1, to=3-1]
+      \arrow["{\phi_{X, \colim_{i \in I} Fi}}", from=1-3, to=3-3]
+      \arrow["{\colim_{i \in I}(\Cpsh(1,\mathbb{D}X * \iota_i))}", from=3-1, to=3-3]
+    \end{mytikzcd}
+  \]
+  Its horizontal arrows are induced by the universal property of the colimit and the vertical arrows are due to the tensor--hom adjunction of \(\Cpsh\).
+  The functors \(\Cpsh(1, \blank)\) and \(\mathbb{D}X \otimes \blank\) commute with all small colimits;
+  the first one due to the fact that \(\Cpsh(1, \blank)\) is finitely\hyp{}generated projective,
+  see \cref{lem:projective-if-representable}, and the second one due to Day convolution being a colimit.
+  Therefore, the horizontal arrow  at the bottom is invertible.
+  Since the vertical arrows are  also invertible,
+  the canonical arrow \(\colim_{i \in I} \Cpsh (X, Fi) \to \Cpsh (X, \colim_{i \in I} Fi)\)
+  displayed at the top of the diagram must be an isomorphism.
+  Again, using \cref{lem:projective-if-representable},
+  \(X\) must be finitely\hyp{}generated projective.
+  Thus,~\ref{itm:char-trep} implies~\ref{itm:char-fgp}.
+
+  Finally, if \(X \in \Cpsh\) is finitely\hyp{}generated projective, then it is contained in the Cauchy-completion of \(\cat{C}^{\op}\),
+  which is right rigid.
+  Then, by \cref{cor:pres-ref-dual-struct}, so is \(\overline{\cat{C}^{\op}}\).
+  Therefore \(X\) admits a rigid dual and \(\text{\ref{itm:char-fgp}}\!\implies\!\text{\ref{itm:char-rigid}}\).
+\end{proof}
+
+\section{Applications}\label{sec:mky-2-grps}
+
+\textsc{We conclude the chapter by discussing} several examples.
+
+We investigate Boolean algebras,
+their applications in group and ring theory,
+and how they induce abelian \(\Bbbk\)\hyp{}linear \GV{} categories.
+
+Next, we focus on Mackey functors.
+These are, roughly speaking, collections of vector spaces indexed by all subgroups of a fixed finite group,
+together with morphisms subject to relations resembling the behaviour of
+induction, restriction, and conjugation operations, including the eponymous Mackey identity;
+see~\cite{lindner76:mackey,thevenaz95:mackey}.
+Finite\hyp{}dimensional Mackey functors form a \GV{} category~\cite{panchadcharam07:mackey};
+we show in \cref{prop:mky-GV-and-rigid} that it is rigid if and only if it is semisimple.
+
+The last example arises in the study of crossed modules,
+which—in categorical terms—correspond to strict 2-groups.
+The functors from any finite strict 2-group to \(\kvect\) form an abelian monoidal category
+that is equivalent to a direct sum of representation categories of the isotropy-group of the monoidal unit of the 2-group.
+In \cref{prop:2-grp-GV-and-rigid} we prove the rigidity of this category to be equivalent to the semisimplicity of a certain group algebra.
+
+\subsection{Boolean algebras}\label{sec:boolean-algebras}
+
+\begin{definition}\label{def:lattice}
+  A \emph{lattice} consists of a set \(L\) together with two associative and commutative operations
+  \[
+    \land \from L\times L \to L, \quad (a,b) \mapsto a \land b
+    \quad\text{and}\quad
+    \lor \from L \times L \to L, \quad (a,b) \mapsto a \lor b,
+  \]
+  called \emph{meet} and \emph{join}, which satisfy the \emph{absorption laws}, for all \(a, b \in L\):
+  \[
+    a \lor ( a\land b) = a,\qquad\qquad
+    a \land (a \lor b) = a.
+  \]
+\end{definition}
+
+\begin{remark}
+  Any lattice \((L, \land, \lor)\) defines a poset via the relation
+  \[
+    a \leq b \iff b = a \lor b \iff a = a \land b, \qquad\qquad a, b \in L.
+  \]
+
+  Conversely, a poset \((P,\leq)\) that admits for any pair of objects \(a,b \in P\) a least upper bound \(a\lor b \in P\) and a greatest lower bound \(a \land b\in P\) is a lattice.
+\end{remark}
+
+A direct computation shows that an element \(1 \in L\) is maximal with respect to the partial order of the lattice \(L\) if and only if \(1 \lor a = 1\)  for all \(a \in L\).
+Analogously, \(0 \in L\) being minimal equates to \(0\land a = 0\) for any \(a\in L\).
+Minimal and maximal elements are unique.
+In case they exist, we call \(L\) \emph{bounded}.
+
+\begin{definition}\label{def:Boolean-algebra}
+  A \emph{Boolean algebra} is a bounded lattice \((L, \land, \lor)\) satisfying the following \emph{distributivity}
+  condition for all \(a,b,c\in L\):
+  \begin{equation}\label{eq:distributivity-equation}
+    a \land (b \lor c) = (a \land b) \lor (a \land c),\qquad
+    a \lor (b \land c) = (a \land b) \lor (a \land c),
+  \end{equation}
+  and every \(a\in L\) admits a \emph{complement} \(a^{\perp}\in L\) in the sense that
+  \[
+    a \lor a^{\perp} = 1
+    \qquad\text{and}\qquad
+    a \land a^{\perp} = 0.
+  \]
+\end{definition}
+
+\begin{remark}
+  For any Boolean algebra \((L, \land, \lor)\),
+  any of the two distributivity requirements of \cref{eq:distributivity-equation} implies the other.
+  Further, a direct computation shows that complements are unique.
+  We obtain an involutive map \({( \blank )}^{\perp} \from L \to L\) that maps \(a\) to \(a^{\bot}\).
+  The maximal element \(1 \in L\) is a unit for \(\land\):
+  \[
+    a \land 1 = a \land (a \lor a^{\bot}) = a, \qquad \text{for all } a \in L.
+  \]
+
+  An analogous computation shows that the minimal element \(0\) in a Boolean algebra satisfies \(a \lor 0 = a\).
+\end{remark}
+
+\begin{example}\hfill
+  \begin{itemize}
+    \item\emph{Central idempotents}:
+    the set \(C \defeq \{\,e\in Z(R)\mid e^2=e\,\}\) of central idempotents of a ring \(R\) is a Boolean algebra
+    when endowed with
+    \begin{align*}
+      &\land \from C\times C \to C &&e \land f = ef,\\
+      &\lor \from C \times C \to C &&e \lor f = e+f-ef,\\
+      &{( \blank )}^{\perp}\from C \to C &&e^{\perp}=1-e.
+    \end{align*}
+    \item\emph{Annihilators in semiprime rings}:
+    consider a commutative semiprime ring \(R\) with \(1\).
+    That is, its Jacobson radical is trivial.
+    In case \(R\) is furthermore Artinean, this is equivalent to it being semisimple.
+    The \emph{annihilator} of an ideal \(I \subset R\) is \(I^{\perp} \defeq \{\,x\in R \mid xI=0\,\}\);
+    it is a radical ideal.
+    We define on the set \(\mathrm{Ann}(R)\) of annihilators the maps
+    \begin{align*}
+      \land \from \mathrm{Ann}(R) \times \mathrm{Ann}(R)\to \mathrm{Ann}(R), \qquad I \land J = I \cap J, \\
+      \lor \from \mathrm{Ann}(R) \times \mathrm{Ann}(R)\to \mathrm{Ann}(R), \qquad I \lor J = {(I + J)}^{\perp}.
+    \end{align*}
+    This defines the structure of a Boolean algebra on \(\mathrm{Ann}(R)\).
+    In fact,
+    the (right) annihilators of a not necessarily commutative ring
+    form a Boolean algebra
+    if and only if the ring is semiprime, see~\cite{dube-taherifar2021:LatticeAnnihilatorIdeasSemiprime}.
+    \item \emph{The subgroup lattice}:
+    let \(H \subseteq G\) be a subgroup of a finite group.
+    We write \(H^{\perp}\) for the intersection of all maximal subgroups that do not contain \(H\).
+    The minimal group constructed in this manner is the Frattini subgroup \(\Phi(G)=G^{\perp}\) of \(G\).
+    Deaconescu, Isaacs, and Wall showed that the set
+    \[
+      \{\, \Phi(G) \subseteq H \subseteq G \mid G= HH^{\perp} \,\},
+    \]
+    partially ordered under inclusion forms a Boolean algebra,
+    see~\cite{deaconescu-isaacs-walls2011:BooleanLatticeFrattiniSubgroup}.
+  \end{itemize}
+\end{example}
+
+Barr showed in~\cite{barr79} that the duality of Boolean algebras fits within the framework of \GV{} categories.
+
+\begin{proposition}\label{prop:complement-lattice-form-GV-category}
+  Let \((L, \land, \lor)\) be a Boolean algebra.
+  The associated poset-category \(\cat{L}\) is a left \GV{} category
+  with meet as tensor product, \(1\) as  monoidal unit, and \(0\) as dualising object.
+  The dualising functor is induced by \({( \blank )}^{\perp}\).
+
+  If \(L\) is finite,
+  the category \(\langle\cat{L}, \kvect\rangle\)
+  of ordinary functors from \(\cat{L}\)
+  to the category of finite\hyp{}dimensional \(\Bbbk\)\hyp{}vector spaces
+  can be equipped with a right \GV{} structure,
+  with \(\rd*{\Bbbk\cat{L}( \blank , s)}\) as dualising object and dualising functor
+  \[
+    \mathfrak{D}_r \from \langle \cat{L}, \kvect\rangle^{\op} \to \langle \cat{L}, \kvect\rangle, \qquad
+    F \mapsto {F(\blank^{\perp})}^{*}.
+  \]
+\end{proposition}
+\begin{proof}
+  A direct consequence of \cref{eq:distributivity-equation} is  that for \(a \leq c\) and \(b \leq d\), we have
+  \(a \land b \leq c \land d\).
+  Thus, since \(\land \from L \times L \to L\) is associative, commutative, and unital, it induces a (symmetric) monoidal structure on \(\cat{L}\).
+
+  To see that \((\cat{L}, 0)\) is a  \GV{} category,
+  we compute its left internal hom.
+  Let us fix a triple of elements \(a,b,c \in L\).
+  We have
+  \begin{align*}
+    b \land a \leq c
+    & \iff (b \land a) \lor a^{\bot} \leq c \lor a^{\bot}
+      \iff (b \lor a^{\bot}) \land (a \lor a^{\bot}) \leq c \lor a^{\bot} \\
+    & \iff b \lor a^{\bot} \leq c \lor a^{\bot}
+      \iff b \leq c \lor a^{\perp},
+  \end{align*}
+  where the last equivalence is due to the fact that \(b = b \lor 0 \leq b \lor a^{\bot}\)
+  and \(b \leq c \lor a^{\perp}\), implying that \(b\lor a^{\perp} \leq (c \lor a^{\perp})\lor a^{\perp}= c \lor a ^{\perp}\).
+  It follows that
+  \[
+    {[\blank, \bblank]}_{\ell} \from L \times L \to L, \qquad {[a, b]}_{\ell} \defeq {(a \land b^{\bot})}^{\bot} = b \lor a^{\perp},
+  \]
+  defines the left internal hom of \(\cat{L}\),
+  and the order reversing involution
+  \[
+    {[\blank, 0]}_{\ell} = {( \blank )}^{\perp} \from L \to L
+  \]
+  induces an equivalence of categories \(D_{\ell} \from \cat{L}^{\op}\to\cat{L}\).
+  As discussed in \cref{rmk:gv-d-from-D},
+  \((\cat{L}, 0)\) is a left \GV{} category.
+
+  By \cref{rmk:linearisation}, we have an equivalence \(\langle \cat{L}, \kvect\rangle \cong [\Bbbk\cat{L}, \kvect]\).
+  Under the assumption that \(L\) is finite,
+  \cref{prop:fun-cat-GV} shows that \(\langle \cat{L}, \kvect\rangle\) has the structure of a right \GV{} category
+  with the specified dualising object and dualising functor.
+\end{proof}
+
+Suppose \(L\) is a finite Boolean algebra and \(\cat{L}\) is its poset-category.
+As discussed in the first steps of the proof of \cref{lem:semisimple-lets-ends-commute},
+the category \([\Bbbk\cat{L}, \kvect]\) can be identified with the finite\hyp{}dimensional right modules
+of the path algebra \(A \cong \bigoplus_{e,f \in L}\Bbbk\cat{L}(e,f)\) of the poset associated to \(L\).
+
+\begin{example}\label{ex:upper-triangular-subalgebra}
+  The partial order on the set \(L \defeq \{\,0,a,b,1\,\}\) displayed in the following diagram defines a Boolean algebra:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      \& a \\
+      0 \&\& 1 \\
+      \& b
+      \arrow["v", from=1-2, to=2-3]
+      \arrow["u", from=2-1, to=1-2]
+      \arrow["x"', from=2-1, to=3-2]
+      \arrow["y"', from=3-2, to=2-3]
+    \end{mytikzcd}
+  \]
+  A direct computation shows that its path algebra \(A\) is isomorphic to
+  a subalgebra of the \(\Bbbk\)\hyp{}valued \(4 \times 4\) upper triangular matrices:
+  \[
+    A \cong\left\{
+      \begin{pmatrix}
+        0 & u & x & z \\
+        0 & a & 0 & v \\
+        0 & 0 & b & y \\
+        0 & 0 & 0 & 1
+      \end{pmatrix} \;\middle| \;
+      0,u,x,z,a,v,b,y,1 \in \Bbbk
+    \right\}.
+  \]
+\end{example}
+
+Subalgebras of upper triangular matrices were studied by Thrall in~\cite{thrall1948:GeneralisationsQuasiFrobenius}
+to provide generalisations of quasi\hyp{}Frobenius algebras.\note{%
+  A \(\Bbbk\)\hyp{}algebra is \emph{quasi\hyp{}Fro\-be\-ni\-us} if all projective right modules are injective.%
+}
+The following definition generalises this property.
+
+\begin{definition}\label{def:qf-2}
+  A \(\Bbbk\)\hyp{}algebra is called \textsc{qf}-2 if
+  all indecomposable projective right and all
+  indecomposable projective left modules
+  have simple socles.
+\end{definition}
+
+Using the \GV{} structure of \cref{prop:complement-lattice-form-GV-category},
+we will show that the path algebra of any finite Boolean algebra \(L\) is \textsc{qf}-2.
+Hereto we need the following observation.
+Taking complements in \(L\) extends to an anti\hyp{}algebra isomorphism \(\phi \from A \to A\);
+its pushforward \({( \blank )}_{\phi} \from \rmod{A} \to \lmod{A}\) is an involutive equivalence of categories.
+It maps any left module \(M\) to the right module \(M_{\phi}\)
+that has the same underlying vector space
+and is endowed with the action \(a \lact m  \defeq m \ract \phi(a)\) for all \(m\in M\) and \(a\in A\).
+
+\begin{proposition}\label{prop:qf2-algebras-from-boolean}
+  Let \(A\) be the path algebra of a finite Boolean algebra \(L\).
+  Then
+  \[
+    \rd*{( \blank_{\phi} )} \from {(\rmod{A})}^{\op} \to \rmod{A}
+  \]
+  is an equivalence of categories.
+  In particular, \(M \in \rmod{A}\) is projective if and only if \(\rd*{M_{\phi}}\) is injective.
+  Further, \(A\) is \textsc{qf}-2, and quasi\hyp{}Frobenius if and only if \(|L| = 1\).
+\end{proposition}
+\begin{proof}
+  The first statement follows directly from the equivalence of categories between \([\Bbbk\cat{L}, \kvect]\) and \(\rmod{A}\)
+  given in the proof of \cref{lem:semisimple-lets-ends-commute},
+  and the definition of the dualising functor of \([\Bbbk\cat{L}, \kvect]\) stated in
+  \cref{prop:complement-lattice-form-GV-category}.
+
+  In order to show the second claim,
+  we observe that the finite\hyp{}dimensional algebra \(A = \bigoplus_{n \geq 0} A_n\) is graded by the path lengths.
+  The elements of \(L\) form a basis of \(A_0\) and correspond to the \emph{primitive idempotents}%
+  —non-zero idempotents, which cannot be written as a sum of two non-zero orthogonal idempotents.
+  Furthermore, the Jacobson radical of \(A\) is \(J(A) = \bigoplus_{n\geq 1} A_n\).
+  The indecomposable projectives of \(A\) are of the form \(eA\), for \(e\in L\).
+  Note that \(eA\) has a vector space basis by paths \([e,y]\) for \(e \leq y \leq 1\).
+  The socle of \(eA\) is
+  \[
+    \mathrm{soc}(eA)
+    = \{\,m \in eA \mid mJ(A)=0\,\}
+    = \mathrm{span}_{\Bbbk}\{[e,1]\},
+  \]
+  which is one-dimensional and therefore simple.
+  Using that \(\lmod{A} \cong \rmod{A}\), it follows that \(A\) is a \textsc{qf}-2 algebra.
+
+  For \(|L|=1\), we obtain the trivial (quasi-)Frobenius-algebra \(A=\Bbbk\).
+  Otherwise, there exists an \(e\in L\) such that \(\dim eA\geq 2\).
+  A direct computation shows that \(\mathrm{soc}(eA)\cong 1 A\).
+  If \(eA\) was injective,
+  the inclusion \(1 A \cong \mathrm{soc}(eA) \longhookrightarrow eA\) would have a retraction,
+  contradicting the indecomposability of \(eA\).
+\end{proof}
+
+\subsection{Mackey functors}\label{sec:mackey-functors}
+
+\textsc{Let \(G\) be a finite group} and write \(\Spiso{G}\) for the category of isomorphism classes of spans of finite \(G\)\hyp{}sets.%
+\marginnote{%
+  In this section we again implicitly assume all categories and functors to be \(\Bbbk\)\hyp{}linear.
+}
+One can show that each hom-set is a free and finitely\hyp{}generated commutative monoid,
+see for example the discussion preceding Lemma~2.1 of~\cite{thevenaz95:mackey}.
+Besides the definition of Mackey functors sketched at the beginning of \cref{sec:mky-2-grps},
+there is a more succinct formulation due to Lindner~\cite{lindner76:mackey}.
+
+\begin{definition}\label{def:Mackey-functors}
+  Let \(\Bbbk\) be a field and \(G\) a finite group.
+  The category \(\mky_{\Bbbk}(G)\) of \emph{Mackey functors} of \(G\)
+  is given by the \(\Bbbk\)\hyp{}linear functor category \([\Bbbk\Spiso{G},\kVect]\).
+\end{definition}
+
+Examples of Mackey functors are plentiful:
+any representation of \(G\) defines one, see~\cite[Example~53.1]{thevenaz1995:G-algebrasModularRepresentation} as well as~\cite[Propostion~10.1]{panchadcharam07:mackey}.
+For an extensive overview, we refer the reader to~\cite[Chapter~53]{thevenaz1995:G-algebrasModularRepresentation}.
+
+\begin{example}\label{ex:mackey-algebra}
+  To any finite group \(G\),
+  one can associate a finite\hyp{}dimensional algebra \(\mathbb{M}G\)%
+  —the \emph{Mackey algebra of \(G\)}—%
+  whose category of modules is equivalent to \(\mky_{\Bbbk}(G)\), see~\cite[Propositions~3.1~and~3.2]{thevenaz95:mackey}.
+  Its finite\hyp{}dimensional modules are in correspondence with the (pointwise) finite\hyp{}dimensional Mackey functors, which we denote by \(\mkyfin_{\Bbbk}(G)\).
+\end{example}
+
+Given that \(\Bbbk\Spiso{G}\) is symmetric monoidal, \(\mky_{\Bbbk}(G)\) is closed symmetric monoidal when equipped with Day convolution as its tensor product.\note{%
+  As such, we refrain from adding ``left'' or ``right'' prefixes to the different duality notions when talking about Mackey functors.%
+}
+Furthermore, \(\Bbbk\Spiso{G}\) has a finite dense subcategory   whose objects form a complete set of representatives of transitive \(G\)\hyp{}sets.
+The arguments of \cref{ex:mackey-dense-subcategories} may now be used to show that
+the tensor product and internal hom of finite\hyp{}dimensional Mackey functors is finite\hyp{}dimensional,
+see~\cite[Section~9]{panchadcharam07:mackey}.
+
+The following results gives an alternative proof for the sketched argument
+in~\cite[Lemma~2.2]{bouc05:mackey}
+that the classes of rigid and finitely\hyp{}generated projective Mackey functors coincide.
+
+\begin{proposition}\label{prop:mky-GV-and-rigid}
+  Let \(G\) be a finite group and suppose \(\Bbbk\) is a field.
+  The category \(\mkyfin_\Bbbk(G)\) is a \GV{} category with \(\rd*{\mkyfin_\Bbbk( \blank,1)}\) as dualising object.
+  Its rigid objects are precisely the finitely\hyp{}generated projective Mackey functors.
+
+  Furthermore, \(\mkyfin_{\Bbbk}(G)\) is rigid itself if and only if \(\mathbb{M}G\) is semisimple,
+  which is equivalent to \(\mathrm{char}\,\Bbbk\) not dividing the order of \(G\).
+\end{proposition}
+\begin{proof}
+  The fact that \(\mkyfin_{\Bbbk}(G)\) is a \GV{} category was proven in~\cite[Theorem~9.2]{panchadcharam07:mackey}.
+  Alternatively, we may use that \(\Bbbk\Spiso{G}\) is a rigid category,
+  see~\cite[Section~2]{panchadcharam07:mackey},
+  and apply
+  \cref{prop:fun-cat-GV} to obtain that \(\mkyfin_{\Bbbk}(G)\)
+  is a \GV{} category with \(\rd*{\mkyfin_\Bbbk(\blank,1)}\in \mkyfin_{\Bbbk}(G)\) as its dualising object.
+  Due to \cref{prop:characterisation-of-rigidity},
+  a Mackey functor is rigid dualisable if and only if it is finitely\hyp{}generated projective.
+
+  Now let us assume \(\mkyfin_{\Bbbk}(G)\) is rigid and recall that it is equivalent to the category \(\lmod{\mathbb{M}G}\) of finite\hyp{}dimensional modules of the Mackey algebra.
+  Since \(\mathbb{M}G\) is finite\hyp{}dimensional and every object in \(\mkyfin_{\Bbbk}G\) is projective by \cref{prop:characterisation-of-rigidity}, any submodule of \(\mathbb{M}G\) must have a complement.
+  In particular, \(\mathbb{M}G\) is semisimple.
+  Conversely, in case \(\mathbb{M}G\) is semisimple, all objects of \(\lmod{\mathbb{M}G}\), and therefore also \(\mkyfin_{\Bbbk}(G)\), are projective.
+  As they are furthermore finitely\hyp{}generated, \cref{prop:characterisation-of-rigidity} implies the rigidity of \(\mkyfin_{\Bbbk}(G)\).
+
+  Corollary~14.4 of~\cite{thevenaz95:mackey}, shows that \(\mathbb{M}G\) is semisimple if \(\mathrm{char}\,\Bbbk\) does not divide \(|G|\).
+  On the other hand, the category \(\mathrm{Rep}_{\Bbbk}(G)\) of finite\hyp{}dimensional representations of \(G\) over \(\Bbbk\) is a full subcategory of \(\mkyfin_{\Bbbk}(G)\), see~\cite[Proposition~10.1]{panchadcharam07:mackey}.
+  Thus, if \(\mkyfin_{\Bbbk}(G)\) is semisimple, so is \(\mathrm{Rep}_{\Bbbk}(G)\),
+  implying that \(\mathrm{char}\,\Bbbk\) does not divide \(|G|\)
+  by Maschke's theorem.
+\end{proof}
+
+\subsection{Crossed modules}\label{sec:2-groups}
+
+\textsc{Another example for \GV{} structures} on abelian \(\Bbbk\)\hyp{}linear functor categories arises from studying (strict) 2-groups,
+which can be identified with crossed modules.
+Our exposition follows~\cite{wagemann2021:CrossedModules}.
+
+\begin{definition}\label{def:str-2-grp}
+  A \emph{strict \(2\)\hyp{}group} is a (small) groupoid \(\cat{G}\) endowed with a strict monoidal structure,
+  such that the monoid of objects \((\Ob(\cat{G}), \otimes,1)\) is a group.
+\end{definition}
+
+Every strict 2-group is a rigid category;
+the left and right dual of an object \(g \in \cat{G}\) is given by its inverse \(g^{-1} \in \cat{G}\).
+
+Let \(G\) be the group of objects of \(\cat{G}\) and \(H = \cat{G}(1, \blank)\) the set of arrows which start at the monoidal unit \(1\in G\).
+Writing \(t \from H \to G \) for the \emph{target map},
+we define a group structure on \(H\) via the multiplication
+\[
+  h' h \defeq (h' \otimes \id_{t(h)}) \circ h, \qquad \text{for all }h,h' \in H.
+\]
+For any \(g\in G\) and \(h\in H\) there is a unique \(h' \in H\) such that \(\id_g\otimes h = h' \otimes \id_g\).
+This induces a map \(\alpha \from G \to \mathrm{Aut}(H)\) and turns the quadruple \((G, H, t, \alpha)\) into a crossed module as defined below.
+
+\begin{definition}\label{def:crossed-module}
+  A \emph{crossed module} is a quadruple \((G,H,t,\alpha)\)
+  consisting of two groups \(G,H\)
+  and two group homomorphisms \(t \from H \to G\), \(\alpha \from G \to \mathrm{Aut}(H)\),
+  such that for all \(g \in G\) and \(h,l \in H\), we have
+  \begin{equation}\label{eq:cross-mod-def-rel}
+    t(\alpha(g)h) = g \circ t(h) \circ g^{-1}, \qquad
+    \alpha(t(l))h = l \circ h \circ l^{-1}.
+  \end{equation}
+\end{definition}
+
+\begin{remark}\label{rmk:crossed-modules-and-2-groups}
+  Any crossed module \((G,H,t,\alpha)\) defines a strict \(2\)\hyp{}group \(\cat{G}\),
+  with \(\Ob\cat{G}=G\), and \(\cat{G}(g,g') =\{\, (h,g) \in H \times G \mid t(h)g=g'\,\}\).
+  Composition is given by \((h', t(h)g)\circ(h,g) \defeq (h'h,g)\),
+  and for the tensor product we have \((h,g) \otimes (h', g') \defeq (h\,\alpha(g)h', g g')\).
+  The left and right dualising functors coincide;
+  they map any object \(b \in G\) to \(\ld{b}=b^{-1}=\rd{b}\).
+  For a morphism \(f=(h,b)\from b \to c\), we have
+  \[
+    \ld{\!{}f}  =(\alpha(c^{-1})h, c^{-1}) = (\alpha(b^{-1})h, c^{-1}) = \rd{f}.
+  \]
+\end{remark}
+
+There is an equivalence of categories between crossed modules and strict 2-groups as is shown for example in~\cite[Theorem~1.9.2]{wagemann2021:CrossedModules}.
+
+\begin{example}\label{ex:2-groups-in-algebra-and-rep-theo}\hfill
+  \begin{itemize}
+    \item\emph{Hopf--Galois extensions and skew braces}:
+    the \emph{holomorph} of a group \(H\) is the semidirect product \(H \rtimes \mathrm{Aut}(H)\).
+    The two group homomorphisms \(t \from H \to \mathrm{Aut}(H)\), \(t(l)h = lhl^{-1}\), and \(\alpha=\id\from \mathrm{Aut}(H) \to \mathrm{Aut}(H)\)
+    turn \((\mathrm{Aut}(H), H, t,\id_{\mathrm{Aut}(H)})\) into a crossed module.
+    As explained in the Introduction of~\cite{byott2024:insolubleHolomorph}
+    and~\cite[Section~2]{bachiller2016:CounterexampleConjectureBraces},
+    holomorphs can be used to classify certain Hopf--Galois extensions as well as skew-braces.
+
+    \item\emph{Representations of finite groups}:
+    a short exact sequence of groups
+    \[
+      \begin{mytikzcd}[ampersand replacement=\&]
+        0 \& C \& E \& G \& 0
+        \arrow[from=1-1, to=1-2]
+        \arrow["\iota", from=1-2, to=1-3]
+        \arrow["t", from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+      \end{mytikzcd}
+    \]
+    such that \(C\) embeds into the centre of \(E\) is called a \emph{central extension} of \(G\).
+    Let \(\kappa \from G\to E\) be a set-theoretical section of \(t\from E\to G\).
+    A direct computation shows that the map \(\alpha\from G \to \mathrm{Aut}(E)\)
+    defined by \(\alpha(g)e \defeq \kappa(g)e{\kappa(g)}^{-1}\) is independent of the choice of the section
+    and a homomorphism of groups.
+    The tuple \((E,G,t,\alpha)\) forms a crossed module, see~\cite[Section 1.3]{wagemann2021:CrossedModules}.
+
+    As discussed in~\cite[Chapter~1]{hoffman-humphreys1992:ProjectiveRepresentationsSymmetricGroup},
+    if \(G\) is a finite group, then
+    any projective representation \(\rho \from G \to \mathrm{PGL}_{\complex}(V)\) of \(G\)
+    can be lifted to a linear representation \(\varrho \from E \to \GL(V)\) of a certain central extension \(E\) of \(G\).
+    Projective representations themselves are studied in the context of representation theory of semidirect products,
+    see for example~\cite{ceccherini-silberstein-scarabotti-tolli2022:RepresentationFiniteGroupExtensions}.
+  \end{itemize}
+\end{example}
+
+Let \((G,H,t,\alpha)\) be a crossed module whose associated \(2\)\hyp{}group we denote by \(\cat{G}\).
+Using the results of \cref{sec:tensor-rep-functor-cats},
+we determine a \GV{} structure on the category
+\(\langle\cat{G}, \kvect\rangle\) of ordinary functors between \(\cat{G}\) and \(\kvect\).
+
+Hereto, we need to  analyse the structure of \(\cat{G}\) in more detail.
+By \cref{eq:cross-mod-def-rel}, the image \(K \defeq \im t \subset G\) is a normal subgroup of \(G\)
+and the kernel \(L \defeq \ker t\) is normal and central in \(H\).
+The latter follows from the identity
+\[
+  lhl^{-1} =\alpha(t(l))h = \alpha(e)h = h \qquad\quad \text{ for all } l\in L, h\in H.
+\]
+For any \(k=t(h) \in K\) and \(l\in L\), we get \(\alpha(k)l = \alpha(t(h))l = hlh^{-1}= l\).
+Hence,
+there is a unique group homomorphism
+\(\overline{\alpha} \from Q \defeq G/N \to \mathrm{Aut}(L)\), with
+\[
+  \overline{\alpha}([g])l=\alpha(g)l \in L \subset H.
+\]
+for all \(g\in G\) and \(l\in L\).
+
+The connected components of \(\cat{G}\) are in bijection with the elements of \(Q\).
+Given any element \(g\in G\), we write \( \cat{G}_{g}\) for the maximal full connected pointed subgroupoid of \(\cat{G}\) whose distinguished object is \(g\).
+The set of objects of \(\cat{G}_{g}\) is \(Kg\) and its morphisms correspond to \(H \times Kg\).
+
+\begin{lemma}\label{lem:canonical-inclusion}
+  Let \(g \in G\) and write \(\mathbf{B}L\) for the delooping of \(L\) with single object \(g\).
+  The canonical inclusion \(\Theta_g \from \mathbf{B}L \emb \cat{G}_g\) sending \(g\) to \(g\) and \(l \from g\to g\) to \((l,g) \from g\to g\) is
+  essentially surjective and fully faithful—an equivalence.
+\end{lemma}
+
+To specify a quasi-inverse,
+fix a set-theoretical section \(\iota \from K \to H\) of
+the surjective homomorphisms of groups \(t\from H \to K\).
+Define the quasi-inverse \(\Psi_g \from \cat{G}_g\to \mathbf{B}L\)
+by mapping each object to \(g\) and any morphism \((h,kg)\) to \(\iota({(t(h)k)}^{-1}) h \iota(k)\).
+Using that \(\langle \mathbf{B}L, \kvect\rangle\) can be identified with the category \(\mathsf{rep}(L)\) of finite\hyp{}dimensional representations of \(L\),
+the pushforwards of \(\Theta_g\) and \(\Psi_g\) establish an equivalence of categories
+\begin{equation}\label{eq:toopushy}
+  \begin{aligned}
+    \Theta_{g}^{*} \colon \langle \cat{G}_g, \kvect\rangle &\ \rightleftarrows\ \mathsf{rep}(L) \cocolon \Psi_g^{*} \\
+    F &\mapsto (Fg,\rho_{F}) \quad \text{(where \(\rho_F(l) = F(l,g)\))} \\
+    \left\{\begin{aligned}
+      kg &\mapsto M\\
+      (hk,g) &\mapsto \rho\left(\iota({(t(h)k)}^{-1}) h \iota(k)\right)
+    \end{aligned}\right\} & \longmapsfrom (M, \rho).
+  \end{aligned}
+\end{equation}
+
+\begin{notation}
+  Define \(\mathsf{rep}_{\cat{G}}(L) \defeq \bigoplus_{q\in Q}{\mathsf{rep}(L)}_{q}\),
+  where  \({\mathsf{rep}(L)}_{q} = \mathsf{rep}(L)\).
+  Given some \(M\in \mathsf{rep}_{\cat{G}}(L)\), we write \(M_q\) for its the homogeneous component of degree \(q\in Q\).
+  Note that in case \(K\) has finite index in \(G\), we have
+  \[
+    \langle \cat{G}, \kvect\rangle \cong \bigoplus_{[g]\in Q}\langle \cat{G}_g, \kvect \rangle.
+  \]
+\end{notation}
+
+\begin{lemma}\label{lem:structure-of-G-funs}
+  Let \(\cat{G}\) be a strict \(2\)\hyp{}group, and write \((G, H, t, \alpha)\) for the corresponding crossed module.
+  If \(K=\im t\subset G\) has finite-index,
+  then \(\mathsf{rep}_{\cat{G}}(L) \simeq \langle \cat{G}, \kvect\rangle\).
+\end{lemma}
+
+The tools developed in \cref{sec:tensor-rep-functor-cats} allow us to endow \(\langle\cat{G}, \kvect\rangle\)
+with the structure of a \GV{} category which we will transfer to \(\mathsf{rep}_{\cat{G}}(L)\).
+The tensor product obtained in this manner will permute the homogeneous components and ``twist'' the action of \(L\) by virtue of \(\overline{\alpha}\).
+In this regard, we introduce the following notation:
+for any \(q \in Q\) and \(M \in \mathsf{rep}(L)\),
+we denote by \(M^{\overline{\alpha}(q)}\) the representation of \(L\) whose underlying vector space is \(M\), endowed
+with the action \(l \blact m = \overline{\alpha}(q)l \lact m\) for all \(l \in L\) and \(m \in M\).
+
+\begin{proposition}\label{prop:2-groups-tensor-product}
+  Suppose \((G,H,t,\alpha)\) is a crossed module with \(G\) and \(H\) finite and let \(\cat{G}\) be its associated strict \(2\)\hyp{}group.
+  The category \(\mathsf{rep}_{\cat{G}}(L)\) is a right \(r\)\hyp{}category.
+  Its tensor product and dualising functor are defined by the assignments
+  \[
+    M\otimes N \defeq (M\otimes_{\Bbbk L} N^{\overline{\alpha}(p^{-1})})\in {\mathsf{rep}_{\cat{G}}(L)}_{pq}, \qquad
+    D M \defeq \rd*{\big(M^{\overline{\alpha}(p)}\big)} \in {\mathsf{rep}_{\cat{G}}(L)}_{p^{-1}}
+  \]
+  for \(p, q \in Q\) and \(M \in {\mathsf{rep}_{\cat{G}}(L)}_{p}\), \(N \in {\mathsf{rep}_{\cat{G}}(L)}_{q}\).
+\end{proposition}
+\begin{proof}
+  By \cref{prop:fun-cat-GV},
+  \(\langle\cat{G},\kvect\rangle \cong [\Bbbk\cat{G}, \kvect]\) can be endowed with the structure of a right \GV{} category
+  with \(\rd*{\Bbbk\cat{G}( \blank , 1)}\) as dualising object;
+  write \(R \from \langle\cat{G},\kvect\rangle^{\op} \to \langle\cat{G},\kvect\rangle\) for its dualising functor.
+
+  By \cref{lem:structure-of-G-funs}, there are \(\Bbbk\)\hyp{}linear equivalences
+  \[
+    \adj{\widehat{\Theta}}{\widehat{\Psi}}{[\Bbbk\cat{G}, \kvect]}{\mathsf{rep}_{\cat{G}}(L)}
+  \]
+  that are determined
+  by the pushforwards of the equivalences
+  \[
+    \adj{\Theta_g}{\Psi_{g}}{\langle\cat{G}_g, \kvect\rangle}{\mathbf{B}L},
+  \]
+  for each homogeneous component \([\Bbbk\cat{G}_{[g]}, \kvect]\).
+  Using the formulas of \cref{eq:toopushy},
+  we can therefore explicitly transfer the \GV{} structure of \([\Bbbk\cat{G}, \kvect]\) to \(\mathsf{rep}_{\cat{G}}(L)\).
+
+  The dualising object is mapped to
+  \(\Theta(\rd*{\Bbbk\cat{G}( \blank, 1)})=\rd*{\Bbbk L} \cong \Bbbk L\in {\mathsf{rep}_{\cat{G}}(L)}_{[1]}\),
+  where we used that  \(\Bbbk L\) is a Frobenius algebra for the last equality.
+  The tensor product and right dualising functor of \(\mathsf{rep}_{\cat{G}}(L)\) are given by
+  \begin{align*}
+    \otimes &\defeq \widehat{\Theta} * (\widehat \Psi \times \widehat \Psi) \from \mathsf{rep}_{\cat{G}}(L) \times \mathsf{rep}_{\cat{G}}(L) \to \mathsf{rep}_{\cat{G}}(L), \\
+    D &\defeq \widehat{\Theta}\mathsf{R}\widehat \Psi^{\op} \from {\mathsf{rep}_{\cat{G}}(L)}^{\op} \to \mathsf{rep}_{\cat{G}}(L).
+  \end{align*}
+  In order to compute it explicitly, we consider two elements \(p,q\in Q\) as well as two representations \((M, \rho)\in {\mathsf{rep}_{\cat{G}}(L)}_{p}\) and \((N, \tau) \in {\mathsf{rep}_{\cat{G}}(L)}_{q}\).
+  The Day convolution of the functors corresponding to \(M\) and \(N\) is computed via a certain colimit and \(\widehat{\Theta}\), as an equivalence of categories, commutes with this colimit.
+  Thus, by \cref{eq:day-convolution-simp-right} and the definition of coends,
+  the homogeneous component \({(M\otimes N)}_x\) of degree \(x\in Q\) is the coequaliser of
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      \displaystyle{\coprod_{r, s \in Q}}  \Bbbk L_{r,s} \otimes_{\Bbbk} M_r \otimes_{\Bbbk} N_{s^{-1}x} \& \displaystyle{\coprod_{r\in Q}  M_r \otimes_{\Bbbk} N_{r^{-1}x},}
+      \arrow[shift right=1, from=1-1, to=1-2]
+      \arrow[shift left=1, from=1-1, to=1-2]
+    \end{mytikzcd}
+  \]
+  where \(L_{r,s}=L\) if \(r=s\) and \(\varnothing\) otherwise.
+  Its parallel morphisms are
+  \[
+    \begin{aligned}
+      l\otimes_{\Bbbk} m\otimes_{\Bbbk} n &\mapsto  F\rho(l)m \otimes_{\Bbbk} n, \\
+      l\otimes_{\Bbbk} m\otimes_{\Bbbk} n &\mapsto  m \otimes \tau(\rd{l})n = m \otimes \tau(\overline{\alpha}(s^{-1})l)n,
+    \end{aligned}
+  \]
+  where \(l \in L_{r,s}\), \(m \in M_{r}\) and \(n \in N_{s^{-1}x}\).
+
+  In  order to compute \(D\), we note that \(\mathsf{R}(F)= \rd*{F(\ld{\blank})}\) for any \(F \in [\Bbbk\cat{G}, \kvect]\).
+  Thus, given \(x\in Q\), we compute
+  \[
+    {DM}_x =
+    \begin{cases}
+      \rd*{M} & x^{-1} = p, \\
+      \{0\} & \text{otherwise}.
+    \end{cases}
+  \]
+  Hence, the action of any \(l \in L\) on \(\rd*{M}\) is given by \(\rd*{\big(\rho(\overline{\alpha}(p)l)\big)}\from \rd*{M}_{p} \to \rd*{M}_{p}\).
+\end{proof}
+
+\begin{proposition}\label{prop:2-grp-GV-and-rigid}
+  Let \((G,H,\alpha,t)\) be a crossed module with \(G\) and \(H\) finite and write \( \cat{G}\) for its associated strict 2-group.
+  The category \(\mathsf{rep}_{\cat{G}}(L)\) is rigid if and only if \(\mathrm{char}\, \Bbbk\) does not divide the order of \(L= \ker t\).
+\end{proposition}
+\begin{proof}
+  It follows from \cref{prop:characterisation-of-rigidity} that \(\mathsf{rep}_{\cat{G}}(L)\) is rigid
+  if and only if all of its objects are finitely\hyp{}generated and projective.
+  As \(\mathsf{rep}_{\cat{G}}(L)\) is a direct sum of finitely many copies of \(\mathsf{rep}(L)\)
+  and every object of \(\mathsf{rep}(L)\) is finitely\hyp{}generated,
+  this is the case if and only if all objects of \(\mathsf{rep}(L)\) are projective.
+  The latter is equivalent to \(\Bbbk L\) being semisimple, which
+  corresponds to \(\mathrm{char}\, \Bbbk\) and \(|L|\) being coprime
+  by Maschke's theorem.
+\end{proof}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../main"
+%%% TeX-command-extra-options: "-shell-escape -fmt=prec.fmt -file-line-error -synctex=1"
+%%% End:

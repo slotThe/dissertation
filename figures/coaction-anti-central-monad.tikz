@@ -1,0 +1,61 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-4.25, -0.75) {};
+		\node [style=none] (2) at (-4.25, 1.25) {};
+		\node [style=none] (3) at (-2.75, 1.25) {};
+		\node [style=none] (4) at (-4.25, -3) {\scriptsize$x$};
+		\node [style=none] (6) at (-4.25, 3) {\scriptsize$Lw$};
+		\node [style=none] (7) at (-2.75, 3) {\scriptsize$Z_L x$};
+		\node [style=bluedot] (8) at (-3.5, 0.25) {};
+		\node [style=box] (18) at (-4.25, 1.5) {\tiny$\alpha_w$};
+		\node [style=none] (19) at (-4.25, 1.75) {};
+		\node [style=none] (20) at (-4.25, 2.75) {};
+		\node [style=none] (21) at (-2.75, -0.75) {};
+		\node [style=none] (22) at (-1.25, -2.75) {};
+		\node [style=none] (23) at (-2.75, -2.75) {};
+		\node [style=none] (24) at (-1.25, -0.75) {};
+		\node [style=blackdot] (25) at (-2, -1.75) {};
+		\node [style=none] (26) at (-4.25, -2.75) {};
+		\node [style=none] (27) at (-2.75, -3) {\scriptsize$y$};
+		\node [style=none] (28) at (-1.25, -3) {\scriptsize$w$};
+		\node [style=none] (29) at (-2.75, 2.75) {};
+		\node [style=none] (30) at (-1.25, 2.75) {};
+		\node [style=none] (31) at (-1.25, 3) {\scriptsize$Z_B y$};
+		\node [style=none] (32) at (0, 0) {$=$};
+		\node [style=none] (33) at (1.25, 1) {};
+		\node [style=none] (36) at (3.25, -1.5) {};
+		\node [style=none] (37) at (1.25, 3.25) {\scriptsize$Lw$};
+		\node [style=none] (38) at (1.25, -3.25) {\scriptsize$x \otimes y$};
+		\node [style=none] (39) at (3.25, -3.25) {\scriptsize$w$};
+		\node [style=bluedot] (40) at (2.25, -0.25) {};
+		\node [style=none] (42) at (1.25, -1.5) {};
+		\node [style=none] (43) at (1.25, -3) {};
+		\node [style=none] (44) at (3.25, 1) {};
+		\node [style=none] (46) at (2.75, 3) {};
+		\node [style=none] (47) at (3.75, 3) {};
+		\node [style=none] (49) at (1.25, 3) {};
+		\node [style=none] (50) at (2.75, 3.25) {\scriptsize$Z_L x$};
+		\node [style=none] (51) at (3.75, 3.25) {\scriptsize$w$};
+		\node [style=none] (52) at (3.25, -3) {};
+		\node [style=none] (53) at (3.75, 1.5) {};
+		\node [style=box] (55) at (3.25, 1.25) {\tiny$\hspace{0.2cm}Z_{L;\mathsf{a};x,y}\hspace{0.2cm}$};
+		\node [style=none] (56) at (2.75, 1.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=morphism-edge, in=90, out=-90] (3.center) to (0.center);
+		\draw [style=morphism-edge] (20.center) to (19.center);
+		\draw [style=morphism-edge, in=-270, out=-90] (21.center) to (22.center);
+		\draw [style=morphism-edge, in=-90, out=90] (23.center) to (24.center);
+		\draw [style=morphism-edge] (26.center) to (0.center);
+		\draw [style=morphism-edge] (29.center) to (3.center);
+		\draw [style=morphism-edge] (30.center) to (24.center);
+		\draw [style=morphism-edge, in=-90, out=90] (36.center) to (33.center);
+		\draw [style=morphism-edge] (43.center) to (42.center);
+		\draw [style=morphism-edge] (49.center) to (33.center);
+		\draw [style=morphism-edge] (52.center) to (36.center);
+		\draw [style=morphism-edge] (53.center) to (47.center);
+		\draw [style=morphism-edge, in=90, out=-90] (2.center) to (21.center);
+		\draw [style=morphism-edge, in=-90, out=90] (42.center) to (44.center);
+		\draw [style=morphism-edge] (56.center) to (46.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

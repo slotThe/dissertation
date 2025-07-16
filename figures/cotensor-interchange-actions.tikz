@@ -1,0 +1,53 @@
+\begin{tikzpicture}
+    \begin{pgfonlayer}{nodelayer}
+      \node [style=none] (0) at (-3, -1.5) {};
+      \node [style=none] (1) at (-1, -1.5) {};
+      \node [style=none] (2) at (-3, 1.5) {};
+      \node [style=none] (3) at (-1, 1.5) {};
+      \node [style=none] (4) at (-1.25, -1.25) {\tiny\color{gray}1};
+      \node [style=none] (5) at (-2.75, -1.25) {\tiny\color{gray}1};
+      \node [style=none] (6) at (-3, -1.75) {\scriptsize\(X\)};
+      \node [style=none] (7) at (-1, -1.75) {\scriptsize\(Y\)};
+      \node [style=none] (8) at (-2, 1.5) {};
+      \node [style=none] (9) at (-1, 0.5) {};
+      \node [style=none] (10) at (-3, 1.75) {\scriptsize\(X\)};
+      \node [style=none] (11) at (-1, 1.75) {\scriptsize\(Y\)};
+      \node [style=none] (12) at (-2, 1.75) {\scriptsize\(B\)};
+      \node [style=none] (13) at (1, -1.5) {};
+      \node [style=none] (14) at (3, -1.5) {};
+      \node [style=none] (15) at (1, 1.5) {};
+      \node [style=none] (16) at (3, 1.5) {};
+      \node [style=none] (17) at (2.75, -1.25) {\tiny\color{gray}1};
+      \node [style=none] (18) at (1.25, -1.25) {\tiny\color{gray}1};
+      \node [style=none] (19) at (1, -1.75) {\scriptsize\(X\)};
+      \node [style=none] (20) at (3, -1.75) {\scriptsize\(Y\)};
+      \node [style=none] (21) at (2, 1.5) {};
+      \node [style=none] (23) at (1, 1.75) {\scriptsize\(X\)};
+      \node [style=none] (24) at (3, 1.75) {\scriptsize\(Y\)};
+      \node [style=none] (25) at (2, 1.75) {\scriptsize\(B\)};
+      \node [style=none] (26) at (1, 0.5) {};
+      \node [style=none] (29) at (0, -0.25) {\(\overset{{\tiny\color{gray}1}}{=}\)};
+      \node [style=none] (30) at (-3.75, -2.5) {};
+      \node [style=none] (31) at (-3.75, -3.5) {};
+      \node [style=none] (32) at (3.75, -2.5) {};
+      \node [style=none] (33) at (3.75, -3.5) {};
+      \node [style=none] (34) at (0, -3) {\scriptsize \(X \cotens \lambda^Y = \rho^X \cotens Y\)};
+      \node [style=none] (35) at (3.75, 2.5) {};
+      \node [style=none] (36) at (-3.75, 2.5) {};
+    \end{pgfonlayer}
+    \begin{pgfonlayer}{edgelayer}
+      \draw [style=morphism-edge] (0.center) to (2.center);
+      \draw [style=morphism-edge] (3.center) to (1.center);
+      \draw [style=morphism-edge, in=270, out=180] (9.center) to (8.center);
+      \draw [style=morphism-edge] (13.center) to (15.center);
+      \draw [style=morphism-edge] (16.center) to (14.center);
+      \draw [style=morphism-edge, in=270, out=0] (26.center) to (21.center);
+      \draw (32.center) to (30.center);
+      \draw (30.center) to (31.center);
+      \draw (31.center) to (33.center);
+      \draw (33.center) to (32.center);
+      \draw (30.center) to (36.center);
+      \draw (36.center) to (35.center);
+      \draw (32.center) to (35.center);
+    \end{pgfonlayer}
+  \end{tikzpicture}

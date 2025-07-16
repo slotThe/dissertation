@@ -1,0 +1,49 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (248) at (-5.25, -3) {};
+		\node [style=none] (249) at (-5.25, 2.75) {};
+		\node [style=none] (250) at (5.25, -3) {};
+		\node [style=none] (251) at (5.25, 2.75) {};
+		\node [style=none] (252) at (-1, 0) {$=$};
+		\node [style=none, label={right:\tiny \(+\)}] (253) at (-4.5, 2.25) {};
+		\node [style=none] (254) at (2, -0.75) {};
+		\node [style=none] (255) at (-4.5, -0.75) {};
+		\node [style=none] (256) at (-4.5, 0.75) {};
+		\node [style=none, label={right:\tiny \(+\)}] (257) at (-4.5, -2.25) {};
+		\node [style=none] (258) at (-3.25, 0.75) {};
+		\node [style=none] (259) at (-2, 0.75) {};
+		\node [style=none] (260) at (-3.25, -0.75) {};
+		\node [style=none] (261) at (-2, -0.75) {};
+		\node [style=none, label={right:\tiny \(+\)}] (262) at (2, -2.25) {};
+		\node [style=none] (263) at (3.25, -0.75) {};
+		\node [style=none, label={right:\tiny \(+\)}] (264) at (2, 2.25) {};
+		\node [style=none] (265) at (2, 0.75) {};
+		\node [style=none] (266) at (3.25, 0.75) {};
+		\node [style=none, label={right:\tiny \(+\)}] (267) at (0, -2.25) {};
+		\node [style=none, label={right:\tiny \(+\)}] (268) at (0, 2.25) {};
+		\node [style=none] (269) at (1, 0) {$=$};
+		\node [style=none] (270) at (4.5, 0.75) {};
+		\node [style=none] (271) at (4.5, -0.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (248.center) to (250.center);
+		\draw (249.center) to (248.center);
+		\draw (250.center) to (251.center);
+		\draw (251.center) to (249.center);
+		\draw [style=morphism-edge] (256.center) to (253.center);
+		\draw [style=morphism-edge] (257.center) to (255.center);
+		\draw [style=morphism-edge, bend right=90, looseness=1.50] (259.center) to (258.center);
+		\draw [style=morphism-edge, bend right=270, looseness=1.50] (261.center) to (260.center);
+		\draw [style=morphism-edge, in=-90, out=90] (260.center) to (256.center);
+		\draw [style=morphism-edge] (261.center) to (259.center);
+		\draw [style=morphism-edge] (262.center) to (254.center);
+		\draw [style=morphism-edge] (265.center) to (264.center);
+		\draw [style=morphism-edge, in=-270, out=-90] (266.center) to (254.center);
+		\draw [style=morphism-edge] (267.center) to (268.center);
+		\draw [style=morphism-edge] (271.center) to (270.center);
+		\draw [style=morphism-edge, bend right=270, looseness=1.50] (271.center) to (263.center);
+		\draw [style=morphism-edge, bend right=90, looseness=1.50] (270.center) to (266.center);
+		\draw [style=braid-over, in=-270, out=-90] (265.center) to (263.center);
+		\draw [style=braid-over, in=-90, out=90] (255.center) to (258.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

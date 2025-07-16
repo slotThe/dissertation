@@ -1,0 +1,37 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-4, -1.55) {};
+		\node [style=box] (1) at (-2.25, -0.05) {\scriptsize$\nabla$};
+		\node [style=none] (2) at (-2, -1.55) {};
+		\node [style=none] (3) at (-2.5, 1.45) {};
+		\node [style=none] (4) at (-4.75, 1.45) {};
+		\node [style=none] (5) at (-0.5, 1.45) {};
+		\node [style=none] (6) at (-0.5, -1.55) {};
+		\node [style=none] (7) at (-4.75, -1.55) {};
+		\node [style=none] (8) at (0.5, 0) {\scriptsize $\eqdef$};
+		\node [style=none] (9) at (2, -1.55) {};
+		\node [style=none] (10) at (3.25, -0.05) {};
+		\node [style=none] (11) at (3.5, -1.55) {};
+		\node [style=none] (12) at (3, 1.45) {};
+		\node [style=none] (16) at (1.25, -1.55) {};
+		\node [style=none] (17) at (-4, -1.875) {\tiny $T$};
+		\node [style=none] (18) at (-2, -1.905) {\tiny $U^T$};
+		\node [style=none] (20) at (-3.25, -1.05) {\scriptsize $\cat{C}$};
+		\node [style=none] (21) at (-4, 0.7) {\scriptsize $\cat{C}$};
+		\node [style=none] (22) at (-1.25, 0.7) {\scriptsize $\cat{C}^T$};
+		\node [style=none] (23) at (-2.5, 1.855) {\tiny $U^T$};
+		\node [style=none] (24) at (2, -1.875) {\tiny $T$};
+		\node [style=none] (32) at (3.5, -1.83) {};
+		\node [style=none] (34) at (3, 1.78) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=morphism-edge, in=180, out=90] (0.center) to (1);
+		\draw [style=ddd, in=90, out=-90] (3.center) to (2.center);
+		\draw (6.center) to (7.center);
+		\draw (7.center) to (4.center);
+		\draw (4.center) to (5.center);
+		\draw (5.center) to (6.center);
+		\draw [style=morphism-edge, in=180, out=90] (9.center) to (10.center);
+		\draw [style=ddd, in=90, out=-90] (12.center) to (11.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

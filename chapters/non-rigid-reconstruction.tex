@@ -1,0 +1,2214 @@
+\textsc{The goal of this chapter is}
+to generalise the following theorem:
+
+\begin{theoremalph}[{\cite[Theorem~1]{ostrik03:modul-hopf}}]\label{finiterecon}
+  Let \(\cat{C}\) be a finite tensor category
+  and let \(\cat{M}\) be a finite abelian \(\cat{C}\)\hyp{}module category,
+  such that the evaluation functor \(\blank \triangleright m \from \cat{C} \to \cat{M}\) is exact,
+  for all \(m \in \cat{M}\).
+  Then there exists an algebra object \(A \in \cat{C}\)
+  such that there is an equivalence of \(\cat{C}\)\hyp{}module categories \(\modc{A} \simeq \cat{M}\).
+\end{theoremalph}
+
+\noindent{}This theorem makes several assumptions on \(\cat{C}\) and \(\cat{M}\):
+\begin{itemize}[noitemsep]
+  \item Finiteness assumptions: \(\cat{C}\) and \(\cat{M}\) are required to be finite abelian.
+  \item The monoidal structure \(\blank \otimes \bblank\) of \(\cat{C}\)
+  and the action functor \(\blank \triangleright \bblank\) of \(\cat{M}\)
+  are both assumed to be exact in both variables.
+  \item Rigidity assumptions on \(\cat{C}\);
+  \ie, that all of its objects admit left and right duals with respect to its monoidal structure.
+\end{itemize}
+
+We will generalise \cref{finiterecon} in a way that greatly relaxes the first two kinds of assumptions,
+and removes the third one altogether.
+As mentioned before,
+by~\cite[Example~2.20]{douglas19},
+this reconstruction cannot solely rely on algebra objects in \(\cat{C}\),
+and we have to approach \cref{finiterecon} from a more monadic point of view.
+Our main result will be the following,
+and presents a certain \emph{classification} of right exact lax \(\cat{C}\)\hyp{}module monads.
+
+\begin{reptheorem}{mainnonsenseprojective,mainnonsenseinjective,projcorrespondence}
+  Assume that \(\cat{C}\) and \(\cat{M}\) have enough projectives (injectives) and that there is an object \(\ell \in \cat{M}\) such that:
+  \begin{itemize}[noitemsep]
+    \item there is a right adjoint \(\hom{\ell,\blank}\) (left adjoint \(\cohom{\ell,\blank}\)) to \(\blank \triangleright \ell\);
+    \item for \(x \in \cat{C}\) projective (injective), the object \(x \triangleright \ell\) is projective (injective);
+    \item any projective (injective) object of \(\cat{M}\) is a direct summand of an object of the form \(x \triangleright \ell\), for \(x\) projective (injective).
+  \end{itemize}
+  Let \(T\) be the monad \(\hom{\ell, \blank\,\triangleright\,\ell}\).
+  Then \(\cat{M} \simeq \cat{C}^T\), and the \(\cat{C}\)\hyp{}module structure of the category of \(T\)\hyp{}modules is extended from the Kleisli category. Furthermore, this extends to a bijection
+  \begin{align*}
+    \faktor{\{\,(\cat{M},\ell) \text{ as above}\,\}}{(\cat{M} \simeq \cat{N})}
+    &\ \leftrightarrow\,
+      \Bigg\{
+      \begin{aligned}
+        &\text{Right exact lax \(\cat{C}\)\hyp{}module}\\
+        &\text{monads on \(\cat{C}\)}
+      \end{aligned}
+      \Bigg\}
+      /\, (\cat{C}^T \simeq \cat{C}^S) \\
+    (\cat{M},\ell) &\longmapsto \hom{\ell,-\lact \ell} \\
+    (\cat{C}^T, T1) &\longmapsfrom T
+  \end{align*}
+\end{reptheorem}
+
+In the case of tensor categories,
+this statement may on the surface seem inapplicable:
+a tensor category that is not finite will generally not have enough projectives or injectives.
+However, since the category underlying a tensor category is equivalent to the category of finite-dimensional comodules for a coalgebra,
+the ind-completion of a tensor category has enough injectives.
+Further, since multitensor categories can be realised as categories of compact objects in locally finitely presentable categories,
+we may use an appropriate variant of the special adjoint functor theorem, see~\cref{saftrex,saftlex},
+characterising when the internal cohom exists for an object in \(\Ind(\cat{M})\).
+As such, we are able to ``pull back'' the appropriate versions of
+\cref{thm:main-result-rigid-projective-case,thm:main-result-rigid-injective-case}
+to the underlying categories.
+
+\begin{reptheorem}{thm:multitensor-ind-reconstruction}
+  Let \(\cat{C}\) be a multitensor category,
+  and let \(\cat{M}\) be an abelian \(\cat{C}\)\hyp{}module category
+  such that the \(\Ind(\cat{C})\)\hyp{}module category \(\Ind(\cat{M})\)
+  admits a coclosed \(\Ind(\cat{C})\)\hyp{}injective \(\Ind(\cat{C})\)\hyp{}cogenerator.
+
+  Then there is a coalgebra object \(C\) in \(\Ind(\cat{C})\)
+  such that \(\Ind(\cat{M}) \simeq \mathsf{Comod}_{\Ind(\cat{C})}C\).
+  Further, \(\cat{M}\) is the category of compact \(C\)\hyp{}comodule objects..
+\end{reptheorem}
+
+Consider the special case where a tensor category \(\cat{C}\) admits a fibre functor
+to the category \(\vect\) of finite-dimensional vector spaces,
+and is thus monoidally equivalent to the category \(\tetramodfd[H]\) of finite-dimensional comodules
+over a finite-dimensional Hopf algebra \(H\), see~\cite{ulbrich1990:HopfAlgebrasRigid}.
+\Cref{finiterecon} realises a finite \(\cat{C}\)\hyp{}module category \(\cat{M}\) as
+the category of finite-dimensional modules over a finite-dimensional \(H\)\hyp{}comodule algebra.
+Since \(H\) and \(A\) are finite-dimensional,
+the category of \(A\)\hyp{}modules is equivalent
+as an \(\tetramodfd[H]\)\hyp{}module category
+to the category of comodules for the \(H\)\hyp{}comodule coalgebra \(A^{\ast}\).
+In this sense, the following Hopf-theoretic corollary of the above theorem about ind-completions is an immediate generalisation of \cref{finiterecon}.
+
+\begin{reptheorem}{infinitecomodulecoalgebras}
+  Let \(H\) be a Hopf algebra and let \(\cat{C} = \tetramodfd[H]{}\),
+  meaning that there is a monoidal equivalence \(\Ind(\cat{C}) \simeq \Tetramod[H]{}\).
+  Let \(\cat{M}\) be an abelian \(\cat{C}\)\hyp{}module category
+  such that \(\Ind(\cat{M})\)
+  admits a coclosed \(\Ind(\cat{C})\)\hyp{}injective \(\Ind(\cat{C})\)\hyp{}cogenerator.
+
+  Then there exists a (possibly infinite-dimensional) \(H\)\hyp{}comodule coalgebra \(C\),
+  such that there is an equivalence \(\Ind(\cat{M}) \simeq \mathrm{Comod}_{H}C\)
+  of \(\Ind(\cat{C})\)\hyp{}module categories,
+  restricting to a \(\cat{C}\)\hyp{}module equivalence \(\cat{M} \simeq \mathsf{comod}_{H}C\).
+\end{reptheorem}
+
+Since we do not assume rigidity for our most general theorems,
+we instead invoke the bicategorical Yoneda lemma to realise the objects of \(\cat{C}\) as the \(\cat{C}\)\hyp{}module endofunctors of \(\cat{C}\) itself.
+Then, we view the \emph{lax} \(\cat{C}\)\hyp{}module endofunctors of \(\cat{C}\) as one appropriate generalisation of objects in \(\cat{C}\),
+and the lax \(\cat{C}\)\hyp{}module monads as the corresponding generalisation of algebra objects in \(\cat{C}\).
+Using the reconstruction results of \cref{sec:comodule-monads},
+the right adjoint of a (strong) \(\cat{C}\)\hyp{}module functor is canonically lax,
+and thus the (co)monads we study are canonically (op)lax \(\cat{C}\)\hyp{}module functors.
+
+\section{Extending module structures}
+
+\textsc{An additional difficulty we encounter}
+is that while the Kleisli category of a lax \(\cat{C}\)\hyp{}module monad is naturally a \(\cat{C}\)\hyp{}module category,
+the same is not true for the Eilenberg--Moore category.
+In this section, we shall investigate under which conditions the \(\cat{C}\)\hyp{}module structure of the former lifts essentially uniquely to the latter.
+More precisely,
+we first establish uniqueness in \cref{thm:one-module-structure-on-EM},
+and then complement that with an existence result of such an extension in \cref{extendingalways},
+under the assumption of right exactness (left exactness for comonads) of the (co)monad,
+using so-called Linton coequalisers and multicategorical techniques similar to those in~\cite{aguiar18:monad}.
+
+\begin{hypothesis}\label{hyp:deligne-reconstr}
+  From now on until the end of this thesis, we implicitly assume all categories and functors to be \(\Bbbk\)\hyp{}linear,
+  for a field \(\Bbbk\).
+\end{hypothesis}
+
+The fact that we only consider right exact lax \(\cat{C}\)\hyp{}module monads
+is exemplified by the following fundamental fact.
+
+\begin{proposition}[{\cite[Proposition~3.2]{ben-zvi18:integ}}]\label{prop:abelian-EM-cat}
+  Let \(\cat{A}\) be abelian,
+  \(T\) a right exact monad on \(\cat{A}\),
+  and \(S\) a left exact comonad on \(\cat{A}\).
+  Then \(\cat{A}^T\) and \(\cat{A}^S\) are abelian.
+\end{proposition}
+
+\begin{proposition}\label{locomonads}
+  Let \(\cat{A}\) be a locally finite abelian category,
+  and let \(S\) be a left exact,
+  finitary comonad on \(\Ind(\cat{A})\).
+  Then \({\Ind(\cat{A})}^{S}\) also is of the form \(\Ind(\cat{E})\),
+  for a locally finite abelian category \(\cat{E}\).
+  Further, \(\cat{E}\) can be chosen to be the category of compact objects in \({\Ind(\cat{A})}^S\),
+  and it can be characterised as the objects sent to compact objects under the forgetful functor \(F^S\from {\Ind(\cat{A})}^S \to \Ind(\cat{A})\).
+
+  In particular, if \(S\) is a left exact comonad on \(\cat{A}\),
+  we have \({\Ind(\cat{A})}^{\Ind(S)} \simeq \Ind(\cat{A}^S)\)
+  and \(\cat{A}^S\) is locally finite abelian.
+\end{proposition}
+\begin{proof}
+  Let \(D\) be the \(\Bbbk\)\hyp{}coalgebra such that \(\cat{A} \simeq \tetramodfd[D]{}\).
+  Then we also have that \(\Ind(\cat{A}) \simeq \Tetramod[D]{}\).
+  In particular, \(S\) is a comonad on \(\Tetramod[D]{}\).
+  By \cref{TakeuchiEilenbergWatts}, there is a \(D\)\hyp{}\(D\)\hyp{}bicomodule \(C\) such that \(S \cong C \cotens_D \blank\).
+
+  Similarly to~\cite[Remark~2.4]{takeuchi77:morit},
+  under this isomorphism the comonad structure on \(S\) corresponds
+  to maps \(C \to C \square_{D} C\) and \(C \to D\),
+  which endow \(C\) with the structure of a \(\Bbbk\)\hyp{}coalgebra,
+  together with a coalgebra morphism \(C \to D\).
+  Formally, a \(S\)\hyp{}comodule in \(\Tetramod[D]{}\) is a \(D\)\hyp{}comodule
+  together with a \(C\)\hyp{}comodule structure
+  that restricts to the given \(D\)\hyp{}comodule along the coalgebra morphism \(C \to D\).
+  Morphisms of \(S\)\hyp{}comodules in \(\Tetramod[D]{}\) are precisely \(C\)\hyp{}comodule morphisms,
+  and so we have
+  \begin{equation}\label{eq:locomonads:equiv}
+    {\Ind(\cat{A})}^{S} \simeq {(\Tetramod[D]{})}^{S} \simeq \Tetramod[C]{}.
+  \end{equation}
+  Thus we may set \(\cat{E} = \tetramodfd[C]{}\).
+  The characterisation of compact objects in \({(\Tetramod[D]{})}^{S}\)
+  in terms of the images of the functor \(F^{S}\) follows immediately from observing that
+  under the equivalence of \cref{eq:locomonads:equiv},
+  the functor \(F^{S}\) is simply the restriction functor \(\Tetramod[C]{} \to \Tetramod[D]{}\).
+
+  The second part of the statement follows by observing that \(\cat{A}^S\) is the category of compact objects in \({\Ind(\cat{A})}^{\Ind(S)}\),
+  by the first part of the statement,
+  and by observing that \(\cat{A}^S\) is also the category of compact objects in \(\Ind(\cat{A}^S)\).
+  Since both \(\Ind(\cat{A}^S)\) and \({\Ind(\cat{A})}^{\Ind(S)}\) are locally finitely presentable,
+  the equivalence between their respective categories of compact objects establishes
+  an equivalence between the categories themselves.
+\end{proof}
+
+\begin{remark}\label{rmk:em-iso-and-so-on}
+  Suppose that \(T\) is a monad on the category \(\cat{C}\).
+  For \(T\)\hyp{}modules \((x, \alpha)\) and \((y, \beta)\),
+  notice that there is a bijection
+  \begin{equation}\label{eq:fincorestr:iso}
+    \begin{aligned}
+      \cat{C}^T(Tx, y) &\,\ \cong\,\ \cat{C}(x, y) \\
+      (f\from Tx \to y) &\mapsto (f \circ \eta_x) \\
+      (\beta \circ Tg) &\longmapsfrom (g\from x \to y).
+    \end{aligned}
+  \end{equation}
+  This induces an isomorphism \(\cat{C}^T(T(\blank), \bblank) \cong \cat{C}(\blank, \bblank)\).
+  Using the definition of \(\iota\) from \cref{denotedbyiota},
+  the left-hand side is also obtained from the functor
+  \[
+    \cat{C}^T
+    \xrightarrow{\ \yo\ } [{(\cat{C}^T)}^{\op}, \kVect]
+    \xrightarrow{\ \iota^{\ast}\ } [{\cat{C}_T}^{\op}, \kVect].
+  \]
+\end{remark}
+
+The analogue of \cref{locomonads} for finite abelian categories is simpler.
+
+\begin{proposition}\label{finitemonads}
+  Let \(T\) be a right exact monad on a finite abelian category \(\cat{A}\).
+  Then \(\cat{A}^T\) is a finite abelian category.
+
+  Further, any projective object in \(\cat{A}^T\) is a direct summand of one of the form \(\iota(P)\),
+  where \(\iota\from \cat{A}_T \to \cat{A}^T\) is the canonical embedding of \cref{denotedbyiota} and \(P \in \proj{\cat{A}}\).
+  Denoting the category of objects of this form by \(\mathsf{Kl}_p(T)\),
+  we obtain an equivalence
+  \[
+    \proj{\cat{A}^T} \simeq \overline{\mathsf{Kl}_{p}(T)}
+  \]
+  between the projectives of \(\cat{A}^T\) and the Cauchy completion of \(\mathsf{Kl}_p(T)\).
+\end{proposition}
+\begin{proof}
+  Let \(A\) be a finite\hyp{}dimensional \(\Bbbk\)\hyp{}algebra such that \(\cat{A} \simeq \lmod{A}\).
+  Then there is an \(A\)\hyp{}\(A\)\hyp{}bimodule \(B\) such that \(T \cong B \otimes_{A} \blank\).
+  Similarly to the proof of \cref{locomonads},
+  monad structures on \(T\) correspond to pairs consisting of a finite\hyp{}dimensional \(\Bbbk\)\hyp{}algebra structure on \(B\) and an algebra homomorphism \(A \to B\).
+  Under this correspondence we have \(\cat{A}^T \simeq \lmod{B}\).
+  The latter category is clearly a finite abelian category.
+
+  Now suppose that \(P \in \proj{\cat{A}}\).
+  Applying \cref{rmk:em-iso-and-so-on}, one obtains an isomorphism \(\cat{A}^T(\iota(P), \blank) \cong \cat{A}(P, \blank)\),
+  proving the exactness of the left-hand side, and thus projectivity of \(\iota(P)\).
+  For \((X, \alpha) \in \cat{A}^T\), using the fact that \(\cat{A}\) has enough projectives,
+  we may fix an epimorphism \(q\from Q \sur X\) in \(\cat{A}\),
+  where \(Q \in \proj{\cat{A}}\).
+  For the latter claim, notice that there is a composite epimorphism
+  \[
+    \iota(P) \xtwoheadrightarrow{\iota(q)} \iota(X) = TX \xtwoheadrightarrow{\ \alpha\ } X,
+  \]
+  the first part of which is epic by right exactness of \(\iota\).
+\end{proof}
+
+\begin{lemma}\label{finitecorestriction}
+  Let \(T\) be a monad on \(\cat{A}\).
+  The embedding
+  \(\cat{A}^T \longhookrightarrow [\cat{A}_T^{\op}, \kVect]\)
+  can be corestricted to an embedding
+  \(\cat{A}^T \longhookrightarrow \mathrm{Fin}_{\mathrm{co}}(\cat{A}_T)\) into the finite cocompletion of \(\cat{A}_T\).
+\end{lemma}
+\begin{proof}
+  Let \((x, \alpha)\) and \((y, \beta)\) be two \(T\)\hyp{}algebras.
+  Recall that the coequaliser
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {T^{2}x} \& {Tx} \& x
+      \arrow["{\mu_{x}}", shift left=1, from=1-1, to=1-2]
+      \arrow["{T \alpha}"', shift right=1, from=1-1, to=1-2]
+      \arrow["{\alpha}", twoheadrightarrow, from=1-2, to=1-3]
+    \end{mytikzcd}
+  \]
+  in \(\cat{A}^T\) is an absolute coequaliser\note{%
+    A coequaliser is called \emph{absolute} if it is preserved by any functor;
+    see~\cite{pare69:absol} for details.%
+  }
+  in \(\cat{A}\);
+  thus, its image under the Yoneda embedding \(\yo\) yields a coequaliser
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\cat{A}(\blank, T^2x)} \& {\cat{A}(\blank, Tx)} \& {\cat{A}(\blank, x).}
+      \arrow["{{(\mu_x)}_{*}}", shift left=1, from=1-1, to=1-2]
+      \arrow["{{(T \alpha)}_{*}}"', shift right=1, from=1-1, to=1-2]
+      \arrow["{\alpha_{*}}", twoheadrightarrow, from=1-2, to=1-3]
+    \end{mytikzcd}
+  \]
+  Passing under the isomorphism of \cref{eq:fincorestr:iso},
+  one obtains a coequaliser
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\cat{A}^T(T(\blank), T^2x)} \& {\cat{A}^T(T(\blank), Tx)} \& {\cat{A}^T(T(\blank), x),}
+      \arrow["{{(\mu_x)}_{*}}", shift left=1, from=1-1, to=1-2]
+      \arrow["{{(T \alpha)}_{*}}"', shift right=1, from=1-1, to=1-2]
+      \arrow["{\alpha_{*}}", twoheadrightarrow, from=1-2, to=1-3]
+    \end{mytikzcd}
+  \]
+  which, in turn, is isomorphic to
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\cat{A}_T(\blank, Tx)} \& {\cat{A}_T(\blank, x)} \& {\cat{A}^T(T(\blank), x).}
+      \arrow["{{(\mu_x)}_{*}}", shift left=1, from=1-1, to=1-2]
+      \arrow["{{(T\alpha)}_{*}}"', shift right=1, from=1-1, to=1-2]
+      \arrow["{\alpha_{*}}", twoheadrightarrow, from=1-2, to=1-3]
+    \end{mytikzcd}
+  \]
+  This proves the result.
+\end{proof}
+
+\begin{proposition}\label{prop:badmagic}
+  Let \(T\) be a right exact monad on an abelian category \(\cat{A}\).
+  The inclusion functor \(\cat{A}^T \longhookrightarrow \mathrm{Fin}_{\mathrm{co}}(\cat{A}_T)\) has a left adjoint, and the counit of the adjunction is a natural isomorphism.
+  Further, the left adjoint \(\mathrm{Fin}_{\mathrm{co}}(\cat{A}_T) \to \cat{A}^T\)
+  is the right exact extension of the inclusion \(\iota \from \cat{A}_T \longhookrightarrow \cat{A}^T\).
+\end{proposition}
+\begin{proof}
+  By \cref{prop:abelian-EM-cat},
+  the \(\cat{A}^T\) is finitely cocomplete.
+  Similarly to~\cite[Proposition~6.3.1]{kashiwara06:categ},
+  there is a functor \(\mathrm{Fin}_{\mathrm{co}}(\cat{A}^T) \to \cat{A}^T\)
+  that extends the functor \(\mathrm{Id}\from \cat{A}^T \to \cat{A}^T\),
+  defined by sending some \(x = \widetilde{\colim_i}\,x_i\) in \(\mathrm{Fin}_{\mathrm{co}}(\cat{A}^T)\)
+  to \(\colim_i x_i\) in \(\cat{A}^T\),
+  where \(\widetilde{\colim_i}\) denotes the formally added colimit.
+  The functor \(\mathrm{Fin}_{\mathrm{co}}(\cat{A}^T) \to \cat{A}^T\)
+  is left adjoint to the inclusion \(\cat{A}^T \longhookrightarrow \mathrm{Fin}_{\mathrm{co}}(\cat{A}^T)\).
+
+  On the other hand, there is an adjunction
+  \begin{equation}\label{eq:kan-adjunction}
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {[\cat{A}_T^{\op}, \kVect]} \& {[{(\cat{A}^T)}^{\op}, \kVect],}
+      \arrow[""{name=0, anchor=center, inner sep=0}, "{\iota_{!}}", shift left=2, from=1-1, to=1-2]
+      \arrow[""{name=1, anchor=center, inner sep=0}, "{\iota^{\ast}}", shift left=2, from=1-2, to=1-1]
+      \arrow["\dashv"{anchor=center, rotate=-90}, draw=none, from=0, to=1]
+    \end{mytikzcd}
+  \end{equation}
+  where \(\iota_{{!}}\) is the left Kan extension of \(\yo_{\cat{A}^T} \circ \iota\) along \(\yo_{\cat{A}_T}\),
+  see for example~\cite[Corollary~3.3]{stroinski24:ident}.
+  \Cref{eq:kan-adjunction} restricts to an adjunction
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\mathrm{Fin}_{\mathrm{co}}(\cat{A}_T)} \& {\mathrm{Fin}_{\mathrm{co}}(\cat{A}^T),}
+      \arrow[""{name=0, anchor=center, inner sep=0}, "{\iota_{!}}", shift left=2, from=1-1, to=1-2]
+      \arrow[""{name=1, anchor=center, inner sep=0}, "{\iota^{\ast}}", shift left=2, from=1-2, to=1-1]
+      \arrow["\dashv"{anchor=center, rotate=-90}, draw=none, from=0, to=1]
+    \end{mytikzcd}
+  \]
+  since, by definition, \(\iota_{!}\) sends finite colimits of representables to finite colimits of representables,
+  and \(\iota^{\ast}\) has the same property, since it preserves colimits, and, by \cref{finitecorestriction}, sends representables to finite colimits of representables.
+  Thus we have the following commutative diagram
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\cat{A}^T} \& {\mathrm{Fin}_{\mathrm{co}}(\cat{A}^T)} \& {\cat{A}^T} \\
+      \& {\mathrm{Fin}_{\mathrm{co}}(\cat{A}_T)} \& {\cat{A}_T}
+      \arrow[""{name=0, anchor=center, inner sep=0}, shift right=2, from=1-1, to=1-2]
+      \arrow[curve={height=14pt}, hook', from=1-1, to=2-2]
+      \arrow[""{name=1, anchor=center, inner sep=0}, shift right=2, from=1-2, to=1-1]
+      \arrow[""{name=2, anchor=center, inner sep=0}, "{\iota^{\ast}}", shift left=2, from=1-2, to=2-2]
+      \arrow[hook', from=1-3, to=1-2]
+      \arrow[""{name=3, anchor=center, inner sep=0}, "{\iota_{!}}", shift left=2, from=2-2, to=1-2]
+      \arrow["\iota"', from=2-3, to=1-3]
+      \arrow[hook', from=2-3, to=2-2]
+      \arrow["\dashv"{anchor=center, rotate=-90}, draw=none, from=1, to=0]
+      \arrow["\dashv"{anchor=center}, draw=none, from=3, to=2]
+    \end{mytikzcd}
+  \]
+  This realises the embedding \(\cat{A}^T \longhookrightarrow \mathrm{Fin}_{\mathrm{co}}(\cat{A}_T)\)
+  as the composition of two right adjoints,
+  and thus as a right adjoint.
+  Lastly, the composite
+  \[
+    \cat{A}_T \to \cat{A}^T \to \mathrm{Fin}_{\mathrm{co}}(\cat{A}^T) \to \cat{A}^T
+  \]
+  is naturally isomorphic to \(\iota \from \cat{A}_T \longhookrightarrow \cat{A}^T\),
+  which proves the latter statement.
+\end{proof}
+
+\begin{remark}
+  In other words, \cref{prop:badmagic} says that
+  for a right exact monad \(T\) the category \(\cat{A}^T\) is
+  a \emph{reflective subcategory}—one where the inclusion functor has a left adjoint—%
+  of \(\mathrm{Fin}_{\mathrm{co}}(\cat{A}_T)\).
+\end{remark}
+
+The next result proves the essential uniqueness of the module structure
+on the Eilenberg--Moore category,
+under the assumption that it is ``induced'' from the Kleisli category.
+
+\begin{theorem}\label{thm:one-module-structure-on-EM}
+  Let \(\cat{C}_{T}\) denote the Kleisli category for a monad \(T\) on \(\cat{C}\),
+  equipped with a fixed left \(\cat{C}\)\hyp{}module structure.
+  Equip \(\cat{C}^T\) with two left \(\cat{C}\)\hyp{}module category structures
+  \(\cat{C}^T_{1}\) and \(\cat{C}^T_{2}\),
+  such that the inclusion
+  \(\iota \from \cat{C}_T \longhookrightarrow \cat{C}^T\)
+  gives strong \(\cat{C}\)\hyp{}module functors
+  \(\cat{C}_{T} \to \cat{C}^T_{1}\)
+  and \(\cat{C}_{T} \to \cat{C}^T_{2}\).
+
+  Then there is an equivalence \(\cat{C}^T_{1} \simeq \cat{C}^T_{2}\) of left \(\cat{C}\)\hyp{}module categories.
+\end{theorem}
+\begin{proof}
+  Consider the following diagram:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      \& {\cat{C}_{T}} \\
+      \& {\mathrm{Fin}_{\mathrm{co}}(\cat{C}_{T})} \\
+      {\cat{C}^T_{1}} \&\& {\cat{C}^T_{2}}
+      \arrow[from=1-2, to=2-2]
+      \arrow["\iota"', curve={height=18pt}, from=1-2, to=3-1]
+      \arrow["\iota", curve={height=-18pt}, from=1-2, to=3-3]
+      \arrow[""{name=0, anchor=center, inner sep=0}, "{\iota^1_{!}}", shorten <=6pt, shift left=2, from=2-2, to=3-1]
+      \arrow[""{name=1, anchor=center, inner sep=0}, "{\iota^2_{!}}"', shorten <=6pt, shift right=2, from=2-2, to=3-3]
+      \arrow[""{name=2, anchor=center, inner sep=0}, "{G_{1}}", shift left=2, shorten >=6pt, from=3-1, to=2-2]
+      \arrow[""{name=3, anchor=center, inner sep=0}, "{G_{2}}"', shift right=2, shorten >=6pt, from=3-3, to=2-2]
+      \arrow["\dashv"{anchor=center, rotate=62}, draw=none, from=1, to=3]
+      \arrow["\dashv"{anchor=center, rotate=118}, draw=none, from=0, to=2]
+    \end{mytikzcd}
+  \]
+  In particular,
+  by \cref{prop:dual-module-adjunctions},
+  in this diagram every functor is a lax \(\cat{C}\)\hyp{}module functor,
+  and every adjunction is a \(\cat{C}\)\hyp{}module adjunction.
+  We claim that \(\iota^2_{!} G_{1}\from \cat{C}^T_{1} \to \cat{C}^T_2\) and \(\iota^1_{!} G_{2} \from \cat{C}^T_2 \to \cat{C}^T_1\)
+  define mutually quasi-inverse equivalences of \(\cat{C}\)\hyp{}module categories.
+  Indeed,
+  \[
+    \iota^1_{!} G_{2} \iota^2_{!} G_{1} \xrightarrow{\varepsilon_{2} \varepsilon_{1}} \mathrm{Id}_{\cat{C}^T_1}
+  \]
+  is a \(\cat{C}\)\hyp{}module isomorphism.
+
+  Similarly, there is a \(\cat{C}\)\hyp{}module isomorphism \(\mathrm{Id}_{\cat{C}^T_2} \cong \iota^2_{!} G_{1} \iota^1_{!} G_{2}\).
+\end{proof}
+
+\subsection{Extendable monads}
+
+\begin{definition}\label{extendable}
+  We call a lax \(\cat{C}\)\hyp{}module monad \(T\) on a \(\cat{C}\)\hyp{}module category \(\cat{M}\) \emph{extendable}
+  if the category \(\cat{M}^T\) is a \(\cat{C}\)\hyp{}module category,
+  for which the embedding \(\iota\from \cat{M}_T \longhookrightarrow \cat{M}^T\) is a strong \(\cat{C}\)\hyp{}module functor.
+
+  If \(T\) is extendable,
+  we refer to the essentially unique \(\cat{C}\)\hyp{}module structure on \(\cat{M}^T\) coming from \(\cat{M}_T\)
+  as the \emph{extended} \(\cat{C}\)\hyp{}module structure on \(\cat{M}^T\).
+\end{definition}
+
+Analogously to \cref{extendable},
+one defines extendable oplax \(\cat{C}\)\hyp{}module comonads
+and extended module structures on their comodules.
+
+\begin{proposition}\label{prop:strong-module-monads-are-extendable}
+  Any strong \(\cat{C}\)\hyp{}module monad \((T, \mu, \eta)\from \cat{M} \to \cat{M}\) is extendable.
+\end{proposition}
+\begin{proof}
+  Since \(T\) is in particular a lax \(\cat{C}\)\hyp{}module monad,
+  by \cref{strongcomparisons}, the comparison functor \(K_T\from \cat{M}_T \to \cat{M}\) is a strong \(\cat{C}\)\hyp{}module functor.
+  Similarly, since \(T\) is in particular an oplax \(\cat{C}\)\hyp{}module monad,
+  again by \cref{strongcomparisons}, we conclude that also the comparison functor \(K^T\from \cat{M} \to \cat{M}^T\) is a strong \(\cat{C}\)\hyp{}module functor.
+  Thus, \(\iota = K^T K_T\) is a strong \(\cat{C}\)\hyp{}module functor.
+\end{proof}
+
+\begin{corollary}
+  If \(\cat{C}\) is left rigid, then any lax \(\cat{C}\)\hyp{}module monad is extendable.
+\end{corollary}
+\begin{proof}
+  By \cref{prop:lax-is-strong-when-rigid},
+  a lax \(\cat{C}\)\hyp{}module monad is automatically a strong \(\cat{C}\)\hyp{}module monad.
+  The result follows by \cref{prop:strong-module-monads-are-extendable}.
+\end{proof}
+
+\subsection{Semisimple monads}\label{sec:semisimple-monads}
+
+\textsc{In this section we want to take a look}
+at \emph{semisimple} monads—those whose category of modules is semisimple.
+As it turns out, these monads are always extendable.
+Recall the definition of the Cauchy completion of a category from \cref{sec: trep-rigid-fgp}.
+The following result follows immediately from the fact that
+for a monad \(T\from \cat{C}\to \cat{C}\),
+the forgetful functor \(U^T\from \cat{C}^T \to \cat{C}\) creates limits.
+
+\begin{lemma}
+  The Eilenberg--Moore category of a monad on a Cauchy complete category is itself Cauchy complete.
+\end{lemma}
+
+\begin{proposition}\label{prop:SemisimpleEM}
+  Let \(T\from \cat{A} \to \cat{A}\) be a right exact monad on an abelian category \(\cat{A}\).
+  The category \(\cat{A}^T\) is semisimple if and only if
+  \(\overline{\cat{A}_T}\) is.
+  In this semisimple setting, the extension \(\overline{\iota}\from \overline{\cat{A}_T} \to \cat{A}^T\)
+  of the canonical embedding \(\iota\from \cat{A}_T \to \cat{A}^T\) from \cref{denotedbyiota}
+  to the Cauchy completion is an equivalence of categories.
+\end{proposition}
+\begin{proof}
+  Since \(\cat{A}\) is Cauchy complete, the adjunction \(\adj{F_{T}}{U_T}{\cat{A}}{\cat{A}_T}\)
+  extends to an adjunction \(\adj{\overline{F_{T}}}{\overline{U_{T}}}{\cat{A}}{\overline{\cat{A}_{T}}}\),
+  such that \(\overline{U_T} \overline{F_T} = T\).
+
+  It is easy to see that the resulting comparison functor \(K\from \overline{\cat{A}_T} \to \cat{A}^T\) is naturally isomorphic to the extension \(\overline{\iota}\) of \(\iota\).
+  Further, since \(\iota\) is fully faithful, so is \(\overline{\iota}\), hence it reflects zero objects and so do \(U_T = U^T \circ \iota\)
+  and \(\overline{U_T}\).
+
+  Assume that \(\cat{A}^T\) is semisimple.
+  The monomorphisms and epimorphisms in \(\cat{A}^T\) are split by \cref{toomuchTV},
+  and hence they are reflected under the fully faithful functor \(\overline{\iota}\).
+  Thus, \(\overline{\cat{A}_T}\) is an abelian category and \(\overline{\iota}\) is an exact functor.
+  In particular \(\overline{U_T} \cong U_T \circ \overline{\iota}\) is exact and faithful,
+  so it reflects zero objects.
+  By \cref{thm:SmallBeck}, \(K\) is an equivalence—%
+  in particular, \(\overline{\cat{A}_T}\) is semisimple.
+
+  Assume now that \(\overline{\cat{A}_T}\) is semisimple.
+  Then \(\overline{U_T}\) is exact by \cref{toomuchTV},
+  and so it again satisfies the assumptions of \cref{thm:SmallBeck}.
+  Thus, \(K\from \overline{\cat{A}_T} \iso \cat{A}^T\) is an equivalence;
+  in particular, \(\cat{A}^T\) is semisimple.
+\end{proof}
+
+\begin{definition}\label{def:semisimple-monad}
+  We say that a right exact monad \(T\from \cat{A} \to \cat{A}\) on an abelian category \(\cat{A}\) is \emph{semisimple}
+  if it satisfies the equivalent conditions of \cref{prop:SemisimpleEM}.
+\end{definition}
+
+Since the opposite of an abelian category is abelian and the opposite of a semisimple category is semisimple,
+an analogous result to \cref{prop:SemisimpleEM} holds for comonads,
+and we define \emph{semisimple comonads} analogously.
+
+\begin{proposition}\label{extendingsemisimple}
+  Let \(T\from \cat{M} \to \cat{M}\) be a semisimple lax \(\cat{C}\)\hyp{}module monad on an abelian \(\cat{C}\)\hyp{}module category.
+  Then \(T\) is extendable.
+\end{proposition}
+\begin{proof}
+  By \cref{prop:SemisimpleEM}, the functor \(\overline{\iota}\from \overline{\cat{M}_T} \iso \cat{M}^T\) is an equivalence.
+  Further, following \cref{cocompletingnonsense},
+  \(\overline{\cat{M}_T}\) has a canonical structure of a \(\cat{C}\)\hyp{}module category,
+  such that the inclusion \(\cat{M}_T \longhookrightarrow \overline{\cat{M}_T}\) is a strong \(\cat{C}\)\hyp{}module functor.
+  Transporting the \(\cat{C}\)\hyp{}module structure along \(\overline{\iota}\) endows \(\iota\) with the structure of a strong \(\cat{C}\)\hyp{}module functor,
+  proving the claim.
+\end{proof}
+
+Semisimplicity also ``transfers'' to the left adjoint of a monad.
+
+\begin{lemma}\label{semisimpleleftandright}
+  Let \(T\from \cat{A} \to \cat{A}\) be a right exact monad on an abelian category, and \(S\from \cat{A} \to \cat{A}\) a left adjoint to \(T\).
+  Then \(T\) is semisimple if and only if \(S\) is semisimple.
+  In that case, there is an equivalence \(\cat{A}^T \simeq \cat{A}^{S}\).
+\end{lemma}
+\begin{proof}
+  By \cref{prop:SemisimpleEM}, \(T\) is semisimple if and only if so is \(\overline{\cat{A}_T}\).
+  Moreover, the equivalence \(\cat{A}_T \simeq \cat{A}_S\) of \cref{einerKleinerKleisliÄquivalenz}
+  extends to one on the Cauchy completions: \(\overline{\cat{A}_T} \simeq \overline{\cat{A}_S}\).
+  Thus, \(\overline{\cat{A}_T}\) is semisimple if and only if \(\overline{\cat{A}_S}\) is so,
+  which is the case if and only if \(S\) is semisimple.
+  This establishes the first claim.
+
+  The latter claim follows from the equivalences
+  \[
+    \cat{A}^T \,\simeq\, \overline{\cat{A}_T} \,\simeq\, \overline{\cat{A}_S} \,\simeq\, \cat{A}^{S}.\qedhere
+  \]
+\end{proof}
+
+\begin{proposition}\label{ModuleEMSemisimple}
+  Let \(T\from \cat{M} \to \cat{M}\) be a semisimple lax \(\cat{C}\)\hyp{}module monad on an abelian \(\cat{C}\)\hyp{}module category \(\cat{M}\),
+  and let \(S\from \cat{M} \to \cat{M}\) be a left adjoint to \(T\).
+  The equivalence \(\cat{M}^T \simeq \cat{M}^T\) of \cref{semisimpleleftandright} is a \(\cat{C}\)\hyp{}module equivalence,
+  where \(\cat{M}^T\) and \(\cat{M}^{S}\) are endowed with the extended \(\cat{C}\)\hyp{}module structures
+  of \(\cat{M}_T\) and \(\cat{M}_{S}\), respectively.
+\end{proposition}
+\begin{proof}
+  Following the proof of \cref{extendingsemisimple},
+  the functor \(\overline{\iota}\from \overline{\cat{M}_T} \iso \cat{M}^T\) is a \(\cat{C}\)\hyp{}module equivalence,
+  and similarly for \(\cat{M}^{S}\) and \(\overline{\cat{M}_{S}}\).
+  Further, from \cref{cocompletingnonsense} we obtain a \(\cat{C}\)\hyp{}module equivalence
+  \(\overline{\cat{M}_T} \simeq \overline{\cat{M}_{S}}\)
+  from the \(\cat{C}\)\hyp{}module equivalence \(\cat{M}_{T} \simeq \cat{M}_{S}\) of \cref{KleisliMonadCorrespondence}.
+
+  The result follows by the following chain of \(\cat{C}\)\hyp{}module equivalences:
+  \[
+    \cat{M}^T \,\simeq\, \overline{\cat{M}_T} \,\simeq\, \overline{\cat{M}_{S}} \,\simeq\, \cat{M}^{S}.\qedhere
+  \]
+\end{proof}
+
+\subsection{Linton coequalisers via multiactegories}\label{extendingeverything}
+
+\textsc{There exists a quite general condition for extendability},
+in which one can even explicitly write down the resulting \(\cat{C}\)\hyp{}module structure on the Eilenberg–Moore category.
+Our aim now is to establish \cref{extendingalways,strongembeddingalways}.
+Thus, for the rest of this section, we make the following assumptions.
+
+\begin{hypothesis}\hfill
+  \begin{itemize}[noitemsep]
+    \item Let \(\cat{C}\) be an abelian monoidal and \(\cat{M}\) an abelian \(\cat{C}\)\hyp{}module category.
+    \item The action functor \(\lact \from \cat{C} \kotimes \cat{M} \to \cat{M}\) is right exact in both variables.
+    \item Let \(T\from \cat{M}\to \cat{M}\) be a right exact lax \(\cat{C}\)\hyp{}module monad.
+  \end{itemize}
+\end{hypothesis}
+
+Note that, due to for example \cref{prop:abelian-EM-cat},
+many of these assumptions are already necessary for the theory we would like to develop in this chapter.
+
+In our presentation, we closely follow~\cite{aguiar18:monad},
+where an analogous result for lax monoidal monads—rather than lax module monads—can be found.
+As such, we shall often only describe the modifications necessary to make these results work in our case.
+
+\begin{definition}
+  The \emph{Linton coequaliser} \(x \blact m\) of \(x \in \cat{C}\) and \((m, \nabla_m) \in \cat{M}^T\) is:
+  \[
+    x \blact m \defeq \coeq
+    \Big(\!\!
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {T(x \lact Tm)} \& {T(x \lact m)}
+      \arrow["{\raisebox{0.3em}{\(T(x \,\lact\, \nabla_{m})\)}}", shift left=2, from=1-1, to=1-2]
+      \arrow["{\raisebox{-0.3em}{\(\mu_{x \lact m}\circ TT_{\mathsf{a};x,m}\)}}"', shift right=2, from=1-1, to=1-2]
+    \end{mytikzcd}
+    \!\!\Big).
+  \]
+\end{definition}
+
+As \(\cat{M}^T\) is abelian due to \cref{prop:abelian-EM-cat},
+by functoriality of colimits we obtain a functor \(\blank \blact \bblank\from \cat{C} \kotimes \cat{M}^T \to \cat{M}^T\).
+
+\begin{lemma}\label{rightexactaction}
+  For \(x \in \cat{C}\), the functor \(x \blact \blank\from \cat{M}^T \to \cat{M}^T\) is right exact.
+\end{lemma}
+\begin{proof}
+  This immediately follows from the right exactness of \(T(x \lact T(\blank))\) and \(T(x \lact \blank)\),
+  as well as the definition of the Linton coequaliser.
+\end{proof}
+
+\begin{lemma}\label{isounitality}
+  There is a natural isomorphism \(1 \blact \blank \cong \Id_{\cat{M}^T}\).
+\end{lemma}
+\begin{proof}
+  Recall that for all \(T\)\hyp{}algebras \(m \in \cat{M}^T\),
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {T^{2}m} \& {Tm} \& m
+      \arrow["{\mu_{m}}", shift left=1, from=1-1, to=1-2]
+      \arrow["{T\nabla_m}"', shift right=1, from=1-1, to=1-2]
+      \arrow["{\nabla_m}", from=1-2, to=1-3]
+    \end{mytikzcd}
+  \]
+  is a coequaliser in \(\cat{M}^T\),
+  created by the underlying split coequaliser in \(\cat{M}\).
+  Now,
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {T(1 \lact Tm)} \& {T(1 \lact m)} \\
+      {T^{2}m} \& {Tm}
+      \arrow["{T(1\lact \nabla_{m})}", shift left=1, from=1-1, to=1-2]
+      \arrow["{\mu_{1\lact m} \circ T T_{\mathsf{a};1,m}}"', shift right=1, from=1-1, to=1-2]
+      \arrow["{T \lambda}"', from=1-1, to=2-1]
+      \arrow["\cong", from=1-1, to=2-1]
+      \arrow["{T \lambda}", from=1-2, to=2-2]
+      \arrow["\cong"', from=1-2, to=2-2]
+      \arrow["{T \nabla_{m}}", shift left=1, from=2-1, to=2-2]
+      \arrow["{\mu_{m}}"', shift right=1, from=2-1, to=2-2]
+    \end{mytikzcd}
+  \]
+  defines an isomorphism in the category of parallel pairs of morphisms in \(\cat{M}^T\)%
+  —the upper square commutes due to the naturality of the left unitor \(\lambda\) of \(\cat{M}\),
+  and the lower by coherence for \(\blank \lact \bblank\).
+  This isomorphism induces an isomorphism on the level of coequalisers, \(m \cong 1 \blact m\).
+  Further, this construction of morphisms of parallel pairs is clearly natural in \(m\),
+  establishing the naturality of the isomorphism of coequalisers.
+\end{proof}
+
+\begin{lemma}\label{actiononfree}
+  For any \(m \in \cat{M}\), the coequaliser of
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {T(x \lact T^{2}m)} \& {T(x\lact Tm)}
+      \arrow["{T(x \lact \mu_{m})}", shift left=1, from=1-1, to=1-2]
+      \arrow["{\mu_{x\lact Tm}\circ T T_{\mathsf{a};x,Tm}}"', shift right=1, from=1-1, to=1-2]
+    \end{mytikzcd}
+  \]
+  in \(\cat{M}^T\) is natural in \(m\), split, and isomorphic to \(T(x \lact m)\).
+  In other words the Linton coequaliser on a free \(T\)\hyp{}module is given by \(x \blact Tm \cong T(x \lact m)\).
+\end{lemma}
+\begin{proof}
+  The splitting data is given by
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {T(x \lact T^{2}m)} \& {T(x\lact Tm)} \& {T(x\lact m).}
+      \arrow["{T(x \lact \mu_{m})}", from=1-1, to=1-2]
+      \arrow["{\mu_{x\lact Tm}\circ T T_{\mathsf{a};x,Tm}}"', shift right=2, from=1-1, to=1-2]
+      \arrow["{T(x \lact T\eta_{m})}"', curve={height=18pt}, from=1-2, to=1-1]
+      \arrow["{\mu_{x \lact m}\circ T T_{\mathsf{a};x,m}}"', from=1-2, to=1-3]
+      \arrow["{T(x \lact \eta_{m})}"', curve={height=18pt}, from=1-3, to=1-2]
+    \end{mytikzcd}
+    \qedhere
+  \]
+\end{proof}
+
+\begin{lemma}\label{isoassociativity}
+ For \(x,y \in \cat{C}\), there is a natural isomorphism \((x \otimes y) \blact \blank \cong x \blact (y \blact \blank)\).
+\end{lemma}
+\begin{proof}
+  We calculate
+  \[
+    \begin{aligned}
+      x \blact (y \blact m)
+      &= x \blact \coeq(T(y \lact \nabla_{m}),\, \mu_{x \lact m} \circ  T T_{\mathsf{a};y,m})\\
+      &\cong \coeq(x \blact T(y \lact \nabla_{m}),\, x \blact \mu_{x \lact m} \circ  T T_{\mathsf{a};y,m})\\
+      &\cong \coeq(T(x\lact (y \lact \nabla_{m})),\, \mu_{y \lact x \lact m}\circ T(T_{\mathsf{a}; x, y\lact m} \circ y \lact T_{\mathsf{a};x,m}))\\
+      &\cong \coeq(T((x \otimes y) \lact \nabla_{m}),\, \mu_{(x \otimes y)\lact Tm} \circ T T_{\mathsf{a}; x \otimes y, Tm}) \\
+      &= (x \otimes y) \blact m,
+    \end{aligned}
+  \]
+  where the first isomorphism follows from \cref{rightexactaction},
+  the second one is due to \cref{actiononfree},
+  and the third one follows by coherence of \(\blank \lact \bblank\).
+\end{proof}
+
+In view of \cref{isounitality,isoassociativity},
+all that remains in order to establish that \(\blank \blact \bblank\) defines a \(\cat{C}\)\hyp{}module category structure on \(\cat{M}^T\) is the verification of coherence axioms.
+While this can be accomplished by diagram chasing—see~\cite[Theorem~2.6.4]{seal13:tensor}—we choose to give a more formal argument,
+mimicking the multicategorical approach used by~\cite{aguiar18:monad} in the analogous case of monoidal monads.
+More specifically, we shall prove the following two results in the remainder of this section.
+
+\begin{theorem}\label{extendingalways}
+ The functor \(\blank \blact \bblank \from \cat{C} \kotimes \cat{M}^T \to \cat{M}^T\) defines a left \(\cat{C}\)\hyp{}module category structure on \(\cat{M}^T\).
+\end{theorem}
+
+Assuming \cref{extendingalways},
+we have \(x \blact Tm = T(x \lact m)\),
+and so the image of the inclusion \(\iota\from \cat{M}_T \to \cat{M}^T\) of \cref{denotedbyiota}
+is a \(\cat{C}\)\hyp{}module subcategory,
+where \(\cat{M}_T\) is endowed with the action given in the proof of \cref{laxKlCorrespondence}.
+
+\begin{theorem}\label{strongembeddingalways}
+ The unique embedding \(\iota \from (\cat{M}_T, \lact_{\cat{M}_T}) \to (\cat{M}^T, \blact)\) can be equipped with the structure of a strong \(\cat{C}\)\hyp{}module functor.
+\end{theorem}
+
+Let us now recall the theory of multicategories,
+see~\cite{hermida00:repres,leinster04:higher}.
+
+\begin{definition}\label{def:multicategory}
+  A (locally small) \emph{multicategory} \(\mathbf{C}\) consists of
+  \begin{itemize}
+    \item a class \(\Ob\mathbf{C}\) of objects of \(\mathbf{C}\), where we write \(x \in \mathbf{C}\) for \(x \in \Ob\mathbf{C}\);
+    \item for any finite sequence \((x_{1},\ldots, x_{n}, y)\) of objects in \(\mathbf{C}\),
+    a set of \emph{multimorphisms} \(\mathbf{C}(x_{1},\ldots, x_{n}; y)\) from \((x_{1},\ldots,x_{n})\) to \(y\);
+    \item for every \(x \in \mathbf{C}\), an identity multimorphism \(\id_{x} \in \mathbf{C}(x;x)\); and
+    \item for any \(y \in \mathrm{Ob}(\mathbf{C})\), \({(x_{i})}_{i=1}^{n} \in {\mathrm{Ob}(\mathbf{C})}^{n}\),
+    as well as
+    \[
+      \big((u_1^1, \dots, u_1^{k_1}), \dots, (u_n^1, \dots, u_n^{k_n})\big) \in {\mathrm{Ob}(\mathbf{C})}^{k_{1} + \dots + k_n},
+    \]
+    a composition operation
+    \[
+      \begin{aligned}
+        \mathbf{C}&(x_{1},\ldots,x_{n}; y) \times \mathbf{C}(u_{1}^{1},\ldots, u_{1}^{k_{1}}; x_{1}) \times \cdots \times \mathbf{C}(u_{n}^{1},\ldots, u_{n}^{k_{n}}; x_{n}) \\
+         &\to \mathbf{C}(u_{1}^{1},\ldots,u_{n}^{k_{n}}; y),
+      \end{aligned}
+    \]
+  \end{itemize}
+  subject to natural associativity and unitality conditions; see for example~\cite[Section~2.1]{leinster04:higher} or~\cite[Definition~2.1]{hermida00:repres}.
+\end{definition}
+
+Since we want our multicategories and multiactegories to correspond to \(\Bbbk\)\hyp{}linear monoidal and module categories,
+we should replace sets of multimorphisms with vector spaces,
+and the Cartesian products with tensor products.
+However, since our aim is to show \cref{extendingalways},
+which can be verified on the level of the underlying (ordinary) categories,
+this is not essential.
+The following definition is a non-skew special case of~\cite[Definition~6.9]{arkor24}.
+
+\begin{definition}\label{def:multiactegory}
+  Let \(\mathbf{C}\) be a (locally small) multicategory.
+  A (locally small) \emph{left multiactegory} \(\mathbf{M}\) over \(\mathbf{C}\) has as data:
+  \begin{itemize}
+    \item a class \(\Ob\mathbf{M}\) of objects of \(\mathbf{M}\),
+    where we write \(m \in \mathbf{M}\) for \(m \in \mathrm{Ob}\mathbf{M}\);
+    \item for any finite (possibly empty) sequence \((x_{1},\ldots, x_{n})\) of objects in \(\mathbf{C}\)
+    and a pair of objects \((m, m')\) of \(\mathbf{M}\),
+    a set \(\mathbf{M}(x_{1},\ldots, x_{n}; m; m')\) of \emph{multimorphisms} from \((x_{1},\ldots,x_{n}; m)\) to \(m'\);
+    \item for every \(m \in \mathbf{M}\), an identity multimorphism \(\mathrm{id}_{m} \in \mathbf{M}(m;m)\); and
+    \item for any \(x \in \mathbf{C}\), \(m, m', \ell \in \mathbf{M}\),
+    \({(x_{i})}_{i=1}^{n} \in {\mathrm{Ob}(\mathbf{C})}^{n}\),
+    and
+    \[
+      \big((u_1^1, \dots, u_1^{k_1}), \dots, (u_n^1, \dots, u_n^{k_n})\big) \in {\mathrm{Ob}(\mathbf{C})}^{k_{1} + \dots + k_n},
+    \]
+    a composition operation
+    \begin{equation}\label{eq:multiactcompose}
+      \mathscale{0.95}{\begin{aligned}
+        \mathbf{M}&(x_{1},\ldots,x_{n}; m; m')
+                    \times \mathbf{C}(u_{1}^{1},\ldots, u_{1}^{k_{1}};x_{1})
+                    \times \cdots
+                    \times \mathbf{C}(u_{n}^{1},\ldots, u_{n}^{k_{n}};x_{n}) \\
+                  &\times \mathbf{M}(u_{n+1}^{1},\ldots,u_{n+1}^{k_{n+1}}; \ell; m)
+                    \to \mathbf{M}(u_{1}^{1},\ldots,u_{n+1}^{k_{n+1}}; \ell; m').
+      \end{aligned}}
+    \end{equation}
+  \end{itemize}
+  This data has to satisfy the (non-marked) associativity and unitality axioms of~\cite[Definitions~4.4 and~6.9]{arkor24}.
+\end{definition}
+
+\begin{notation}
+  From now on, we will often abbreviate sequences of objects using the vector notation similar to~\cite{hermida00:repres};
+  \eg, writing \(\vec{x}\) for \((x_{1},\ldots, x_{n})\)
+  and \((\vec{x_{1}}, \vec{x_{2}})\) for \((x_{1}^{1},\ldots, x_{1}^{n_{1}}, x_{2}^{1}, \ldots, x_{2}^{n_{2}})\).
+  We will use this notation for clarity and brevity, when keeping track of the length of the tuples is not required.
+  We also fix the notation for the remainder of this section,
+  letting \(\mathbf{C}\) be a multicategory and letting \(\mathbf{M}\) be a \(\mathbf{C}\)\hyp{}multiactegory.
+\end{notation}
+
+Recall from~\cite[Chapter~8]{hermida00:repres} that a \emph{pre-universal arrow} for a tuple \(\vec{x}\) of objects of \(\mathbf{C}\)
+consists of an object \(\otimes(\vec{x})\) of \(\mathbf{C}\)
+together with a multimorphism \(\pi \in \mathbf{C}(\vec{x};\otimes(\vec{x}))\),
+inducing isomorphisms \(\mathbf{C}(\otimes(\vec{x});y) \iso \mathbf{C}(\vec{x};y)\).
+If \(\pi\) further induces isomorphisms
+\[
+  \mathbf{C}(\vec{z}, \otimes(\vec{x}), \vec{z'}; y) \iso \mathbf{C}(\vec{z}, \vec{x}, \vec{z'}; y),
+\]
+we say that \(\pi\) is \emph{universal}.
+If any sequence of objects of \(\mathbf{C}\) is the domain of a universal arrow,
+we say that \(\mathbf{C}\) is \emph{representable}.
+A \emph{representation} of \(\mathbf{C}\) is a choice of a universal arrow from every sequence of objects in \(\mathbf{C}\).
+
+\begin{definition}
+  Let \(\mathbf{M}\) be a \(\mathbf{C}\)\hyp{}multiactegory.
+  A \emph{pre-universal arrow} for a tuple \(\vec{x}\) of objects of \(\mathbf{C}\)
+  and \(m \in \mathbf{M}\)
+  consists of an object \(\lact(\vec{x}; m)\),
+  together with a multimorphism \(\pi \in \mathbf{M}(\vec{x};m; \lact(\vec{x};m))\),
+  inducing isomorphisms
+  \[
+    \mathbf{M}(\lact(\vec{x};m);m') \iso \mathbf{M}(\vec{x};m;m').
+  \]
+
+  If \(\pi\) further induces isomorphisms
+  \[
+    \mathbf{M}(\vec{y},\lact(\vec{x};m);m') \iso \mathbf{M}(\vec{y},\vec{x};m;m'),
+  \]
+  then \(\pi\) is said to be \emph{universal}.
+\end{definition}
+
+\begin{definition}
+  We say that a multimorphism \(\rho \in \mathbf{C}(\vec{x}; y)\) is \emph{pre-universal in \(\mathbf{M}\)}
+  if it induces isomorphisms \(\mathbf{M}(y; m; n) \iso \mathbf{M}(\vec{x}; m; n)\).
+  It is \emph{universal in \(\mathbf{M}\)}, if it also induces isomorphisms
+  \(\mathbf{M}(\vec{z}, \vec{x}, \vec{w}; m; n) \iso \mathbf{M}(\vec{z}, y, \vec{w}; m; n)\).
+\end{definition}
+
+\begin{definition}\label{representablemultiactegory}
+  For \(\mathbf{C}\) representable and a representation \(\mathsf{R}\) of \(\mathbf{C}\),
+  we say that \(\mathbf{M}\) is a \emph{representable with respect to \(\mathsf{R}\)},
+  if for every sequence \(\vec{x}\) of objects of \(\mathbf{C}\) and every object \(m \in \mathbf{M}\),
+  there is a universal arrow \(\pi_{(\vec{x};m)} \in \mathbf{M}(\vec{x};m; \lact(\vec{x},m))\),
+  and all morphisms of \(\mathsf{R}\) are universal in \(\mathbf{M}\).
+\end{definition}
+
+Recall from~\cite[Proposition~8.5]{hermida00:repres} that universal arrows in a multicategory \(\mathbf{C}\) are closed under composition.
+Further, if every sequence of objects in \(\mathbf{C}\) is the domain of a pre-universal arrow and pre-universal arrows are closed under composition,
+then a pre-universal arrow in \(\mathbf{C}\) is universal.
+A similar result holds for multiactegories.
+
+\begin{lemma}\hfill
+  \begin{enumerate}[noitemsep]
+    \item Composition of universal arrows of \(\mathbf{C}\) in \(\mathbf{M}\)
+    and universal arrows of \(\mathbf{M}\) yields universal arrows in \(\mathbf{M}\).
+    \item If composition of pre-universal arrows of \(\mathbf{C}\) in \(\mathbf{M}\)
+    and pre-universal arrows of \(\mathbf{M}\) yields pre-universal arrows in \(\mathbf{M}\),
+    then a pre-universal morphism in \(\mathbf{M}\) is universal.
+    \item If pre-universal arrows in \(\mathbf{C}\) act pre-universally in \(\mathbf{M}\),
+    and pre-universal arrows of \(\mathbf{C}\) and \(\mathbf{M}\) are closed under composition in \(\mathbf{M}\),
+    then \(\mathbf{M}\) is representable.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  For the first part, let \((\pi_{0}, \rho_{1},\ldots, \rho_{n}, \pi_{n+1})\) be a sequence composable in \(\mathbf{M}\),
+  with \(\pi_{0},\pi_{n+1}\) in \(\mathbf{M}\) and \(\rho_{1},\ldots, \rho_{n} \in \mathbf{C}\),
+  as indicated in \cref{eq:multiactcompose},
+  all of whose elements are universal in \(\mathbf{M}\).
+  The composite \(\pi_{0} \circ (\rho_{1},\ldots, \rho_{n}, \pi_{n+1})\) gives rise to the sequence of isomorphisms
+  \[
+    \begin{aligned}
+      \mathbf{M}&(\vec{x}, \lact(\otimes(\vec{y}_{1}),\ldots, \otimes(\vec{y}_{n});\lact(\vec{y}_{n+1},m)),\blank) \\
+                  &\cong \mathbf{M}(\vec{x}, \otimes(\vec{y}_{1}), \ldots, \otimes(\vec{y}_{n});\lact(\vec{y}_{n+1},m);\blank)
+                \cong \mathbf{M}(\vec{x},\ldots, \vec{y}_{1},\ldots,\vec{y}_{n+1};m;\blank),
+    \end{aligned}
+  \]
+  proving the universality of the composite.
+
+  For the second part, consider the following chain of maps:
+  \begin{align*}
+    \mathbf{M}(\vec{x},\vec{y},\vec{z};m;\blank)
+    & \rightarrow \mathbf{M}(\vec{x},\otimes(\vec{y}),\vec{z};m;\blank)
+      \rightarrow \mathbf{M}(\otimes(\vec{x}),\otimes(\vec{y}),\otimes(\vec{z});m;\blank) \\
+    & \rightarrow \mathbf{M}(\lact(\otimes(\vec{x}),\otimes(\vec{y}),\otimes(\vec{z});m);\blank),
+  \end{align*}
+  where the first morphism is induced by the pre-universal arrow \(\rho_{\vec{x}}\) of \(\mathbf{C}\),
+  the second one by the pre-universal arrows \(\rho_{\vec{y}}\) and \(\rho_{\vec{z}}\) of \(\mathbf{C}\),
+  and the third is induced by the universal arrow \(\pi_{(\vec{y},\vec{x},\vec{z}; m)}\).
+  The composite of all three maps is an isomorphism%
+  —being induced by a composite of pre-universal arrows—%
+  and hence a pre-universal arrow.
+  The same holds for the composite of the latter two maps.
+  These two observations establish the invertibility of the first map.
+
+  The third part is established by applying the proof of the second part above to the case of pre-universal arrows of \(\mathbf{C}\).
+\end{proof}
+
+Assume \(\mathbf{C}\) to be representable, let \(\mathsf{R}\) be a representation of \(\mathbf{C}\),
+and suppose that \(\mathbf{M}\) is representable with respect to \(\mathsf{R}\).
+Given a sequence \(x_{1},\ldots,x_{n}\) of objects in \(\mathbf{C}\) and an object \(m\) in \(\mathbf{M}\),
+the set of ways in which we may compose the universal arrows in the given representations to a universal arrow with domain \((x_{1},\ldots,x_{n};m)\)
+is canonically in bijection with the set of parenthesisations of the word \(x_{1}\cdots x_{n}m\)
+into subwords of length at least two.
+Let \(\diamond\) and \(\diamond'\) be two such parenthesisations.
+We denote the codomains of the corresponding universal arrows by \(\diamond(x_{1},\ldots,x_{n};m)\) and \(\diamond'(x_{1},\ldots,x_{n};m)\),
+and the universal arrows themselves by \(\pi_{\diamond(x_{1},\ldots,x_{n};m)}\) and \(\pi_{\diamond'(x_{1},\ldots,x_{n};m)}\).
+The universality of \(\pi_{\diamond(x_{1},\ldots,x_{n};m)}\) entails the existence of
+a unique arrow
+\[
+  \alpha_{\vec{x},m}^{\diamond,\diamond'}\from \diamond(x_{1},\ldots,x_{n};m)\to \diamond'(x_{1},\ldots,x_{n};m),
+\]
+satisfying \(\alpha_{\vec{x},m}^{\diamond,\diamond'} \circ \pi_{\diamond(\vec{x},m)} = \pi_{\diamond'(\vec{x},m)}\),
+which is invertible with inverse \(\alpha_{\vec{x},m}^{\diamond',\diamond}\).
+
+Further, \(\alpha_{\vec{x},m}^{\diamond,\diamond''} = \alpha_{\vec{x},m}^{\diamond',\diamond''} \circ \alpha_{\vec{x},m}^{\diamond,\diamond'}\).
+Thus, for any sequence \(x_{1},\ldots,x_{n},m\) we obtain
+an indiscrete category\note{%
+  A category is called \emph{indiscrete} if there exists a unique morphism from every object to every other object.%
+}
+whose objects are parenthesisations of \(x_{1}\cdots x_{n}m\)
+and \(\mathrm{Hom}(\diamond,\diamond') = \{\alpha_{\vec{x},m}^{\diamond,\diamond'}\}\).
+The arrow \(\alpha_{\vec{x},m}^{\diamond,\diamond'}\) is natural in \(m\) and \(x_{i}\) for all \(i\).
+
+\begin{remark}\label{rmk:monoidal-from-multi}
+  Recall that given a representable multicategory \(\mathbf{C}\) with a fixed representation,
+  there is a monoidal category \(\cat{C}\) defined by \(\Ob\cat{C} \defeq \Ob\mathbf{C}\),
+  \(\cat{C}(x,y) \defeq \mathbf{C}(x;y)\),
+  and \(x \otimes y \defeq \otimes(x,y)\),
+  the codomain of the universal arrow \(\pi_{\otimes(x,y)}\) from \((x,y)\) in the representation of \(\mathbf{C}\).
+  The associator of \(\cat{C}\) is defined by the
+  \(\alpha_{w,x,y}^{(wx)y,w(xy)}\) described above;
+  one obtains similar arrows for unitality.
+
+  The indiscreteness of the category of morphisms \(\alpha^{\diamond,\diamond'}\)
+  associated to the parenthesisations of words in \(\mathbf{C}\)
+  implies the commutativity of the pentagon and triangle diagrams,
+  establishing the coherence and well-definedness of \(\cat{C}\).
+\end{remark}
+
+The indiscrete category described above establishes
+the well-definedness of the \(\cat{C}\)\hyp{}module category \(\cat{M}\) of the following definition.
+
+\begin{definition}\label{associatedrepresented}
+  Let \(\mathbf{M}\) be a representable multiactegory over a representable multicategory \(\mathbf{C}\),
+  with fixed representations for both.
+  Let \(\cat{C}\) be the monoidal category associated to the representation of \(\mathbf{C}\).
+  The \emph{\(\cat{C}\)\hyp{}module category \(\cat{M}\) associated to the fixed representation of \(\mathbf{M}\)} is defined by setting \(\Ob\mathbf{M} \defeq \Ob\cat{M}\),
+  \(\cat{M}(m,n) \defeq \mathbf{M}(m; n)\),
+  and \(x \lact m \defeq \lact(x,m)\), the codomain of the universal arrow \(\pi_{\lact(x,m)}\).
+  The associator \((x \otimes y) \lact m \iso x \lact (y \lact m)\) is given by the arrow \(\alpha_{x,y,m}^{(xy)m, x(ym)}\),
+  and similarly for the unitors.
+\end{definition}
+
+Having established sufficient analogues of~\cite{hermida00:repres,leinster04:higher},
+we continue with analogues of~\cite[Section~3]{aguiar18:monad}.
+For \(x_i \in \cat{C}\) and \(m \in \cat{M}\), write
+\[
+  \varphi \from x_{1}\lact \cdots \lact x_{n} \lact Tm \to T(x_{1}\lact \cdots \lact x_{n} \lact m)
+\]
+for the morphism obtained by repeated application of the lax structure of \(T\),
+where \(x_{1}\lact \cdots \lact x_{n} \lact m\) is to be read as \(x_{1} \lact (\cdots \lact (x_{n} \lact m))\).
+
+We will also consider the coequaliser diagram
+\begin{equation}\label[diagram]{unicharacterize}
+  \mathscale{0.98}{\begin{mytikzcd}[ampersand replacement=\&]
+    {T(x_{1} \lact \cdots \lact x_{n} \lact Tm)} \& {T^{2}(x_{1} \lact \cdots \lact x_{n} \lact m)} \& {T(x_{1} \lact \cdots \lact x_{n} \lact m)}
+    \arrow["{T\varphi}"', from=1-1, to=1-2]
+    \arrow["{T(x_{1}\lact\cdots \lact x_{n}\lact \nabla_{m})}", curve={height=-18pt}, from=1-1, to=1-3]
+    \arrow["\mu"', from=1-2, to=1-3]
+  \end{mytikzcd}}
+\end{equation}
+which is reflexive, with
+\(T(x_{1} \lact \cdots \lact x_{n} \lact m) \xrightarrow{T(x_{1} \lact \cdots \lact x_{n} \lact \eta_{m})} T(x_{1} \lact \cdots \lact x_{n} \lact Tm)\)
+as a common section.
+
+\begin{definition}
+  A morphism \(f\from x_{1}\lact \cdots \lact x_{n} \lact m \to m'\)
+  is called \emph{\(n\)\hyp{}multilinear}
+  if the following diagram commutes:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {x_{1}\lact \cdots \lact x_{n} \lact Tm} \&\& {T(x_{1}\lact \cdots \lact x_{n}\lact m)} \\
+      \&\& {Tm'} \\
+      {x_{1}\lact \cdots \lact x_{n} \lact m} \&\& m'
+      \arrow["\varphi", from=1-1, to=1-3]
+      \arrow["{x_{1}\lact \cdots \lact x_{n} \lact \nabla_{m}}"', from=1-1, to=3-1]
+      \arrow["{Tf}", from=1-3, to=2-3]
+      \arrow["{\nabla_{m'}}", from=2-3, to=3-3]
+      \arrow["f"', from=3-1, to=3-3]
+    \end{mytikzcd}
+  \]
+\end{definition}
+
+\begin{remark}
+  For a monoidal category \(\cat{C}\), there exists a representable multicategory \(\mathbf{C}\),
+  with \(\mathbf{C}(x_{1},\ldots,x_{n};y) \defeq \cat{C}(x_{1}\otimes (\cdots (x_{n-1}\otimes x_{n})\ldots),y)\).
+  Then,
+  a multimorphism \(\pi \in \mathbf{C}(x_{1},\ldots,x_{n}; y)\) is universal if and only if
+  it is an isomorphism \(\pi\from x_{1} \otimes \cdots \otimes x_{n} \iso y\).
+
+  Similarly, given a \(\cat{C}\)\hyp{}module category,
+  one obtains a representable multiactegory \(\mathbf{M}\) over \(\mathbf{C}\)
+  satisfying \(\mathbf{M}(x_{1},\ldots,x_{n}; m; n) = \cat{M}(x_{1}\lact \cdots \lact x_{n} \lact m, m')\).
+  A universal arrow \(\pi \in \mathbf{M}(x_{1},\ldots,x_{n}; m; m')\) is an isomorphism \(\pi\from x_{1} \lact \cdots \lact m \iso m'\).
+\end{remark}
+
+\begin{lemma}
+  For a \(\cat{C}\)\hyp{}module category \(\cat{M}\),
+  the collection of multilinear morphisms of \(\mathbf{M}\)
+  is stable under multicomposition with morphisms of \(\mathbf{C}\),
+  forming a \(\cat{C}\)\hyp{}multiactegory that we denote by \(\mathbf{M}^{\varphi}\).
+\end{lemma}
+\begin{proof}
+  For \(i = 1,\ldots, n\), consider sequences \(\vec{z_{i}}\);
+  morphisms \(\otimes(z_{i}) \xrightarrow{g_{i}} x_{i}\),
+  where \(\otimes(z_{i})\) again is given the rightmost parenthesisation;
+  and a multilinear morphism \(f\from x_1 \lact \dots \lact x_n \lact m \to m'\) of \(\mathbf{M}\).
+  The claim follows immediately from the commutativity of
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\otimes(\vec{z_{1}})\lact \cdots \lact \otimes(\vec{z_{n}}) \lact Tm} \&\& {T(\otimes(\vec{z_{1}})\lact \cdots \lact \otimes(\vec{z_{n}})\lact m)} \\
+      {x_{1}\lact \cdots \lact x_{n} \lact Tm} \&\& {T(x_{1}\lact \cdots \lact x_{n}\lact m)} \\
+      \&\& {Tm'} \\
+      {x_{1}\lact \cdots \lact x_{n} \lact m} \&\& m'
+      \arrow["\varphi", from=1-1, to=1-3]
+      \arrow["{g_{1}\lact\cdots \lact g_{n} \lact Tm}", from=1-1, to=2-1]
+      \arrow["{T(g_{1}\lact\cdots \lact g_{n} \lact m)}", from=1-3, to=2-3]
+      \arrow["\varphi", from=2-1, to=2-3]
+      \arrow["{x_{1}\lact \cdots \lact x_{n} \lact \nabla_m}", from=2-1, to=4-1]
+      \arrow["{Tf}"', from=2-3, to=3-3]
+      \arrow["{\nabla_{m'}}"', from=3-3, to=4-3]
+      \arrow["f", from=4-1, to=4-3]
+    \end{mytikzcd}
+  \]
+  where the top face commutes by naturality of the action of \(\cat{C}\) in \(\cat{M}\).
+\end{proof}
+
+Note that \(\mathbf{M}^{\varphi}\) being representable would prove \cref{extendingalways},
+since then the \(\cat{C}\)\hyp{}module category can be equipped with coherent associators;
+see \cref{rmk:monoidal-from-multi,associatedrepresented}.
+
+\begin{lemma}\label{multiuni}
+  A map \(f\) is \(n\)\hyp{}multilinear if and only if
+  the map
+  \[
+    \underline{f} \from T(x_1 \lact \dots \lact x_n \lact m) \xrightarrow{\ Tf\ } Tm' \xrightarrow{\ \nabla_{m'}\ } m'
+  \]
+  coequalises \cref{unicharacterize},
+  and \(f\) is pre-universal in \(\mathbf{M}^{\varphi}\) if and only if
+  \(\underline{f}\) is the (universal) coequaliser of \emph{ibid}.
+\end{lemma}
+\begin{proof}
+  Consider the following diagram:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {T(x_{1}\lact \cdots \lact x_{n}\lact Tm)} \&\& {T^{2}(x_{1}\lact \cdots \lact x_{n}\lact m)} \\
+      \&\& {T^{2}m'} \\
+      {T(x_{1}\lact \cdots \lact x_{n}\lact m)} \&\& {Tm'} \& {Tm'} \\
+      \&\& m'
+      \arrow["{T\varphi}", from=1-1, to=1-3]
+      \arrow["{T(x_{1}\lact \cdots\lact \nabla_{m})}"', from=1-1, to=3-1]
+      \arrow["{T^{2}f}", from=1-3, to=2-3]
+      \arrow[""{name=0, anchor=center, inner sep=0}, "\mu", from=1-3, to=3-1]
+      \arrow["{\mu_{m'}}", from=2-3, to=3-3]
+      \arrow[""{name=1, anchor=center, inner sep=0}, "{T(\nabla_{m'})}", from=2-3, to=3-4]
+      \arrow["{Tf}", from=3-1, to=3-3]
+      \arrow["{\underline{f}}"', from=3-1, to=4-3]
+      \arrow["{\nabla_{m'}}", from=3-3, to=4-3]
+      \arrow["{\nabla_{m'}}", from=3-4, to=4-3]
+      \arrow["{(1)}"{description}, draw=none, from=1-1, to=0]
+      \arrow["{(2)}"{description}, shift left=5, draw=none, from=0, to=3-3]
+      \arrow["{(3)}"{description, pos=0.4}, draw=none, from=1, to=4-3]
+    \end{mytikzcd}
+  \]
+  Coequalising the pair~\eqref{unicharacterize} is precisely coequalising face \((1)\) in the above diagram.
+  Thus, since face \((2)\) commutes, it is equivalent to \(\nabla_{m'}\) coequalising the square formed jointly by faces \((1)\) and \((2)\).
+
+  Observe that, using commutativity of face \((3)\),
+  this square postcomposed by \(\nabla_{m'}\) gives precisely the pair of morphisms in \(\cat{M}^T(T(x_{1}\lact \cdots \lact Tm), m')\)
+  corresponding to the pair of morphisms in \(\cat{M}(x_{1}\lact \cdots \lact T(m), m')\),
+  defining multilinearity of \(f\),
+  under \(\cat{M}^T(T(\blank),\bblank) \cong \cat{M}(\blank,\bblank)\).
+  Thus, both conditions in the first statement are equivalent to the commutativity of the diagram.
+
+  The second statement is shown analogously to~\cite[Lemma~3.5]{aguiar18:monad}
+\end{proof}
+
+Finally, in order to establish \cref{extendingalways,strongembeddingalways},
+we need an analogue of~\cite[Proposition~3.13]{aguiar18:monad}.
+
+\begin{proposition}\label{hillbility}
+ The multicategory \(\mathbf{M}^{\varphi}\) is representable.
+\end{proposition}
+
+\begin{proof}
+  Let \((x_{1},\ldots,x_{n},m')\) be a sequence of objects, with \(x_{i} \in \cat{C}\) and \(m' \in \cat{M}\).
+  The coequalizer of Diagram~\eqref{unicharacterize} defines a pre-universal map in \(\mathbf{M}^{\varphi}\) with domain \((x_{1},\ldots,x_{n};m')\), by Lemma~\ref{multiuni}.
+  It remains to show that a composition of pre-universal maps is pre-universal.
+  Thus, consider sequences \(\vec{z_{1}},\ldots,\vec{z_{n}}\) and \(\vec{y}\), universal multimorphisms \(h_{i}\from \vec{z_{i}} \to x_{i}\) of \(\mathbf{C}\), and universal multimorphisms \(f\from (\vec{y},m) \to m'\) and \(g\from (\vec{x},m') \to m''\).
+
+  Behold the following diagram:
+  \[
+    \mathscale{0.8}{\begin{mytikzcd}[ampersand replacement=\&]
+        \&\& {\vec{z_{1}} \lact \cdots \vec{z_{n}}\lact T^{2}(\vec{y} \lact m)} \\
+        {\vec{z_{1}} \lact \cdots \vec{z_{n}}\lact T(\vec{y} \lact T(m))} \&\&\&\& {\vec{z_{1}} \lact \cdots \vec{z_{n}}\lact T(\vec{y} \lact m)} \\
+        \&\& {T^{2}(\vec{z_{1}} \lact \cdots \vec{z_{n}}\lact \vec{y} \lact m)} \\
+        {T(\vec{z_{1}} \lact \cdots \vec{z_{n}}\lact \vec{y} \lact T(m))} \&\&\&\& {T(\vec{z_{1}} \lact \cdots \vec{z_{n}}\lact \vec{y} \lact m)}
+        \arrow["{z_{1} \lact \cdots z_{n}\lact \mu_{y\lact m}}"{pos=0.6}, from=1-3, to=2-5]
+        \arrow["{\vec{z_{1}} \lact \cdots \vec{z_{n}}\lact T(\varphi)}"{pos=0.4}, from=2-1, to=1-3]
+        \arrow["{\vec{z_{1}} \lact \cdots \vec{z_{n}}\lact T(\vec{y} \lact \nabla_{m})}", from=2-1, to=2-5]
+        \arrow["\varphi"', from=2-1, to=4-1]
+        \arrow["\varphi"', from=2-5, to=4-5]
+        \arrow["{\mu_{z_{1}\lact \cdots \lact m}}", from=3-3, to=4-5]
+        \arrow["{T\varphi}", from=4-1, to=3-3]
+        \arrow["{T(\vec{z_{1}} \lact \cdots \vec{z_{n}}\lact \vec{y} \lact \nabla_{m})}"', from=4-1, to=4-5]
+      \end{mytikzcd}}
+  \]
+  Similarly to the proof of~\cite[Proposition~3.13]{aguiar18:monad},
+  this is a morphism from the top triangle-shaped diagram to the bottom one,
+  where the top is the action of \((\vec{z_{1}},\ldots,\vec{z_{n}})\)
+  on the Linton pair for \((\vec{y},m)\),
+  while the bottom is the Linton pair for \((\vec{z_{1}},\ldots,\vec{z_{n}},\vec{y};m)\).
+
+  Now, let \(X \in \mathbf{M}^{\varphi}(\vec{z_{1}},\ldots,\vec{z_{n}},\vec{y};m;\ell)\).
+  Consider the diagram
+  \[
+    \mathscale{0.98}{\begin{mytikzcd}[ampersand replacement=\&]
+      {\vec{z_{1}} \lact \cdots \vec{z_{n}}\lact T(\vec{y} \lact m)} \&\& {\vec{z_{1}} \lact \cdots \vec{z_{n}}\lact m'} \&\& {x_{1} \lact \cdots x_{n}\lact m'} \\
+      \\
+      {T(\vec{z_{1}} \lact \cdots \vec{z_{n}}\lact \vec{y} \lact m)} \&\& {\ell} \&\& m''
+      \arrow["{z_{1}\lact\cdots \lact \underline{f}}", from=1-1, to=1-3]
+      \arrow["\varphi"', from=1-1, to=3-1]
+      \arrow["{h_{1} \lact \cdots h_{n}\lact m'}", from=1-3, to=1-5]
+      \arrow["\simeq"', from=1-3, to=1-5]
+      \arrow["{\exists! \widetilde{X}}", dashed, from=1-3, to=3-3]
+      \arrow["g", from=1-5, to=3-5]
+      \arrow["{\underline{X}}", from=3-1, to=3-3]
+      \arrow["{\exists! \widehat{X}}", dotted, from=3-5, to=3-3]
+    \end{mytikzcd}}
+  \]
+  where \(\widetilde{X}\) exists since, by \cref{multiuni},
+  \(\underline{X}\) coequalises the bottom Linton pair in the penultimate diagram above,
+  and \({h_{1}\lact\cdots \lact \underline{f}}\) is the coequaliser of the top Linton pair in the same diagram.
+
+  Similarly to~\cite[Lemma~3.11]{aguiar18:monad} one shows that \(\widetilde{X}\) is multilinear,
+  and thus so is \(h_{1}^{-1} \lact \cdots \lact h_{n}^{-1} \lact m'\),
+  since \(h_{i}\) is invertible for all \(i\), being a pre-universal, and hence universal, arrow of \(\mathbf{C}\).
+  This proves the existence of \(\widehat{X}\).
+
+  Thus, the multilinear morphism \(X\) factors through \(g \circ (h_{1},\ldots, h_{n},f)\),
+  and this factorisation is unique by uniqueness of \(\widetilde{X}\) and of \(\widehat{X}\).
+  This establishes the pre-universality of the composition \(g \circ (h_{1},\ldots, h_{n}, f)\).
+\end{proof}
+
+\section{Internal projective and injective objects}\label{sec:internal-projectives-and-injectives}
+
+\begin{definition}\label{def:c-projective}
+  Let \(\cat{C}\) be an abelian monoidal category and let \(\cat{M}\) be an abelian \(\cat{C}\)\hyp{}module category.
+  An object \(M \in \cat{M}\) is said to be \emph{\(\cat{C}\)\hyp{}projective} if,
+  for any projective object \(P \in \cat{C}\),
+  the object \(P \lact M \in \cat{M}\) is projective.
+  Similarly, \(M\) is \emph{\(\cat{C}\)\hyp{}injective} if,
+  for any injective object \(I \in \cat{C}\),
+  the object \(I \lact M \in \cat{M}\) is injective.
+\end{definition}
+
+The next result connects
+the formal definition of a \(\cat{C}\)\hyp{}projective
+with the ordinary notion of projective object in an abelian category.
+
+\begin{proposition}\label{Cprojectives}
+  Assume that \(\cat{C}\) and \(\cat{M}\) have enough projectives.
+  Let \(M\) be a closed object of \(\cat{M}\).
+  Then \(\hom{M,\blank}\) is right exact if and only if \(M\) is \(\cat{C}\)\hyp{}projective.
+\end{proposition}
+\begin{proof}
+  If \(\hom{M, \blank}\) is right exact and \(P\) is a projective object of \(\cat{C}\).
+  Then \(P \lact M\) is projective because
+  \(\cat{M}(P \lact M, \blank) \cong \cat{C}(P,\hom{M, \blank})\),
+  which is a composite of right exact functors, hence itself a right exact functor.
+
+  Assume that \(M\) is \(\cat{C}\)\hyp{}projective.
+  Let \(\colim_{j} N_{j}\) be a finite colimit in \(\cat{M}\),
+  and \(X \in \cat{C}\).
+  Since \(\cat{C}\) has enough projectives, one has \(X \cong \colim_{i} Q_{i}\), realising \(X\) as the colimit of a finite diagram of projectives.
+  We then have
+  \begin{align*}
+    \cat{C}(X, \hom{M,&\colim\displaylimits_{j}N_{j}})
+                  \cong \cat{C}(\colim\displaylimits_{i}Q_{i},\hom{M,\colim\displaylimits_{j}N_{j}})\\
+                & \cong \lim_{i}\cat{C}(Q_{i},\hom{M,\colim\displaylimits_{j}N_{j}})
+                  \cong \lim_{i} \cat{M}(Q_{i} \lact M, \colim\displaylimits_{j} N_{j})\\
+                & \cong \lim_{i}\colim\displaylimits_{j} \cat{M}(Q_{i} \lact M, N_{j})
+                  \cong \lim_{i}\colim\displaylimits_{j} \cat{C}(Q_{i}, \hom{M,N_{j}})\\
+                & \cong \lim_{i} \cat{C}(Q_{i}, \colim\displaylimits_{j} \hom{M,N_{j}})
+                  \cong \cat{C}(\colim\displaylimits_{i} Q_{i}, \colim\displaylimits_{j} \hom{M,N_{j}})\\
+                & \cong \cat{C}(X,\colim\displaylimits_{j} \hom{M,N_{j}}).\qedhere
+  \end{align*}
+\end{proof}
+
+By oppositising \cref{Cprojectives}, we obtain the following result.
+
+\begin{proposition}\label{Cinjectives}
+  Assume that \(\cat{C}\) and \(\cat{M}\) have enough injectives.
+  Let \(M\) be a coclosed object of \(\cat{M}\). Then \(\cohom{M,\blank}\) is left exact if and only if \(M\) is \(\cat{C}\)\hyp{}injective.
+\end{proposition}
+
+\begin{definition}
+  Let \(\cat{C}\) be an abelian monoidal,
+  and \(\cat{M}\) an abelian \(\cat{C}\)\hyp{}module category,
+  with both having enough projectives.
+  A \(\cat{C}\)\hyp{}projective object \(M\) is called a \emph{\(\cat{C}\)\hyp{}projective \(\cat{C}\)\hyp{}generator}
+  if for any projective object \(Q\) in \(\cat{M}\)
+  there exists a projective object \(P\) in \(\cat{C}\),
+  such that \(Q\) is a direct summand of \(P \lact M\).
+
+  Analogously, if \(\cat{C}\) and \(\cat{M}\) instead have enough injectives,
+  a \(\cat{C}\)\hyp{}injective object \(M\) is called a \emph{\(\cat{C}\)\hyp{}injective \(\cat{C}\)\hyp{}cogenerator}
+  if any injective object \(J\) of \(\cat{M}\) is a direct summand of an object of the form \(I \lact M\),
+  for an injective object \(I\) of \(\cat{C}\).
+\end{definition}
+
+\begin{proposition}\label{ProjReflect}
+  Assume that \(\cat{C}\) and \(\cat{M}\) have enough projectives.
+  Let \(M \in \cat{M}\) be a closed \(\cat{C}\)\hyp{}projective object.
+  If \(M\) is a \(\cat{C}\)\hyp{}generator, then \(\hom{M, \blank}\) reflects zero objects.
+
+  If \(\proj{\cat{C}}\) is a Krull--Schmidt category
+  and every indecomposable projective object of \(\cat{C}\) is the projective cover of a simple object,
+  then we have that \(\hom{M, \blank}\) reflects zero objects
+  if and only if
+  \(M\) is a \(\cat{C}\)\hyp{}generator.
+\end{proposition}
+\begin{proof}
+  Assume that \(M\) is a \(\cat{C}\)\hyp{}generator. Let \(N\) be a non-zero object of \(\cat{M}\) and let \(Q \longtwoheadrightarrow N\) be an epimorphism from a projective object in \(\cat{M}\). Let \(P\) be a projective object of \(\cat{C}\) such that \(Q\) is a direct summand of \(P \lact M\). Then \(\cat{M}(P \lact M, N)\) is non-zero, since \(\cat{M}(Q,N)\) is a direct summand thereof. Thus
+  \[
+    0 \neq \cat{M}(P \lact M, N) \cong \cat{C}(P,\hom{M,N}),
+  \]
+  showing that \(\hom{M,N}\) is not zero.
+
+  For the latter statement, let \(Q'\) be an indecomposable projective object of \(\cat{M}\), and let \(S\) be its simple top. Since \(\hom{M,S} \neq 0\), there is some \(V \in \cat{M}\) such that \(\cat{C}(V,\hom{M,S}) \neq 0\). Let \(P' \longtwoheadrightarrow V\) be an epimorphism from a projective object in \(\cat{C}\). Then
+  \[
+    0\neq \cat{C}(V, \hom{M,S}) \simeq \cat{C}(P',\hom{M,S}) \simeq \cat{C}(P' \lact M, S).
+  \]
+  Since \(M\) is \(\cat{C}\)\hyp{}projective, the object \(P' \lact M\) is projective. Thus, \(\cat{C}(P' \lact M, S)\) being non-zero implies that \(Q'\) is a direct summand of \(P' \lact M\).
+\end{proof}
+
+More closely following the classical case,
+one alternatively defines a closed \(M \in \cat{M}\) as a \(\cat{C}\)\hyp{}generator if \(\hom{M, \blank}\) is faithful,
+see~\cite[Definition~2.21]{douglas19}.
+
+Oppositisation of \cref{ProjReflect}
+yields a similar variant in terms of coclosed and \(\cat{C}\)\hyp{}injective objects.
+
+\begin{proposition}\label{InjReflect}
+  Let \(\cat{C}\) and \(\cat{M}\) have enough injectives,
+  and let \(M \in \cat{M}\) be a coclosed \(\cat{C}\)\hyp{}injective object.
+  If \(M\) is a \(\cat{C}\)\hyp{}cogenerator, then \(\cohom{M, \blank}\) reflects zero objects.
+
+  If \(\inj{\cat{C}}\) is a Krull--Schmidt category
+  and every indecomposable injective object of \(\cat{C}\) is the injective hull of a simple object,
+  then \(\cohom{M, \blank}\) reflects zero objects
+  if and only if
+  \(M\) is a \(\cat{C}\)\hyp{}cogenerator.
+\end{proposition}
+
+Finally, we give a brief account of internally projective and injective objects in a semisimple module category.
+
+\begin{proposition}
+  Let \(\cat{C}\) be a monoidal category with enough projectives, and let \(\cat{M}\) be a semisimple \(\cat{C}\)\hyp{}module category.%
+  \marginnote{\textnormal{%
+      Since \(\cat{M}\) is semisimple,
+      any object of \(\cat{M}\) is \(\cat{C}\)\hyp{}projective and \(\cat{C}\)\hyp{}injective.}}
+  An object \(M \in \cat{M}\) is a \(\cat{C}\)\hyp{}generator if and only if any simple object \(S \in \cat{M}\) is a direct summand of an object of the form \(P \lact M\), for some \(P \in \proj{\cat{C}}\).
+\end{proposition}
+\begin{proof}
+  Recall that, in a semisimple abelian category, every object is projective.
+  In particular, \(P \lact M\) is always projective, for \(M \in \cat{M}\) and \(P \in \proj{\cat{C}}\),
+  hence every object in \(\cat{M}\) is \(\cat{C}\)\hyp{}projective.
+
+  Now, let \(M \in \cat{M}\) be a \(\cat{C}\)\hyp{}generator.
+  Since a simple object \(S \in \cat{M}\) is projective,
+  it immediately follows
+  from \(M\) being a \(\cat{C}\)\hyp{}generator
+  that \(S\) is a direct summand of \(P \lact M\), for some \(P \in \proj{\cat{C}}\).
+
+  Lastly, assume that every simple is a direct summand of \(P \lact M\),
+  for some \(P \in \cat{C}\),
+  and let \(Q \in \proj{\cat{M}}\).
+  As \(\cat{M}\) is semisimple, we have \(Q \cong \oplus_i S_i\) for simples \(S_i\) in \(\cat{M}\).
+  Since \(S_i\) is a direct summand of \(P_i \lact M\) for some \(P_{i} \in \cat{C}\), one calculates
+  \[
+    Q \,\cong\, \oplus_i S_i \,\subseteq_{\oplus}\, \oplus_i (P_i \lact M) \,\cong\, (\oplus_i P_i) \lact M \,\eqdef\, P \lact M.\qedhere
+  \]
+\end{proof}
+
+\section{Reconstruction for lax module endofunctors}\label{sec:lax-module-reconstruction}
+
+\textsc{The following is} our most general module categorical reconstruction result.
+
+\begin{theorem}\label{mainnonsenseprojective}
+  Let \(\cat{C}\) be a monoidal abelian category with enough projectives,
+  \(\cat{M}\) an abelian \(\cat{C}\)\hyp{}module category with enough projectives,
+  and assume that \(\ell \in \cat{M}\) is a closed \(\cat{C}\)\hyp{}projective \(\cat{C}\)\hyp{}generator.
+  Then there is an equivalence of \(\cat{C}\)\hyp{}module categories
+  \[
+    \cat{M} \simeq \cat{C}^{\hom{\ell, \blank \,\lact\, \ell}},
+  \]
+  where \(\cat{C}^{\hom{\ell, \blank \,\lact\, \ell}}\) is endowed with the extended \(\cat{C}\)\hyp{}module structure
+  by means of Linton coequalisers, see~\cref{extendingalways}.
+\end{theorem}
+\begin{proof}
+  Following \cref{ex:regularend}, the functor \(\blank \lact \ell\) is a strong \(\cat{C}\)\hyp{}module functor.
+  By \cref{porism:doctrinal-module-adjunctions}, its right adjoint \(\hom{\ell,\blank}\) is a lax \(\cat{C}\)\hyp{}module functor.
+  Thus, the resulting monad \(\hom{\ell, \blank \lact \ell}\) is a right exact lax \(\cat{C}\)\hyp{}module monad.
+  \cref{strongcomparisons} yields that the comparison functor \(\cat{C}_{\hom{\ell, \blank \,\lact\, \ell}} \to \cat{M}\) is a strong \(\cat{C}\)\hyp{}module functor.
+  Furthermore, due to \cref{Cprojectives,ProjReflect}, \(\hom{\ell, \blank}\) is right exact and reflects zero objects,
+  so we are able to apply \cref{thm:SmallBeck},
+  whence the comparison functor \(\cat{M} \to \cat{C}^{\hom{\ell, \blank \,\lact\, \ell}}\) is an equivalence.
+  Transporting the \(\cat{C}\)\hyp{}module structure along this equivalence,
+  we obtain an extended \(\cat{C}\)\hyp{}module structure on \(\cat{C}^{\hom{\ell, \blank \,\lact\, \ell}}\),
+  which,
+  by \cref{thm:one-module-structure-on-EM},
+  is necessarily that of \cref{extendingalways};
+  this proves the result.
+\end{proof}
+
+Using \cref{extendingalways}, we can also formulate a converse.
+
+\begin{theorem}\label{projcorrespondence}
+  Let \(\cat{C}\) be a monoidal abelian category with enough projectives,
+  and let \(T\) be a right exact lax \(\cat{C}\)\hyp{}module monad on \(\cat{C}\).
+  Then \(T1\) is a closed \(\cat{C}\)\hyp{}projective \(\cat{C}\)\hyp{}generator in \(\cat{C}^T\),
+  with the \(\cat{C}\)\hyp{}module category structure on the latter given by \cref{extendingalways}.
+  There is a bijection
+  \begin{align*}
+    \faktor{\{\,(\cat{M},\ell) \text{ as in \cref{mainnonsenseprojective}}\,\}}{\cat{M} \simeq \cat{N}}
+    &\xleftrightarrow{\ \cong\ }
+      \Bigg\{
+      \begin{aligned}
+        &\text{Right exact lax \(\cat{C}\)\hyp{}module}\\
+        &\text{monads on \(\cat{C}\)}
+      \end{aligned}
+      \Bigg\}
+      /\, \cat{C}^T \!\simeq\! \cat{C}^S \\
+    (\cat{M},\ell) &\longmapsto \hom{\ell,-\lact \ell} \\
+    (\cat{C}^T, T1) &\longmapsfrom T
+  \end{align*}
+\end{theorem}
+\begin{proof}
+  The fact that \(T1\) is closed follows immediately from the isomorphisms
+  \[
+    \cat{C}^T(\blank \lact T1, \bblank)
+    \overset{(i)}{\cong} \cat{C}^T(T(\blank \otimes 1), \bblank)
+    \simeq \cat{C}(\blank \otimes 1, U^T(\bblank))
+    \simeq \cat{C}(\blank, U^T(\bblank))
+  \]
+  showing that \(\hom{T1, \blank} \cong U^T\),
+  where \((i)\) follows from \cref{actiononfree}.
+
+  For \(P \in \proj{\cat{C}}\) projective, \(P \lact T(1) \cong TP\) is projective by \cref{finitemonads}.
+  By the same result, \(T1\) is a \(\cat{C}\)\hyp{}projective generator,
+  and \(\cat{C}^T\) has enough projectives.
+
+  For the latter claim, notice that \(\cat{M} \simeq \cat{C}^{\hom{T1, \blank \,\lact\, T1}}\) by \cref{mainnonsenseprojective}.
+  Lastly, \(\cat{C}^T \simeq \cat{C}^{\hom{T1, \blank \,\lact\, T1}}\) holds,
+  since from \(\hom{T1, \blank} \cong U^T\) and, by uniqueness of adjoints, \(F^T \cong \blank \lact T1\)
+  we deduce that \(T \cong \hom{T1, \blank \lact T1}\).
+\end{proof}
+
+Using \cref{Cinjectives,InjReflect} in place of \cref{Cprojectives,ProjReflect}, we find dual statements.
+
+\begin{theorem}\label{mainnonsenseinjective}
+  Let \(\cat{C}\) be a monoidal abelian category with enough injectives,
+  \(\cat{M}\) an abelian \(\cat{C}\)\hyp{}module category with enough injectives,
+  and assume that \(\ell \in \cat{M}\) be a coclosed \(\cat{C}\)\hyp{}injective \(\cat{C}\)\hyp{}cogenerator.
+
+  Then there is an equivalence of \(\cat{C}\)\hyp{}module categories
+  \[
+    \cat{M} \simeq \cat{C}^{\cohom{\ell, \blank \,\lact\, \ell}},
+  \]
+  where \(\cat{C}^{\cohom{\ell, \blank \,\lact\, \ell}}\) is endowed with the extended \(\cat{C}\)\hyp{}module structure of \cref{extendingalways}.
+\end{theorem}
+
+\begin{theorem}\label{injcorrespondence}
+  Let \(\cat{C}\) be a monoidal abelian category with enough injectives,
+  and \(S\) a left exact oplax \(\cat{C}\)\hyp{}module comonad on \(\cat{C}\).
+  Then \(\cat{C}^{S}\),
+  endowed with the \(\cat{C}\)\hyp{}module category structure of \cref{extendingalways},
+  is a \(\cat{C}\)\hyp{}module category,
+  and \(S 1\) is a coclosed \(\cat{C}\)\hyp{}injective \(\cat{C}\)\hyp{}generator.
+  There is a bijection
+  \begin{align*}
+    \faktor{\{\,(\cat{M}, \ell)\ \text{as in \cref{mainnonsenseinjective}}\,\}}{\cat{M} \simeq \cat{N}}
+    &\leftrightarrow
+    \left\{
+      \begin{aligned}
+        &\text{Left exact oplax}\ \cat{C}\text{-module}\\
+        &\text{comonads on}\ \cat{C}
+      \end{aligned}
+      \right\}
+      /\, \cat{C}^{S} \simeq \cat{C}^{G} \\
+    (\cat{M},\ell) &\longmapsto \cohom{\ell, \blank \lact \ell} \\
+    \big(\cat{C}^{S}, S 1\big) &\longmapsfrom S
+  \end{align*}
+\end{theorem}
+
+Observe that \cref{mainnonsenseprojective,mainnonsenseinjective} do not make any finiteness assumptions on \(\cat{M}\)—%
+such conditions are often imposed on it by the existence of a closed \(\cat{C}\)\hyp{}projective \(\cat{C}\)\hyp{}generator,
+or a coclosed \(\cat{C}\)\hyp{}injective \(\cat{C}\)\hyp{}cogenerator.
+
+\begin{proposition}
+  Let \(\cat{C}\) be a finite abelian monoidal category
+  and suppose \(\cat{M}\) is an abelian \(\cat{C}\)\hyp{}module category,
+  such that there exists a closed \(\cat{C}\)\hyp{}projective \(\cat{C}\)\hyp{}generator \(\ell \in \cat{M}\).
+  Then \(\cat{M}\) is finite abelian.
+\end{proposition}
+\begin{proof}
+  By \cref{mainnonsenseprojective}, we have a \(\cat{C}\)\hyp{}module equivalence \(\cat{M} \simeq \cat{C}^{\hom{\ell,\blank \,\lact\, \ell}}\).
+  Since \(\blank \lact \ell\) admits a right adjoint it is right exact.
+  Since \(\ell\) is \(\cat{C}\)\hyp{}projective, the functor \(\hom{\ell, \blank}\) is also right exact.
+  Thus \(\hom{\ell, \blank \lact \ell}\) is a right exact monad on the finite abelian category \(\cat{C}\).
+  By \cref{finitemonads}, \(\cat{C}^{\hom{\ell, \blank \,\lact\, \ell}}\) is finite abelian.
+\end{proof}
+
+Using \cref{locomonads} in place of \cref{finitemonads}, one obtains the following.
+
+\begin{proposition}
+  Let \(\cat{C}\) be a locally finite abelian monoidal category,
+  and let \(\cat{M}\) be an abelian \(\cat{C}\)\hyp{}module category with enough injectives,
+  such that there exists a coclosed \(\Ind(\cat{C})\)\hyp{}injective \(\Ind(\cat{C})\)\hyp{}generator \(\ell \in \cat{M}\).
+  Then the full subcategory of compact objects in \(\cat{M}\) is locally finite abelian.
+\end{proposition}
+
+In the presence of suitable finiteness conditions,
+the characterisations of adjoint functors between finite and locally finite abelian categories
+give sufficient conditions for an object in a module category to be closed or coclosed.
+
+\begin{proposition}
+  Let \(\cat{C}\) be a finite abelian monoidal category and let \(\cat{M}\) be a finite abelian \(\cat{C}\)\hyp{}module category.
+  Then an object \(m \in \cat{M}\) is closed if and only if the functor \(\blank \lact m\) is right exact.
+\end{proposition}
+\begin{proof}
+  This is an immediate consequence of \cref{finiteadjoints}.
+\end{proof}
+
+Similarly, using \cref{locallyfiniteadjoints}, one shows the following.
+
+\begin{proposition}
+  Let \(\cat{C}\) be a locally finite abelian monoidal category
+  and \(\cat{M}\) a locally finite abelian \(\cat{C}\)\hyp{}module category.
+  An object \(\ell \in \Ind(\cat{M})\) is coclosed with respect to the induced \(\Ind(\cat{C})\)\hyp{}module structure on \(\Ind(\cat{M})\)
+  if and only if
+  \(\blank \lact \ell \from \cat{C} \to \Ind(\cat{M})\) is left exact
+  and the induced functor \(\blank \lact \ell\from \Ind(\cat{C}) \to \Ind(\cat{M})\) is quasi-finite.
+\end{proposition}
+
+\subsection{Rigid monoidal and (finite) tensor categories}
+
+\textsc{We obtain an algebraic reconstruction result}
+in case \(\cat{C}\) is rigid monoidal.
+
+\begin{theorem}\label{thm:main-result-rigid-projective-case}
+  Let \(\cat{C}\) be a rigid monoidal abelian category with enough projectives,
+  \(\cat{M}\) an abelian \(\cat{C}\)\hyp{}module category with enough projectives,
+  and assume that \(\ell \in \cat{M}\) is a closed \(\cat{C}\)\hyp{}projective \(\cat{C}\)\hyp{}generator.
+  Then there is an algebra object \(A \in \cat{C}\) such that
+  there is an equivalence of \(\cat{C}\)\hyp{}module categories
+  \[
+    \mathsf{mod}_{\cat{C}}A \simeq \cat{M}.
+  \]
+\end{theorem}
+\begin{proof}
+  By \cref{mainnonsenseprojective},
+  we have \(\cat{C}^{\hom{\ell, \blank \,\lact\, \ell}} \simeq \cat{M}\)
+  as \(\cat{C}\)\hyp{}module categories.
+  By \cref{prop:lax-is-strong-when-rigid},
+  the monad \(\hom{\ell, \blank \,\lact\, \ell}\from \cat{C}\to \cat{C}\) is a strong \(\cat{C}\)\hyp{}module functor,
+  as it is lax and \(\cat{C}\) is rigid.
+  The claim follows by \cref{prop:strong-module-monad-and-algebra-objects}.
+\end{proof}
+
+\begin{theorem}\label{thm:main-result-rigid-injective-case}
+  Let \(\cat{C}\) be a rigid monoidal abelian category with enough injectives,
+  \(\cat{M}\) an abelian \(\cat{C}\)\hyp{}module category,
+  and assume that \(\ell \in \cat{M}\) is a coclosed \(\cat{C}\)\hyp{}injective \(\cat{C}\)\hyp{}cogenerator.
+  Then there is a coalgebra object \(C \in \cat{C}\) such that there is an equivalence of
+  \(\cat{C}\)\hyp{}module categories \(\mathsf{comod}_{\cat{C}}C \simeq \cat{M}\).
+\end{theorem}
+
+Recall the following result in case that \(\cat{C}\) is a multitensor category.
+
+\begin{theorem}[{\cite[Theorem~7.10.1]{Etingof2015}}]
+  Let \(\cat{C}\) be a finite multitensor category
+  and let \(\cat{M}\) be an abelian \(\cat{C}\)\hyp{}module category, such that
+  \begin{itemize}
+    \item the functor \(\blank \lact \bblank\) is exact in the first variable
+    (as \(\cat{C}\) is rigid, it is always exact in the second variable);
+    \item there exists a \(\cat{C}\)\hyp{}projective \(\cat{C}\)\hyp{}generator.
+  \end{itemize}
+  Then there is an algebra object \(A\) in \(\cat{C}\) such that \(\cat{M} \simeq \mathsf{mod}_{\cat{C}}A\).
+\end{theorem}
+
+We generalise this statement to the locally finite setting.
+
+\begin{theorem}\label{thm:multitensor-ind-reconstruction}
+  Let \(\cat{C}\) be a multitensor category,
+  and let \(\cat{M}\) be an abelian \(\cat{C}\)\hyp{}module category
+  such that the \(\Ind(\cat{C})\)\hyp{}module category \(\Ind(\cat{M})\)
+  admits a coclosed \(\Ind(\cat{C})\)\hyp{}injective \(\Ind(\cat{C})\)\hyp{}cogenerator \(\ell\).
+
+  Then there is a coalgebra object \(C\) in \(\Ind(\cat{C})\)
+  such that \(\Ind(\cat{M}) \simeq \mathsf{Comod}_{\Ind(\cat{C})}C\).
+  Thus, \(\cat{M}\) is the category of compact \(C\)\hyp{}comodule objects.
+\end{theorem}
+\begin{proof}
+  By \cref{mainnonsenseinjective}, we have \(\Ind(\cat{M}) \simeq {\Ind(\cat{C})}^{\cohom{\ell, \blank \,\lact\, \ell}}\)
+  as \(\Ind(\cat{C})\)\hyp{}module categories.
+  Observe that the \(\Ind(\cat{C})\)\hyp{}module category structure on both \(\Ind(\cat{C})\) and on \(\Ind(\cat{M})\)
+  is the finitary extension of the respective \(\cat{C}\)\hyp{}module category structures,
+  following \cref{cocompletingnonsense}.
+  Similarly, \(\blank \lact \ell\from \Ind(\cat{C}) \to \Ind(\cat{M})\) is the extension of \(\blank \lact \ell\from \cat{C} \to \Ind(\cat{M})\).
+  On the ind-completion, the left adjoint \(\cohom{\ell,\blank}\from \Ind(\cat{M}) \to \Ind(\cat{C})\),
+  being finitary and preserving compact objects by \cref{leftadjointssmallobjects},
+  restricts to an oplax \(\cat{C}\)\hyp{}module functor \(\cohom{\ell,\blank}\from \cat{M} \to \cat{C}\).
+
+  Since \(\cat{C}\) is rigid, the restricted \(\cat{C}\)\hyp{}module functor \(\cohom{\ell,\blank}\from \cat{M} \to \cat{C}\)
+  is in fact a strong \(\cat{C}\)\hyp{}module functor.
+  Its finitary extension \(\cohom{\ell,\blank}\from \Ind(\cat{M}) \to \Ind(\cat{C})\) is a strong \(\Ind(\cat{C})\)\hyp{}module functor,
+  and the comonad \(\cohom{\ell, \blank \lact \ell}\) is a strong \(\Ind(\cat{C})\)\hyp{}module monad.
+  By \cref{prop:strong-module-monad-and-algebra-objects},
+  it is of the form \(\blank \otimes C\) for a coalgebra object in \(\Ind(\cat{C})\),
+  and hence
+  \[
+    \Ind(\cat{M}) \simeq {\Ind(\cat{C})}^{\cohom{\ell, \blank \,\lact\, \ell}} \simeq \mathsf{Comod}_{\Ind(\cat{C})}C.
+  \]
+  By \cref{locomonads}, \(\cat{M}\) consists of compact \(C\)\hyp{}comodule objects of \(\cat{C}\).
+\end{proof}
+
+\begin{corollary}\label{infinitecomodulecoalgebras}
+  Let \(H\) be a Hopf algebra and let \(\cat{C} = \tetramodfd[H]{}\);
+  in particular, we have a monoidal equivalence \(\Ind(\cat{C}) \simeq \Tetramod[H]{}\).
+  Let \(\cat{M}\) be an abelian \(\cat{C}\)\hyp{}module category
+  such that the \(\Ind(\cat{C})\)\hyp{}module category \(\Ind(\cat{M})\)
+  admits a coclosed \(\Ind(\cat{C})\)\hyp{}injective \(\Ind(\cat{C})\)\hyp{}cogenerator.
+  Then there is an \(H\)\hyp{}comodule coalgebra \(C\)
+  such that there is an equivalence \(\Ind(\cat{M}) \simeq \mathsf{Comod}_{H}C\)
+  of \(\Ind(\cat{C})\)\hyp{}module categories,
+  restricting to a \(\cat{C}\)\hyp{}module equivalence \(\cat{M} \simeq \mathsf{comod}_{H}C\).
+\end{corollary}
+
+\section{An Eilenberg–Watts theorem for lax module monads}\label{Takyon}
+
+\textsc{The formulation of the bijection}
+of \cref{injcorrespondence} indicates a Morita aspect to the reconstruction theory for module categories,
+as the equivalence relation imposed on monads strongly resembles—and can be specialised to—Morita equivalence of algebras.
+
+In \cref{TurboEilenbergWatts},
+we characterise the right exact lax \(\cat{C}\)\hyp{}module functors between Eilenberg--Moore categories for lax \(\cat{C}\)\hyp{}module monads
+in terms of suitable bimodule objects in the category of endofunctors of \(\cat{C}\)%
+—this gives a precise meaning to the notion of Morita equivalence of monads,
+hence \cref{injectivebijection} yields a bijection
+\begin{align*}
+  \faktor{\{(\cat{M},\ell) \text{ as in \cref{mainnonsenseinjective}}\}}{\cat{M} \simeq \cat{N}}
+  &\xleftrightarrow{\ \simeq\ }
+    \left\{\begin{aligned}
+      &\text{Left exact oplax \(\cat{C}\)\hyp{}mod-}\\
+      &\text{ule comonads on \(\cat{C}\)}
+    \end{aligned}
+    \right\}\!\Big/\!\!\simeq_{\text{Morita}} \\
+  (\cat{M},\ell) &\longmapsto \cohom{\ell,-\lact \ell} \\
+  (\cat{M}^T, T1) &\longmapsfrom T
+\end{align*}
+
+Let us first introduce some vocabulary.
+
+\begin{definition}
+  Let \(\cat{A}\) be an abelian category and suppose that \(T\) and \(S\) are right exact monads on \(\cat{A}\).
+  Viewing them as algebra objects in \(\mathsf{Rex}(\cat{A}, \cat{A})\),
+  a \emph{\(T\)\hyp{}\(S\)\hyp{}biact functor} is an \(T\)\hyp{}\(S\)\hyp{}bimodule object in \(\mathsf{Rex}(\cat{A},\cat{A})\).
+\end{definition}
+
+In other words, a biact functor \(F\from \cat{A} \to \cat{A}\) is a triple \((F,\,F_{\mathsf{la}},\,F_{\mathsf{ra}})\),
+consisting of a right exact endofunctor on \(\cat{A}\) together with transformations
+\(F_{\mathsf{la}}\from T F \nt F\)
+and
+\(F_{\mathsf{ra}}\from F S \nt F\), satisfying the natural unitality and associativity axioms,
+and commuting with each other in the sense that
+\begin{equation}\label[diagram]{eq:comm-biact}
+  \begin{mytikzcd}[ampersand replacement=\&]
+    TFS \& TF \\
+    FS \& F
+    \arrow["{TF_{\mathsf{ra}}}", from=1-1, to=1-2]
+    \arrow["{F_{\mathsf{la}}S}"', from=1-1, to=2-1]
+    \arrow["{F_{\mathsf{la}}}", from=1-2, to=2-2]
+    \arrow["{F_{\mathsf{ra}}}"', from=2-1, to=2-2]
+  \end{mytikzcd}
+\end{equation}
+commutes.
+The category of \(T\)\hyp{}\(S\)\hyp{}biact functors shall be denoted by \(\biact{T}{S}\).
+
+\begin{hypothesis}
+  For the rest of this section, let us fix two right exact monads \(T\) and \(S\) on an abelian category \(\cat{A}\).
+\end{hypothesis}
+
+\begin{remark}\label{factorthrough}
+  For a \(T\)\hyp{}\(S\)\hyp{}biact functor \(F\),
+  the left \(T\)\hyp{}action \(F_{\mathsf{la}}\) endows any object of the form \(Fa\), for \(a \in \cat{A}\),
+  with the structure of a \(T\)\hyp{}module by defining \(\nabla_{Fa} \defeq F_{\mathsf{la}; a}\).
+  Any morphism \(f \in \cat{A}(a,b)\) lifts to a map \(Ff\from Fa \to Fb\) of \(T\)\hyp{}modules
+  by naturality of \(F_{\mathsf{la}}\).
+  In particular, the functor \(F\) factors through the canonical forgetful functor \(U^T\from \cat{C}^T \to \cat{C}\).
+  We write \(F = U^T \circ \tilde{F}\).
+\end{remark}
+
+\begin{definition}\label{def:biactewdef}
+  Given a \(T\)\hyp{}\(S\)\hyp{}biact functor \(F\),
+  define \(\tilde{F} \circ_{S} \blank\from \cat{A}^S \to \cat{A}^T\) by
+  \begin{equation}\label{eq:eilenberg-watts-circ-coeq}
+    \tilde{F} \circ_{S} \blank \defeq \coeq\Big(\!\!
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {FS} \&\& {F}
+      \arrow["{F \nabla}", shift left=2, from=1-1, to=1-3]
+      \arrow["{F_{\mathrm{ra}}}"', shift right=2, from=1-1, to=1-3]
+    \end{mytikzcd}\!\!\Big),
+  \end{equation}
+  where for \(x \in \cat{A}^S\) we endow \(Fx\) and \(FSx\)
+  with the \(T\)\hyp{}module structures described in \cref{factorthrough}.
+\end{definition}
+
+The functoriality of \cref{def:biactewdef} follows from that of colimits.
+
+\begin{remark}\label{rmk:leave-out-forgetful-functors}
+  By naturality of \(F_{\mathsf{la}}\) and the commutativity condition of \cref{eq:comm-biact},
+  both morphisms in \cref{eq:eilenberg-watts-circ-coeq} are morphisms in \(\cat{A}^T\);
+  since the coequalisers in \(\cat{A}^{T}\) are created by \(U^T\),
+  this coequaliser is one in \(\cat{A}^{T}\).
+\end{remark}
+
+\begin{proposition}\label{EilenbergWatts}
+  Let \(T\) and \(S\) be right exact monads on an abelian category \(\cat{A}\).
+  Writing \(\varepsilon^T \defeq \varepsilon^{F^T \dashv U^T}\) and \(\varepsilon^S \defeq \varepsilon^{F^S \dashv U^S}\),
+  the following assignments extend to an equivalence of categories:%
+  \marginnote{\textnormal{%
+      Notice the similarity of this assignment and \cref{def: crossed_product_monad},
+      only that we are now pushing \(\Phi\) along two adjunctions.
+  }}
+  \begin{align*}
+    \mathsf{Rex}(\cat{A}^S,\cat{A}^{T}) &\longleftrightarrow \biact{T}{S} \\
+    \Phi &\longmapsto \big(
+        U^T \Phi F^S,\ %
+        U^T \varepsilon^T \Phi F^S,\ %
+        U^T \Phi \varepsilon^S F^S
+        \big)\\
+    \tilde{F} \circ_{S} \blank &\longmapsfrom F.
+  \end{align*}
+\end{proposition}
+\begin{proof}
+  Since \(F^S\) is right exact and \(U^T\) is exact, \(U^T \Phi F^S\) is right exact.
+
+  It is easy to verify that the transformations \(U^S \varepsilon^T \Phi F^T\) and \(U^T \Phi \varepsilon^S F^S\) endow \(U^T \Phi F^S\) with the structure of a biact functor,
+  and that for a natural transformation \(\alpha\from \Phi \nt \Phi'\),
+  the resulting transformation \(U^T \alpha F^S\) is a morphism of biact functors.
+  This proves the functoriality of \(\mathsf{Rex}(\cat{A}^{S},\cat{A}^{T}) \to \biact{T}{S}\).
+
+  To see that the converse assignment is functorial,
+  observe that given a morphism \(f\from F \nt G\) of biact functors,
+  we obtain a morphism of forks in \(\cat{A}^{T}\):
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {FSx} \&\& {Fx} \\
+      \\
+      {GSx} \&\& {Gx}
+      \arrow["{F \nabla_{x}}", shift left=2, from=1-1, to=1-3]
+      \arrow["{F_{\mathrm{ra}; x}}"', shift right=2, from=1-1, to=1-3]
+      \arrow["{f_{Sx}}"', from=1-1, to=3-1]
+      \arrow["{f_{x}}", from=1-3, to=3-3]
+      \arrow["{G \nabla_{x}}", shift left=2, from=3-1, to=3-3]
+      \arrow["{G_{\mathrm{ra};x}}"', shift right=2, from=3-1, to=3-3]
+    \end{mytikzcd}
+  \]
+  This induces a morphism of coequalisers \(\tilde{F} \circ_{S} \blank \nt \tilde{G} \circ_{S} \blank\).
+
+  We now prove that these functors define mutually quasi-inverse equivalences.
+  First, observe that
+  \(\widetilde{U^T \Phi F^S} = \Phi F^S \from \cat{A} \to \cat{A}^{T}\),
+  since \(U^T\) is faithful and injective on objects,
+  so it is a monomorphism in the 1-category \(\mathsf{Cat}_{\Bbbk}\).
+  By slight abuse of notation, see \cref{rmk:leave-out-forgetful-functors},
+  for \(x \in \cat{A}^{S}\) we have
+  \[
+    (\Phi F^S) \circ_{S} x = \coeq\Big(\!\!
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\Phi S^{2}x} \&\& {\Phi Sx}
+      \arrow["{\Phi\mu^{S}_{x}}", shift left=2, from=1-1, to=1-3]
+      \arrow["{\Phi S\nabla_{x}}"', shift right=2, from=1-1, to=1-3]
+    \end{mytikzcd}\!\!\Big),
+  \]
+  which, since \(\Phi\) is right exact, is isomorphic to
+  \[
+    \Phi\Big(\coeq\Big(\!\!
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {S^{2}x} \&\& {Sx}
+      \arrow["{\mu^{S}_{x}}", shift left=2, from=1-1, to=1-3]
+      \arrow["{S\nabla_{x}}"', shift right=2, from=1-1, to=1-3]
+    \end{mytikzcd}\!\!\Big)\Big).
+  \]
+  Via the action \(\nabla_x\from Tx \to x\), the latter coequaliser is canonically isomorphic to \(x\),
+  hence we obtain the following isomorphism, which is natural in \(\Phi\):
+  \[
+    \Phi \hat{\nabla}_{x}\from (\Phi F^S) \circ_{S} x \iso \Phi x.
+  \]
+
+  Conversely, let \(F\) be a biact functor and \(x \in \cat{A}\).
+  We have
+  \[
+    \Big( U^T (\tilde{F} \circ_{S} \blank) F^S \Big)(x) =
+    \coeq\Big(\!\!
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {FS^{2}x} \&\& {FSx}
+      \arrow["{F_{\mathsf{ra}; Sx}}", shift left=2, from=1-1, to=1-3]
+      \arrow["{F\nabla_{Sx} = F\mu^S_{x}}"', shift right=2, from=1-1, to=1-3]
+    \end{mytikzcd}
+    \!\!\Big)
+  \]
+  Observe that \(F\), being a right \(S\)\hyp{}module object,
+  is presented as a coequaliser in the category of such objects,
+  which additionally splits in the underlying monoidal category \(\mathsf{Rex}(\cat{A},\cat{A})\).
+  This is indicated in the following diagram:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {FS^{2}} \&\& {FS} \& {\coeq(F_{\mathsf{ra}} S, F \mu^S)} \\
+      \&\&\& F
+      \arrow["{F_{\mathsf{ra}} S}", shift left=2, from=1-1, to=1-3]
+      \arrow["{F \mu^S}"', shift right=2, from=1-1, to=1-3]
+      \arrow[two heads, from=1-3, to=1-4]
+      \arrow["{F_{\mathsf{ra}}}"{description}, from=1-3, to=2-4]
+      \arrow["{\exists! \Hat[mortarboard]{F}_{\mathsf{ra}}}", dashed, from=1-4, to=2-4]
+      \arrow["\simeq"', dashed, from=1-4, to=2-4]
+      \arrow["{F \eta^{S}}", curve={height=-12pt}, dotted, from=2-4, to=1-3]
+    \end{mytikzcd}
+  \]
+  Since \(F_{\mathsf{ra}}\) is a morphism of left \(T\)\hyp{}module objects,
+  we find that \(\Hat[mortarboard]{F}_{\mathsf{ra}}\) defines an isomorphism of biact functors
+  \(U^T (\tilde{F} \circ_{S} \blank) F^S \cong F\)
+  that is natural in \(F\).
+\end{proof}
+
+Let us now assume \(\cat{C}\) and \(\cat{M}\) to be abelian,
+\(\blank \lact \bblank\) to be right exact in both variables,
+and \(S\) and \(T\) to be right exact lax \(\cat{C}\)\hyp{}module monads on \(\cat{M}\).
+
+\begin{definition}
+  An \(S\)\hyp{}\(T\)\hyp{}bimodule object in the category \(\mathsf{RexLax}\cat{C}\mathsf{Mod}(\cat{M},\cat{M})\)
+  of right exact lax \(\cat{C}\)\hyp{}module endofunctors of \(\cat{M}\) is called a
+  \emph{lax \(\cat{C}\)\hyp{}module \(S\)\hyp{}\(T\)\hyp{}biact functor}.
+  We denote the category of \(S\)\hyp{}\(T\)\hyp{}biact functors by \(\biactC{S}{T}\).
+\end{definition}
+
+In other words, a lax \(\cat{C}\)\hyp{}module biact functor is
+a biact functor \((F,\,F_{\mathsf{la}},\,F_{\mathsf{ra}})\),
+such that \(F\from \cat{M}\to \cat{M}\) is a right exact lax \(\cat{C}\)\hyp{}module functor
+and \(F_{\mathsf{la}}\) and \(F_{\mathsf{ra}}\) are \(\cat{C}\)\hyp{}module transformations.
+
+\begin{theorem}\label{ultraEilenbergWatts}
+  The equivalence \(\mathsf{Rex}(\cat{M}^T,\cat{M}^{S}) \simeq \biact{S}{T}\)
+  of \cref{EilenbergWatts} restricts to a faithful functor
+  \[
+    \cat{C}\mathsf{EW}\from \mathsf{LaxRex}(\cat{M}^{T}, \cat{M}^{S}) \to \biactC{S}{T},
+  \]
+  such that the following diagram commutes:
+  \begin{equation}\label[diagram]{mikey}
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\mathsf{LaxRex}(\cat{M}^{T}, \cat{M}^{S})} \&\& {\biactC{S}{T}} \\
+      {\mathsf{Rex}(\cat{M}^{T}, \cat{M}^{S})} \&\& {\biact{S}{T}}
+      \arrow["\cat{C}\mathsf{EW}", from=1-1, to=1-3]
+      \arrow[from=1-1, to=2-1]
+      \arrow[from=1-3, to=2-3]
+      \arrow["\simeq \text{ by~\ref{EilenbergWatts}}", from=2-1, to=2-3]
+    \end{mytikzcd}
+  \end{equation}
+  The vertical arrows are the respective forgetful functors,
+  and the categories \(\cat{M}^{T}\) and \(\cat{M}^{S}\) are endowed with the \(\cat{C}\)\hyp{}module structures of \cref{extendingalways}.
+\end{theorem}
+\begin{proof}
+  By \cref{strongembeddingalways}, similarly to~\cite[Proposition~3.10]{aguiar18:monad},
+  the functor \(F^T\from \cat{M} \to \cat{M}^{T}\) is a strong \(\cat{C}\)\hyp{}module functor, and so is \(F^S\).
+  Thus, by \cref{porism:doctrinal-module-adjunctions}, the functor \(U^S\) is a lax \(\cat{C}\)\hyp{}module functor,
+  and hence for a lax \(\cat{C}\)\hyp{}module functor \(\Phi\from \cat{M}^{T} \to \cat{M}^{S}\),
+  the composite \(U^S \Phi F^T\) is a lax \(\cat{C}\)\hyp{}module functor.
+  Further, the \(S\)\hyp{}\(T\)\hyp{}biact structure on \(U^S \Phi F^S\) given in \cref{EilenbergWatts}
+  assembles to a lax \(\cat{C}\)\hyp{}module biact functor,
+  and this extends also to \(\cat{C}\)\hyp{}module biact transformations arising from \(\cat{C}\)\hyp{}module transformations.
+
+  This defines a functor \(\cat{C}\mathsf{EW}\), such that \cref{mikey} commutes.
+  It is faithful, since so are the remaining functors in that diagram.
+\end{proof}
+
+\begin{lemma}\label{phigter}
+  Let \(\Phi \in \mathsf{Rex}(\cat{M}^T,\cat{M}^S)\) and for all \(m \in \cat{M}\) suppose that
+  \[
+    {(\Phi T)}_{\mathsf{a};m}\from x \lact_{\cat{M}} \Phi Tm \to \Phi T(x \lact_{\cat{M}} m)
+  \]
+  is a lax \(\cat{C}\)\hyp{}module biact functor structure
+  on the biact functor \(U^S \Phi F^T\).
+  Then we have \({(\Phi T)}_{\mathsf{a}} = \cat{C}\mathsf{EW}(\Phi_{\mathsf{a};T(\blank)})\), where
+  \[
+    \Phi_{\mathsf{a};T(\blank)}\from x \lact_{\cat{M}^S} \Phi T(\blank) \nt \Phi(x \lact_{\cat{M}^T} T(\blank)) = \Phi(T(x\lact_{\cat{M}}\blank))
+  \]
+  is the unique natural transformation making the following diagram commute:
+  \begin{equation}\label[diagram]{phiaeio}
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {x \lact_{\cat{M}^S} \Phi T-} \\
+      {S(x\lact_{\cat{M}}\Phi T-)} \& {S\Phi T x\lact_{\cat{M}} -} \& {\Phi T x\lact_{\cat{M}} \blank}
+      \arrow["{\exists ! \Phi_{\mathsf{a}}}", dashed, from=1-1, to=2-3]
+      \arrow[two heads, from=2-1, to=1-1]
+      \arrow["{S{(\Phi T)}_{\mathsf{a}}}"', from=2-1, to=2-2]
+      \arrow["{\Phi_{\mathsf{la}} Tx\lact\blank}"', from=2-2, to=2-3]
+    \end{mytikzcd}
+  \end{equation}
+\end{lemma}
+\begin{proof}
+  In order to verify that \(\Phi_{\mathsf{a}}\) is well-defined,
+  observe that the morphism \((\Phi_{\mathsf{la}}Tx\lact_{\cat{M}}\blank)\circ S{(\Phi T)}_{\mathsf{a}}\)
+  coequalises \(SS_{\mathsf{a};x} \Phi T\) and \(Sx \lact_{\cat{M}} \Phi_{\mathsf{la}} T\):
+  \[
+    \tikzfig{phigter-1}
+  \]
+  Above, \((1)\) follows by \({(\Phi T)}_{\mathsf{la}}\) being a left \(S\)\hyp{}act structure,
+  and \((2)\) by it being a \(\cat{C}\)\hyp{}module transformation.
+
+  By the definition of the functor \(\cat{C}\mathsf{EW}\),
+  we have
+  \[
+    \cat{C}\mathsf{EW}(\Phi_{\mathsf{a};T(\blank)}) = \Phi_{\mathsf{a};T(\blank)} \circ U^S_{\mathsf{a}; x, \Phi T(\blank)},
+  \]
+  where \(U^{S}_{\mathsf{a}}\) is the lax \(\cat{C}\)\hyp{}module functor structure on \(U^S\)
+  induced by \cref{porism:doctrinal-module-adjunctions}.
+
+  More generally, for \(m \in \cat{M}\) the map \(U^S_{\mathsf{a};x,m}\) is given by the composite
+  \[
+    x \lact_{\cat{M}} m \xrightarrow{\eta^S_{x \,\lact_{\!\cat{M}}\, m}} S(x \lact_{\cat{M}} m) \longtwoheadrightarrow x \lact_{\cat{M}^S} m,
+  \]
+  with the latter map being the projection onto the following coequaliser:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\mathrm{coeq}\Big(T(x \lact T^2 m)} \& {T(x \lact  Tm)\Big)} \& {S(x \lact m)} \\
+      {\mathrm{coeq}\Big(T(x \lact T^2 m)} \& {Tx \lact  Tm\Big)} \& {x \lact m}
+      \arrow[shift left=2, from=1-1, to=1-2]
+      \arrow[shift right=2, from=1-1, to=1-2]
+      \arrow["{{T(x \lact \nabla_m)}}", from=1-1, to=2-1]
+      \arrow["{{T(x  \lact \nabla_m)}}", from=1-2, to=2-2]
+      \arrow[equals, from=1-3, to=1-2]
+      \arrow[two heads, from=1-3, to=2-3]
+      \arrow[shift left=2, from=2-1, to=2-2]
+      \arrow[shift right=2, from=2-1, to=2-2]
+      \arrow[equals, from=2-3, to=2-2]
+    \end{mytikzcd}
+  \]
+
+  All in all, we find that \(\cat{C}\mathsf{EW}(\Phi_{\mathsf{a};T(\blank)})\)
+  is given by the outer path of
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      \& {x \lact_{\cat{M}^S} \Phi T\blank} \\
+      {S(x\lact_{\cat{M}}\Phi T\blank)} \& {S(x\lact_{\cat{M}}\Phi T\blank)} \& {S\Phi T x\lact_{\cat{M}} \blank} \& {\Phi T x\lact_{\cat{M}} \blank}
+      \arrow["{\exists! \Phi_{\mathsf{a}}}", dashed, from=1-2, to=2-4]
+      \arrow["{\eta_{x \,\lact_{\!\cat{M}}\, \Phi T\blank}}"', from=2-1, to=2-2]
+      \arrow[two heads, from=2-2, to=1-2]
+      \arrow["{S{(\Phi T)}_{\mathsf{a}}}"', from=2-2, to=2-3]
+      \arrow["{\Phi_{\mathsf{la}} Tx\lact\blank}"', from=2-3, to=2-4]
+    \end{mytikzcd}
+  \]
+  which, by the unitality of the \(S\)\hyp{}act structure \({(\Phi T)}_{\mathsf{la}}\), equals \({(\Phi T)}_{\mathsf{a}}\).
+\end{proof}
+
+For \(m \in \cat{M}^T\), let \(\Phi_{\mathsf{a};m}\) be the unique map such that
+\begin{equation}\label[diagram]{tekken}
+  \begin{mytikzcd}[ampersand replacement=\&]
+    {x \lact_{\cat{M}^S} \Phi Tm} \&\& {x \lact_{\cat{M}^S} \Phi m} \\
+    {\Phi T(x \lact m)} \\
+    {\Phi(x \lact_{\cat{M}^T} Tm)} \&\& {\Phi(x \lact_{\cat{M}^T} m)}
+    \arrow["{x \,\lact_{\cat{M}^S}\, \Phi \nabla_{m}}", two heads, from=1-1, to=1-3]
+    \arrow["{\Phi_{\mathsf{a};Tm}}"', from=1-1, to=2-1]
+    \arrow["{\exists! \Phi_{\mathsf{a};m}}", dashed, from=1-3, to=3-3]
+    \arrow["{=}"', from=2-1, to=3-1]
+    \arrow["{\Phi(x \,\lact_{\cat{M}^T}\, \nabla_{m})}"', two heads, from=3-1, to=3-3]
+  \end{mytikzcd}
+\end{equation}
+commutes.
+By the uniqueness in the defining property of \(\Phi_{\mathsf{a};m}\),
+this defines a natural transformation
+\[
+  \Phi_{\mathsf{a}}\from \blank \lact_{\cat{M}^S} \Phi(\bblank) \nt \Phi(\blank \lact_{\cat{M}^T} \bblank).
+\]
+
+\begin{lemma}\label{bigdiagrams}
+  For \(\Phi \in \mathsf{Rex}(\cat{M}^T,\cat{M}^S)\),
+  the map \(\Phi_{\mathsf{a}}\from \blank \lact_{\cat{M}^S} \Phi(\bblank) \nt \Phi(\blank \lact_{\cat{M}^S} \bblank)\)
+  extended from the morphisms \(\Phi_{\mathsf{a};Tm}\) of \cref{tekken}
+  defines a lax \(\cat{C}\)\hyp{}module structure on \(\Phi\).
+\end{lemma}
+\begin{proof}
+  In order to simplify notation,
+  we write \(\lact\) for \(\lact_{\cat{M}}\)
+  and \(\blact\) for \(\lact_{\cat{M}^T}\) and \(\lact_{\cat{M}^S}\),
+  since each occurrence of either of these symbols is unambiguous with respect to which is used.
+  We also write \(x \lact\) for \(x \lact \blank\),
+  and suppress the horizontal composition symbols in \(\BiCat{Cat}_{\Bbbk}\),
+  replacing them simply by concatenation.
+  Hence, every occurrence of \(\circ\) in the diagrams that follow is a vertical composition of natural transformations.
+  For example,
+  \[
+    S(y\lact)S(x\lact)\Phi T
+    \xrightarrow{S(y\lact)(\Phi_{\mathsf{la}}T(x\lact) \circ S{(\Phi T)}_{\mathsf{a}, x})}
+    S(y\lact)\Phi T(x \lact)
+  \]
+  represents the natural transformation
+  \[
+    S(y \lact S(x \lact \Phi T(\blank)))
+    \xrightarrow{S(y \lact S{(\Phi T)}_{\mathsf{a}; y, x})}
+    S(y \lact S \Phi T (x \lact \blank))
+    \xrightarrow{S(y \lact \Phi_{\mathsf{la}}T(x \lact \blank))}
+    S(y \lact \Phi T (x \lact \blank)).
+  \]
+
+  Since \(\Phi_{\mathsf{a}}\) is uniquely determined by \(\Phi_{\mathsf{a};T(\blank)}\),
+  it suffices to show that
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&,cramped]
+      {y \blact \Phi(x \blact T)} \&\&\& {\Phi(y \blact x \blact T)} \\
+      {y \blact x \blact \Phi T} \& {y \blact \Phi T (x\lact)} \& {\Phi T(y\lact)(x\lact)} \\
+      {y \otimes x \blact \Phi T} \& {\Phi T (y \otimes x)\lact} \&\& {\Phi((y \otimes x) \blact T)}
+      \arrow["{\Phi_{\mathsf{a}; y, x \blact T}}", from=1-1, to=1-4]
+      \arrow["{\Phi\alpha_2}", from=1-4, to=3-4]
+      \arrow["{y \blact \Phi_{\mathsf{a};x,T}}", from=2-1, to=1-1]
+      \arrow["{{\alpha_{1}}}", from=2-1, to=2-2]
+      \arrow["{{\alpha_{2}}}"', from=2-1, to=3-1]
+      \arrow[Rightarrow, no head, from=2-2, to=1-1]
+      \arrow["{{\alpha_{3}}}", from=2-2, to=2-3]
+      \arrow[Rightarrow, no head, from=2-3, to=1-4]
+      \arrow["{{\alpha_{5}}}"{description}, from=2-3, to=3-2]
+      \arrow["{{\alpha_{4}}}", from=3-1, to=3-2]
+      \arrow[Rightarrow, no head, from=3-2, to=3-4]
+    \end{mytikzcd}
+  \]
+  commutes, where we define
+  \(\alpha_{1} \defeq y \blact \Phi_{\mathsf{a},x}\),
+  \(\alpha_{3} \defeq \Phi_{\mathsf{a},y}(x\lact)\),
+  \(\alpha_{4} \defeq \Phi_{\mathsf{a},y\otimes x}\),
+  and \(\alpha_{5} \defeq \Phi T(\lact_{\mathsf{a},y,x})\).
+  The morphism \(\alpha_{2}\) is obtained from \cref{fig:def-of-alpha2},
+  in which every marked epimorphism is the coequaliser of the pair preceding it,
+  every dashed arrow is an induced morphism between coequalisers coming from a morphism of diagrams,
+  and the dotted arrows come from the universal property of coequalisers.
+  The notation for the coequaliser \((y,x) \blact \Phi T\) is
+  to emphasise the connection with the multiactegorical approach of \cref{extendingeverything}.
+  \begin{figure}[htbp]
+    \centering
+    \vspace{-\onelineskip}\mathscale{0.92}{\begin{mytikzcd}[ampersand replacement=\&,cramped]
+        {S(y\lact)SS(x\lact)S\Phi T} \&\&\& {S(y\lact )SS(x\lact)\Phi T} \& {S(y\lact)S(x\blact \Phi T)} \\
+        \\
+        {S(y\lact )S(x\lact )S\Phi T} \&\&\& {S(y\lact )S(x\lact )\Phi T} \& {S(y\lact)(x \blact \Phi T)} \\
+        \&\&\&\& {y\blact x \blact \Phi T} \\
+        {S(y\lact )(x\lact )S\Phi T} \&\&\& {S(y\lact )(x\lact )\Phi T} \& {(y,x)\blact \Phi T} \\
+        \\
+        {S(y\otimes x\lact)S\Phi T} \&\&\& {(S(y\otimes x)\lact)\Phi T} \& {(y \otimes x) \blact \Phi T}
+        \arrow["{{S(y\lact)S(\mu \circ SS_{\mathsf{a},x})\Phi T}}", shift left=2, from=1-1, to=1-4]
+        \arrow["{{S(y\lact)SS(x\lact)\Phi_{\mathsf{la}} T}}"', shift right=2, from=1-1, to=1-4]
+        \arrow["{{(\mu \circ S_{\mathsf{a},y})S(x\lact )S\Phi T}}"', shift right=3, from=1-1, to=3-1]
+        \arrow["{{S(y\lact)\mu (x\lact )S\Phi T}}", shift left=3, from=1-1, to=3-1]
+        \arrow[two heads, from=1-4, to=1-5]
+        \arrow["{{(\mu\circ S_{\mathsf{a,y}})S(x\lact )\Phi T}}"', shift right=3, from=1-4, to=3-4]
+        \arrow["{{S(y\lact)\mu (x\lact)\Phi T}}", shift left=3, from=1-4, to=3-4]
+        \arrow[shift right=3, dashed, from=1-5, to=3-5]
+        \arrow[shift left=3, dashed, from=1-5, to=3-5]
+        \arrow["{{S(y\lact)(\mu \circ SS_{\mathsf{a,x}})\Phi T}}", shift left=2, from=3-1, to=3-4]
+        \arrow["{{S(y\lact)S(x\lact)\Phi_{\mathsf{la}}T}}"', shift right=2, from=3-1, to=3-4]
+        \arrow["{{(\mu \circ S_{\mathsf{a},y})(x\lact)S\Phi T}}"', two heads, from=3-1, to=5-1]
+        \arrow[two heads, from=3-4, to=3-5]
+        \arrow["{{(\mu\circ S_{\mathsf{a},y})(x\lact)\Phi T}}"', two heads, from=3-4, to=5-4]
+        \arrow[two heads, from=3-5, to=4-5]
+        \arrow["{{\exists! \beta_{0}}}"', dotted, from=4-5, to=5-5]
+        \arrow["\cong", dotted, from=4-5, to=5-5]
+        \arrow["{{\alpha_{2}}}", shift left=2, curve={height=-30pt}, dotted, from=4-5, to=7-5]
+        \arrow["{{S(\mu \circ (S_{\mathsf{a},y}(x\lact)) \circ ((y\lact)S_{\mathsf{a},x}))\Phi T}}", shift left=2, from=5-1, to=5-4]
+        \arrow["{{S(y\lact )(x\lact )\Phi_{\mathsf{la}} T}}"', shift right=2, from=5-1, to=5-4]
+        \arrow["{{S(\lact_{\mathsf{a},y,x})S\Phi T}}"', from=5-1, to=7-1]
+        \arrow[two heads, from=5-4, to=5-5]
+        \arrow["{{S(\lact_{\mathsf{a},y,x})\Phi T}}", from=5-4, to=7-4]
+        \arrow["{{\exists! \beta_{1}}}"', dotted, from=5-5, to=7-5]
+        \arrow["\cong", dotted, from=5-5, to=7-5]
+        \arrow["{{S(\mu\circ S_{\mathsf{a},y\otimes x})\Phi T}}", shift left=2, from=7-1, to=7-4]
+        \arrow["{{S(y\otimes x\lact)\Phi_{\mathsf{la}} T}}"', shift right=2, from=7-1, to=7-4]
+        \arrow[two heads, from=7-4, to=7-5]
+      \end{mytikzcd}}\vspace{-\onelineskip}% XXX
+    \scaption[-1cm]{%
+      Definition of the morphism \(\alpha_{2}\).%
+      \label{fig:def-of-alpha2}%
+    }%
+  \end{figure}
+
+  We now have the diagram
+  \[
+    \scalebox{0.8}{\begin{mytikzcd}[ampersand replacement=\&, cramped, column sep=small]
+	{S(y\lact )S(x\lact )\Phi T} \&\&\& {S(y\lact)\Phi T(x\lact)} \\
+	\& {S(y\lact)(x\blact\Phi T)} \\
+	{S(y\lact )(x\lact )\Phi T} \& {y\blact x \blact\Phi T} \&\& {y\blact\Phi T(x\lact)} \& {\Phi T (y\lact)(x\lact)} \\
+	\& {(y \otimes x)\blact \Phi T} \\
+	{S((y\otimes x)\lact )\Phi T} \&\&\&\& {\Phi T ((y\otimes x)\lact)}
+	\arrow[""{name=0, anchor=center, inner sep=0}, "{S(y\lact)(\Phi_{\mathsf{la}}T(x\lact)\circ S{(\Phi T)}_{\mathsf{a},x})}", from=1-1, to=1-4]
+	\arrow[two heads, from=1-1, to=2-2]
+	\arrow[""{name=1, anchor=center, inner sep=0}, "{(\mu(y\lact) \circ S_{\mathsf{a},y}) (x\lact )\Phi T}"', from=1-1, to=3-1]
+	\arrow[two heads, from=1-4, to=3-4]
+	\arrow[""{name=2, anchor=center, inner sep=0}, "{((\Phi_{\mathsf{la}}(y\lact))\circ (S{(\Phi T)}_{\mathsf{a},y}))(x\lact)}", from=1-4, to=3-5]
+	\arrow[""{name=3, anchor=center, inner sep=0}, "{\alpha'_{1}}"{description}, dashed, from=2-2, to=1-4]
+	\arrow[two heads, from=2-2, to=3-2]
+	\arrow["{S(\lact_{\mathsf{a},y,x})\Phi T}"', from=3-1, to=5-1]
+	\arrow[""{name=4, anchor=center, inner sep=0}, "{\alpha_{1}}", from=3-2, to=3-4]
+	\arrow[""{name=5, anchor=center, inner sep=0}, "{\alpha_{2}}", from=3-2, to=4-2]
+	\arrow["{\alpha_{3}}", from=3-4, to=3-5]
+	\arrow["{\alpha_{5}}"{description}, from=3-5, to=5-5]
+	\arrow["{\alpha_{4}}"{description}, from=4-2, to=5-5]
+	\arrow[two heads, from=5-1, to=4-2]
+	\arrow[""{name=6, anchor=center, inner sep=0}, "{(\Phi_{\mathsf{la}}((y\otimes x)\lact))\circ (S{(\Phi T)}_{\mathsf{a},y\otimes x})}"', from=5-1, to=5-5]
+	\arrow["{(2)}"{description}, draw=none, from=1, to=5]
+	\arrow["{(1')}"{description}, draw=none, from=2-2, to=0]
+	\arrow["{(1)}"{description}, draw=none, from=4, to=3]
+	\arrow["{(3)}"{description}, draw=none, from=3-4, to=2]
+	\arrow["{(4)}"{description}, draw=none, from=4-2, to=6]
+      \end{mytikzcd}}
+  \]
+  whose labelled faces all commute,
+  and where the morphism decorated by the label of the face it is part of
+  is defined as that making said face commute,
+  via the universal property of coequalisers.
+
+  Our aim is to show the commutativity of the inner unlabelled face.
+  Since all of its morphisms are defined by the remaining inner (commutative) faces,
+  and we can reach \(y \blact x \blact \Phi T\) from \(S(y \lact)S(x \lact)\Phi T\) with two epimorphisms,
+  this is implied by the commutativity of the outer face,
+  which follows by the commutativity of the inner faces of \cref{fig:christmasmorning},
+  where
+  \begin{itemize}[noitemsep]
+    \item faces (1), (3), and (4) commute by the interchange law in \(\BiCat{Cat}_{\Bbbk}\);
+    \item face (2) commutes by \(\Phi_{\mathsf{la}}\from S \Phi T \nt \Phi T\) being a \(\cat{C}\)\hyp{}module map;
+    \item face (5) commutes by the associativity of action \(\Phi_{\mathsf{la}}\);
+    \item face (6) commutes by \(\Phi T\) being a lax \(\cat{C}\)\hyp{}module functor; and
+    \item face (7) commutes by naturality of \(\Phi_{\mathsf{la}}\).\qedhere
+  \end{itemize}
+  \begin{figure}[htbp]
+    \centering
+    \scalebox{0.9}{\begin{mytikzcd}[ampersand replacement=\&,cramped,column sep=small, row sep=small]
+	{S(y\lact )S(x\lact )\Phi T} \&\& {S(y\lact )S\Phi T(x\lact)} \&\&\&\& {S(y\lact)\Phi T(x\lact)} \\
+	\\
+	{SS(y\lact )(x\lact )\Phi T} \&\& {SS(y\lact )\Phi T(x\lact)} \&\& {SS\Phi T (y\lact)(x\lact)} \&\& {S\Phi T (y\lact)(x\lact)} \\
+	\\
+	{S(y\lact )(x\lact )\Phi T} \&\& {S(y\lact )\Phi T(x\lact)} \&\& {S\Phi T (y\lact)(x\lact)} \&\& {\Phi T (y\lact)(x\lact)} \\
+	\\
+	{S((y\otimes x)\lact )\Phi T} \&\&\&\& {S\Phi T ((y\otimes x)\lact)} \&\& {\Phi T ((y\otimes x)\lact)}
+	\arrow[""{name=0, anchor=center, inner sep=0}, "\raisebox{0.6em}{\(S(y\lact )S{(\Phi T)}_{\mathsf{a},x}\)}", from=1-1, to=1-3]
+	\arrow["{SS_{\mathsf{a},y} (x\lact )\Phi T}"', from=1-1, to=3-1]
+	\arrow[""{name=1, anchor=center, inner sep=0}, "{S(y\lact)\Phi_{\mathsf{la}}T(x\lact)}", from=1-3, to=1-7]
+	\arrow["{SS_{\mathsf{a},y}\Phi T(x\lact)}", from=1-3, to=3-3]
+	\arrow["{S{(\Phi T)}_{\mathsf{a},y}(x\lact)}", from=1-7, to=3-7]
+	\arrow[""{name=2, anchor=center, inner sep=0}, "\raisebox{0.6em}{\(SS(y\lact){(\Phi T)}_{\mathsf{a},x}\)}", from=3-1, to=3-3]
+	\arrow["{\mu (y \lact)(x\lact)\Phi T}"', from=3-1, to=5-1]
+	\arrow[""{name=3, anchor=center, inner sep=0}, "\raisebox{-0.8em}{\(SS{(\Phi T)}_{\mathsf{a},y}(x \lact )\)}"', from=3-3, to=3-5]
+	\arrow["{\mu (y\lact)\Phi T(x\lact)}"', from=3-3, to=5-3]
+	\arrow[""{name=4, anchor=center, inner sep=0}, "\raisebox{-0.8em}{\(S\Phi_{\mathsf{la}}T(y\lact)(x\lact)\)}"', from=3-5, to=3-7]
+	\arrow["{\mu\Phi T (y\lact)(x\lact)}"', from=3-5, to=5-5]
+	\arrow["{\Phi_{\mathsf{la}}T(y\lact)(x\lact)}", from=3-7, to=5-7]
+	\arrow[""{name=5, anchor=center, inner sep=0}, "{S(y\lact){(\Phi T)}_{\mathsf{a},x}}"', from=5-1, to=5-3]
+	\arrow["{S(\lact_{\mathsf{a},y,x})\Phi T}"', from=5-1, to=7-1]
+	\arrow[""{name=6, anchor=center, inner sep=0}, "{S{(\Phi T)}_{\mathsf{a},y}(x\lact)}"', from=5-3, to=5-5]
+	\arrow[""{name=7, anchor=center, inner sep=0}, "{\Phi_{\mathsf{la}} T (y\lact)(x\lact)}"', from=5-5, to=5-7]
+	\arrow["{S\Phi T(\lact_{\mathsf{a},y,x})}"', from=5-5, to=7-5]
+	\arrow["{\Phi T(\lact_{\mathsf{a},y,x})}", from=5-7, to=7-7]
+	\arrow[""{name=8, anchor=center, inner sep=0}, "{S{(\Phi T)}_{\mathsf{a},y\otimes x}}"', from=7-1, to=7-5]
+	\arrow[""{name=9, anchor=center, inner sep=0}, "\raisebox{-0.8em}{\(\Phi_{\mathsf{la}}T((y\otimes x)\lact)\)}"', from=7-5, to=7-7]
+	\arrow["{(1)}"{description,pos=0.7}, shift left=2, draw=none, from=2, to=0]
+	\arrow["{(2)}"{description}, draw=none, from=1, to=3-5]
+	\arrow["{(3)}"{description}, shift right=5, draw=none, from=2, to=5]
+	\arrow["{(4)}"{description,pos=0.6}, shift right=5, draw=none, from=3, to=6]
+	\arrow["{(5)}"{description}, draw=none, from=4, to=7]
+	\arrow["{(6)}"{description}, draw=none, from=5-3, to=8]
+	\arrow["{(7)}"{description}, draw=none, from=7, to=9]
+      \end{mytikzcd}}\vspace{-0.8cm}% XXX
+    \scaption[-4cm]{%
+      The arrow \(\Phi_{\mathsf{a}}\) defines a lax \(\cat{C}\)\hyp{}module structure on \(\Phi\).%
+      \label{fig:christmasmorning}%
+    }
+  \end{figure}
+\end{proof}
+
+\begin{lemma}\label{jupiter}
+  Let \(\Phi, \Phi' \in \mathsf{LaxRex}(\cat{M}^T,\cat{M}^S)\)
+  and \(\phi\from U^S \Phi F^T \nt U^S \Phi' F^T\) be a lax \(\cat{C}\)\hyp{}module biact transformation.
+  Then
+  \[
+    \varphi \defeq \phi \circ_{T} \blank \from \Phi \nt \Phi'
+  \]
+  is a \(\cat{C}\)\hyp{}module transformation.
+\end{lemma}
+\begin{proof}
+  First, observe that \(\varphi\) is determined by \(\varphi_{T(\blank)}\), as indicated by the diagram
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {\Phi T^{2}m} \& {\Phi Tm} \& {\Phi m} \\
+      {\Phi' T^{2}m} \& {\Phi' Tm} \& {\Phi' m}
+      \arrow["{\Phi\mu_{m}}"', shift right, from=1-1, to=1-2]
+      \arrow["{\Phi T\nabla_{m}}", shift left, from=1-1, to=1-2]
+      \arrow["{\varphi_{T^2m}}"', from=1-1, to=2-1]
+      \arrow[two heads, from=1-2, to=1-3]
+      \arrow["{\varphi_{Tm}}", from=1-2, to=2-2]
+      \arrow["{\exists! \varphi_{m}}", dashed, from=1-3, to=2-3]
+      \arrow["{\Phi' T\nabla_{m}}", shift left, from=2-1, to=2-2]
+      \arrow["{\Phi'\mu_{m}}"', shift right, from=2-1, to=2-2]
+      \arrow[two heads, from=2-2, to=2-3]
+    \end{mytikzcd}
+  \]
+  Thus, it suffices to show that for any \(m \in \cat{M}\) and \(x \in \cat{C}\), we have that
+  \begin{equation}\label{laxplax}
+    \Phi'_{\mathsf{a};x,Tm} \circ (x \blact \phi_{m}) = \phi_{x\lact m} \circ \Phi_{\mathsf{a},x,T(m)}.
+  \end{equation}
+
+  Consider the following diagram:
+  \[
+    \begin{mytikzcd}[ampersand replacement=\&]
+      {S(x\lact \Phi T)} \&\&\& {S\Phi Tx\lact \blank} \\
+      \& {x \blact \Phi T} \&\&\& {\Phi Tx\lact \blank} \\
+      {S(x\lact \Phi' T)} \&\&\& {S\Phi' Tx\lact \blank} \\
+      \& {x \blact \Phi' T} \&\&\& {\Phi' Tx\lact \blank}
+      \arrow["{S{(\Phi T)}_{\mathsf{a},x}}", from=1-1, to=1-4]
+      \arrow[two heads, from=1-1, to=2-2]
+      \arrow["{S(x\lact \phi)}"', from=1-1, to=3-1]
+      \arrow["{\Phi_{\mathsf{la}}Tx\lact \blank}", from=1-4, to=2-5]
+      \arrow["{S\phi'x\lact\blank}"{pos=0.8}, from=1-4, to=3-4]
+      \arrow[crossing over, "{\Phi_{\mathsf{a},x,T(\blank)}}"{pos=0.4}, from=2-2, to=2-5]
+      \arrow["{\phi_{x\lact \blank}}", from=2-5, to=4-5]
+      \arrow["{S{(\Phi' T)}_{\mathsf{a},x}}"{pos=0.7}, from=3-1, to=3-4]
+      \arrow[crossing over, "{x \blact\phi_{\blank}}"'{pos=0.3}, from=2-2, to=4-2]
+      \arrow[two heads, from=3-1, to=4-2]
+      \arrow["{\Phi'_{\mathsf{la}}Tx\lact \blank}", from=3-4, to=4-5]
+      \arrow["{\Phi'_{\mathsf{a},x,T(\blank)}}"', from=4-2, to=4-5]
+    \end{mytikzcd}
+  \]
+  Its top and bottom faces commute by definition of \(\Phi_{\mathsf{a}}\),
+  as seen from \cref{phiaeio};
+  its left face commutes by the definition of \(x \blact \blank\);
+  and its right face by \(\phi\) being a biact transformation.
+  The back face commutes since \(\phi\) is a \(\cat{C}\)\hyp{}module transformation.
+  The commutativity of the front face is precisely \cref{laxplax},
+  and since the top-left projection map is an epimorphism,
+  it suffices to verify its commutativity after precomposing with it,
+  which follows easily from the commutativity of the remaining faces.
+\end{proof}
+
+\begin{theorem}\label{TurboEilenbergWatts}
+  The faithful functor
+  \[
+    \cat{C}\mathsf{EW}\from \mathsf{LaxRex}(\cat{M}^T, \cat{M}^S) \to \biactC[\cat{C}]{S}{T}
+  \]
+  of \cref{ultraEilenbergWatts} is an equivalence of categories.
+\end{theorem}
+\begin{proof}
+  Fullness follows from \cref{jupiter}, so it is left to prove that \(\cat{C}\mathsf{EW}\) is essentially surjective.
+  Suppose that \(F \in \biactC[\cat{C}]{T}{S}\).
+  Since the functor of \cref{EilenbergWatts} is essentially surjective,
+  we may assume that \(F \cong U^S \Phi F^T\),
+  for some right exact \(\Phi\from \cat{M}^T \to \cat{M}^S\).
+  By \cref{bigdiagrams}, \((\Phi, \Phi_{\mathsf{a}}) \in  \mathsf{LaxRex}(\cat{M}^T,\cat{M}^S)\),
+  and \(F \cong \cat{C}\mathsf{EW}((\Phi, \Phi_{\mathsf{a}}))\) due to \cref{phigter},
+  giving essential surjectivity.
+\end{proof}
+
+\begin{definition}
+  We say that two right exact lax \(\cat{C}\)\hyp{}module monads \(T\) and \(S\) on \(\cat{M}\)
+  are \emph{Morita equivalent} if there are
+  \(F \in \biactC[\cat{C}]{T}{S}\) and
+  \(G \in \biactC[\cat{C}]{S}{T}\)
+  such that \(G \circ_{T} F \cong \Id_{\cat{M}^T}\)
+  and \(F \circ_{S} G \cong \Id_{\cat{M}^{S}}\)
+  as lax \(\cat{C}\)\hyp{}module biact functors.
+\end{definition}
+
+\begin{proposition}\label{Moritabybimodules}
+  Two right exact lax \(\cat{C}\)\hyp{}module monads \(T\) and \(S\) on \(\cat{M}\)
+  are Morita equivalent if and only if
+  there is a \(\cat{C}\)\hyp{}module equivalence \(\cat{M}^T \simeq \cat{M}^{S}\),
+  where the Eilenberg--Moore categories are endowed with the extended Linton coequaliser structure of \cref{extendingalways}.
+\end{proposition}
+\begin{proof}
+  This is a direct consequence of \cref{TurboEilenbergWatts},
+  using that an equivalence of categories is right exact.
+\end{proof}
+
+Combining \cref{Moritabybimodules} with \cref{injcorrespondence}, we find the following.
+
+\begin{theorem}\label{injectivebijection}
+  Let \(\cat{C}\) be a monoidal abelian category with enough injectives,
+  and let \(T\) be a left exact lax \(\cat{C}\)\hyp{}module comonad on \(\cat{C}\).
+  There is a bijection
+  \begin{align*}
+    \faktor{\{\,(\cat{M},\ell) \text{ as in \cref{mainnonsenseinjective}}\,\}}{\cat{M} \simeq \cat{N}}
+    &\xleftrightarrow{\ \simeq\ }
+      \left\{\begin{aligned}
+        &\text{Left exact oplax \(\cat{C}\)\hyp{}module}\\
+        &\text{comonads on \(\cat{C}\)}
+      \end{aligned}
+      \right\}\!\Big/\!\!\simeq_{\text{Morita}} \\
+    (\cat{M},\ell) &\longmapsto \cohom{\ell,-\lact \ell} \\
+    (\cat{M}^T, T1) &\longmapsfrom T
+  \end{align*}
+\end{theorem}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../main"
+%%% TeX-command-extra-options: "-shell-escape -fmt=prec.fmt -file-line-error -synctex=1"
+%%% End:

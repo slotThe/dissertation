@@ -1,0 +1,207 @@
+%&prec
+
+% Shell out to tikzexternalize in a way that respects the static
+% preamble, and only call \tikzexternalize in the dynamic preamble; see
+% https://tex.stackexchange.com/questions/16734/precompiled-preamble-with-tikz-externalize
+\tikzexternalize[
+  prefix=figures-ext/,
+  system call={pdflatex -fmt=prec.fmt \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"}
+]
+
+\newcommand*{\comodc}[2][\cat{C}]{\mathrm{Comod}_{#1}(#2)}
+\newcommand*{\fdcomodc}[2][\cat{C}]{\mathrm{comod}_{#1}(#2)}
+
+% Bibliography—should be dynamic so that RefTeX sees it.
+\bibliography{main}
+
+\begin{document}
+
+% Numbering of theorems.
+\numberwithin{theorem}{chapter}
+
+%%% FRONTMATTER
+\frontmatter%
+
+\input{chapters/titlepage}
+
+% Dedication will be on an extra page
+\begin{dedication}
+  Für Isabell\\
+  und meine Eltern
+\end{dedication}
+
+\cleardoublepage% Epigraph for the thesis as a whole.
+\thispagestyle{empty}
+\vspace*{\beforechapskip}
+\setlength\epigraphwidth{180pt}
+\epigraph{%
+  I almost wish I hadn't gone down that rabbit\hyp{}hole—and yet—and yet—it's rather curious, you know, this sort of life!%
+}{%
+  \textsc{Lewis Caroll}, Alice in Wonderland%
+}
+
+% More space before the chapter starts, so we can cheekily fit an
+% epigraph in there.
+\let\chapterheadstartold\chapterheadstart%
+\renewcommand*{\chapterheadstart}{\vspace*{\beforechapskip}}
+
+\chapter*{Acknowledgements}
+\setlength{\epigraphwidth}{200pt}
+\epigraphhead[1cm]{%
+  \epigraph{%
+    Maybe I'll start with the acknowledgements…
+  }{%
+    \textsc{Mike Slackenerny}; PhD Comics \href{https://phdcomics.com/comics/archive.php?comicid=149}{\#149}%
+  }%
+}
+\input{chapters/acknowledgements}
+
+% Temporarily restore old chapter head for abstract and contents, where
+% I don't need extra space for an epigraph.
+\renewcommand*{\chapterheadstart}{\chapterheadstartold}
+
+\cleardoublepage%
+\addtocontents{toc}{\SkipTocEntry}% Skips TOC in TOC
+\TOC{}
+
+%%% MAINMATTER
+\mainmatter%
+
+% We start with the epigraphs again.
+\renewcommand*{\chapterheadstart}{\vspace*{1.2\beforechapskip}}
+
+\chapter{Introduction}\label{chap:introduction}
+\setlength\epigraphwidth{205pt}
+\epigraphhead[1cm]{%
+  \epigraph{%
+    That depends on where you want to get to;\\
+    ``Well it really doesn't matter—'';\\
+    Then it doesn't really matter which way you go.%
+  }{%
+    \textsc{Lewis Caroll}, Alice in Wonderland%
+  }%
+}
+\input{chapters/introduction}
+
+\chapter{Preliminaries}\label{chap:preliminaries}
+\setlength{\epigraphwidth}{160pt}
+\epigraphhead[1cm]{%
+  \epigraph{%
+    Das Rad gehört nicht zur Maschine, das man drehen kann,
+    ohne daß etwas anderes sich mitbewegt.
+  }{%
+    \textsc{Ludwig Wittgenstein};\\
+    Philosophische Untersuchungen%
+  }%
+}
+\input{chapters/preliminaries}
+
+\chapter{Duality theory for monoidal categories}\label{sec:trep-categories}
+\setlength\epigraphwidth{185pt}
+\epigraphhead[1cm]{%
+  \epigraph{%
+    May it be a light to you in dark places, when all other lights go out.%
+  }{%
+    \textsc{J.\,R.\,R Tolkien}; The Fellowship of the Ring
+  }
+}
+\input{chapters/trep}
+
+\chapter{Twisted centres}\label{sec:twisted-centres}
+\setlength\epigraphwidth{160pt}
+\epigraphhead[1cm]{%
+  \epigraph{%
+    Ich gehe am Strand, dudududu;\\
+    ich gehe am Strand, rududu;\\
+    ich gehe am Strand, dudududuu;\\
+    ich gehe am Strand, ruududuu.%
+  }{%
+    \textsc{SpongeBob Schwammkopf}, S01E18b
+  }
+}
+\input{chapters/twisted-centres}
+
+\chapter{Monadic Tannaka--Krein reconstruction}\label{sec:monadic-tannaka-reconstruction}
+\setlength{\epigraphwidth}{140pt}
+\epigraphhead[1cm]{%
+  \epigraph{%
+    [D]ie Monade, das unvollkommenste aller Wesen.%
+  }{%
+    \textsc{Arthur Schopenhauer}; \\ Die Kunst, Recht zu behalten%
+  }%
+}
+\input{chapters/monads}
+
+\chapter{Monadic twisted centres}\label{sec:monad-twist-centr}
+\setlength{\epigraphwidth}{260pt}
+\epigraphhead[1cm]{%
+  \epigraph{%
+    [Der Wert dieser Arbeit] wird umso
+    grösser sein, je besser die Gedanken ausgedrückt sind. Je mehr der Nagel
+    auf den Kopf getroffen ist.—Hier bin ich mir bewusst, weit hinter dem
+    Möglichen zurückgeblieben zu sein. Einfach darum, weil meine Kraft zur
+    Bewältigung der Aufgabe zu gering ist.
+  }{%
+    \textsc{Ludwig Wittgenstein};
+    Tractatus Logico-Philosophicus%
+  }%
+}
+\input{chapters/monadic-twisted-centres}
+
+\chapter{Duoidal R-matrices}\label{sec:duoidal-reconstruction}
+\setlength{\epigraphwidth}{170pt}
+\epigraphhead[1cm]{%
+  \epigraph{%
+    The struggle itself toward the heights is enough to fill a man's heart. One must imagine Sisyphus happy.%
+  }{%
+    \textsc{Albert Camus}; The Myth of Sisyphus%
+  }%
+}
+\input{chapters/duoidal-bimonads}
+
+\chapter{Infinite and non-rigid reconstruction}\label{sec:infinite-non-rigid-reconstruction}
+\setlength\epigraphwidth{220pt}
+\epigraphhead[1cm]{%
+  \epigraph{%
+    Der Mensch, das tapferste und leidgewohnteste Thier,
+    verneint an sich nicht das Leiden:
+    er will es, er sucht es selbst auf, vorausgesetzt,
+    dass man ihm einen Sinn dafür aufzeigt,
+    ein Dazu des Leidens.
+  }{%
+    \textsc{Friedrich Nietzsche};
+    Zur Genealogie der Moral.
+  }%
+}
+\input{chapters/non-rigid-reconstruction}
+
+\chapter{Hopf trimodules}\label{sec:hopf-trimodules}
+\setlength\epigraphwidth{175pt}
+\epigraphhead[1cm]{%
+  \epigraph{%
+    I am big!
+    It's the pictures that got small.
+  }{%
+    \textsc{Norma Desmond}; Sunset Boulevard
+  }%
+}
+\input{chapters/hopf-trimodules}
+
+%%% BACKMATTER
+\backmatter%
+\renewcommand*{\chapterheadstart}{\chapterheadstartold}
+
+\printbibliography%
+
+\cleardoublepage%
+\listoffigures%
+
+\input{chapters/declaration}% Legalese
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-command-extra-options: "-shell-escape -fmt=prec.fmt -file-line-error -synctex=1"
+%%% End:

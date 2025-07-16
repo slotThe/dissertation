@@ -1,0 +1,31 @@
+    \begin{tikzpicture}
+      \begin{pgfonlayer}{nodelayer}
+        \node [style=none] (0) at (0, -1) {};
+        \node [style=none] (1) at (1, -1) {};
+        \node [style=whitedot] (2) at (0, 0.5) {};
+        \node [style=none] (3) at (1, 1) {};
+        \node [style=none] (4) at (0, 2.25) {};
+        \node [style=none] (5) at (1, 2.25) {};
+        \node [style=none] (6) at (0.25, -0.5) {\tiny\(\color{gray}{1}\)};
+        \node [style=none] (7) at (0.75, -0.5) {\tiny\(\color{gray}{1}\)};
+        \node [style=none] (8) at (0.425, 1.5) {\tiny\(\color{gray}{1}\)};
+        \node [style=none] (9) at (0.825, 1.5) {\tiny\(\color{gray}{1}\)};
+        \node [style=none] (10) at (2.5, -1) {};
+        \node [style=none] (11) at (3.5, -1) {};
+        \node [style=none] (13) at (3.5, 1) {};
+        \node [style=none] (14) at (2.5, 2.25) {};
+        \node [style=none] (15) at (3.5, 2.25) {};
+        \node [style=none] (16) at (2.75, -0.5) {\tiny\(\color{gray}{1}\)};
+        \node [style=none] (17) at (3.25, -0.5) {\tiny\(\color{gray}{1}\)};
+        \node [style=none] (20) at (1.75, 0.5) {$=$};
+      \end{pgfonlayer}
+      \begin{pgfonlayer}{edgelayer}
+        \draw [style=morphism-edge] (0.center) to (2);
+        \draw [style=morphism-edge] (1.center) to (3.center);
+        \draw [style=morphism-edge, in=270, out=180] (3.center) to (4.center);
+        \draw [style=morphism-edge] (3.center) to (5.center);
+        \draw [style=morphism-edge] (11.center) to (13.center);
+        \draw [style=morphism-edge] (13.center) to (15.center);
+        \draw [style=morphism-edge] (10.center) to (14.center);
+      \end{pgfonlayer}
+    \end{tikzpicture}

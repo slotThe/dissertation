@@ -1,0 +1,267 @@
+% M-x occur RET %%% RET
+
+\documentclass[12pt, a4paper, twoside]{memoir}
+\usepackage[externalize=true, font=palatino, osf, math=fancy]{styles/style}
+
+\pdfoutput=1
+\pdfgentounicode=1
+
+% XXX: Probably better to add hooks as advised in [1], but for now
+% redefining the internal command is easier for me.
+% https://tex.stackexchange.com/questions/730148/cref-refers-to-lemmas-as-theorems
+\makeatletter
+\def\cref@thmoptarg[#1]#2#3#4{%
+    \ifhmode\unskip\unskip\par\fi%
+    \normalfont%
+    \trivlist%
+    \let\thmheadnl\relax%
+    \let\thm@swap\@gobble%
+    \thm@notefont{\fontseries\mddefault\upshape}%
+    \thm@headpunct{.}% add period after heading
+    \thm@headsep 5\p@ plus\p@ minus\p@\relax%
+    \thm@space@setup%
+    #2% style overrides
+    \@topsep \thm@preskip               % used by thm head
+    \@topsepadd \thm@postskip           % used by \@endparenv
+    \def\@tempa{#3}\ifx\@empty\@tempa%
+      \def\@tempa{\@oparg{\@begintheorem{#4}{}}[]}%
+    \else%
+      \refstepcounter[#1]{#3}%  <<< cleveref modification
+      \@namedef{cref@#3@alias}{#1}% added
+      \def\@tempa{\@oparg{\@begintheorem{#4}{\csname the#3\endcsname}}[]}%
+    \fi%
+    \@tempa}%
+\makeatother
+
+\newcommand*{\submissionDate}{01.\ April 2025}% Used on title page and declaration.
+
+% Chapter style; memoir prominently features a "Bringhurst" style, but
+% neglects to add the large chapter numbers into the margin, as the
+% famous book does. Fix this.
+%
+% Source: https://tex.stackexchange.com/questions/88895/bringhurst-chapter-style-in-memoir
+\usepackage{bringhurst}
+
+%%% Sidenotes
+% style.sty has a `sidenotes' option, but the default sidenotes.sty file
+% that CTAN has conflicts with the Bringhurst style of memoir. As such,
+% we vendor sidenotes.sty to fix the incompatibilities, and manually
+% redefine the sidenote-specific commands here.
+\usepackage{sidenotes}
+\usepackage{mparhack}
+\renewcommand*{\marginfont}{\scriptsize}
+\renewcommand{\note}[1]{%
+  \sidenote{%
+    \scriptsize
+    \checkoddpage%
+    \ifoddpage%
+      \raggedright%
+    \else
+      \raggedleft%
+    \fi
+    {#1}%
+  }%
+}
+\renewcommand{\scaption}[2][0cm]{%
+  \marginnote{%
+    \vspace{#1}%
+    \caption{%
+      \checkoddpage%
+      \ifoddpage%
+        \raggedright%
+      \else
+        \raggedleft%
+      \fi
+      {#2}%
+    }%
+  }
+}
+
+% Sidecaptions for figures get a small label, and an even slightly
+% smaller body font.
+\usepackage{caption}
+\captionsetup{%
+  style=base,%
+  labelfont=footnotesize,%
+  textfont=scriptsize,%
+}
+
+% Protrude equation numbers into the margin.
+%
+% Sources:
+%   - https://tex.stackexchange.com/questions/258574/placing-the-equation-number-in-the-left-hand-margin
+%   - https://www.overleaf.com/learn/latex/Page_size_and_margins
+\makeatletter
+\let\oldmaketag@@@\maketag@@@%
+\def\oldtagform@#1{\oldmaketag@@@{(\ignorespaces#1\unskip\@@italiccorr)}}
+\renewcommand{\eqref}[1]{\textup{\oldtagform@{\ref{#1}}}}
+\newlength{\width@@}
+\def\maketag@@@#1{\hbox{\hskip1sp\m@th\llap{%
+      \normalfont#1%
+      \settowidth{\width@@}{#1}%
+      \checkoddpage\ifoddpage\hspace{-\the\width@@-\the\marginparsep}
+      \else\hspace{\textwidth+\the\marginparsep+.1cm}\fi
+    }}}
+\makeatother
+
+% Page separators for the introduction
+\usepackage{froufrou}
+
+%%% Additional maths macros
+
+% No field for this category (as is the case in the style file), because
+% things become much too overloaded otherwise.
+\renewcommand*{\kvect}{\mathsf{vect}}
+\renewcommand*{\kVect}{\mathsf{Vect}}
+
+% Haven't gotten around to properly integrating these into style.sty, or
+% they seem too specialised to do so.
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\QPiv}{QPiv}
+\DeclareMathOperator{\Piv}{Piv}
+\newcommand{\YangBaxter}{Yang--Baxter}
+\newcommand*{\bbz}[1][B]{\ensuremath{{#1}^{\bullet}_0}\xspace}
+\newcommand*{\bcz}[1][B]{\ensuremath{{#1}^{\circ}_0}\xspace}
+\newcommand*{\bbt}[1][B]{\ensuremath{{#1}^{\bullet}_2}\xspace}
+\newcommand*{\bct}[1][B]{\ensuremath{{#1}^{\circ}_2}\xspace}
+\newcommand*{\duoidal}[1][D]{\ensuremath{(\cat{#1}, \circ, \bot, \bullet, 1)}\xspace}
+\newcommand*{\duoidalb}[1][D]{\ensuremath{(\cat{#1}, \bullet, 1)}\xspace}
+\newcommand*{\duoidalw}[1][D]{\ensuremath{(\cat{#1}, \circ, \bot)}\xspace}
+\renewcommand*{\hom}[1]{\ensuremath{\lfloor#1\rfloor}}
+\newcommand*{\cohom}[1]{\ensuremath{\lceil#1\rceil}}
+\newcommand*{\rcomod}[1]{\ensuremath{\textnormal{comod-}#1}}
+\newcommand*{\rComod}[1]{\ensuremath{\textnormal{Comod-}#1}}
+\newcommand*{\psh}[1][C]{\widehat{\phantom{{}}\cat{#1}}} % presheaves
+\newcommand*{\Cpsh}[1][C]{\widehat{\cat{#1}^{\op}}} % copresheaves
+\newcommand*{\fin}{\mathrm{fin}}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\End}{End}
+\newcommand*{\Cocts}[1]{\ensuremath{#1\textnormal{-}\mathsf{Cocts}}}
+\newcommand*{\Spiso}[1]{\mathsf{Sp}_{#1}}
+\newcommand{\leftmod}[2]{#1\textnormal{-}\mathsf{Mod}_{#2}}
+\newcommand{\modma}{\leftmod{A}{\mathcal{M}}}
+\newcommand{\rightcomod}[2]{\mathsf{Comod}_{#1}{#2}}
+\newcommand{\leftcomod}[2]{#1\textnormal{-}\mathsf{Comod}_{#2}}
+\newcommand{\comodmc}{\leftcomod{C}{\mathcal{M}}}
+\newcommand{\freeleftmod}[2]{#1\textnormal{-Free}_{#2}}
+\newcommand{\forgetleftmod}[2]{#1\textnormal{-Forget}_{#2}}
+\newcommand{\freeleftcomod}[2]{#1\textnormal{-Cofree}_{#2}}
+\newcommand{\forgetleftcomod}[2]{#1\textnormal{-Coforget}_{#2}}
+\newcommand*{\Ind}{\mathsf{Ind}}
+\newcommand{\xtwoheadrightarrow}[2][]{%
+  \xrightarrow[#1]{#2}\mathrel{\mkern-14mu}\rightarrow%
+}
+\newcommand{\biact}[2]{#1\textnormal{-}\mathsf{Biact}\textnormal{-}#2}
+\newcommand{\biactC}[3][\cat{C}]{#2\textnormal{-}\mathsf{Biact}_{#1}\textnormal{-}#3}
+\newcommand*{\bbcomod}[1][B]{\Tetramod[#1]}
+\newcommand*{\bmodule}[1][B]{\tetramodfd[][#1][][]}
+\newcommand*{\bbmodule}[1][B]{\Tetramod[][#1][][]}
+\newcommand*{\EilenbergMoore}{\EM}
+\newcommand*{\terminal}{\mathord{\heartsuit}}
+\newcommand*{\blackdiamond}{\scriptscriptstyle\blacklozenge}
+\NewDocumentCommand{\ZCat}{s o m o}{\buildCenter{#1}[Z][#2]{#3}[#4]}
+\NewDocumentCommand{\ACat}{s o m o}{\buildCenter{#1}[A][#2]{#3}[#4]}
+\NewDocumentCommand{\QCat}{s o m o}{\buildCenter{#1}[Q][#2]{#3}[#4]}
+\NewDocumentCommand{\SZCat}{s o m o}{\buildCenter{#1}[SZ][#2]{#3}[#4]}
+\newcommand*{\lbiDual}[1]{\lld{#1}}
+\DeclareMathOperator{\Gr}{Gr}
+\DeclareMathOperator{\Char}{Char}
+\DeclareMathOperator{\Ad}{Ad}
+\newcommand{\Malcev}{Mal'cev\xspace}
+\DeclareMathOperator{\Isospace}{Iso}
+\newcommand*{\modc}[2][\cat{C}]{\ensuremath{\mathrm{mod}_{#1}(#2)}}
+
+%%% Additional environments
+
+% The dedication: https://tex.stackexchange.com/questions/102830/dedication-page-in-article-class
+\newenvironment{dedication}{%
+  \cleardoublepage%      we want a new page
+  \thispagestyle{empty}% no header and footer
+  \vspace*{\stretch{1}}% some space at the top
+  \ttfamily%             a monospaced font for specialness
+  \raggedleft%           flush to the right margin
+}{%
+  \par%                  end the paragraph
+  \vspace{\stretch{3}}%  space at bottom is three times that at the top
+}
+
+\theoremstyle{plain}
+\newtheorem{theoremalph}{Theorem}
+\renewcommand*{\thetheoremalph}{\Alph{theoremalph}}
+
+% Create a fake theorem environment for when they appear in the
+% introduction, so one doesn't have to write Theorem (Theorem x.y) or
+% other such constructs, but directly creates a theorem with a link to
+% the "real" one.
+%
+% Original source: https://tex.stackexchange.com/questions/422/how-do-i-repeat-a-theorem-number
+\makeatletter
+\newtheorem*{rep@theorem}{\rep@title}
+\newenvironment{reptheorem}[1]{%
+  \def\rep@title{\cref{#1}}\begin{rep@theorem}%
+}{%
+  \end{rep@theorem}%
+}
+\makeatother
+
+% There's a joke in here somewhere. Anyways, use realhats, but only with
+% \Hat—the original \hat should stay the way it is.
+\let\oldHat\hat%
+\usepackage{realhats}
+\let\Hat\hat%
+\let\hat\oldHat%
+
+%%% Changes to memoir
+
+% Table of contents
+\renewcommand{\cftchapterfont}{\scshape} % Small-caps for chapters
+\renewcommand{\cftchapterpagefont}{}     % Nothing for sections
+\setcounter{tocdepth}{4}
+
+% Floats that are alone on a page get an empty style, and otherwise we
+% want a minimal-esque ruled one.
+\mergepagefloatstyle{dissstyle}{ruled}{empty}
+\pagestyle{dissstyle}
+
+% Epigraphs
+\epigraphfontsize{\footnotesize}
+
+%%%% Finalise the page layout.
+
+\usepackage{flafter}% Figures should appear after they are defined.
+
+% This page layout is a little wider than the default one memoir picks
+% for a4paper, which means we can increase the font size a bit. With
+% 12pt Palatino, this results in about 72 characters per full line,
+% which is on the higher side of what I would prefer, but either
+% increasing the font size or decreasing the margins even more would
+% impede too much upon largeish diagrams or formulas, of which this
+% theses has enough of.
+\isopage%
+
+% Do not give sidenotes the full width of the margins, as that looks a
+% bit weird in my opinion. This results in a maximum of about 21
+% characters—small, but manageable.
+\setmarginnotes{17pt}{80pt}{\onelineskip}
+
+% Instead of
+%
+%     \clubpenalty=10000
+%     \widowpenalty=10000
+%     \raggedbottom%
+%
+% we use a larger topskip, together with the \sloppybottom below.
+% Empirically, this produces slightly nicer looking pages.
+\setlength{\topskip}{1.6\topskip}
+
+% This must run after all changes have been applied.
+\checkandfixthelayout%
+
+\sloppybottom%
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../main"
+%%% End:
