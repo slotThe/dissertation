@@ -1,6 +1,6 @@
-\DocumentMetadata{pdfstandard=A-2b}
-
 % M-x occur RET %%% RET
+
+\DocumentMetadata{pdfstandard=A-2b}
 
 \documentclass[12pt, a4paper, twoside]{memoir}
 \usepackage[externalize=true, font=palatino, osf, math=fancy]{styles/style}
@@ -21,6 +21,18 @@
   pdflang={en},
   pdfmetalang={en},
 }
+
+\newcommand*{\submissionDate}{01.\ April 2025}% Used on title page and declaration.
+
+%%% Colours for printing
+
+\usepackage{xcolor}
+\selectcolormodel{cmyk}
+\definecolor{blue}{cmyk}{0.62, 0.49, 0, 0}
+\definecolor{red}{cmyk}{0, 0.74, 0.79, 0.25}
+\definecolor{green}{cmyk}{0, 0.72, 0.78, 0.31}
+
+%%% Fixes for packages
 
 % XXX: Probably better to add hooks as advised in [1], but for now
 % redefining the internal command is easier for me.
@@ -48,15 +60,6 @@
     \fi%
     \@tempa}%
 \makeatother
-
-\newcommand*{\submissionDate}{01.\ April 2025}% Used on title page and declaration.
-
-% Chapter style; memoir prominently features a "Bringhurst" style, but
-% neglects to add the large chapter numbers into the margin, as the
-% famous book does. Fix this.
-%
-% Source: https://tex.stackexchange.com/questions/88895/bringhurst-chapter-style-in-memoir
-\usepackage{bringhurst}
 
 %%% Sidenotes
 % style.sty has a `sidenotes' option, but the default sidenotes.sty file
@@ -230,6 +233,13 @@
 \let\hat\oldHat%
 
 %%% Changes to memoir
+
+% Chapter style; memoir prominently features a "Bringhurst" style, but
+% neglects to add the large chapter numbers into the margin, as the
+% famous book does. Fix this.
+%
+% Source: https://tex.stackexchange.com/questions/88895/bringhurst-chapter-style-in-memoir
+\usepackage{bringhurst}
 
 % Table of contents
 \renewcommand{\cftchapterfont}{\scshape} % Small-caps for chapters
