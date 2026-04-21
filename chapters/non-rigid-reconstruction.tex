@@ -73,7 +73,7 @@ to the underlying categories.
 
   Then there is a coalgebra object \(C\) in \(\Ind(\cat{C})\)
   such that \(\Ind(\cat{M}) \simeq \mathsf{Comod}_{\Ind(\cat{C})}C\).
-  Further, \(\cat{M}\) is the category of compact \(C\)\hyp{}comodule objects..
+  Further, \(\cat{M}\) is the category of compact \(C\)\hyp{}comodule objects.
 \end{reptheorem}
 
 Consider the special case where a tensor category \(\cat{C}\) admits a fibre functor
@@ -301,7 +301,7 @@ The analogue of \cref{locomonads} for finite abelian categories is simpler.
 \end{proposition}
 \begin{proof}
   By \cref{prop:abelian-EM-cat},
-  the \(\cat{A}^T\) is finitely cocomplete.
+  \(\cat{A}^T\) is finitely cocomplete.
   Similarly to~\cite[Proposition~6.3.1]{kashiwara06:categ},
   there is a functor \(\mathrm{Fin}_{\mathrm{co}}(\cat{A}^T) \to \cat{A}^T\)
   that extends the functor \(\mathrm{Id}\from \cat{A}^T \to \cat{A}^T\),
@@ -547,7 +547,7 @@ Semisimplicity also ``transfers'' to the left adjoint of a monad.
 \begin{proposition}\label{ModuleEMSemisimple}
   Let \(T\from \cat{M} \to \cat{M}\) be a semisimple lax \(\cat{C}\)\hyp{}module monad on an abelian \(\cat{C}\)\hyp{}module category \(\cat{M}\),
   and let \(S\from \cat{M} \to \cat{M}\) be a left adjoint to \(T\).
-  The equivalence \(\cat{M}^T \simeq \cat{M}^T\) of \cref{semisimpleleftandright} is a \(\cat{C}\)\hyp{}module equivalence,
+  The equivalence \(\cat{M}^T \simeq \cat{M}^S\) of \cref{semisimpleleftandright} is a \(\cat{C}\)\hyp{}module equivalence,
   where \(\cat{M}^T\) and \(\cat{M}^{S}\) are endowed with the extended \(\cat{C}\)\hyp{}module structures
   of \(\cat{M}_T\) and \(\cat{M}_{S}\), respectively.
 \end{proposition}
@@ -660,7 +660,7 @@ by functoriality of colimits we obtain a functor \(\blank \blact \bblank\from \c
     \end{mytikzcd}
   \]
   in \(\cat{M}^T\) is natural in \(m\), split, and isomorphic to \(T(x \lact m)\).
-  In other words the Linton coequaliser on a free \(T\)\hyp{}module is given by \(x \blact Tm \cong T(x \lact m)\).
+  In other words, the Linton coequaliser on a free \(T\)\hyp{}module is given by \(x \blact Tm \cong T(x \lact m)\).
 \end{lemma}
 \begin{proof}
   The splitting data is given by
@@ -831,7 +831,7 @@ A \emph{representation} of \(\mathbf{C}\) is a choice of a universal arrow from 
 
 \begin{definition}\label{representablemultiactegory}
   For \(\mathbf{C}\) representable and a representation \(\mathsf{R}\) of \(\mathbf{C}\),
-  we say that \(\mathbf{M}\) is a \emph{representable with respect to \(\mathsf{R}\)},
+  we say that \(\mathbf{M}\) is \emph{representable with respect to \(\mathsf{R}\)},
   if for every sequence \(\vec{x}\) of objects of \(\mathbf{C}\) and every object \(m \in \mathbf{M}\),
   there is a universal arrow \(\pi_{(\vec{x};m)} \in \mathbf{M}(\vec{x};m; \lact(\vec{x},m))\),
   and all morphisms of \(\mathsf{R}\) are universal in \(\mathbf{M}\).
@@ -1076,7 +1076,7 @@ see \cref{rmk:monoidal-from-multi,associatedrepresented}.
   under \(\cat{M}^T(T(\blank),\bblank) \cong \cat{M}(\blank,\bblank)\).
   Thus, both conditions in the first statement are equivalent to the commutativity of the diagram.
 
-  The second statement is shown analogously to~\cite[Lemma~3.5]{aguiar18:monad}
+  The second statement is shown analogously to~\cite[Lemma~3.5]{aguiar18:monad}.
 \end{proof}
 
 Finally, in order to establish \cref{extendingalways,strongembeddingalways},
@@ -1088,7 +1088,7 @@ we need an analogue of~\cite[Proposition~3.13]{aguiar18:monad}.
 
 \begin{proof}
   Let \((x_{1},\ldots,x_{n},m')\) be a sequence of objects, with \(x_{i} \in \cat{C}\) and \(m' \in \cat{M}\).
-  The coequalizer of Diagram~\eqref{unicharacterize} defines a pre-universal map in \(\mathbf{M}^{\varphi}\) with domain \((x_{1},\ldots,x_{n};m')\), by Lemma~\ref{multiuni}.
+  The coequaliser of Diagram~\eqref{unicharacterize} defines a pre-universal map in \(\mathbf{M}^{\varphi}\) with domain \((x_{1},\ldots,x_{n};m')\), by Lemma~\ref{multiuni}.
   It remains to show that a composition of pre-universal maps is pre-universal.
   Thus, consider sequences \(\vec{z_{1}},\ldots,\vec{z_{n}}\) and \(\vec{y}\), universal multimorphisms \(h_{i}\from \vec{z_{i}} \to x_{i}\) of \(\mathbf{C}\), and universal multimorphisms \(f\from (\vec{y},m) \to m'\) and \(g\from (\vec{x},m') \to m''\).
 
@@ -1366,7 +1366,7 @@ Using \cref{Cinjectives,InjReflect} in place of \cref{Cprojectives,ProjReflect},
 \begin{theorem}\label{mainnonsenseinjective}
   Let \(\cat{C}\) be a monoidal abelian category with enough injectives,
   \(\cat{M}\) an abelian \(\cat{C}\)\hyp{}module category with enough injectives,
-  and assume that \(\ell \in \cat{M}\) be a coclosed \(\cat{C}\)\hyp{}injective \(\cat{C}\)\hyp{}cogenerator.
+  and assume that \(\ell \in \cat{M}\) is a coclosed \(\cat{C}\)\hyp{}injective \(\cat{C}\)\hyp{}cogenerator.
 
   Then there is an equivalence of \(\cat{C}\)\hyp{}module categories
   \[
@@ -1570,7 +1570,7 @@ Let us first introduce some vocabulary.
 \begin{definition}
   Let \(\cat{A}\) be an abelian category and suppose that \(T\) and \(S\) are right exact monads on \(\cat{A}\).
   Viewing them as algebra objects in \(\mathsf{Rex}(\cat{A}, \cat{A})\),
-  a \emph{\(T\)\hyp{}\(S\)\hyp{}biact functor} is an \(T\)\hyp{}\(S\)\hyp{}bimodule object in \(\mathsf{Rex}(\cat{A},\cat{A})\).
+  a \emph{\(T\)\hyp{}\(S\)\hyp{}biact functor} is a \(T\)\hyp{}\(S\)\hyp{}bimodule object in \(\mathsf{Rex}(\cat{A},\cat{A})\).
 \end{definition}
 
 In other words, a biact functor \(F\from \cat{A} \to \cat{A}\) is a triple \((F,\,F_{\mathsf{la}},\,F_{\mathsf{ra}})\),

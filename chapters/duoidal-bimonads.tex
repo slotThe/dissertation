@@ -256,7 +256,7 @@ is given in~\cite[Proposition~3.1.6 and Example~3.1.7]{roman23:monoid-con}.
   if and only if the induced monad \(b \otimes \blank\) is a bimonad on \(\cat{C}\).
 \end{example}
 
-\begin{example}\label{ex:}
+\begin{example}
   Let \(\Bbbk\) be a commutative ring,
   and \(A\) a commutative \(\Bbbk\)\hyp{}algebra.
   In~\cite[Example~6.18]{Aguiar2010} it is shown that the category of \(A\)\hyp{}bimodules is duoidal,
@@ -278,7 +278,7 @@ is given in~\cite[Proposition~3.1.6 and Example~3.1.7]{roman23:monoid-con}.
 \begin{definition}[{\cite[Section~7]{aguiar18:monad}}]\label{def:duoidal-bimonad}
   A \emph{double opmonoidal monad} on a duoidal category \(\cat{D}\) consists of
   a monad \((T, \mu, \eta)\) on \(\cat{D}\),
-  together with a bimonad structures
+  together with bimonad structures
   \((T, \bbt, \bbz)\) on \(\duoidalb\)
   and \((T, \bct, \bcz)\) on \(\duoidalw\),
   such that the following diagrams commute:
@@ -350,7 +350,7 @@ requiring that the interchange morphism of a duoidal category \(\cat{D}\)
 lifts to the category of modules is a rather strong condition.
 
 \begin{proposition}[{\cite[Theorem~7.2]{aguiar18:monad}}]\label{prop:cocommutative-bimonad-lifts-duoidal-structure}
-  Let \(\cat{D}\) be a duoidal category and \(T\from \cat{C}\to \cat{C}\) a monad.
+  Let \(\cat{D}\) be a duoidal category and \(T\from \cat{D}\to \cat{D}\) a monad.
   Then the structure morphisms and interchange law of \(\cat{D}\) lift to \(\cat{D}^T\)
   if and only if
   \(T\) is a double opmonoidal monad.
@@ -364,7 +364,7 @@ lifts to the category of modules is a rather strong condition.
 \cref{prop:cocommutative-bimonad-lifts-duoidal-structure},
 we are instead interested in studying which additional structure one can impose on \(T\)
 such that \(\cat{D}^T\) becomes duoidal,
-where the interchange morphism is instead giving by ``twisting'' that of \(\cat{D}\).
+where the interchange morphism is instead given by ``twisting'' that of \(\cat{D}\).
 This generalises so-called \emph{R\hyp{}matrices}
 for bialgebras and bimonads~\cite[Part~\textsc{ii}]{Kassel1998}
 and~\cite[Section~8.2]{Bruguieres2007}.
@@ -610,7 +610,7 @@ and a non-cocommutative counterpart to~\cite[Theorem~7.2]{aguiar18:monad}.
   \[
     \xi \defeq ((\alpha \circ \gamma) \bullet (\beta \circ \delta)) R_{a,b,c,d} \from (a \bullet b) \circ (c \bullet d) \to (a \circ c) \bullet (b \circ d)
   \]
-  on \(\cat{C}^T\).
+  on \(\cat{D}^T\).
   Conversely, an interchange law \(\xi\) on \(\cat{D}^T\) gives rise to an R\hyp{}matrix
   \[
     R
@@ -647,7 +647,7 @@ Given these results, the rest of the proof is straightforward.
 \begin{proposition}\label{prop:r-matrices-preduoidal-structure}
   Let \(\cat{D}\) be a preduoidal category and \(T\) a quasitriangular separately opmonoidal monad on \(\cat{D}\)
   with R\hyp{}matrix \((R, \nu, \varpi, \iota)\).
-  Then \(\cat{C}^T\) is a duoidal category,
+  Then \(\cat{D}^T\) is a duoidal category,
   with structure morphisms \(\nu\), \(\varpi\), and \(\iota\),
   and interchange law
   \[
@@ -904,7 +904,7 @@ In that case, the linear distributors are given by
   \begin{aligned}
     \partial^\ell_\ell \from a \circ (b \bullet c) &\cong (a \bullet 1) \circ (b \bullet c) \xrightarrow{\;\; \zeta \;\;} (a \circ b) \bullet (1 \bullet c) \cong (a \circ b) \bullet c, \\
     \partial^\ell_r \from a \circ (b \bullet c) &\cong (1 \bullet a) \circ (b \bullet c) \xrightarrow{\;\; \zeta \;\;} (1 \circ b) \bullet (a \circ c) \cong b \bullet (a \circ c), \\
-    \partial^r_{\ell} \from (b \bullet c) \circ a &\cong (b \bullet c) \circ (a \bullet 1) \xrightarrow{\;\; \zeta \;\;} (b \circ a) \bullet (c \circ 1) \cong (b \circ a) \bullet c. \\
+    \partial^r_{\ell} \from (b \bullet c) \circ a &\cong (b \bullet c) \circ (a \bullet 1) \xrightarrow{\;\; \zeta \;\;} (b \circ a) \bullet (c \circ 1) \cong (b \circ a) \bullet c, \\
     \partial^r_r \from (b \bullet c) \circ a &\cong (b \bullet c) \circ (1 \bullet a) \xrightarrow{\;\; \zeta \;\;} (b \circ 1) \bullet (c \circ a) \cong b \bullet (c \circ a).
   \end{aligned}
 \end{equation}
@@ -973,7 +973,7 @@ In that case, the linear distributors are given by
   What we call a linearly distributive category is referred to as a \emph{planar} linearly distributive category in \emph{ibid}.
 \end{remark}
 
-Conditions for a comonad to lift the (non-planar) linear distributive structure of its base category to its category of coalgebras were defined in~\cite[Proposition~2.1]{pastro12:note}.
+Conditions for a comonad to lift the (non-planar) linearly distributive structure of its base category to its category of coalgebras were defined in~\cite[Proposition~2.1]{pastro12:note}.
 For the convenience of the reader, the next proposition expresses this relation in terms of monads.
 
 \begin{proposition}\label{prop:linearly-distributive-monad}
@@ -1053,7 +1053,7 @@ much like lifting the preduoidal structure is easier than lifting the entire duo
 \end{example}
 
 As stated in the introduction,
-planar duoidal categories also capture and generalise the notion of a braiding,
+planar linearly distributive categories also capture and generalise the notion of a braiding,
 much like duoidal categories do.
 The following is a straightforward reformulation of \cref{prop:linearly-distributive-monad}.
 
@@ -1108,7 +1108,7 @@ Thus, linearly distributive monads seem to be connected to the double opmonoidal
 \begin{proposition}\label{prop:cocommutative-double opmonoidal monads-are-pastro-monads}
   Let \((\cat{D}, \bullet, \circ, 1)\) be a normal duoidal category.
   Then double opmonoidal monads on \(\cat{D}\)
-  are linear distributive bimonads on \(\cat{D}\).
+  are linearly distributive bimonads on \(\cat{D}\).
 \end{proposition}
 \begin{proof}
   Let \(T\) be a cocommutative bimonad on \(\cat{D}\) as a duoidal category.

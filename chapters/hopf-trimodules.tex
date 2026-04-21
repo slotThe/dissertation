@@ -59,7 +59,7 @@ We obtain the following result.
   such that there is an equivalence
   \(\Ind(\cat{M}) \simeq A\textnormal{-Contramod}\)
   of \(\tetramodfd[B]\)\hyp{}module categories,
-  where the \(\tetramodfd[B]\)\hyp{}module structure on the right-hand side is extended from the category of free \(A\)\hyp{}module.
+  where the \(\tetramodfd[B]\)\hyp{}module structure on the right-hand side is extended from the category of free \(A\)\hyp{}modules.
   This equivalence restricts to \(\cat{M} \simeq A\textnormal{-contramod}\).
 \end{reptheorem}
 
@@ -130,7 +130,7 @@ our first goal is to prove the following theorem.
   between the category of Hopf trimodules, and
   the category of left exact finitary lax \(\cat{V}\)\hyp{}module endofunctors on \(\cat{V}\),
   where \(\chi\) is the interchange morphism of \cref{def:bicomodule-interchange},
-  see \cref{eq:hopf-trimod-to-lax-module-functors--functor-definition}
+  see \cref{eq:hopf-trimod-to-lax-module-functors--functor-definition}.
 \end{theorem}
 
 The quasi\hyp{}inverse of \cref{eq:hopf-trimodule-equiv}
@@ -334,7 +334,7 @@ Recall the notation \(\cat{V} \defeq \bbcomod \).
 As a result of the previous considerations,
 there exists a well-defined functor
 \begin{equation}\label{eq:hopf-trimod-to-lax-module-functors--functor-definition}
-  \Sigma \from \Trimod \to \mathsf{LexfLax}\cat{V}\mathsf{Mod}(\cat{V}, \cat{V}), \qquad X \mapsto (X \cotens \blank, \chi),
+  \Sigma \from \Trimod \to \mathsf{LexfLax}\cat{V}\mathsf{Mod}(\cat{V}, \cat{V}), \qquad X \mapsto (X \cotens \blank, \chi).
 \end{equation}
 To finish the proof of \cref{thm:hopf-trimodules-are-lax-monoidal-functors},
 we have to show that \(\Sigma\) is monoidal, as well as an equivalence of categories.
@@ -432,7 +432,7 @@ We will show that it is fully faithful and essentially surjective.
   To see that \(\Sigma\) is full,
   suppose that \(\varphi \from X \cotens \blank \nt Y \cotens \blank\) is a \(\cat{V}\)\hyp{}module transformation.
   By \cref{TakeuchiEilenbergWatts},
-  we to show that the induced arrow
+  we show that the induced arrow
   \[
     \hat{\varphi}_B \from X \cong X \cotens B \xrightarrow{\ \varphi_B\ } Y \cotens B \cong Y
   \]
@@ -457,7 +457,7 @@ We will show that it is fully faithful and essentially surjective.
     \centering
     \tikzfig{sigma-phi-properties}
     \scaption{%
-      Properties of  the arrows \(\chi\) and \(\varphi\).%
+      Properties of the arrows \(\chi\) and \(\varphi\).%
       \label{fig:sigma-phi-properties}%
     }
   \end{figure}
@@ -771,7 +771,7 @@ In the finite\hyp{}dimensional setting, a similar result uses projective objects
   \]
   between \(\cat{M}\) and the category of finite\hyp{}dimensional left \(C\)\hyp{}contramodules.
   The \(\bmodule\)\hyp{}module structure on \(C\textnormal{-contramod}\)
-  is extended from the free left \(A\)\hyp{}contramodules.
+  is extended from the free left \(C\)\hyp{}contramodules.
 \end{theorem}
 \begin{proof}
   This follows analogously to \cref{infinitetrihopfreconstruction},
@@ -884,7 +884,7 @@ The category \(\mathsf{rep}(S)\) of finite\hyp{}dimensional modules over the mon
 with two isoclasses of simple objects given by \(1\)\hyp{}dimensional representations \(\Bbbk_{\mathrm{triv}}\) and \(\Bbbk_{\mathrm{grp}}\).
 In \(\Bbbk_{\mathrm{triv}}\), the element \(s\) acts by \(1\),
 while in \(\Bbbk_{\mathrm{grp}}\) it acts by \(0\).
-The standard comultiplication on \(\Bbbk[S]\), in which \(e\) and \(s\) are group-like, makes turns \(\Bbbk[S]\) into a bialgebra.
+The standard comultiplication on \(\Bbbk[S]\), in which \(e\) and \(s\) are group-like, turns \(\Bbbk[S]\) into a bialgebra.
 The category \(\mathsf{corep}(S)\) of finite\hyp{}dimensional comodules over \(\Bbbk[S]\) is equivalent to that of \(S\)\hyp{}graded finite\hyp{}dimensional spaces, \(\kvect^{S}\).
 Thus, it too is semisimple of rank two—we denote the simple objects by \(\delta_{e}\) and \(\delta_{s}\).
 
@@ -1002,7 +1002,7 @@ which covers the remaining indecomposable semisimple module category over the ca
 \end{proposition}
 \begin{proof}
   It is clear that \(B \bullet B\) is a bicomodule,
-  as both of the coactions are given by that of \(B\) on the respective Let.
+  as both of the coactions are given by that of \(B\) on the respective factor.
 
   Thus, we first verify that the action is a morphism of left and right comodules;
   \ie, that \(B \bullet B\) is in \(\Tetramod[][B][][B]\) and \(\Tetramod[B][B]\).
@@ -1035,7 +1035,7 @@ which covers the remaining indecomposable semisimple module category over the ca
   \[
     \tikzfig{b-bullet-b-algebra-structure-def}
   \]
-  where we have denote the counit \(\varepsilon\) of \(B\) with a small white dot,
+  where we have denoted the counit \(\varepsilon\) of \(B\) with a small white dot,
   and have employed the same numbering system for representing the cotensor product as in \cref{sec:bicomodules}.
   It is clear that \(\mu\) is associative,
   left unitality follows from
@@ -1056,7 +1056,7 @@ which covers the remaining indecomposable semisimple module category over the ca
     \centering
     \tikzfig{b-bullet-b-module-morphisms}\vspace{-\onelineskip}% XXX
     \scaption{%
-      The unit \(\eta = \Delta\)is a morphism of left \(B\)\hyp{}modules.%
+      The unit \(\eta = \Delta\) is a morphism of left \(B\)\hyp{}modules.%
       \label{fig:b-bullet-b-module-morphisms}%
     }
   \end{figure}
@@ -1189,7 +1189,7 @@ from the following general statement.
 
 \begin{proposition}\label{LaxIsStrongThenLeftRigid}
   Let \(\cat{C}\) be a left closed monoidal category such that every left \(\cat{C}\)\hyp{}module endofunctor of \(\cat{C}\) is strong%
-  —in other words,that the monoidal embedding
+  —in other words, that the monoidal embedding
   \[
     \mathsf{Str}\cat{C}\mathsf{Mod}(\cat{C},\cat{C}) \longhookrightarrow \mathsf{Lax}\cat{C}\mathsf{Mod}(\cat{C},\cat{C})
   \]
@@ -1230,14 +1230,14 @@ We now define the functor \(B \otimes \blank\) analogous to \(\blank \otimes B\)
     b \otimes m \mapsto b_{(1)}\otimes m \otimes b_{(2)}; \quad
     a \otimes b \otimes m \mapsto ab \otimes m;
   \]
-  where we extends to morphisms in the natural way.
+  where we extend to morphisms in the natural way.
   It is easy to verify that \(B \otimes M\) defines a Hopf trimodule and also that \(B \otimes \blank\) defines a functor.
 \end{definition}
 
 \begin{remark}
   Comparing \cref{bestoftimes} with \cref{HausserNill}, we remark on two differences.
   First, the domain of the functor we study is the category of comodules over \(B\), rather than modules.
-  This is merely to maintain consistence with \cref{sec:hopf-trimodules-lax-mod-funs},
+  This is merely to maintain consistency with \cref{sec:hopf-trimodules-lax-mod-funs},
   and a variant for modules can be formulated without greater difficulty.
   Second, the functor we study endows a left comodule with an additional comodule structure on the right,
   and a module structure on the left, rather than on the right.
@@ -1264,7 +1264,7 @@ Recall the notation \(\cat{V} \defeq \Tetramod[B]\) of \cref{sec:hopf-trimodules
   commutes up to a monoidal natural isomorphism.
   Its upper horizontal arrow is the natural inclusion functor,
   its left vertical arrow is the equivalence of \cref{prop:bicategorical-yoneda-correspondence-monads-and-algebras},
-  its right vertical arrows is the equivalence of \cref{thm:hopf-trimodules-are-lax-monoidal-functors},
+  its right vertical arrow is the equivalence of \cref{thm:hopf-trimodules-are-lax-monoidal-functors},
   and its lower horizontal arrow is the functor of \cref{bestoftimes}.
 \end{proposition}
 \begin{proof}
@@ -1399,7 +1399,7 @@ can be used to characterise rigidity of a monoidal category.
   from the strong \(\cat{D}\)\hyp{}module structure on \(U\).
   The oplax \(\cat{D}\)\hyp{}module functor on \(T\) is given by
   the upper part of the following diagram,
-  where the lower part is included clarity:
+  where the lower part is included for clarity:
   \[
     \begin{mytikzcd}[ampersand replacement=\&]
 	{UF(Ud \otimes c)} \& {U(FUd \otimes Fc)} \\
@@ -1503,7 +1503,7 @@ can be used to characterise rigidity of a monoidal category.
   assume that the right fusion operators are invertible,
   in particular, by \cref{delusion},
   the morphisms \(T_{\mathsf{a};Fx,c}\) are invertible.
-  Recall any \(T\)\hyp{}algebra \((x, \alpha) \in \cat{C}^T\)
+  Recall that any \(T\)\hyp{}algebra \((x, \alpha) \in \cat{C}^T\)
   is the coequaliser of the diagram
   \[
     \begin{mytikzcd}[ampersand replacement=\&]

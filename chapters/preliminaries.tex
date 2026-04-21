@@ -192,7 +192,7 @@ but it is an important concept:
 there is no 2-category with
 (small) bicategories as 0-cells,
 lax (even pseudo-) functors as 1-cells,
-and 2-natutral transformations as 2-cells.
+and 2-natural transformations as 2-cells.
 Instead, \textsc{icon}s yield the ``right'' kind of 2-cells for this construction,
 see~\cite[Section~4.6]{johnson-yau2021:TwoDimensionalCategories}
 for a more extensive account.
@@ -610,7 +610,7 @@ Distributive laws thus yield a witness for the composability of two monads.
 Street further developed the theory of distributive laws intrinsic to certain well-behaved bicategories, see~\cite{Street1972}.
 
 \begin{definition}\label{def:distributive-law}
-  Let \(T\) and \(S\) be two monad on a category \(\cat{C}\).
+  Let \(T\) and \(S\) be two monads on a category \(\cat{C}\).
   A \emph{distributive law} of \(T\) over \(S\) consists of a natural transformation \(\Omega\from TS \nt ST\)
   such that the following diagrams commute:
   \[
@@ -810,7 +810,7 @@ This naturally extends to left and right coactions on \(B\),
 which we respectively denote by \(x \mapsto x_{(-1)} \otimes x_{(0)}\) and \(x \mapsto x_{(0)} \otimes x_{(1)}\).
 
 \begin{example}[{\cite{yetter90:quant}}]\label{ex:yd-modules-def-and-monoidal}
-  Let \(H \in \kVect\) be a bialgebra
+  Let \(H \in \kVect\) be a bialgebra.
   The category \(\YDM{H}\) of (left-left) \emph{\YetterDrinfeld{} modules} is defined as the category
   of those \(Y \in \kVect\) that are left \(H\)\hyp{}modules with action \(\lact\)
   and also left \(H\)\hyp{}comodules with coaction \(y \mapsto y_{(-1)} \otimes y_{(0)}\),
@@ -849,7 +849,7 @@ which we respectively denote by \(x \mapsto x_{(-1)} \otimes x_{(0)}\) and \(x \
   together with morphisms \(G_0\from G1 \to 1\) and \(G_2 \from G(\blank \otimes \bblank) \nt G(\blank) \otimes G(\bblank)\),
   making \(G^{\op}\from \cat{C}^{\op} \to \cat{D}^{\op}\) lax monoidal.
   We call \(F\) \emph{strong monoidal}
-  if \(F_0\) and \(F_2\) and invertible,
+  if \(F_0\) and \(F_2\) are invertible,
   and \emph{strict monoidal} if they are identities.
 \end{definition}
 
@@ -972,7 +972,7 @@ this will always mean ``left \(\cat{C}\)\hyp{}module categories''.
     {(h \lact m)}_{(-1)} \otimes {(h \lact m)}_{(0)} = h_{(1)}m_{(-1)}S^{-1}(h_{(3)}) \otimes (h_{(2)} \lact m_{(0)})
   \]
 
-  The category  of anti\hyp{}Yetter–Drinfeld modules do not form a monoidal category, but rather a \(\cat{C}\)\hyp{}module category over the Yetter–Drinfeld modules.
+  The category  of anti\hyp{}Yetter–Drinfeld modules does not form a monoidal category, but rather a \(\cat{C}\)\hyp{}module category over the Yetter–Drinfeld modules.
   Given \(M \in \aYDM{H}\) and \(Y \in \YDM{H}\),
   define \(Y \lact M \in \aYDM{H}\) as the vector space \(Y \kotimes M\),
   equipped with the following action and coaction:
@@ -1076,7 +1076,7 @@ this will always mean ``left \(\cat{C}\)\hyp{}module categories''.
 \end{notation}
 
 \begin{example}\label{ex:regularend}
-  For an object \(x\) is a (non-strict) monoidal category \(\cat{C}\),
+  For an object \(x\) in a (non-strict) monoidal category \(\cat{C}\),
   the functor \(F \defeq \blank \otimes x\) is a strong left \(\cat{C}\)\hyp{}module functor.
   The transformation \(F_{\mathsf{a}}\) is given by the associator of \(\cat{C}\).
   Further, a morphism \(f\from x \to y\) in \(\cat{C}\) yields a \(\cat{C}\)\hyp{}module transformation \(\blank \otimes f\from \blank \otimes x \nt \blank \otimes y\).
@@ -1101,7 +1101,7 @@ In particular, this yields a monoidal equivalence \(\mathsf{Str}\cat{C}\mathsf{M
 \subsection{Braidings}\label{subsec: braided_and_ribbon_cats}
 
 \textsc{Braidings are natural transformations} relating the tensor product to its opposite.
-They where introduced by Joyal and Street in~\cite{joyal85:braided,joyal86:braided,Joyal1993},
+They were introduced by Joyal and Street in~\cite{joyal85:braided,joyal86:braided,Joyal1993},
 and build on the notion of symmetries studied in~\cite{MacLane63naturalassociativity,Eilenberg1966}.
 
 \begin{definition}\label{def: braided_cat}
@@ -1170,7 +1170,7 @@ The following figure shows a braiding, its inverse, the hexagon identity, and th
 Similarly to \cref{def:closed-module-category},
 an object \(m \in \cat{M}\) is called \emph{coclosed} if the functor \(\blank \triangleright m\from \cat{C} \to \cat{M}\) has a left adjoint;
 we denote this \emph{internal cohom from \(m\)} by \(\cohom{m, \blank}\from \cat{M}\to \cat{C}\),
-and call \(\adj{\cohom{m, \blank}}{\blank \lact m}{\mm}{\cc}\) as the \emph{internal cohom--tensor adjunction}.
+and call \(\adj{\cohom{m, \blank}}{\blank \lact m}{\mm}{\cc}\) the \emph{internal cohom--tensor adjunction}.
 If every object of \(\cat{M}\) is closed,
 we call \(\cat{M}\) a \emph{closed \(\cat{C}\)\hyp{}module category}.
 
@@ -1230,7 +1230,7 @@ there is a canonical morphism
   \Phi^{(x)}_y \from {[x, 1]}_r \otimes y \to {[x, y]}_r
 \]
 for all objects \(x, y\) in the right closed monoidal category \(\cat{C}\).
-The next results links the invertibility of this morphism to conditions that \(\cat{C}\) is rigid monoidal;
+The next result links the invertibility of this morphism to conditions that \(\cat{C}\) is rigid monoidal;
 see for example~\cite{kelly72:many}, and~\cite[Proposition~2.1]{niefield17:coexp} for a concise proof.
 
 \begin{proposition}\label{prop:dualisable-conditions-Deligne}
@@ -1317,9 +1317,9 @@ possibly decorated with arrows to emphasise whether we consider their left or ri
   An object \(x \in \cat{C}\) in a rigid monoidal category \(\cat{C}\) is called \emph{invertible} if its (left) evaluation and coevaluation are isomorphisms.
 \end{definition}
 
-It follows that the right evaluations and coevaluations of an invertible objects are isomorphisms as well.
+It follows that the right evaluation and coevaluation of an invertible object are isomorphisms as well.
 Further, tensor products and duals of invertible objects are invertible,
-such that the full subcategory \(\mathsf{Inv}(\cat{C})\) of invertible object of \(\cat{C}\) is rigid monoidal.
+such that the full subcategory \(\mathsf{Inv}(\cat{C})\) of invertible objects of \(\cat{C}\) is rigid monoidal.
 
 \begin{definition}[{\cite{castelnuovo1905}}]\label{def: invertible_object}
   The \emph{Picard group} \(\Pic \cat{C}\) of a rigid monoidal category \(\cat{C}\) is the group of isomorphism classes of invertible objects in \(\cat{C}\).
@@ -1382,7 +1382,7 @@ such that the full subcategory \(\mathsf{Inv}(\cat{C})\) of invertible object of
     \qquad\qquad\text{and}\qquad\qquad
     \id_{Rx} = (Rx \otimes \varepsilon^{(x)}_1) \circ \eta^{(x)}_{Rx}.
   \]
-  However, if \(Rx\) is to be a dual of x in the rigid sense,
+  However, if \(Rx\) is to be a dual of \(x\) in the rigid sense,
   the snake identities~\eqref{eq:snake-ids} must hold.
   For this, we ought to require the stronger condition that
   \[
@@ -1393,7 +1393,7 @@ such that the full subcategory \(\mathsf{Inv}(\cat{C})\) of invertible object of
 \end{remark}
 
 \begin{remark}
-  A left closed monoidal such that for every \(x \in \cat{C}\),
+  A left closed monoidal category such that for every \(x \in \cat{C}\),
   the functor \(\blank \otimes x\)
   admits a right dual \({[x, \blank]}_{\ell}\) as a \(\cat{C}\)\hyp{}module functor%
   —see \cref{ex:module-adjunction-as-comodule-adjunction}—%
@@ -1405,7 +1405,7 @@ such that the full subcategory \(\mathsf{Inv}(\cat{C})\) of invertible object of
   the resulting compatibility conditions of which imply the snake identities.
 \end{remark}
 
-We will study these questions in greater details in \cref{sec:trep-categories};
+We will study these questions in greater detail in \cref{sec:trep-categories};
 see also \cref{rmk:rigid-iff-lax-is-strong}
 for a characterisation of rigidity in terms of \(\cat{C}\)\hyp{}module functors.
 
@@ -1447,7 +1447,7 @@ The compatibility between the respective left and right duality functors is an i
   Every rigid category admits a rigid strictification.
 \end{theorem}
 \begin{proof}
-  Suppose that \(\cat{C}\) is a rigid strict monoidal category \(\cat{C}\).
+  Suppose that \(\cat{C}\) is a rigid strict monoidal category.
   Build a monoidally equivalent strict rigid category \(\cat{D}\) as follows:
   the objects of \(\cat{D}\) are (possibly empty) finite sequences
   \((x_1^{n_1}, \dots, x_i^{n_i})\) of objects \(x_1, \dots, x_i \in \cat{C}\),
@@ -1500,14 +1500,14 @@ The compatibility between the respective left and right duality functors is an i
       \coev^r_{{(x_k)}^{n_k+1}}, &\text{ if } n_k < 0. \\
     \end{cases}
   \]
-  The right dual of \(x\) if defined similarly as \(\rd{x} \defeq (x_i^{n_i-1}, \dots, x_1^{n_1-1})\).
+  The right dual of \(x\) is defined similarly as \(\rd{x} \defeq (x_i^{n_i-1}, \dots, x_1^{n_1-1})\).
   Hence, \(\cat{D}\) is strict rigid, which completes the proof.
 \end{proof}
 
 Module functors over rigid categories behave in particularly nice ways.
 
 \begin{proposition}[{\cite[Remark~4]{ostrik03:modul-hopf},~\cite[Lemma~2.10]{douglas19}}]\label{prop:lax-is-strong-when-rigid}
-  If \(\cat{C}\) is a left rigid monoidal, then every lax \(\cat{C}\)\hyp{}module functor is strong.
+  If \(\cat{C}\) is a left rigid monoidal category, then every lax \(\cat{C}\)\hyp{}module functor is strong.
   Dually, if \(\cat{C}\) is a right rigid monoidal category, then every oplax \(\cat{C}\)\hyp{}module functor is strong.
 \end{proposition}
 
@@ -1622,7 +1622,7 @@ We shall denote the category \(\Bbbk\)\hyp{}vector spaces by \(\kVect\),
 and write \(\kvect\) for the full subcategory of finite\hyp{}dimensional \(\Bbbk\)\hyp{}vector spaces.\note{%
   This will be a general theme throughout the thesis:
   whenever there exists a full subcategory of ``finite\hyp{}dimensional objects''
-  inside of a lager category of all objects,
+  inside of a larger category of all objects,
   the finite\hyp{}di\-men\-sio\-nal subcategory will start with a lower case letter,
   and we use a capital for the larger category.%
 }
@@ -1826,7 +1826,7 @@ such that \(C\) becomes an algebra object in \(\cat{C}^{\op}\).
 A special case of \cref{ex:dual-pairs} is when we consider the monoidal category \([\cat{C},\cat{C}]\) of endofunctors.
 Then a left dual of some \(U \in [\cat{C},\cat{C}]\) is a left adjoint,
 with \(\ev_U^{\ell}\) and \(\coev_U^{\ell}\) giving the coevaluation and evaluation, respectively.
-the resulting algebra and coalgebra structures are the monad and comonad corresponding to the adjunction.
+The resulting algebra and coalgebra structures are the monad and comonad corresponding to the adjunction.
 
 \begin{definition}\label{ModuleInModule}
   Let \((\cat{M}, \lact)\) be a left \(\cat{C}\)\hyp{}module category
@@ -1931,7 +1931,7 @@ Analogously to \cref{def:comodule-algebra} one defines right comodule algebras, 
 
 \begin{example}\label{ex:bicategory-of-bimodules}
   Let \(\cat{C}\) be a cocomplete symmetric monoidal category,
-  such that its is right exact in both variables.
+  such that it is right exact in both variables.
   Then one may define the bicategory \(\BiCat{Bimod}(\cat{C})\) of bimodules in \(\cat{C}\) as follows:
   \begin{itemize}
     \item Objects are algebra objects in \(\cat{C}\).
@@ -1970,7 +1970,7 @@ limits and colimits do not commute.
 For example, for sets \(X\), \(Y\), \(W\), and \(V\),
 the canonical morphism
 \((X \times Y) \coprod\, (W \times V) \to (X \coprod V) \times (Y \coprod V)\)
-is not isomorphism in general.
+is not an isomorphism in general.
 However, it turns out that filtered colimits do commute with finite limits,
 see for example~\cite[Theorem~\textsc{ix}.2.1]{MacLane1998}.
 
@@ -2108,7 +2108,7 @@ We give a brief proof of the result below as an example of this.
 
 \textsc{We briefly recall the notion of a monoidal bicategory},
 which will play an important role in the string diagrams used throughout.
-More detailed accounts are given~\cite[Chatper~12]{johnson-yau2021:TwoDimensionalCategories},
+A more detailed account is given in~\cite[Chapter~12]{johnson-yau2021:TwoDimensionalCategories},
 see also~\cite{gordon95:coher,gurski2006algebraic,garner16:enric}.
 
 \begin{definition}
@@ -2282,7 +2282,7 @@ see~\cite[Section~7]{day97:monoid-hopf}.
     (G \diamond F)(e, c) \defeq \int^{d \in \cat{D}} G(e, d) \kotimes F(d, c).
   \]
 
-  Further, \(\Prof_{\Bbbk}\) is monoidal when endowed the monoidal structure \(\otimes_{\Bbbk}\).
+  Further, \(\Prof_{\Bbbk}\) is monoidal when endowed with the monoidal structure \(\otimes_{\Bbbk}\).
   On objects, it coincides with that in \cref{MonoidalBicatCat}:
   given categories \(\cat{A}\) and \(\cat{B}\),
   their tensor product is \(\cat{A} \otimes_{\Bbbk} \cat{B}\).
@@ -2378,7 +2378,7 @@ and the unit of \(\cat{C}\) by a dashed line.
 \begin{example}\label{ex:graphical-opmonoidal-adjunctions}
   Suppose that \(\stdadj\) is an oplax monoidal adjunction.
   In string diagrams, the conditions that the unit \(\eta\) and the counit \(\varepsilon\)
-  are oplax monoidal natural transformation is
+  are oplax monoidal natural transformations are
   given in \cref{fig:comonoidal-adjunction-epsilon}.
   \begin{figure}[htbp]
     \centering
@@ -2400,7 +2400,7 @@ and~\cite[Chapter~4]{loregian2021}.
 
 \begin{definition}\label{def:coend-vect}
   Let \(\cat{C}\) be an essentially small \(\Bbbk\)\hyp{}linear category.
-  The \emph{coend} of a \(\Bbbk\)\hyp{}linear functor \(P\from \cat{C}^{\op} \otimes_{\Bbbk} \cat{C} \to \kVect\) is following the coequaliser in \(\kVect\):
+  The \emph{coend} of a \(\Bbbk\)\hyp{}linear functor \(P\from \cat{C}^{\op} \otimes_{\Bbbk} \cat{C} \to \kVect\) is the following coequaliser in \(\kVect\):
   \[
     \begin{mytikzcd}[ampersand replacement=\&]
       \displaystyle{\coprod_{a, b \in \cat{C}} \cat{C}(a, b) \otimes_{\Bbbk} P(b, a)} \& \displaystyle{\coprod_{a \in \cat{C}} P(a,a)} \& \displaystyle{\int^{a \in \cat{C}} P(a,a).}
@@ -2553,7 +2553,7 @@ For a proof, see~\cite[Section~2.4]{kelly05:basic}.
 
 \begin{remark}
   Whenever we treat \(\Cpsh \defeq [\cat{C}, \kVect]\) as a (closed) monoidal category,
-  we implicitly equip with the convolution tensor product.
+  we implicitly equip it with the convolution tensor product.
   Analogously, one may define a closed monoidal structure on \(\psh \defeq [\cat{C}^{\op}, \kVect]\).
   Note, however, that in this case we cannot simplify the internal hom in the same way as in \cref{rmk:day-closed-simplification};
   this would require the category \(\cat{C}^{\op}\), as opposed to \(\cat{C}\) itself, to be closed monoidal.
@@ -2618,7 +2618,7 @@ whose algebras are categories with a \emph{prescribed choice} of \(\Phi\)\hyp{}c
 Strict morphisms are functors strictly preserving the chosen \(\Phi\)\hyp{}colimits,
 and pseudomorphisms are functors preserving \(\Phi\)\hyp{}colimits in the ordinary sense.
 
-By~\cite[Theorem~6.2]{lopez11:pseud-kz}, this yields a pseudoclosed structure the \(2\)\hyp{}category \(\BiCat{Cat}_{\Cocts{\Phi_{c}}}\)
+By~\cite[Theorem~6.2]{lopez11:pseud-kz}, this yields a pseudoclosed structure on the \(2\)\hyp{}category \(\BiCat{Cat}_{\Cocts{\Phi_{c}}}\)
 of categories with a choice of \(\Phi\)\hyp{}colimits, \(\Phi\)\hyp{}cocontinuous functors, and transformations between them.
 The category underlying the internal hom from \(\cat{A}\) to \(\cat{B}\) is given by \(\BiCat{Cat}_{\Cocts{\Phi}}(\cat{A,B})\),
 and the functors comprising the \(2\)\hyp{}monad are closed.
@@ -2642,7 +2642,7 @@ we find the following result.
   Similar equivalences are induced for lax and oplax monoidal functors.
 
   Likewise, given a \(\cat{C}\)\hyp{}module category \(\cat{M}\),
-  the \(\Phi\)\hyp{}cocompletion \(\Phi(\cat{M})\) is a separately \(\Phi\)\hyp{}cocontinuous \(\Phi(\cat{C})\)hyp{}module category,
+  the \(\Phi\)\hyp{}cocompletion \(\Phi(\cat{M})\) is a separately \(\Phi\)\hyp{}cocontinuous \(\Phi(\cat{C})\)\hyp{}module category,
   the inclusion \(\iota\from \cat{M} \longhookrightarrow \Phi(\cat{M})\) is a strong \(\cat{C}\)\hyp{}module functor, and the functor
   \begin{equation}\label{cocompletingmodules}
     \mathsf{Str}\Phi(\cat{C})\mathsf{Mod}_{\Cocts{\Phi}}(\Phi(\cat{M}),\cat{N})

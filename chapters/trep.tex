@@ -100,7 +100,7 @@ a special case of Grothendieck–Verdier duality
 in which the dualising object is isomorphic to the monoidal unit.
 
 \begin{reptheorem}{prop:2-groups-tensor-product}
-  Let \(G\) and \(H\) be finite groups, and suppose
+  Let \(G\) and \(H\) be finite groups.
   Suppose that
   \[
     \big( G,\, H,\, t\from H \to G,\, \alpha \from G \to \mathrm{Aut}(H) \big)
@@ -229,7 +229,7 @@ Set
   \eta^{(x)}_y &\from y \to Rx \otimes x \otimes y, & \varepsilon^{(x)}_y&\from x \otimes Rx \otimes y \to y ,\\
   u^{(x)}_y & \from y \to y \otimes x \otimes Lx, & c^{(x)}_{y} &\from y \otimes Lx \otimes x \to y
 \end{align*}
-for the units and counits of the correspondig adjunctions.
+for the units and counits of the corresponding adjunctions.
 The left and right tensor dualising functors are related to each other by
 \begin{align}
   x \xrightarrow{u^{(Rx)}_x} x \otimes Rx \otimes LRx \xrightarrow{\varepsilon^{(x)}_1 \otimes LRx}LRx, \label{eq:can-morph-unit} \\
@@ -370,7 +370,7 @@ is a direct consequence of \cref{eq:*-aut-condition,eq:gv-inverse-condition}.
 
 While \GV{} duality is an extra bit of structure on a monoidal category%
 —a priori making it quite distinct from the other dualities—%
-in practise it still behaves very similarly to how a property would,
+in practice it still behaves very similarly to how a property would,
 as the invertible objects govern the possible choices for dualising objects.
 
 \begin{lemma}[{\cite[Proposition~2.3]{boyarchenko13:groth-verdier}}]\label{lem:choices-of-dualising-objects}
@@ -504,7 +504,7 @@ see \cref{thm:props-of-c}.
 Due to the reliance of the proof on some technical arguments,
 we will first provide an overview of the underlying strategy.
 
-As an intermediate step in the construction of \(\cat{W}\), we define a strict monoidal category \(\cat{V}\), which has the same generators as \(\cat{W}\) but less relations.
+As an intermediate step in the construction of \(\cat{W}\), we define a strict monoidal category \(\cat{V}\), which has the same generators as \(\cat{W}\) but fewer relations.
 In other words, \(\cat{W}\) itself will be a quotient of \(\cat{V}\).
 The category \(\cat{V}\) will have the property that all presentations of a given morphism have the same length.
 In order to show that \(\cat{W}\) is not rigid, we will fix an object \(t \in\cat{W}\) and assume it admits a rigid dual.
@@ -708,10 +708,10 @@ The \(n\)\hyp{}fold dual of a finite\hyp{}dimensional vector space \(V\) will be
 in the context of functor categories.
 The starting point is the fact that Day convolution is closed monoidal,
 see \cref{thm:closed-mon-str-on-functors}.
-Examples of such categories of functors are abound,
-and include modules over path algebras, Mackey functors, and
+Examples of such categories of functors
+include modules over path algebras, Mackey functors, and
 group-graded representations arising from crossed modules;
-we shall more closely investigate these examples in \cref{sec:mky-2-grps}.
+we shall more closely investigate these in \cref{sec:mky-2-grps}.
 
 \begin{hypothesis}\label{hypo:eso-enriched}
   Fix a field \(\Bbbk\),
@@ -959,7 +959,7 @@ However, for certain classes of examples, trace maps provide us with viable cand
   Suppose \(\Bbbk\) has characteristic zero and  \(\cat{C} \defeq \lmod{H}\) is the category of
   finite\hyp{}dimensional modules of a semisimple Hopf algebra \(H\).
   As a consequence of~\cite[Theorem~4]{larson-radford1988:SemisimpleCosemisimpleHopf},
-  left and right duals coincide and  we can chose the ``quantum trace'' of \cref{eq:day-canonical-candidate}
+  left and right duals coincide and we can choose the ``quantum trace'' of \cref{eq:day-canonical-candidate}
   to agree with the usual trace of endomorphisms between finite\hyp{}dimensional vector spaces.
   Let \(f\from M \to N\) be a morphism in \(\cat{C}\).
   By semisimplicity, the following short exact sequence splits:
@@ -1036,7 +1036,7 @@ However, for certain classes of examples, trace maps provide us with viable cand
 \end{lemma}
 \begin{proof}
   We endow the vector space \(A \defeq \bigoplus_{a, b\in\cat{C}}\cat{C}(a,b)\) with the structure of an associative unital algebra
-  via the multiplication following multiplication, for \(f \in \cat{C}(a, b)\), \(g \in \cat{C}(c, d)\):
+  via the following multiplication, for \(f \in \cat{C}(a, b)\), \(g \in \cat{C}(c, d)\):
   \[
     f \cdot g \defeq
     \begin{cases*}
@@ -1198,7 +1198,7 @@ For our purposes, the following characterisation in terms of the Cauchy completi
   \) and
   \(
   \begin{mytikzcd}[cramped, ampersand replacement=\&]
-    Y \& {\bigoplus_{j=1}^m \yo_{v_i}}
+    Y \& {\bigoplus_{j=1}^m \yo_{v_j}}
     \arrow["{\iota_Y}", shift left, from=1-1, to=1-2]
     \arrow["{\pi_Y}", shift left, from=1-2, to=1-1]
   \end{mytikzcd}
@@ -1342,7 +1342,7 @@ the following proposition may be seen as a ``many object'' version of the classi
 
 \begin{proposition}\label{prop:characterisation-of-rigidity}
   Let \(\cat{C}\) be a left rigid monoidal category.
-  the following are equivalent for some \(X \in \Cpsh\):
+  The following are equivalent for some \(X \in \Cpsh\):
   \begin{thmlist}[noitemsep]
   \item\label{itm:char-rigid} it has a right rigid dual,
   \item\label{itm:char-trep} there exists a \(\mathbb{D}X \in \Cpsh\) such that \(\adj{X * \blank}{\mathbb{D}X * \blank}{\Cpsh}{\Cpsh}\), and
@@ -1443,7 +1443,7 @@ In case they exist, we call \(L\) \emph{bounded}.
   condition for all \(a,b,c\in L\):
   \begin{equation}\label{eq:distributivity-equation}
     a \land (b \lor c) = (a \land b) \lor (a \land c),\qquad
-    a \lor (b \land c) = (a \land b) \lor (a \land c),
+    a \lor (b \land c) = (a \lor b) \land (a \lor c),
   \end{equation}
   and every \(a\in L\) admits a \emph{complement} \(a^{\perp}\in L\) in the sense that
   \[
@@ -1479,7 +1479,7 @@ In case they exist, we call \(L\) \emph{bounded}.
     \item\emph{Annihilators in semiprime rings}:
     consider a commutative semiprime ring \(R\) with \(1\).
     That is, its Jacobson radical is trivial.
-    In case \(R\) is furthermore Artinean, this is equivalent to it being semisimple.
+    In case \(R\) is furthermore Artinian, this is equivalent to it being semisimple.
     The \emph{annihilator} of an ideal \(I \subset R\) is \(I^{\perp} \defeq \{\,x\in R \mid xI=0\,\}\);
     it is a radical ideal.
     We define on the set \(\mathrm{Ann}(R)\) of annihilators the maps
@@ -1674,7 +1674,7 @@ there is a more succinct formulation due to Lindner~\cite{lindner76:mackey}.
 \end{definition}
 
 Examples of Mackey functors are plentiful:
-any representation of \(G\) defines one, see~\cite[Example~53.1]{thevenaz1995:G-algebrasModularRepresentation} as well as~\cite[Propostion~10.1]{panchadcharam07:mackey}.
+any representation of \(G\) defines one, see~\cite[Example~53.1]{thevenaz1995:G-algebrasModularRepresentation} as well as~\cite[Proposition~10.1]{panchadcharam07:mackey}.
 For an extensive overview, we refer the reader to~\cite[Chapter~53]{thevenaz1995:G-algebrasModularRepresentation}.
 
 \begin{example}\label{ex:mackey-algebra}
@@ -1693,7 +1693,7 @@ The arguments of \cref{ex:mackey-dense-subcategories} may now be used to show th
 the tensor product and internal hom of finite\hyp{}dimensional Mackey functors is finite\hyp{}dimensional,
 see~\cite[Section~9]{panchadcharam07:mackey}.
 
-The following results gives an alternative proof for the sketched argument
+The following result gives an alternative proof for the sketched argument
 in~\cite[Lemma~2.2]{bouc05:mackey}
 that the classes of rigid and finitely\hyp{}generated projective Mackey functors coincide.
 
@@ -1829,9 +1829,9 @@ The latter follows from the identity
 For any \(k=t(h) \in K\) and \(l\in L\), we get \(\alpha(k)l = \alpha(t(h))l = hlh^{-1}= l\).
 Hence,
 there is a unique group homomorphism
-\(\overline{\alpha} \from Q \defeq G/N \to \mathrm{Aut}(L)\), with
+\(\overline{\alpha} \from Q \defeq G/K \to \mathrm{Aut}(L)\), with
 \[
-  \overline{\alpha}([g])l=\alpha(g)l \in L \subset H.
+  \overline{\alpha}([g])l=\alpha(g)l \in L \subset H,
 \]
 for all \(g\in G\) and \(l\in L\).
 
@@ -1847,7 +1847,7 @@ The set of objects of \(\cat{G}_{g}\) is \(Kg\) and its morphisms correspond to 
 
 To specify a quasi-inverse,
 fix a set-theoretical section \(\iota \from K \to H\) of
-the surjective homomorphisms of groups \(t\from H \to K\).
+the surjective homomorphism of groups \(t\from H \to K\).
 Define the quasi-inverse \(\Psi_g \from \cat{G}_g\to \mathbf{B}L\)
 by mapping each object to \(g\) and any morphism \((h,kg)\) to \(\iota({(t(h)k)}^{-1}) h \iota(k)\).
 Using that \(\langle \mathbf{B}L, \kvect\rangle\) can be identified with the category \(\mathsf{rep}(L)\) of finite\hyp{}dimensional representations of \(L\),
@@ -1866,7 +1866,7 @@ the pushforwards of \(\Theta_g\) and \(\Psi_g\) establish an equivalence of cate
 \begin{notation}
   Define \(\mathsf{rep}_{\cat{G}}(L) \defeq \bigoplus_{q\in Q}{\mathsf{rep}(L)}_{q}\),
   where  \({\mathsf{rep}(L)}_{q} = \mathsf{rep}(L)\).
-  Given some \(M\in \mathsf{rep}_{\cat{G}}(L)\), we write \(M_q\) for its the homogeneous component of degree \(q\in Q\).
+  Given some \(M\in \mathsf{rep}_{\cat{G}}(L)\), we write \(M_q\) for its homogeneous component of degree \(q\in Q\).
   Note that in case \(K\) has finite index in \(G\), we have
   \[
     \langle \cat{G}, \kvect\rangle \cong \bigoplus_{[g]\in Q}\langle \cat{G}_g, \kvect \rangle.

@@ -370,7 +370,7 @@ The terminology of our next definition is due to Shimizu, see~\cite{Shimizu2017}
   The \emph{central Hopf monad of \(\cat{C}\)}
   is
   \(\mathfrak{D}(\cat{C}) \defeq Z_{\mathrm{Id}} \from \cat{C} \to \cat{C}\).
-  We denote its Eilenberg–Moore by \(\cat{C}^{\mathfrak{D}}\).
+  We denote its Eilenberg–Moore category by \(\cat{C}^{\mathfrak{D}}\).
 \end{definition}
 
 An important step in proving \cref{prop: central_bimonad_Drinfeld_centre}
@@ -388,7 +388,7 @@ For any \(x \in \cat{C}\), it is given by the composition
 This yields a functor \(E^{Z_T}\from \cat{C}^{Z_T} \to \ZCat[T]{C}\),
 which is the identity on morphisms and on objects is given by
 \begin{equation}\label{eq: inverse_comparison_functor}
-  E^{Z_T}(m, \nabla_{m}) = (m, \sigma_{m,\blank}), \qquad \text{ for all }(m, \nabla_{M}) \in \cat{C}^{Z_T}.
+  E^{Z_T}(m, \nabla_{m}) = (m, \sigma_{m,\blank}), \qquad \text{ for all }(m, \nabla_{m}) \in \cat{C}^{Z_T}.
 \end{equation}
 
 Conversely, to every object \((m, \sigma_{m, \blank}) \in \ZCat[T]{C}\)
@@ -536,7 +536,7 @@ which we can depict graphically by
 \end{notation}
 
 \begin{remark}
-  The identification of \(\cat{C}^{Z_B}\) and \(\cat{C}^{Z_L}\) with the generalised Drinfeld centre
+  The identifications of \(\cat{C}^{Z_B}\) and \(\cat{C}^{Z_L}\) with the generalised Drinfeld centre
   and its twisted cousin suggest that \(Z_L\) is a comodule monad over \(Z_B\).
   In analogy with \cref{eq:comult-of-centraliser}
   we define the coaction \(Z_{L;\mathsf{a}}\) of \(Z_L\) by
@@ -607,7 +607,7 @@ which we can depict graphically by
     \ZCat[L]{C} \times \ZCat[B]{C} \trightarrow{\ \ \ract \ \ }
     \ZCat[L]{C}.
   \]
-  For any \(m \in \ZCat[L]{C}\) and \(x \in\ZCat[L]{C}\) we have
+  For any \(m \in \ZCat[L]{C}\) and \(x \in \cat{C}^{Z_B}\) we have
   \[
     K^{Z_L} (m \bract x)
     =
@@ -647,7 +647,7 @@ the relationship between the various different categories and adjunctions in \cr
   For the rest of this chapter, fix a Hopf monad \(H\) on a rigid category \(\cat{C}\),
   together with an oplax monoidal endofunctor \(L\) on \(\cat{C}^H\),
   a bimonad \(B\) on \(\cat{C}^H\),
-  an oplax monoidal right action \(\alpha \from LB \nt B\),
+  an oplax monoidal right action \(\alpha \from LB \nt L\),
   and assume that the cross products \(B \rtimes H\) and \(L \rtimes H\) have centralisers \((Z_{B \rtimes H}, \nu)\) and \((Z_{L \rtimes H}, \tau)\).
 \end{hypothesis}
 
@@ -656,7 +656,7 @@ The following observation%
 extends the action of \(B\) on \(L\) to an action of the respective cross products.
 
 \begin{lemma}\label{lem: cross_products_and_oplax_monoidal_actions}
-  The oplax monoidal right action \(\alpha \from LB \nt B\) induces an oplax monoidal action of \(B \rtimes H\) on \(L \rtimes H\) by
+  The oplax monoidal right action \(\alpha \from LB \nt L\) induces an oplax monoidal action of \(B \rtimes H\) on \(L \rtimes H\) by
   \[
     \tikzfig{oplax-mon-right-action-rtimes}
   \]
@@ -698,7 +698,7 @@ The next result is a variant of~\cite[Theorem~7.4]{Bruguieres2012}.
 
 \begin{remark}\label{blackstar}
   The previous theorem together with \cref{lem: cross_product_of_bi/comonads_is_bi/comonad}
-  imply that we obtain a comodule monad \(D(L,H) \defeq Z_L \rtimes H\) over \(D(B, H) \defeq Z_B \rtimes H\).
+  implies that we obtain a comodule monad \(D(L,H) \defeq Z_L \rtimes H\) over \(D(B, H) \defeq Z_B \rtimes H\).
   The correspondence between lifts and monads given in
   \cref{prop: distributive_laws_are_lifts_of_monads} yields a unique comodule distributive law
   \[
@@ -761,7 +761,7 @@ The following definition can be understood as an extension of the notion of the 
 \textsc{We now consider a Hopf monad}
 that admits a double and anti\hyp{}double,
 and develop the notion of pairs in involution in this setting.
-Classically, these consist of a group-like and character of a Hopf algebra
+Classically, these consist of a group-like and a character of a Hopf algebra
 that implement the square of its antipode by their adjoint actions.
 
 \begin{definition}\label{def: character_and_group-like}
@@ -835,7 +835,7 @@ Analogous to the Hopf algebraic case, we state the following:
   a character \(\beta \in \Char(H)\),
   such that for all \(x \in \cat{C}\)
   \[
-    Ad_{g, x} =  Ad_{\beta,x} \circ S^{2}_{x}.
+    \Ad_{g, x} =  \Ad_{\beta,x} \circ S^{2}_{x}.
   \]
 \end{definition}
 
@@ -975,13 +975,13 @@ Let us now study a variant of~\cite[Lemma~2.9]{Bruguieres2007}.
   is induced by a unique  morphism of monads \(f \from D \to C\).
   That is, \(F\) is the identity on morphisms and on objects it is defined by
   \[
-    F(m, \nabla_m) = (m, \nabla_m f_m), \qquad \qquad \text{ for all } (m, \nabla_m) \in \cat{m}^C.
+    F(m, \nabla_m) = (m, \nabla_m f_m), \qquad \qquad \text{ for all } (m, \nabla_m) \in \cat{M}^C.
   \]
 
   It remains to show that \(f\) is a morphism of comodules
   if and only if
   \(F\) is a strict \(\cat{C}^B\)\hyp{}module functor.
-  Let \((m, \nabla_m)\in \cat{m}^C\) and \((x, \nabla_x) \in \cat{C}^B\).
+  Let \((m, \nabla_m)\in \cat{M}^C\) and \((x, \nabla_x) \in \cat{C}^B\).
   We compute
   \begin{align*}
     F\big((m, \nabla_m) \ract (x, \nabla_x)\big)

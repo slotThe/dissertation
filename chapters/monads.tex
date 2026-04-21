@@ -250,7 +250,7 @@ Let us now highlight an important special case of \cref{prop:doctrinaladjunction
   let \(B \from \cat{C} \to \cat{C}\) be
   the bimonad arising from an oplax monoidal adjunction \stdadj.
   As the forgetful functor \(U^B \from \cat{C}^B \to \cat{C}\) is strict monoidal,
-  the Eilenberg–Moore adjunction \(F^B \adjoint U^B\) is, oplax monoidal.
+  the Eilenberg–Moore adjunction \(F^B \adjoint U^B\) is oplax monoidal.
 \end{example}
 
 The following result is due to~\cite{kelly74:doctr},
@@ -297,8 +297,8 @@ gives another justification for the name ``bimonad''.
 
   Conversely, let \((B, \mu, \eta)\) be a monad
   on the monoidal category \(\cat{C}\).
-  Suppose \(\cat{C}^{T}\) is monoidal
-  such that the forgetful functor \(U^T\) is strict monoidal.
+  Suppose \(\cat{C}^{B}\) is monoidal
+  such that the forgetful functor \(U^B\) is strict monoidal.
   Consider the free modules \((Bm, \mu_m)\) and \((Bn, \mu_n)\),
   and denote their tensor product by
   \[
@@ -432,7 +432,7 @@ is a strict comodule functor over \(U^{(Z)}\).
     \tikzfig{graphical-coaction}
   \]
 
-  The coassociativity and counitality of \(G_{\mathsf{a}}\) is displayed in \cref{fig:coassoc-and-counital-comodule-functor};
+  The coassociativity and counitality of \(G_{\mathsf{a}}\) are displayed in \cref{fig:coassoc-and-counital-comodule-functor};
   notice the analogous nature of the diagrams to \cref{fig:coassoc-and-counital-opmonoidal-functor}.
   \begin{figure}[htbp]
     \centering
@@ -527,7 +527,7 @@ in this way the category of comodule endofunctors on \(\cat{M}\) over \(B\) beco
 The conditions for the multiplication and unit of
 a comodule monad \(C\) on \(\cat{M}\)
 over a bimonad \(B\) on \(\cat{C}\)
-to be morphisms of comodule functors is given in \cref{fig:comodule-monad}.
+to be morphisms of comodule functors are given in \cref{fig:comodule-monad}.
 Notice how the conditions are analogous to \cref{fig:mu-eta-opmonoidal-nt}.
 \begin{figure}[htbp]
   \centering
@@ -540,7 +540,7 @@ Notice how the conditions are analogous to \cref{fig:mu-eta-opmonoidal-nt}.
 
 \begin{example}\label{ex:oplax-module-monad}
   An \emph{oplax \(\mathcal{C}\)\hyp{}module monad} is a comodule monad over the identity monad on \(\cat{C}\).
-  Alternatively, it is monoid in the category
+  Alternatively, it is a monoid in the category
   \(\mathsf{Oplax}\mathcal{C}\mathsf{Mod}(\cat{M},\cat{M})\)
   of oplax \(\cat{C}\)\hyp{}module endofunctors on a (left) \(\cat{C}\)\hyp{}module category \(\cat{M}\).
 
@@ -754,7 +754,7 @@ one can analogously define lifts of adjunctions to comodule adjunctions.
     F(x \otimes y)
     \xrightarrow{F(\eta_x \otimes \eta_y)} F(UFx \otimes UFy)
     \xrightarrow{F U_{-2; Fx, Fy}} FU(Fx \otimes Fy)
-    \xrightarrow{\varepsilon_{Fx \otimes Fx}} Fx \otimes Fy,
+    \xrightarrow{\varepsilon_{Fx \otimes Fy}} Fx \otimes Fy,
   \]
   \[
     F1 \xrightarrow{FU_{-0}} FU1 \xrightarrow{\ \varepsilon_1\ } 1,
@@ -903,7 +903,7 @@ where we study strong \(\mathcal{C}\)\hyp{}module structures on the left rather 
   \]
 
   Reading the string diagrams in the proof of \cref{thm:comodule-adjunctions-correspond-to-strong-comodule-functors} upside down
-  verifies the necessary the coherence conditions,
+  verifies the necessary coherence conditions,
   and that these two constructions are inverses of each other.
 \end{proof}
 
@@ -941,7 +941,7 @@ for the Kleisli category of a monad.
   The \(\cat{C}\)\hyp{}module structure of \(\cat{M}_T\)
   and the lax module monad structure on \(T\) uniquely determine the \(\cat{C}\)\hyp{}module structure of \(F_T\).
   Hence, \(F_{T;\mathsf{a}}^{-1}\) is given as in \cref{prop:dual-module-adjunctions}
-  and the two constructions are inverse of each other.
+  and the two constructions are inverses of each other.
 \end{proof}
 
 Using these insights, we may now clarify the structure of comparison functors associated to comodule adjunctions.
@@ -989,7 +989,7 @@ Using these insights, we may now clarify the structure of comparison functors as
     and consider the corresponding \(\cat{C}\)\hyp{}module category structure on \(\cat{M}^T\) of \cref{oplaxEMcorrespondence}.
     Then for \(T \defeq UF\) the comparison functor \(K^T\) is a strong \(\cat{C}\)\hyp{}module functor.
     \item Let \(\adj{F}{U}{\cat{M}}{\cat{N}}\) be
-    a lax \(\cat{C}\)\hyp{}module adjunctions
+    a lax \(\cat{C}\)\hyp{}module adjunction
     and consider the corresponding \(\cat{C}\)\hyp{}module category structure on \(\cat{M}_T\) of \cref{laxKlCorrespondence}.
     Then for \(T \defeq UF\) the comparison functor \(K_T\) is a strong \(\cat{C}\)\hyp{}module functor.
   \end{itemize}
